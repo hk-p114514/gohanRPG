@@ -1,15 +1,32 @@
-import { AUTO, Game, Scale, Types } from 'phaser';
+import { AUTO, Game as GAME, Scale, Types } from 'phaser';
+import { Game } from './scenes/Game';
+import { Preload } from './scenes/Preload';
 
-const config: Types.Core.GameConfig = {
-  type: AUTO,
-  parent: 'game',
-  backgroundColor: '#000000',
-  scale: {
-    width: 800,
-    height: 800,
-    mode: Scale.FIT,
-    autoCenter: Scale.CENTER_BOTH,
-  },
+// html全体の背景色を灰色にする
+document.body.style.backgroundColor = '#ccc';
+
+export const width = window.innerWidth;
+export const height = window.innerHeight;
+
+class Main extends GAME {
+  constructor() {
+    const config: Types.Core.GameConfig = {
+      type: AUTO,
+      backgroundColor: '#2033EA',
+      width: width,
+      height: height,
+    };
+    super(config);
+
+    // シーンを追加
+    this.scene.add('Game', Game);
+    this.scene.add('Preload', Preload);
+
+    // シーンをスタート
+    this.scene.start('Preload');
+  }
+}
+
+window.onload = () => {
+  const game: GAME = new Main();
 };
-
-const game = new Game(config);
