@@ -2,6 +2,9 @@ import { Scene, Tilemaps } from 'phaser';
 import * as Phaser from 'phaser';
 import mapTiles from '@/assets/maps/simpleMap.png';
 
+// 32x32の画像を使用する
+const tileSize: number = 32;
+
 class Game extends Scene {
   private map?: Tilemaps.Tilemap;
   private tiles?: Tilemaps.Tileset;
@@ -14,9 +17,9 @@ class Game extends Scene {
     [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -43,12 +46,12 @@ class Game extends Scene {
 
     this.map = this.make.tilemap({
       data: this.mapGround,
-      tileWidth: 40,
-      tileHeight: 40,
+      tileWidth: tileSize,
+      tileHeight: tileSize,
     });
 
     this.tiles = this.map.addTilesetImage('mapTiles');
-    this.mapGroundLayer = this.map.createLayer(0, this.tiles, 40, 40);
+    this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
   };
 
   update = () => {
