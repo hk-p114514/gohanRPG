@@ -1,10 +1,9 @@
 import { AUTO, Game as GAME, Scale, Types } from 'phaser';
 import { Game } from './scenes/Game';
 import { Preload } from './scenes/Preload';
+import '@/styles/index.scss';
 
-// html全体の背景色を灰色にする
-document.body.style.backgroundColor = '#ccc';
-
+// 画面いっぱいに表示されるようにする
 export const width = window.innerWidth;
 export const height = window.innerHeight;
 
