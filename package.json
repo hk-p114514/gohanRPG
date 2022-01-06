@@ -7,8 +7,8 @@
   "license": "MIT",
   "homepage": "https://hk-p114514.github.io/gohanRPG",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "lint": "eslint 'src/**/*.js' || true",
     "prettify": "prettier --write 'src/**/*.js'",
     "preinstall": "yarn typesync || :",

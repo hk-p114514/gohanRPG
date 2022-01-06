@@ -1,5 +1,8 @@
-import { height, width } from 'index';
+import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
+
+const width = W();
+const height = H();
 
 class Preload extends Scene {
   private backgroundColor: string = '#999';
@@ -13,13 +16,9 @@ class Preload extends Scene {
     fontSize: '70px',
   };
 
-  init = () => {
-    console.log('init');
-  };
+  init = () => {};
 
-  preload = () => {
-    console.log('preload');
-  };
+  preload = () => {};
 
   create = () => {
     this.cameras.main.setBackgroundColor(this.backgroundColor);
