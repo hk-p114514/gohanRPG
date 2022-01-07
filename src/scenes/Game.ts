@@ -93,6 +93,7 @@ class Game extends Scene {
 
     let playerAnimState: WalkAnimState = ''; // 前回と比較用の状態格納変数
     const c: Phaser.Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+    let newP = this.p;
 
     if (!!c) {
       // ここで状態決定（ローカルな変数に格納）

@@ -1,5 +1,5 @@
-import { randI } from './../functions/generalPurpose/rand';
 import { init2DArray } from 'functions/generalPurpose/init2DArray';
+import { randI } from './../functions/generalPurpose/rand';
 
 export class Map {
   private row: number;
