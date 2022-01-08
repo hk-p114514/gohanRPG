@@ -1,25 +1,26 @@
-import { GameObjects, Scene, Tilemaps, Tweens } from 'phaser';
-import mapTiles from '@/assets/maps/simpleMap.png';
-import player from '@/assets/characters/player.png';
+import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
+import mapTiles from '@/assets/maps/map1.png';
+import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
 
 // 32x32の画像を使用する
-const tileSize: number = 32;
+const tileSize: number = 40;
+const characterSize: number = 32;
 
 const height = H();
 const width = W();
 
 // マップチップの数 = 画面サイズ / マップチップサイズ
-const row: number = Math.floor(height / tileSize) - 3;
+const row: number = Math.floor(height / tileSize);
 const col: number = Math.floor(width / tileSize);
 
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
 
 class Game extends Scene {
-  private map?: Tilemaps.Tilemap;
   private tiles?: Tilemaps.Tileset;
+  private map?: Tilemaps.Tilemap;
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
   private player?: GameObjects.Sprite;
   private mapGround: Map = new Map(row, col, 3);
@@ -38,7 +39,7 @@ class Game extends Scene {
   constructor() {
     super({ key: 'Game' });
     // マップの真ん中にプレイヤーを配置
-    this.p = { x: col / 2, y: row / 2 };
+    this.p = { x: 0, y: 0 };
   }
 
   // =================================================================
@@ -47,22 +48,23 @@ class Game extends Scene {
     this.playerAnimState = '';
 
     this.isPlayerWalking = false;
+    this.p = { x: Math.floor(col / 2), y: Math.floor(row / 2) };
   };
 
   preload = () => {
     this.load.image('mapTiles', mapTiles);
     this.load.spritesheet('player', player, {
-      frameWidth: tileSize,
-      frameHeight: tileSize,
+      frameWidth: characterSize,
+      frameHeight: characterSize,
     });
   };
 
   create = () => {
     let playerPos: Phaser.Math.Vector2;
 
-    // マップのタイルをランダムに設定
-    this.mapGround.setRandomMap();
-    console.log(this.mapGround.getTiles());
+    // this.mapGround.setRandomMap();
+    this.mapGround.fillAll(2);
+
     this.map = this.make.tilemap({
       data: this.mapGround.getTiles(),
       tileWidth: tileSize,
@@ -74,7 +76,7 @@ class Game extends Scene {
     playerPos = this.mapGroundLayer.tileToWorldXY(this.p.x, this.p.y);
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
-    this.player.setDisplaySize(tileSize, tileSize);
+    this.player.setDisplaySize(characterSize, characterSize);
 
     for (let pAnim of this.playerAnims) {
       // ヒーローアニメーションの数だけループ
@@ -92,7 +94,10 @@ class Game extends Scene {
     let dy: MoveDir = 0;
 
     let playerAnimState: WalkAnimState = ''; // 前回と比較用の状態格納変数
-    const c: Phaser.Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+
+    // 十字キー入力
+    const c: Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+
     let newP = this.p;
 
     if (!!c) {
@@ -120,6 +125,25 @@ class Game extends Scene {
         this.player?.anims.play(playerAnimState);
         this.playerAnimState = playerAnimState;
       }
+
+      console.log(`x : ${this.p.x} y : ${this.p.y}\nc : ${col} r : ${row}`);
+
+      newP = { x: this.p.x + dx, y: this.p.y + dy };
+
+      // 範囲外に出ないようにする
+      const x = newP.x;
+      const y = newP.y;
+      if (x < 0 || x >= col || y < 0 || y >= row) {
+        return;
+      }
+
+      // 移動先が壁でなければ移動
+      if (this.mapGround.getTileValue(x, y) !== 0) {
+        return;
+      }
+
+      // プレイヤーの座標を更新
+      this.p = newP;
 
       this.isPlayerWalking = true;
       this.gridWalkTween(this.player, this.playerWalkSpeed, dx, dy, () => {

@@ -16,6 +16,10 @@ window.onload = () => {
         backgroundColor: '#2033EA',
         width: width,
         height: height,
+        fps: {
+          target: 60,
+          forceSetTimeOut: true,
+        },
       };
       super(config);
 
