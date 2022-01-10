@@ -1,8 +1,8 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const paths = require('./paths')
+const paths = require('./paths');
 
 module.exports = {
   // Where webpack looks to start building the bundle
@@ -37,7 +37,7 @@ module.exports = {
     // Generates an HTML file from a template
     // Generates deprecation warning: https://github.com/jantimon/html-webpack-plugin/issues/1501
     new HtmlWebpackPlugin({
-      title: 'webpack Boilerplate',
+      title: 'GRPG',
       favicon: paths.src + '/images/favicon.png',
       template: paths.src + '/template.html', // template file
       filename: 'index.html', // output file
@@ -49,25 +49,27 @@ module.exports = {
     rules: [
       // JavaScript: Use Babel to transpile JavaScript files
       {
-        test: /\.js$/, use: ['babel-loader']
+        test: /\.js$/,
+        use: ['babel-loader'],
       },
 
       // typescript: Use ts-loader to transpile JavaScript files
       {
-        test: /\.ts$/, use: ['ts-loader']
+        test: /\.ts$/,
+        use: ['ts-loader'],
       },
 
       // Images: Copy image files to build folder
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
 
       // Fonts and SVGs: Inline files
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline'
-      }
+        type: 'asset/inline',
+      },
     ],
   },
 
@@ -79,4 +81,4 @@ module.exports = {
       assets: paths.public,
     },
   },
-}
+};
