@@ -5,8 +5,8 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
 
 // 32x32の画像を使用する
-const tileSize: number = 40;
-const characterSize: number = 32;
+export const tileSize: number = 40;
+export const characterSize: number = 32;
 
 const height = H();
 const width = W();
@@ -22,8 +22,9 @@ class Game extends Scene {
   private tiles?: Tilemaps.Tileset;
   private map?: Tilemaps.Tilemap;
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
-  private player?: GameObjects.Sprite;
   private mapGround: Map = new Map(row, col, 3);
+
+  private player?: GameObjects.Sprite;
   private playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
     { key: 'walkFront', frameStart: 0, frameEnd: 2 },
     { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
@@ -31,10 +32,11 @@ class Game extends Scene {
     { key: 'walkBack', frameStart: 9, frameEnd: 11 },
   ];
   private playerAnimState?: WalkAnimState;
-  private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-  private isPlayerWalking: boolean = false;
   private playerWalkSpeed: number = tileSize;
+  private isPlayerWalking: boolean = false;
   private p: { x: number; y: number };
+
+  private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
   constructor() {
     super({ key: 'Game' });
@@ -60,6 +62,9 @@ class Game extends Scene {
   };
 
   create = () => {
+    this.tweens.timeScale = 2;
+    this.time.timeScale = 2;
+
     let playerPos: Phaser.Math.Vector2;
 
     // this.mapGround.setRandomMap();
@@ -78,7 +83,7 @@ class Game extends Scene {
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
 
-    for (let pAnim of this.playerAnims) {
+    for (const pAnim of this.playerAnims) {
       // ヒーローアニメーションの数だけループ
       if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
     }
@@ -97,21 +102,26 @@ class Game extends Scene {
 
     // 十字キー入力
     const c: Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+    // w a s d キー入力
+    const s: boolean = this.input.keyboard.addKey('S').isDown;
+    const w: boolean = this.input.keyboard.addKey('W').isDown;
+    const a: boolean = this.input.keyboard.addKey('A').isDown;
+    const d: boolean = this.input.keyboard.addKey('D').isDown;
 
     let newP = this.p;
 
     if (!!c) {
       // ここで状態決定（ローカルな変数に格納）
-      if (c.up.isDown) {
+      if (c.up.isDown || w) {
         playerAnimState = 'walkBack';
         dy = -1;
-      } else if (c.down.isDown) {
+      } else if (c.down.isDown || s) {
         playerAnimState = 'walkFront';
         dy = 1;
-      } else if (c.left.isDown) {
+      } else if (c.left.isDown || a) {
         playerAnimState = 'walkLeft';
         dx = -1;
-      } else if (c.right.isDown) {
+      } else if (c.right.isDown || d) {
         playerAnimState = 'walkRight';
         dx = 1;
       } else {
