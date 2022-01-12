@@ -65,8 +65,6 @@ class Game extends Scene {
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
 
-    let playerPos: Phaser.Math.Vector2;
-
     // this.mapGround.setRandomMap();
     this.mapGround.fillAll(2);
 
@@ -78,7 +76,10 @@ class Game extends Scene {
     this.tiles = this.map.addTilesetImage('mapTiles');
     this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
 
-    playerPos = this.mapGroundLayer.tileToWorldXY(this.p.x, this.p.y);
+    let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
+      this.p.x,
+      this.p.y
+    );
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
