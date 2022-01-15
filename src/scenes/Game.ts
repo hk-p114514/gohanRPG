@@ -24,6 +24,7 @@ class Game extends Scene {
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
   private mapGround: Map = new Map(row, col, 3);
 
+  // プレイヤーに関するプロパティ
   private player?: GameObjects.Sprite;
   private playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
     { key: 'walkFront', frameStart: 0, frameEnd: 2 },
@@ -35,6 +36,7 @@ class Game extends Scene {
   private playerWalkSpeed: number = tileSize;
   private isPlayerWalking: boolean = false;
   private p: { x: number; y: number };
+  // プレイヤーに関するプロパティここまで
 
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
@@ -65,6 +67,7 @@ class Game extends Scene {
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
 
+    // ========= マップ処理 =============
     // this.mapGround.setRandomMap();
     this.mapGround.fillAll(2);
 
@@ -80,6 +83,9 @@ class Game extends Scene {
       this.p.x,
       this.p.y
     );
+    // ========= マップ処理ここまで =========
+
+    // ========= プレイヤー処理    =========
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
@@ -89,6 +95,7 @@ class Game extends Scene {
       if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
     }
     this.player.anims.play('walkFront');
+    // =========プレイヤー処理ここまで=========
   };
 
   update = () => {

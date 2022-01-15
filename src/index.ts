@@ -4,6 +4,10 @@ import { Preload } from './scenes/Preload';
 import { H, W } from 'functions/DOM/windowInfo';
 import '@/styles/index.scss';
 
+// 32x32の画像を使用する
+export const tileSize: number = 40;
+export const characterSize: number = 32;
+
 window.onload = () => {
   // 画面いっぱいに表示されるようにする
   const height = H();
