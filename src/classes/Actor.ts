@@ -1,4 +1,4 @@
-import { characterSize } from './../scenes/Game';
+import { characterSize } from 'index';
 import { GameObjects, Scene, Tilemaps, Types } from 'phaser';
 export type LimitValue = {
   current: number;
@@ -85,6 +85,7 @@ export class Actor {
   };
 
   public create = (scene: Scene, mapGroundLayer: Tilemaps.TilemapLayer): void => {
+    // 現在の座標からマップ上にスプライトを配置する
     const { x, y } = this.p;
     const p: Phaser.Math.Vector2 = mapGroundLayer.tileToWorldXY(x, y);
     this.sprite = scene.add.sprite(p.x, p.y, this.name, 0);
@@ -115,6 +116,4 @@ export class Actor {
       repeat: -1,
     };
   };
-
-  public update = (): void => {};
 }

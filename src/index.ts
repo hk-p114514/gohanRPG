@@ -1,5 +1,5 @@
 import { AUTO, Game as GAME, Scale, Types } from 'phaser';
-import { Game } from './scenes/Game';
+import { Test } from './scenes/Test';
 import { Preload } from './scenes/Preload';
 import { H, W } from 'functions/DOM/windowInfo';
 import '@/styles/index.scss';
@@ -24,7 +24,7 @@ window.onload = () => {
       super(config);
 
       // シーンを追加
-      this.scene.add('Game', Game);
+      this.scene.add('Test', Test);
       this.scene.add('Preload', Preload);
 
       // シーンをスタート

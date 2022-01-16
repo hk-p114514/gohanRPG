@@ -18,7 +18,7 @@ const col: number = Math.floor(width / tileSize);
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
 
-class Game extends Scene {
+class Test extends Scene {
   private tiles?: Tilemaps.Tileset;
   private map?: Tilemaps.Tilemap;
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
@@ -81,7 +81,7 @@ class Game extends Scene {
 
     let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
       this.p.x,
-      this.p.y
+      this.p.y,
     );
     // ========= マップ処理ここまで =========
 
@@ -191,7 +191,7 @@ class Game extends Scene {
     baseSpeed: number,
     xDir: MoveDir,
     yDir: MoveDir,
-    onComplete: () => void
+    onComplete: () => void,
   ) {
     if (target.x === false) return;
     if (target.y === false) return;
@@ -220,4 +220,4 @@ class Game extends Scene {
   }
 }
 
-export { Game };
+export { Test };
