@@ -1,28 +1,31 @@
-import { GameObjects, Scene, Tilemaps, Tweens } from 'phaser';
-import mapTiles from '@/assets/maps/simpleMap.png';
-import player from '@/assets/characters/player.png';
+import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
+import mapTiles from '@/assets/maps/map1.png';
+import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
 
 // 32x32の画像を使用する
-const tileSize: number = 32;
+export const tileSize: number = 40;
+export const characterSize: number = 32;
 
 const height = H();
 const width = W();
 
 // マップチップの数 = 画面サイズ / マップチップサイズ
-const row: number = Math.floor(height / tileSize) - 3;
+const row: number = Math.floor(height / tileSize);
 const col: number = Math.floor(width / tileSize);
 
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
 
-class Game extends Scene {
-  private map?: Tilemaps.Tilemap;
+class Test extends Scene {
   private tiles?: Tilemaps.Tileset;
+  private map?: Tilemaps.Tilemap;
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
-  private player?: GameObjects.Sprite;
   private mapGround: Map = new Map(row, col, 3);
+
+  // プレイヤーに関するプロパティ
+  private player?: GameObjects.Sprite;
   private playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
     { key: 'walkFront', frameStart: 0, frameEnd: 2 },
     { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
@@ -30,15 +33,17 @@ class Game extends Scene {
     { key: 'walkBack', frameStart: 9, frameEnd: 11 },
   ];
   private playerAnimState?: WalkAnimState;
-  private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-  private isPlayerWalking: boolean = false;
   private playerWalkSpeed: number = tileSize;
+  private isPlayerWalking: boolean = false;
   private p: { x: number; y: number };
+  // プレイヤーに関するプロパティここまで
+
+  private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
   constructor() {
     super({ key: 'Game' });
     // マップの真ん中にプレイヤーを配置
-    this.p = { x: col / 2, y: row / 2 };
+    this.p = { x: 0, y: 0 };
   }
 
   // =================================================================
@@ -47,22 +52,25 @@ class Game extends Scene {
     this.playerAnimState = '';
 
     this.isPlayerWalking = false;
+    this.p = { x: Math.floor(col / 2), y: Math.floor(row / 2) };
   };
 
   preload = () => {
     this.load.image('mapTiles', mapTiles);
     this.load.spritesheet('player', player, {
-      frameWidth: tileSize,
-      frameHeight: tileSize,
+      frameWidth: characterSize,
+      frameHeight: characterSize,
     });
   };
 
   create = () => {
-    let playerPos: Phaser.Math.Vector2;
+    this.tweens.timeScale = 2;
+    this.time.timeScale = 2;
 
-    // マップのタイルをランダムに設定
-    this.mapGround.setRandomMap();
-    console.log(this.mapGround.getTiles());
+    // ========= マップ処理 =============
+    // this.mapGround.setRandomMap();
+    this.mapGround.fillAll(2);
+
     this.map = this.make.tilemap({
       data: this.mapGround.getTiles(),
       tileWidth: tileSize,
@@ -71,16 +79,23 @@ class Game extends Scene {
     this.tiles = this.map.addTilesetImage('mapTiles');
     this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
 
-    playerPos = this.mapGroundLayer.tileToWorldXY(this.p.x, this.p.y);
+    let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
+      this.p.x,
+      this.p.y,
+    );
+    // ========= マップ処理ここまで =========
+
+    // ========= プレイヤー処理    =========
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
-    this.player.setDisplaySize(tileSize, tileSize);
+    this.player.setDisplaySize(characterSize, characterSize);
 
-    for (let pAnim of this.playerAnims) {
+    for (const pAnim of this.playerAnims) {
       // ヒーローアニメーションの数だけループ
       if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
     }
     this.player.anims.play('walkFront');
+    // =========プレイヤー処理ここまで=========
   };
 
   update = () => {
@@ -92,21 +107,29 @@ class Game extends Scene {
     let dy: MoveDir = 0;
 
     let playerAnimState: WalkAnimState = ''; // 前回と比較用の状態格納変数
-    const c: Phaser.Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+
+    // 十字キー入力
+    const c: Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+    // w a s d キー入力
+    const s: boolean = this.input.keyboard.addKey('S').isDown;
+    const w: boolean = this.input.keyboard.addKey('W').isDown;
+    const a: boolean = this.input.keyboard.addKey('A').isDown;
+    const d: boolean = this.input.keyboard.addKey('D').isDown;
+
     let newP = this.p;
 
     if (!!c) {
       // ここで状態決定（ローカルな変数に格納）
-      if (c.up.isDown) {
+      if (c.up.isDown || w) {
         playerAnimState = 'walkBack';
         dy = -1;
-      } else if (c.down.isDown) {
+      } else if (c.down.isDown || s) {
         playerAnimState = 'walkFront';
         dy = 1;
-      } else if (c.left.isDown) {
+      } else if (c.left.isDown || a) {
         playerAnimState = 'walkLeft';
         dx = -1;
-      } else if (c.right.isDown) {
+      } else if (c.right.isDown || d) {
         playerAnimState = 'walkRight';
         dx = 1;
       } else {
@@ -120,6 +143,25 @@ class Game extends Scene {
         this.player?.anims.play(playerAnimState);
         this.playerAnimState = playerAnimState;
       }
+
+      console.log(`x : ${this.p.x} y : ${this.p.y}\nc : ${col} r : ${row}`);
+
+      newP = { x: this.p.x + dx, y: this.p.y + dy };
+
+      // 範囲外に出ないようにする
+      const x = newP.x;
+      const y = newP.y;
+      if (x < 0 || x >= col || y < 0 || y >= row) {
+        return;
+      }
+
+      // 移動先が壁でなければ移動
+      if (this.mapGround.getTileValue(x, y) !== 0) {
+        return;
+      }
+
+      // プレイヤーの座標を更新
+      this.p = newP;
 
       this.isPlayerWalking = true;
       this.gridWalkTween(this.player, this.playerWalkSpeed, dx, dy, () => {
@@ -149,7 +191,7 @@ class Game extends Scene {
     baseSpeed: number,
     xDir: MoveDir,
     yDir: MoveDir,
-    onComplete: () => void
+    onComplete: () => void,
   ) {
     if (target.x === false) return;
     if (target.y === false) return;
@@ -178,4 +220,4 @@ class Game extends Scene {
   }
 }
 
-export { Game };
+export { Test };

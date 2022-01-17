@@ -1,6 +1,7 @@
-const { merge } = require('webpack-merge')
+/** @type {import('webpack').Configuration} */
+const { merge } = require('webpack-merge');
 
-const common = require('./webpack.common')
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   // Set the mode to development or production
@@ -35,4 +36,4 @@ module.exports = merge(common, {
       },
     ],
   },
-})
+});
