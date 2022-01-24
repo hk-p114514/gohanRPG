@@ -1,0 +1,5 @@
+{
+  "cSpell.words": ["Anims", "Tilemap", "Tilemaps", "Tileset", "Tweens"],
+  // javascriptデバッグ設定
+  "debug.allowBreakpointsEverywhere": true
+}
