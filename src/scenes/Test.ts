@@ -68,8 +68,8 @@ class Test extends Scene {
     this.time.timeScale = 2;
 
     // ========= マップ処理 =============
-    // this.mapGround.setRandomMap();
     this.mapGround.fillAll(2);
+    this.mapGround.encloseRange(0, 5, 0, 5, 2, 0);
 
     this.map = this.make.tilemap({
       data: this.mapGround.getTiles(),
