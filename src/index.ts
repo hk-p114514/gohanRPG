@@ -1,12 +1,15 @@
-import { AUTO, Game as GAME, Scale, Types } from 'phaser';
+import { AUTO, Game as GAME, Scale, Scene, Types } from 'phaser';
 import { Test } from './scenes/Test';
 import { Preload } from './scenes/Preload';
-import { H, W } from 'functions/DOM/windowInfo';
 import '@/styles/index.scss';
+import { H, W } from 'functions/DOM/windowInfo';
 
 // 32x32の画像を使用する
 export const tileSize: number = 40;
 export const characterSize: number = 32;
+
+// 使用するシーンをまとめる
+const scenes = [Test, Preload];
 
 window.onload = () => {
   // 画面いっぱいに表示されるようにする
@@ -20,12 +23,9 @@ window.onload = () => {
         backgroundColor: '#2033EA',
         width: width,
         height: height,
+        scene: scenes,
       };
       super(config);
-
-      // シーンを追加
-      this.scene.add('Test', Test);
-      this.scene.add('Preload', Preload);
 
       // シーンをスタート
       this.scene.start('Preload');
