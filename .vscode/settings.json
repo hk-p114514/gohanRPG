@@ -1,5 +1,26 @@
 {
-  "cSpell.words": ["Anims", "Tilemap", "Tilemaps", "Tileset", "Tweens"],
+  "cSpell.words": [
+    "Anims",
+    "compressionlevel",
+    "firstgid",
+    "gohan",
+    "imageheight",
+    "imagewidth",
+    "nextlayerid",
+    "nextobjectid",
+    "pipo",
+    "renderorder",
+    "tilecount",
+    "tiledversion",
+    "tileheight",
+    "tilelayer",
+    "Tilemap",
+    "Tilemaps",
+    "Tileset",
+    "tilesets",
+    "tilewidth",
+    "Tweens"
+  ],
   // javascriptデバッグ設定
   "debug.allowBreakpointsEverywhere": true
 }
