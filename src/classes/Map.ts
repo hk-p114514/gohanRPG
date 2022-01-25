@@ -51,7 +51,7 @@ export class Map {
     rowEnd: number,
     colStart: number,
     colEnd: number,
-    value: number
+    value: number,
   ): void {
     for (let i = rowStart; i < rowEnd; i++) {
       for (let j = colStart; j < colEnd; j++) {
@@ -66,13 +66,11 @@ export class Map {
     rowEnd: number,
     colStart: number,
     colEnd: number,
-    value: number
+    wall: number,
+    inside: number,
   ): void {
-    this.fillRange(rowStart, rowEnd, colStart, colEnd, value);
-    this.fillRange(rowStart, rowEnd, colStart, colStart, value);
-    this.fillRange(rowStart, rowEnd, colEnd, colEnd, value);
-    this.fillRange(rowStart, rowStart, colStart, colEnd, value);
-    this.fillRange(rowEnd, rowEnd, colStart, colEnd, value);
+    this.fillRange(rowStart, rowEnd, colStart, colEnd, wall);
+    this.fillRange(rowStart + 1, rowEnd - 1, colStart + 1, colEnd - 1, inside);
   }
 
   // マップの四方を指定した値で埋める
