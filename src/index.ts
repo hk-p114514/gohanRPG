@@ -1,15 +1,36 @@
-import { AUTO, Game, Scale, Types } from 'phaser';
+import { AUTO, Game as GAME, Scale, Scene, Types } from 'phaser';
+import { Test } from './scenes/Test';
+import { Preload } from './scenes/Preload';
+import '@/styles/index.scss';
+import { H, W } from 'functions/DOM/windowInfo';
 
-const config: Types.Core.GameConfig = {
-  type: AUTO,
-  parent: 'game',
-  backgroundColor: '#000000',
-  scale: {
-    width: 800,
-    height: 800,
-    mode: Scale.FIT,
-    autoCenter: Scale.CENTER_BOTH,
-  },
+// 32x32の画像を使用する
+export const tileSize: number = 40;
+export const characterSize: number = 32;
+
+// 使用するシーンをまとめる
+const scenes = [Test, Preload];
+
+window.onload = () => {
+  // 画面いっぱいに表示されるようにする
+  const height = H();
+  const width = W();
+
+  class Main extends GAME {
+    constructor() {
+      const config: Types.Core.GameConfig = {
+        type: AUTO,
+        backgroundColor: '#2033EA',
+        width: width,
+        height: height,
+        scene: scenes,
+      };
+      super(config);
+
+      // シーンをスタート
+      this.scene.start('Preload');
+    }
+  }
+
+  const game: GAME = new Main();
 };
-
-const game = new Game(config);
