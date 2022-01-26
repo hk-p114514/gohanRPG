@@ -9,7 +9,7 @@ export type Mode = {
   controller: Scene;
 };
 
-export class GameSystem {
+export class GameSystem extends Scene {
   // 現在のモード
   private current: Mode;
 
@@ -20,12 +20,13 @@ export class GameSystem {
   private key?: Types.Input.Keyboard.CursorKeys;
 
   constructor(controllers: Mode[], initialMode: Mode = controllers[0]) {
+    super('GameSystem');
     this.modeControllers = controllers;
     this.current = initialMode;
   }
 
   // 現在のモードを変更する
-  public switchMode(name: ModeName): boolean {
+  public switchMode = (name: ModeName): boolean => {
     const mode: Mode | undefined = this.modeControllers.find((mode) => mode.key === name);
 
     if (mode) {
@@ -33,7 +34,5 @@ export class GameSystem {
     }
 
     return !!mode;
-  }
-
-  update(): void {}
+  };
 }
