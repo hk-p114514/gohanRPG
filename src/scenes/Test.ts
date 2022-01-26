@@ -12,8 +12,8 @@ const height = H();
 const width = W();
 
 // マップチップの数 = 画面サイズ / マップチップサイズ
-const row: number = Math.floor(height / tileSize);
-const col: number = Math.floor(width / tileSize);
+const row: number = Math.floor((height / tileSize) * 1.5);
+const col: number = Math.floor((width / tileSize) * 1.5);
 
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
@@ -64,8 +64,13 @@ class Test extends Scene {
   };
 
   create = () => {
+    // ========= 世界の設定 =============
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
+
+    // 世界の限界を設定
+
+    // ========= 世界の設定ここまで =============
 
     // ========= マップ処理 =============
     this.mapGround.fillAll(2);
@@ -95,6 +100,16 @@ class Test extends Scene {
       if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
     }
     this.player.anims.play('walkFront');
+
+    // プレイヤーをマップの中心に固定(カメラに追従させる)
+    this.cameras.main.startFollow(this.player);
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.mapGroundLayer.width,
+      this.mapGroundLayer.height,
+    );
+
     // =========プレイヤー処理ここまで=========
   };
 
