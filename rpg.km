@@ -1,0 +1,223 @@
+{
+    "root": {
+        "data": {
+            "id": "chgc849kg800",
+            "created": 1643274588412,
+            "text": "データ構造"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "chh4oco5mk80",
+                    "created": 1643354851613,
+                    "text": "キャラクターの\n大元のクラス"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chh4onpi4bk0",
+                            "created": 1643354875639,
+                            "text": "メンバ"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chh4pncbrog0",
+                                    "created": 1643354953206,
+                                    "text": "ステータス"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chh4pqz80l40",
+                                            "created": 1643354961121,
+                                            "text": "レベル"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4pti0vig0",
+                                            "created": 1643354966611,
+                                            "text": "攻撃力"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4pvjwvfs0",
+                                            "created": 1643354971079,
+                                            "text": "防御力"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4px7jiuo0",
+                                            "created": 1643354974685,
+                                            "text": "MP"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4pynxjzs0",
+                                            "created": 1643354977853,
+                                            "text": "魔法攻撃力"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4q2oikqo0",
+                                            "created": 1643354986595,
+                                            "text": "属性\n技    ー＞攻撃に付加\n本体ー＞防御に付加"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4qm4nxlc0",
+                                            "created": 1643355028930,
+                                            "text": "素早さ\n（攻撃順を決める）"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4qqkxzg00",
+                                            "created": 1643355038622,
+                                            "text": "使える技のリスト"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4qv8z1ko0",
+                                            "created": 1643355048782,
+                                            "text": "状態異常"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4r1ka8bk0",
+                                    "created": 1643355062526,
+                                    "text": "座標"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4r9pbo4g0",
+                                    "created": 1643355080245,
+                                    "text": "名前"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4rdam6000",
+                                    "created": 1643355088063,
+                                    "text": "HP"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chh4rjpmxs80",
+                            "created": 1643355102032,
+                            "text": "メソッド"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chh4rmj0iv40",
+                                    "created": 1643355108162,
+                                    "text": "移動"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4rwb9tww0",
+                                    "created": 1643355129462,
+                                    "text": "HPの増減"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4s60ojdc0",
+                                    "created": 1643355150589,
+                                    "text": "MPの増減"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chh4sqfvzag0",
+                    "created": 1643355195044,
+                    "text": "マップを表現するクラス"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chh4y6nu1ds0",
+                            "created": 1643355622174,
+                            "text": "メンバ",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chh4x7an45c0",
+                                    "created": 1643355545189,
+                                    "text": "一枚のタイルを\n表すクラス"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chh4xk0ghi00",
+                                            "created": 1643355572872,
+                                            "text": "メソッド"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chh4xx2tkig0",
+                                                    "created": 1643355601313,
+                                                    "text": "乗った時のイベント"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4yhis9yo0",
+                                    "created": 1643355645814,
+                                    "text": "出現する敵キャラクタの一覧"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "snow",
+    "version": "1.4.43"
+}
