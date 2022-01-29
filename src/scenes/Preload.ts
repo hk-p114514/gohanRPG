@@ -26,14 +26,14 @@ class Preload extends Scene {
       width / 2,
       height / 2,
       "'Enter' to start",
-      this.fontStyle
+      this.fontStyle,
     );
     startMessage.setOrigin(0.5);
 
-    // Enterキーでが押されたらGameシーンへ遷移
+    // Enterキーでが押されたらTest2シーンへ遷移
     const enter = this.input.keyboard.addKey('Enter');
     enter.on('down', () => {
-      this.scene.start('Game');
+      this.scene.start('Test2');
     });
   };
 }

@@ -1,12 +1,10 @@
+import { characterSize } from 'index';
+import { tileSize } from './Test';
 import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
 import mapTiles from '@/assets/maps/map1.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
-
-// 32x32の画像を使用する
-export const tileSize: number = 40;
-export const characterSize: number = 32;
 
 const height = H();
 const width = W();
@@ -18,7 +16,7 @@ const col: number = Math.floor((width / tileSize) * 1.5);
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
 
-class Test extends Scene {
+class Test2 extends Scene {
   private tiles?: Tilemaps.Tileset;
   private map?: Tilemaps.Tilemap;
   private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
@@ -41,10 +39,7 @@ class Test extends Scene {
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
   constructor() {
-    // このkeyはPhaserのシーン管理に使用される
-    // Scene.scene.start('key')でこのシーンを開始できる
-    super({ key: 'Test' });
-
+    super({ key: 'Test2' });
     // マップの真ん中にプレイヤーを配置
     this.p = { x: 0, y: 0 };
   }
@@ -238,4 +233,4 @@ class Test extends Scene {
   }
 }
 
-export { Test };
+export { Test2 };
