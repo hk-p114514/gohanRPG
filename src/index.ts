@@ -22,7 +22,7 @@ window.onload = () => {
     constructor() {
       const config: Types.Core.GameConfig = {
         type: AUTO,
-        backgroundColor: '#2033EA',
+        backgroundColor: '#123456',
         width: width,
         height: height,
         scene: scenes,

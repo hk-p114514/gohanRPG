@@ -87,13 +87,13 @@ class Test extends Scene {
     this.tiles = this.map.addTilesetImage('mapTiles');
     this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
 
+    // ========= マップ処理ここまで =========
+
+    // ========= プレイヤー処理    =========
     let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
       this.p.x,
       this.p.y,
     );
-    // ========= マップ処理ここまで =========
-
-    // ========= プレイヤー処理    =========
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
