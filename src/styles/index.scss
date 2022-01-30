@@ -4,14 +4,12 @@
 }
 
 body {
-  padding: 30px;
-  display: flex;
-  justify-content: center;
+  background-color: #000;
 }
 
 canvas {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 @import 'variables';
