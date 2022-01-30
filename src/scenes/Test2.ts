@@ -34,6 +34,11 @@ class Test2 extends Scene {
   };
 
   create = () => {
+    // enterキーでシーンを切り替え
+    const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      this.scene.start('Test');
+    });
     this.tileMap = this.make.tilemap({ key: keys.json });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
@@ -45,16 +50,19 @@ class Test2 extends Scene {
 
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
-    // プレイヤーより上にあるレイヤーは衝突しないようにする
-    this.tileMapLayer.setCollisionByExclusion([-1]);
 
-    /* const spawnPoint = this.tileMap.findObject( */
-    /*   'objectLayer', */
-    /*   (obj) => obj.name == 'spawnPoint', */
-    /* ); */
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
+
+    {
+      // 衝突判定のデバッグレンダリング
+      // this.tileMapLayer.renderDebug(this.add.graphics(), {
+      //   tileColor: null, // Color of non-colliding tiles
+      //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+      // });
+    }
 
     // プレイヤーを作成する
     this.player = this.physics.add
@@ -111,15 +119,6 @@ class Test2 extends Scene {
       frameRate: 10,
       repeat: -1,
     });
-
-    {
-      // 衝突判定のデバッグレンダリング
-      /* this.tileMapLayer.renderDebug(this.add.graphics(), { */
-      /*   tileColor: null, // Color of non-colliding tiles */
-      /*   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles */
-      /*   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges */
-      /* }); */
-    }
 
     // カメラの設定
     this.cameras.main.setBounds(

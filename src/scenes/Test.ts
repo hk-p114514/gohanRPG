@@ -1,4 +1,4 @@
-import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
+import { GameObjects, Scene, Tilemaps, Tweens, Types, Input } from 'phaser';
 import mapTiles from '@/assets/maps/map1.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
@@ -66,6 +66,10 @@ class Test extends Scene {
   };
 
   create = () => {
+    const enter = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);
+    enter.on('down', () => {
+      this.scene.start('Test2');
+    });
     // ========= 世界の設定 =============
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
