@@ -48,15 +48,17 @@ class Test2 extends Scene {
     // プレイヤーより上にあるレイヤーは衝突しないようにする
     this.tileMapLayer.setCollisionByExclusion([-1]);
 
-    const spawnPoint = this.tileMap.findObject(
-      'objectLayer',
-      (obj) => obj.name === 'spawnPoint',
-    );
-    console.log(spawnPoint);
+    /* const spawnPoint = this.tileMap.findObject( */
+    /*   'objectLayer', */
+    /*   (obj) => obj.name == 'spawnPoint', */
+    /* ); */
+    const spawnPoint = this.tileMap.findObject('objects', (obj) => {
+      return obj.name === 'spawnPoint';
+    });
 
     // プレイヤーを作成する
     this.player = this.physics.add
-      .sprite(50, 50, 'atlas', 'misa-front')
+      .sprite(spawnPoint.x || 1, spawnPoint.y || 1, 'atlas', 'misa-front')
       .setSize(30, 40)
       .setOffset(0, 24);
 
