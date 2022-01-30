@@ -26,6 +26,12 @@ window.onload = () => {
         width: width,
         height: height,
         scene: scenes,
+        physics: {
+          default: 'arcade',
+          arcade: {
+            gravity: { y: 0 },
+          },
+        },
       };
       super(config);
 

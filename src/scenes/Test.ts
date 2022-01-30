@@ -3,6 +3,7 @@ import mapTiles from '@/assets/maps/map1.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
+import mapJson from '@/json/map002.json';
 
 // 32x32の画像を使用する
 export const tileSize: number = 40;
@@ -19,13 +20,13 @@ type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
 
 class Test extends Scene {
-  private tiles?: Tilemaps.Tileset;
-  private map?: Tilemaps.Tilemap;
-  private mapGroundLayer?: Phaser.Tilemaps.TilemapLayer;
+  private tileset?: Tilemaps.Tileset;
+  private tileMap?: Tilemaps.Tilemap;
+  private tileMapLayer?: Phaser.Tilemaps.TilemapLayer;
   private mapGround: Map = new Map(row, col, 3);
 
   // プレイヤーに関するプロパティ
-  private player?: GameObjects.Sprite;
+  private player: GameObjects.Sprite;
   private playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
     { key: 'walkFront', frameStart: 0, frameEnd: 2 },
     { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
@@ -47,6 +48,7 @@ class Test extends Scene {
 
     // マップの真ん中にプレイヤーを配置
     this.p = { x: 0, y: 0 };
+    this.player = this.physics?.add.sprite(this.p.x, this.p.y, 'player');
   }
 
   // =================================================================
@@ -59,7 +61,11 @@ class Test extends Scene {
   };
 
   preload = () => {
+    // 画像ファイルの読み込み
     this.load.image('mapTiles', mapTiles);
+    // JSONファイルの読み込み
+    this.load.tilemapTiledJSON('mapJson', mapJson);
+
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
@@ -68,50 +74,26 @@ class Test extends Scene {
 
   create = () => {
     // ========= 世界の設定 =============
-    this.tweens.timeScale = 2;
-    this.time.timeScale = 2;
+    // this.tweens.timeScale = 2;
+    // this.time.timeScale = 2;
 
-    // 世界の限界を設定
+    this.tileMap = this.make.tilemap({ key: 'mapJson' });
+    this.tileset = this.tileMap.addTilesetImage('map001', 'mapTiles');
+    this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
+    this.tileMapLayer = this.tileMap.createLayer('building', this.tileset, 0, 0);
+    this.tileMapLayer = this.tileMap.createLayer('mountain', this.tileset, 0, 0);
+    this.tileMapLayer = this.tileMap.createLayer('tree', this.tileset, 0, 0);
 
-    // ========= 世界の設定ここまで =============
-
-    // ========= マップ処理 =============
-    this.mapGround.fillAll(2);
-    this.mapGround.encloseRange(0, 5, 0, 5, 2, 0);
-
-    this.map = this.make.tilemap({
-      data: this.mapGround.getTiles(),
-      tileWidth: tileSize,
-      tileHeight: tileSize,
-    });
-    this.tiles = this.map.addTilesetImage('mapTiles');
-    this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
+    this.tileset = this.tileMap.addTilesetImage('mapTiles');
+    this.tileMapLayer = this.tileMap.createLayer(0, this.tileset, 0, 0);
 
     // ========= マップ処理ここまで =========
 
     // ========= プレイヤー処理    =========
-    let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
-      this.p.x,
-      this.p.y,
-    );
-    this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
-    this.player.setOrigin(0);
-    this.player.setDisplaySize(characterSize, characterSize);
-
-    for (const pAnim of this.playerAnims) {
-      // ヒーローアニメーションの数だけループ
-      if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
-    }
-    this.player.anims.play('walkFront');
 
     // プレイヤーをマップの中心に固定(カメラに追従させる)
     this.cameras.main.startFollow(this.player);
-    this.cameras.main.setBounds(
-      0,
-      0,
-      this.mapGroundLayer.width,
-      this.mapGroundLayer.height,
-    );
+    this.cameras.main.setBounds(0, 0, this.tileMapLayer.width, this.tileMapLayer.height);
 
     // =========プレイヤー処理ここまで=========
   };
