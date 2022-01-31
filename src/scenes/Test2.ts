@@ -28,13 +28,7 @@ class Test2 extends Scene {
   preload = () => {
     this.load.image(keys.image, mapTiles);
     this.load.tilemapTiledJSON(keys.json, mapJson);
-    this.load.atlas(
-      'atlas',
-      // 'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.png',
-      // 'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.json',
-      Atlas,
-      AtlasJson,
-    );
+    this.load.atlas('atlas', Atlas, AtlasJson);
   };
 
   create = () => {
@@ -48,9 +42,7 @@ class Test2 extends Scene {
 
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
-    this.tileMapLayer = this.tileMap.createLayer('building', this.tileset, 0, 0);
-    this.tileMapLayer = this.tileMap.createLayer('mountain', this.tileset, 0, 0);
-    this.tileMapLayer = this.tileMap.createLayer('tree', this.tileset, 0, 0);
+    this.tileMapLayer = this.tileMap.createLayer('worldLayer', this.tileset, 0, 0);
 
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
