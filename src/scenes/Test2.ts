@@ -3,6 +3,8 @@ import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phase
 // マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';
 import mapJson from '@/json/map002.json';
+import Atlas from '@/assets/characters/dynamic/atlas.png';
+import AtlasJson from '@/json/atlas.json';
 
 const keys = {
   json: 'mapJson',
@@ -28,8 +30,10 @@ class Test2 extends Scene {
     this.load.tilemapTiledJSON(keys.json, mapJson);
     this.load.atlas(
       'atlas',
-      'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.png',
-      'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.json',
+      // 'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.png',
+      // 'https://mikewesthad.github.io/phaser-3-tilemap-blog-posts/post-1/assets/atlas/atlas.json',
+      Atlas,
+      AtlasJson,
     );
   };
 
