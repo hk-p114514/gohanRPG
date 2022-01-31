@@ -9,6 +9,7 @@
     "jeremyrajan.webpack",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
-    "VisualStudioExptTeam.vscodeintellicode"
+    "VisualStudioExptTeam.vscodeintellicode",
+    "Gruntfuggly.todo-tree"
   ]
 }

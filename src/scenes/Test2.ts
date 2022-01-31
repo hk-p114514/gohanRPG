@@ -47,22 +47,21 @@ class Test2 extends Scene {
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
+    // デバッグ用に衝突判定を表示
+    Test2.debug(this, this.tileMapLayer);
+
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
 
-    {
-      // 衝突判定のデバッグレンダリング
-      // this.tileMapLayer.renderDebug(this.add.graphics(), {
-      //   tileColor: null, // Color of non-colliding tiles
-      //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-      //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-      // });
-    }
-
     // プレイヤーを作成する
     this.player = this.physics.add
-      .sprite(spawnPoint.x || 1, spawnPoint.y || 1, 'atlas', 'misa-front')
+      .sprite(
+        Math.floor(spawnPoint.x || 0) || 1,
+        Math.floor(spawnPoint.y || 0) || 1,
+        'atlas',
+        'misa-front',
+      )
       .setSize(30, 40)
       .setOffset(0, 24);
 
@@ -153,6 +152,8 @@ class Test2 extends Scene {
 
   update = (delta: number) => {
     if (!!this.player) {
+      console.log(`x: ${this.player.x}, y: ${this.player.y}`);
+
       // スピードはタイル1マスあたりのスピード
       const speed = 400;
       const prevVelocity = this.player.body.velocity.clone();
@@ -161,6 +162,7 @@ class Test2 extends Scene {
       // Stop any previous movement from the last frame
       this.player.body.setVelocity(0);
 
+      // TODO: キー入力、アニメーション設定を関数化する
       if (cursors.left.isDown) {
         this.player.body.setVelocityX(-speed);
       } else if (cursors.right.isDown) {
@@ -197,6 +199,15 @@ class Test2 extends Scene {
         }
       }
     }
+  };
+
+  public static debug = (scene: Scene, tileMapLayer: Tilemaps.TilemapLayer) => {
+    // 衝突判定のデバッグレンダリング
+    tileMapLayer.renderDebug(scene.add.graphics(), {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    });
   };
 }
 
