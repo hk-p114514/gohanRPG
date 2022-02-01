@@ -1,9 +1,8 @@
-import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
+import { GameObjects, Scene, Tilemaps, Tweens, Types, Input } from 'phaser';
 import mapTiles from '@/assets/maps/map1.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
-
 // 32x32の画像を使用する
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -12,8 +11,8 @@ const height = H();
 const width = W();
 
 // マップチップの数 = 画面サイズ / マップチップサイズ
-const row: number = Math.floor(height / tileSize);
-const col: number = Math.floor(width / tileSize);
+const row: number = Math.floor((height / tileSize) * 1.5);
+const col: number = Math.floor((width / tileSize) * 1.5);
 
 type WalkAnimState = 'walkFront' | 'walkBack' | 'walkLeft' | 'walkRight' | '';
 type MoveDir = -1 | 0 | 1;
@@ -41,7 +40,10 @@ class Test extends Scene {
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
   constructor() {
-    super({ key: 'Game' });
+    // このkeyはPhaserのシーン管理に使用される
+    // Scene.scene.start('key')でこのシーンを開始できる
+    super({ key: 'Test' });
+
     // マップの真ん中にプレイヤーを配置
     this.p = { x: 0, y: 0 };
   }
@@ -64,12 +66,21 @@ class Test extends Scene {
   };
 
   create = () => {
+    const enter = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);
+    enter.on('down', () => {
+      this.scene.start('Test2');
+    });
+    // ========= 世界の設定 =============
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
 
+    // 世界の限界を設定
+
+    // ========= 世界の設定ここまで =============
+
     // ========= マップ処理 =============
-    // this.mapGround.setRandomMap();
     this.mapGround.fillAll(2);
+    this.mapGround.encloseRange(0, 5, 0, 5, 2, 0);
 
     this.map = this.make.tilemap({
       data: this.mapGround.getTiles(),
@@ -79,13 +90,13 @@ class Test extends Scene {
     this.tiles = this.map.addTilesetImage('mapTiles');
     this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
 
+    // ========= マップ処理ここまで =========
+
+    // ========= プレイヤー処理    =========
     let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
       this.p.x,
       this.p.y,
     );
-    // ========= マップ処理ここまで =========
-
-    // ========= プレイヤー処理    =========
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
@@ -95,6 +106,16 @@ class Test extends Scene {
       if (this.anims.create(this.playerAnimConfig(pAnim)) === false) continue; // もしfalseが戻って来ればこの後何もしない
     }
     this.player.anims.play('walkFront');
+
+    // プレイヤーをマップの中心に固定(カメラに追従させる)
+    this.cameras.main.startFollow(this.player);
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.mapGroundLayer.width,
+      this.mapGroundLayer.height,
+    );
+
     // =========プレイヤー処理ここまで=========
   };
 

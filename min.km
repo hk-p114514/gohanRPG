@@ -1,0 +1,138 @@
+{
+    "root": {
+        "data": {
+            "id": "chgbnegnbq80",
+            "created": 1643272964961,
+            "text": "最小構成"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "chgbnqohvjk0",
+                    "created": 1643272991557,
+                    "text": "主人公（移動）できる",
+                    "layout_mind_offset": {
+                        "x": -59,
+                        "y": -46
+                    },
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbo5larkw0",
+                            "created": 1643273024015,
+                            "text": "座標を持つ"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgbo9zhjko0",
+                            "created": 1643273033580,
+                            "text": "キー入力をうけられる"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgboixjkvc0",
+                            "created": 1643273053054,
+                            "text": "マップが存在する"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chgbowrmhz40",
+                    "created": 1643273083172,
+                    "text": "バトルができる",
+                    "layout_mind_offset": {
+                        "x": -62,
+                        "y": -7
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbp0i1rds0",
+                            "created": 1643273091299,
+                            "text": "敵が存在する"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgbp8jaa600",
+                            "created": 1643273108788,
+                            "text": "バトルシステム",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbpax9i1c0",
+                                    "created": 1643273113987,
+                                    "text": "スピード（ステータス）でソートした順に行動",
+                                    "layout_right_offset": {
+                                        "x": -21,
+                                        "y": -6
+                                    }
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chgbru0znv40",
+                    "created": 1643273312299,
+                    "text": "クリアがある"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbrxf41i80",
+                            "created": 1643273319683,
+                            "text": "ボスがいる"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbs3dg2p40",
+                                    "created": 1643273332643,
+                                    "text": "倒した時点で例外処理"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chgbs0hkods0",
+                            "created": 1643273326363,
+                            "text": "クリア画面がある"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbscimfe80",
+                                    "created": 1643273352547,
+                                    "text": "スタート画面がある"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
