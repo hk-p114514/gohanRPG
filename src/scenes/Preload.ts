@@ -5,10 +5,10 @@ import { keys } from './Test2';
 
 // マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';
-import mapJson from '@/json/map002.json';
 import Atlas from '@/assets/characters/dynamic/atlas.png';
 import AtlasJson from '@/json/atlas.json';
 import player from '@/assets/characters/dynamic/player.png';
+import onigiri from '@/assets/maps/onigiri.png';
 
 const width = W();
 const height = H();
@@ -28,11 +28,16 @@ class Preload extends Scene {
   init = () => {};
 
   preload = () => {
+    // 画像を読み込む
+    this.load.image('onigiri', onigiri);
+
+    // マップの画像とjsonファイルを読み込む
     this.load.image(keys.image, mapTiles);
-    this.load.tilemapTiledJSON(keys.json, mapJson);
+
     this.load.atlas('atlas', Atlas, AtlasJson);
 
     this.load.image('mapTiles', mapTiles);
+
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,

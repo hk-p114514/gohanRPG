@@ -1,11 +1,6 @@
+import { keys } from './Test2';
 import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phaser';
-import mapJson from '@/json/map002.json';
-
-export const keys = {
-  json: 'mapJson',
-  image: 'mapTiles',
-  player: 'player',
-};
+import mapJson3 from '@/json/map003.json';
 
 class Test2 extends Scene {
   private tileset?: Tilemaps.Tileset;
@@ -16,21 +11,23 @@ class Test2 extends Scene {
 
   constructor() {
     super({
-      key: 'Test2',
+      key: 'Test3',
     });
   }
 
   preload = () => {
-    this.load.tilemapTiledJSON(keys.json, mapJson);
+    console.log('preload');
+
+    this.load.tilemapTiledJSON('mapJson3', mapJson3);
   };
 
   create = () => {
     // enterキーでシーンを切り替え
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      this.scene.start('Test3');
+      // this.scene.start('Test2');
     });
-    this.tileMap = this.make.tilemap({ key: keys.json });
+    this.tileMap = this.make.tilemap({ key: 'mapJson3' });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
