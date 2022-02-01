@@ -1,12 +1,6 @@
 import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phaser';
 
-// マップの画像とjsonファイルを読み込む
-import mapTiles from '@/assets/maps/map001.png';
-import mapJson from '@/json/map002.json';
-import Atlas from '@/assets/characters/dynamic/atlas.png';
-import AtlasJson from '@/json/atlas.json';
-
-const keys = {
+export const keys = {
   json: 'mapJson',
   image: 'mapTiles',
   player: 'player',
@@ -25,11 +19,7 @@ class Test2 extends Scene {
     });
   }
 
-  preload = () => {
-    this.load.image(keys.image, mapTiles);
-    this.load.tilemapTiledJSON(keys.json, mapJson);
-    this.load.atlas('atlas', Atlas, AtlasJson);
-  };
+  preload = () => {};
 
   create = () => {
     // enterキーでシーンを切り替え
@@ -48,7 +38,7 @@ class Test2 extends Scene {
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
     // デバッグ用に衝突判定を表示
-    Test2.debug(this, this.tileMapLayer);
+    // Test2.debug(this, this.tileMapLayer);
 
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
@@ -163,11 +153,15 @@ class Test2 extends Scene {
       this.player.body.setVelocity(0);
 
       // TODO: キー入力、アニメーション設定を関数化する
+      // vertical movement
       if (cursors.left.isDown) {
         this.player.body.setVelocityX(-speed);
       } else if (cursors.right.isDown) {
         this.player.body.setVelocityX(speed);
-      } else if (cursors.up.isDown) {
+      }
+
+      // horizontal movement
+      if (cursors.up.isDown) {
         this.player.body.setVelocityY(-speed);
       } else if (cursors.down.isDown) {
         this.player.body.setVelocityY(speed);
