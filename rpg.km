@@ -1,0 +1,361 @@
+{
+    "root": {
+        "data": {
+            "id": "chgc849kg800",
+            "created": 1643274588412,
+            "text": "RPG",
+            "expandState": "expand"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "chhcvc6fod40",
+                    "created": 1643377967970,
+                    "text": "データ構造",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chhctiley5k0",
+                            "created": 1643377825208,
+                            "text": "マップをまとめる\nクラス",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chhctu6au5s0",
+                                    "created": 1643377850415,
+                                    "text": "メンバ",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chhctvz49080",
+                                            "created": 1643377854334,
+                                            "text": "全てのマップデータ",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chhcu011k2g0",
+                                            "created": 1643377863158,
+                                            "text": "現在のプレイヤーが居るマップのデータ",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "chhcua0lae80",
+                                    "created": 1643377884899,
+                                    "text": "メソッド",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chhcuf1d59s0",
+                                            "created": 1643377895829,
+                                            "text": "マップ移動",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "chk6u81zi000",
+                                    "created": 1643665633840,
+                                    "text": "マップ移動について"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chk6uao20s00",
+                                            "created": 1643665639528,
+                                            "text": "topic"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chh4sqfvzag0",
+                            "created": 1643355195044,
+                            "text": "マップを表現するクラス",
+                            "expandState": "expand",
+                            "layout_right_offset": {
+                                "x": 171,
+                                "y": 9
+                            }
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chh4y6nu1ds0",
+                                    "created": 1643355622174,
+                                    "text": "メンバ",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chh4x7an45c0",
+                                            "created": 1643355545189,
+                                            "text": "一枚のタイルを\n表すクラス",
+                                            "expandState": "expand"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chh4xk0ghi00",
+                                                    "created": 1643355572872,
+                                                    "text": "メソッド",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "chh4xx2tkig0",
+                                                            "created": 1643355601313,
+                                                            "text": "乗った時のイベント",
+                                                            "expandState": "expand"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4yhis9yo0",
+                                            "created": 1643355645814,
+                                            "text": "出現する敵キャラクタの一覧",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chh4oco5mk80",
+                            "created": 1643354851613,
+                            "text": "キャラクターの\n大元のクラス",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chh4onpi4bk0",
+                                    "created": 1643354875639,
+                                    "text": "メンバ",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chh4pncbrog0",
+                                            "created": 1643354953206,
+                                            "text": "ステータス",
+                                            "expandState": "expand"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chh4pqz80l40",
+                                                    "created": 1643354961121,
+                                                    "text": "レベル",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4pti0vig0",
+                                                    "created": 1643354966611,
+                                                    "text": "攻撃力",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4pvjwvfs0",
+                                                    "created": 1643354971079,
+                                                    "text": "防御力",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4px7jiuo0",
+                                                    "created": 1643354974685,
+                                                    "text": "MP",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4pynxjzs0",
+                                                    "created": 1643354977853,
+                                                    "text": "魔法攻撃力",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4q2oikqo0",
+                                                    "created": 1643354986595,
+                                                    "text": "属性\n技    ー＞攻撃に付加\n本体ー＞防御に付加",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4qm4nxlc0",
+                                                    "created": 1643355028930,
+                                                    "text": "素早さ\n（攻撃順を決める）",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4qqkxzg00",
+                                                    "created": 1643355038622,
+                                                    "text": "使える技のリスト",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chh4qv8z1ko0",
+                                                    "created": 1643355048782,
+                                                    "text": "状態異常",
+                                                    "expandState": "expand"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4r1ka8bk0",
+                                            "created": 1643355062526,
+                                            "text": "座標",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4r9pbo4g0",
+                                            "created": 1643355080245,
+                                            "text": "名前",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4rdam6000",
+                                            "created": 1643355088063,
+                                            "text": "HP",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "chh4rjpmxs80",
+                                    "created": 1643355102032,
+                                    "text": "メソッド",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chh4rmj0iv40",
+                                            "created": 1643355108162,
+                                            "text": "移動",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4rwb9tww0",
+                                            "created": 1643355129462,
+                                            "text": "HPの増減",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chh4s60ojdc0",
+                                            "created": 1643355150589,
+                                            "text": "MPの増減",
+                                            "expandState": "expand"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chhcw6kc1x40",
+                    "created": 1643378034114,
+                    "text": "死亡について"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chhcwa2t1xc0",
+                            "created": 1643378041761,
+                            "text": "死んだらチェックポイントに\n強制送還"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chhcwfkesvs0",
+                            "created": 1643378053709,
+                            "text": "各マップに一つずつ\nチェックポイントを設定"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "snow",
+    "version": "1.4.43"
+}

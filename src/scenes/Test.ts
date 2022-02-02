@@ -1,9 +1,6 @@
-import { GameObjects, Scene, Tilemaps, Tweens, Types } from 'phaser';
-import mapTiles from '@/assets/maps/map1.png';
-import player from '@/assets/characters/dynamic/player.png';
+import { GameObjects, Scene, Tilemaps, Tweens, Types, Input } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
-
 // 32x32の画像を使用する
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -41,7 +38,10 @@ class Test extends Scene {
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
 
   constructor() {
-    super({ key: 'Game' });
+    // このkeyはPhaserのシーン管理に使用される
+    // Scene.scene.start('key')でこのシーンを開始できる
+    super({ key: 'Test' });
+
     // マップの真ん中にプレイヤーを配置
     this.p = { x: 0, y: 0 };
   }
@@ -55,15 +55,13 @@ class Test extends Scene {
     this.p = { x: Math.floor(col / 2), y: Math.floor(row / 2) };
   };
 
-  preload = () => {
-    this.load.image('mapTiles', mapTiles);
-    this.load.spritesheet('player', player, {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    });
-  };
+  preload = () => {};
 
   create = () => {
+    const enter = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);
+    enter.on('down', () => {
+      this.scene.start('Test2');
+    });
     // ========= 世界の設定 =============
     this.tweens.timeScale = 2;
     this.time.timeScale = 2;
@@ -84,13 +82,13 @@ class Test extends Scene {
     this.tiles = this.map.addTilesetImage('mapTiles');
     this.mapGroundLayer = this.map.createLayer(0, this.tiles, 0, 0);
 
+    // ========= マップ処理ここまで =========
+
+    // ========= プレイヤー処理    =========
     let playerPos: Phaser.Math.Vector2 = this.mapGroundLayer.tileToWorldXY(
       this.p.x,
       this.p.y,
     );
-    // ========= マップ処理ここまで =========
-
-    // ========= プレイヤー処理    =========
     this.player = this.add.sprite(playerPos.x, playerPos.y, 'player', 0);
     this.player.setOrigin(0);
     this.player.setDisplaySize(characterSize, characterSize);
