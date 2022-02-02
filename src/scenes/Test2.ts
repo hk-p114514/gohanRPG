@@ -153,6 +153,7 @@ class Test2 extends Scene {
       this.player.body.setVelocity(0);
 
       // TODO: キー入力、アニメーション設定を関数化する
+      // TODO: x,yそのものを変更する
       // vertical movement
       if (cursors.left.isDown) {
         this.player.body.setVelocityX(-speed);
