@@ -1,5 +1,5 @@
 import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phaser';
-import mapJson from '@/json/map002.json';
+import mapJson from '@/json/map001.json';
 
 export const keys = {
   json: 'mapJson',
@@ -27,9 +27,6 @@ class Test2 extends Scene {
   create = () => {
     // enterキーでシーンを切り替え
     const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      this.scene.start('Test3');
-    });
     this.tileMap = this.make.tilemap({ key: keys.json });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
