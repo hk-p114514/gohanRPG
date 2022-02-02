@@ -60,46 +60,8 @@ class Test2 extends Scene {
 
     // プレイヤーの設定
     if (!!this.player) {
-      this.createAnim();
       this.physics.add.collider(this.player, this.tileMapLayer);
     }
-
-    // カメラの設定
-    this.cameras.main.setBounds(
-      0,
-      0,
-      this.tileMap.widthInPixels,
-      this.tileMap.heightInPixels,
-    );
-    // カメラの位置をプレイヤーの位置に設定
-    this.cameras.main.startFollow(this.player);
-
-    this.add
-      .text(16, 16, 'Arrow keys to move\nPress "D" to show hitboxes', {
-        font: '18px monospace',
-        color: '#000000',
-        padding: { x: 20, y: 10 },
-        backgroundColor: 'rgba(255,255,255,0.5)',
-      })
-      .setScrollFactor(0)
-      .setDepth(30);
-
-    // Debug graphics
-    this.input.keyboard.once('keydown-D', () => {
-      // Turn on physics debugging to show player's hitbox
-      this.physics.world.createDebugGraphic();
-
-      // Create worldLayer collision graphic above the player, but below the help text
-      const graphics = this.add.graphics().setAlpha(0.75).setDepth(20);
-      this.tileMapLayer?.renderDebug(graphics, {
-        tileColor: null, // Color of non-colliding tiles
-        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-        faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-      });
-    });
-  };
-
-  createAnim = () => {
     const anims = this.anims;
     anims.create({
       key: 'misa-left-walk',
@@ -144,6 +106,40 @@ class Test2 extends Scene {
       }),
       frameRate: 10,
       repeat: -1,
+    });
+
+    // カメラの設定
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.tileMap.widthInPixels,
+      this.tileMap.heightInPixels,
+    );
+    // カメラの位置をプレイヤーの位置に設定
+    this.cameras.main.startFollow(this.player);
+
+    this.add
+      .text(16, 16, 'Arrow keys to move\nPress "D" to show hitboxes', {
+        font: '18px monospace',
+        color: '#000000',
+        padding: { x: 20, y: 10 },
+        backgroundColor: 'rgba(255,255,255,0.5)',
+      })
+      .setScrollFactor(0)
+      .setDepth(30);
+
+    // Debug graphics
+    this.input.keyboard.once('keydown-D', () => {
+      // Turn on physics debugging to show player's hitbox
+      this.physics.world.createDebugGraphic();
+
+      // Create worldLayer collision graphic above the player, but below the help text
+      const graphics = this.add.graphics().setAlpha(0.75).setDepth(20);
+      this.tileMapLayer?.renderDebug(graphics, {
+        tileColor: null, // Color of non-colliding tiles
+        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+      });
     });
   };
 
