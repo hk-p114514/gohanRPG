@@ -27,6 +27,9 @@ class Test2 extends Scene {
   create = () => {
     // enterキーでシーンを切り替え
     const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      this.scene.start(this);
+    });
     this.tileMap = this.make.tilemap({ key: keys.json });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
@@ -142,7 +145,7 @@ class Test2 extends Scene {
 
   update = (delta: number) => {
     if (!!this.player) {
-      console.log(`x: ${this.player.x}, y: ${this.player.y}`);
+      // console.log(`x: ${this.player.x}, y: ${this.player.y}`);
 
       // スピードはタイル1マスあたりのスピード
       const speed = 400;
@@ -154,15 +157,11 @@ class Test2 extends Scene {
 
       // TODO: キー入力、アニメーション設定を関数化する
       // TODO: x,yそのものを変更する
-      // vertical movement
       if (cursors.left.isDown) {
         this.player.body.setVelocityX(-speed);
       } else if (cursors.right.isDown) {
         this.player.body.setVelocityX(speed);
-      }
-
-      // horizontal movement
-      if (cursors.up.isDown) {
+      } else if (cursors.up.isDown) {
         this.player.body.setVelocityY(-speed);
       } else if (cursors.down.isDown) {
         this.player.body.setVelocityY(speed);
