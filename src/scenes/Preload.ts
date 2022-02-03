@@ -56,9 +56,9 @@ class Preload extends Scene {
 
     // Enterキーでが押されたらTest2シーンへ遷移
     const enter = this.input.keyboard.addKey('Enter');
-    // enter.on('down', () => {
-    this.scene.start('Test2');
-    // });
+    enter.on('down', () => {
+      this.scene.switch('Test2');
+    });
   };
 }
 
