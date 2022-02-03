@@ -1,6 +1,4 @@
 import { GameObjects, Scene, Tilemaps, Tweens, Types, Input } from 'phaser';
-import mapTiles from '@/assets/maps/map1.png';
-import player from '@/assets/characters/dynamic/player.png';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map } from 'classes/Map';
 // 32x32の画像を使用する
@@ -57,13 +55,7 @@ class Test extends Scene {
     this.p = { x: Math.floor(col / 2), y: Math.floor(row / 2) };
   };
 
-  preload = () => {
-    this.load.image('mapTiles', mapTiles);
-    this.load.spritesheet('player', player, {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    });
-  };
+  preload = () => {};
 
   create = () => {
     const enter = this.input.keyboard.addKey(Input.Keyboard.KeyCodes.ENTER);

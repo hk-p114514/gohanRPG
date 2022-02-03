@@ -1,5 +1,14 @@
 import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
+import { characterSize } from './Test';
+import { keys } from './Test2';
+
+// マップの画像とjsonファイルを読み込む
+import mapTiles from '@/assets/maps/map001.png';
+import Atlas from '@/assets/characters/dynamic/atlas.png';
+import AtlasJson from '@/json/atlas.json';
+import player from '@/assets/characters/dynamic/player.png';
+import onigiri from '@/assets/maps/onigiri.png';
 
 const width = W();
 const height = H();
@@ -18,7 +27,22 @@ class Preload extends Scene {
 
   init = () => {};
 
-  preload = () => {};
+  preload = () => {
+    // 画像を読み込む
+    this.load.image('onigiri', onigiri);
+
+    // マップの画像とjsonファイルを読み込む
+    this.load.image(keys.image, mapTiles);
+
+    this.load.atlas('atlas', Atlas, AtlasJson);
+
+    this.load.image('mapTiles', mapTiles);
+
+    this.load.spritesheet('player', player, {
+      frameWidth: characterSize,
+      frameHeight: characterSize,
+    });
+  };
 
   create = () => {
     this.cameras.main.setBackgroundColor(this.backgroundColor);
