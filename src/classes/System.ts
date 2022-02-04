@@ -1,12 +1,11 @@
+import { Scene } from 'phaser';
 import { Player } from './Player';
-import { ModeMap } from 'scenes/ModeMap';
 
-class System {
+export class System {
   private player: Player;
-  private map: ModeMap;
+  static readonly TILE_SIZE: number = 40;
 
-  constructor(player: Player, map: ModeMap) {
+  constructor(player: Player) {
     this.player = player;
-    this.map = map;
   }
 }
