@@ -5,9 +5,9 @@ import { keys } from './Test2';
 
 // マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';
+import player from '@/assets/characters/dynamic/player.png';
 import Atlas from '@/assets/characters/dynamic/atlas.png';
 import AtlasJson from '@/json/atlas.json';
-import player from '@/assets/characters/dynamic/player.png';
 import onigiri from '@/assets/maps/onigiri.png';
 
 const width = W();

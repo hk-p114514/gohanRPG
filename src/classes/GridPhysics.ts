@@ -1,6 +1,7 @@
-import { Direction } from "./Direction";
-import { GameScene } from "./main";
-import { Player } from "./Player";
+import { GameScene } from './../scenes/GameScene';
+import { Direction } from './Direction';
+import { Player } from './Player';
+import * as Phaser from 'phaser';
 
 const Vector2 = Phaser.Math.Vector2;
 type Vector2 = Phaser.Math.Vector2;
@@ -22,10 +23,7 @@ export class GridPhysics {
 
   private lastMovementIntent = Direction.NONE;
 
-  constructor(
-    private player: Player,
-    private tileMap: Phaser.Tilemaps.Tilemap
-  ) {}
+  constructor(private player: Player, private tileMap: Phaser.Tilemaps.Tilemap) {}
 
   movePlayer(direction: Direction): void {
     this.lastMovementIntent = direction;
@@ -39,8 +37,10 @@ export class GridPhysics {
 
   update(delta: number) {
     if (this.isMoving()) {
+      // 移動中なら移動を更新
       this.updatePlayerPosition(delta);
     }
+    // 止まっていたらアニメーションを停止
     this.lastMovementIntent = Direction.NONE;
   }
 
@@ -49,8 +49,11 @@ export class GridPhysics {
   }
 
   private startMoving(direction: Direction): void {
+    // プレイヤーのアニメーションを開始
     this.player.startAnimation(direction);
+    // 移動方向を設定
     this.movementDirection = direction;
+    // プレイヤーの位置を更新
     this.updatePlayerTilePos();
   }
 
@@ -69,17 +72,17 @@ export class GridPhysics {
   }
 
   private updatePlayerTilePos() {
-    this.player.setTilePos(
-      this.player
-        .getTilePos()
-        .add(this.movementDirectionVectors[this.movementDirection])
-    );
+    const dir = this.movementDirectionVectors[this.movementDirection];
+
+    if (dir !== undefined) {
+      this.player.setTilePos(this.player.getTilePos().add(dir));
+    }
   }
 
   private movePlayerSprite(pixelsToMove: number) {
-    const directionVec = this.movementDirectionVectors[
-      this.movementDirection
-    ].clone();
+    const dir = this.movementDirectionVectors[this.movementDirection];
+    if (dir === undefined) return;
+    const directionVec = dir.clone();
     const movementDistance = directionVec.multiply(new Vector2(pixelsToMove));
     const newPlayerPos = this.player.getPosition().add(movementDistance);
     this.player.setPosition(newPlayerPos);
@@ -98,12 +101,8 @@ export class GridPhysics {
     this.movementDirection = Direction.NONE;
   }
 
-  private willCrossTileBorderThisUpdate(
-    pixelsToWalkThisUpdate: number
-  ): boolean {
-    return (
-      this.tileSizePixelsWalked + pixelsToWalkThisUpdate >= GameScene.TILE_SIZE
-    );
+  private willCrossTileBorderThisUpdate(pixelsToWalkThisUpdate: number): boolean {
+    return this.tileSizePixelsWalked + pixelsToWalkThisUpdate >= GameScene.TILE_SIZE;
   }
 
   private shouldContinueMoving(): boolean {
@@ -118,9 +117,10 @@ export class GridPhysics {
   }
 
   private tilePosInDirection(direction: Direction): Vector2 {
-    return this.player
-      .getTilePos()
-      .add(this.movementDirectionVectors[direction]);
+    const dir = this.movementDirectionVectors[direction];
+    if (dir === undefined) return new Vector2(-1, -1);
+
+    return this.player.getTilePos().add(dir);
   }
 
   private hasBlockingTile(pos: Vector2): boolean {
@@ -133,7 +133,7 @@ export class GridPhysics {
 
   private hasNoTile(pos: Vector2): boolean {
     return !this.tileMap.layers.some((layer) =>
-      this.tileMap.hasTileAt(pos.x, pos.y, layer.name)
+      this.tileMap.hasTileAt(pos.x, pos.y, layer.name),
     );
   }
 }

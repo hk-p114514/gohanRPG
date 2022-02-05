@@ -1,10 +1,10 @@
-import { Direction } from "./Direction";
-import { GridPhysics } from "./GridPhysics";
+import { Direction } from './Direction';
+import { GridPhysics } from './GridPhysics';
 
 export class GridControls {
   constructor(
     private input: Phaser.Input.InputPlugin,
-    private gridPhysics: GridPhysics
+    private gridPhysics: GridPhysics,
   ) {}
 
   update() {

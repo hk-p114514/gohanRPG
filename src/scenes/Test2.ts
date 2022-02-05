@@ -1,5 +1,20 @@
+import { Direction } from './../classes/Direction';
+import { tileSize } from './Test';
+import { characterSize } from './../index';
+import { GridPhysics } from './../classes/GridPhysics';
+import { GridControls } from './../classes/GridControls';
+import { Player } from './../classes/Player';
 import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phaser';
 import mapJson from '@/json/map001.json';
+import mapTiles from '@/assets/maps/map001.png';
+import player from '@/assets/characters/dynamic/player.png';
+
+export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
+  { key: 'walkBack', frameStart: 9, frameEnd: 11 },
+  { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
+  { key: 'walkRight', frameStart: 6, frameEnd: 8 },
+  { key: 'walkFront', frameStart: 0, frameEnd: 2 },
+];
 
 export const keys = {
   json: 'mapJson',
@@ -12,7 +27,9 @@ class Test2 extends Scene {
   private tileMap?: Tilemaps.Tilemap;
   private tileMapLayer?: Tilemaps.TilemapLayer;
   private controls?: Cameras.Controls.FixedKeyControl;
-  public player?: Types.Physics.Arcade.SpriteWithDynamicBody;
+  public player?: Player;
+  private gridControls?: GridControls;
+  private gridPhysics?: GridPhysics;
 
   constructor() {
     super({
@@ -21,7 +38,14 @@ class Test2 extends Scene {
   }
 
   preload = () => {
+    this.load.image(keys.image, mapTiles);
     this.load.tilemapTiledJSON(keys.json, mapJson);
+    this.load.image('mapTiles', mapTiles);
+
+    this.load.spritesheet('player', player, {
+      frameWidth: characterSize,
+      frameHeight: characterSize,
+    });
   };
 
   create = () => {
@@ -48,21 +72,128 @@ class Test2 extends Scene {
     });
 
     // プレイヤーを作成する
-    this.player = this.physics.add
-      .sprite(
-        Math.floor(spawnPoint.x || 0) || 1,
-        Math.floor(spawnPoint.y || 0) || 1,
-        'atlas',
-        'misa-front',
-      )
-      .setSize(40, 40)
-      .setOffset(0, 24);
+    const playerSprite = this.add.sprite(0, 0, 'player');
+    /* this.player = this.physics.add */
+    /*   .sprite( */
+    /*     Math.floor(spawnPoint.x || 0) || 1, */
+    /*     Math.floor(spawnPoint.y || 0) || 1, */
+    /*     'atlas', */
+    /*     'misa-front', */
+    /*   ) */
+    /*   .setSize(40, 40) */
+    /*   .setOffset(0, 24); */
+
+    // atlasのアニメーション
+    // this.createAnim();
 
     // プレイヤーの設定
     if (!!this.player) {
-      this.physics.add.collider(this.player, this.tileMapLayer);
+      // this.physics.add.collider(this.player, this.tileMapLayer);
     }
+
+    // カメラの設定
+    this.cameras.main.startFollow(playerSprite);
+    this.cameras.main.roundPixels = true;
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.tileMap.widthInPixels,
+      this.tileMap.heightInPixels,
+    );
+    // this.cameras.main.setBounds(
+    //   0,
+    //   0,
+    //   this.tileMap.widthInPixels,
+    //   this.tileMap.heightInPixels,
+    // );
+    // カメラの位置をプレイヤーの位置に設定
+    // this.cameras.main.startFollow(this.player);
+
+    // プレイヤーを作成する
+    const { x, y } = spawnPoint;
+    if (x === undefined || y === undefined) return;
+    // タイルの位置を取得
+    const tileX = Math.floor(x / tileSize);
+    const tileY = Math.floor(y / tileSize);
+    this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+
+    // グリッドの設定
+    this.gridPhysics = new GridPhysics(this.player, this.tileMap);
+    this.gridControls = new GridControls(this.input, this.gridPhysics);
+
+    // プレイヤーのアニメーション
+    this.createPlayerAnimation(
+      Direction.UP,
+      playerAnims[0].frameStart,
+      playerAnims[0].frameEnd,
+    );
+    this.createPlayerAnimation(
+      Direction.LEFT,
+      playerAnims[1].frameStart,
+      playerAnims[1].frameEnd,
+    );
+    this.createPlayerAnimation(
+      Direction.RIGHT,
+      playerAnims[2].frameStart,
+      playerAnims[2].frameEnd,
+    );
+    this.createPlayerAnimation(
+      Direction.DOWN,
+      playerAnims[3].frameStart,
+      playerAnims[3].frameEnd,
+    );
+
+    this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\n`);
+
+    // Debug graphics
+    this.enableDebugMode();
+  };
+
+  update = (_time: number, delta: number) => {
+    this.gridControls?.update();
+    this.gridPhysics?.update(delta);
+
+    // プレイヤーの座標を取得
+    const pos = this.player?.getTilePos();
+    this.add
+      .text(0, 0, `${pos?.x}, ${pos?.y}`, {
+        font: '18px',
+        color: '#000000',
+        padding: { x: 20 },
+        backgroundColor: 'rgba(255,255,255,0.5)',
+      })
+      .setScrollFactor(0)
+      .setDepth(1);
+  };
+
+  private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
+    this.anims.create({
+      key: name,
+      frames: this.anims.generateFrameNumbers('player', {
+        start: startFrame,
+        end: endFrame,
+      }),
+      frameRate: 10,
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  public printMessage = (message: string) => {
+    this.add
+      .text(16, 16, message, {
+        font: '18px monospace',
+        color: '#000000',
+        padding: { x: 20, y: 10 },
+        backgroundColor: 'rgba(255,255,255,0.5)',
+      })
+      .setScrollFactor(0)
+      .setDepth(30);
+  };
+
+  public createAnim = () => {
     const anims = this.anims;
+
     anims.create({
       key: 'misa-left-walk',
       frames: anims.generateFrameNames('atlas', {
@@ -107,28 +238,18 @@ class Test2 extends Scene {
       frameRate: 10,
       repeat: -1,
     });
+  };
 
-    // カメラの設定
-    this.cameras.main.setBounds(
-      0,
-      0,
-      this.tileMap.widthInPixels,
-      this.tileMap.heightInPixels,
-    );
-    // カメラの位置をプレイヤーの位置に設定
-    this.cameras.main.startFollow(this.player);
+  public static debug = (scene: Scene, tileMapLayer: Tilemaps.TilemapLayer) => {
+    // 衝突判定のデバッグレンダリング
+    tileMapLayer.renderDebug(scene.add.graphics(), {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    });
+  };
 
-    this.add
-      .text(16, 16, 'Arrow keys to move\nPress "D" to show hitboxes', {
-        font: '18px monospace',
-        color: '#000000',
-        padding: { x: 20, y: 10 },
-        backgroundColor: 'rgba(255,255,255,0.5)',
-      })
-      .setScrollFactor(0)
-      .setDepth(30);
-
-    // Debug graphics
+  public enableDebugMode = () => {
     this.input.keyboard.once('keydown-D', () => {
       // Turn on physics debugging to show player's hitbox
       this.physics.world.createDebugGraphic();
@@ -140,67 +261,6 @@ class Test2 extends Scene {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
-    });
-  };
-
-  update = (delta: number) => {
-    if (!!this.player) {
-      // console.log(`x: ${this.player.x}, y: ${this.player.y}`);
-
-      // スピードはタイル1マスあたりのスピード
-      const speed = 400;
-      const prevVelocity = this.player.body.velocity.clone();
-      const cursors = this.input.keyboard.createCursorKeys();
-
-      // Stop any previous movement from the last frame
-      this.player.body.setVelocity(0);
-
-      // TODO: キー入力、アニメーション設定を関数化する
-      // TODO: x,yそのものを変更する
-      if (cursors.left.isDown) {
-        this.player.body.setVelocityX(-speed);
-      } else if (cursors.right.isDown) {
-        this.player.body.setVelocityX(speed);
-      } else if (cursors.up.isDown) {
-        this.player.body.setVelocityY(-speed);
-      } else if (cursors.down.isDown) {
-        this.player.body.setVelocityY(speed);
-      }
-
-      // Normalize and scale the velocity so that this.player can't move faster along a diagonal
-      this.player.body.velocity.normalize().scale(speed);
-
-      // Update the animation last and give left/right animations precedence over up/down animations
-      if (cursors.left.isDown) {
-        this.player.anims.play('misa-left-walk', true);
-      } else if (cursors.right.isDown) {
-        this.player.anims.play('misa-right-walk', true);
-      } else if (cursors.up.isDown) {
-        this.player.anims.play('misa-back-walk', true);
-      } else if (cursors.down.isDown) {
-        this.player.anims.play('misa-front-walk', true);
-      } else {
-        this.player.anims.stop();
-
-        // If we were moving, pick and idle frame to use
-        if (prevVelocity.x < 0) this.player.setTexture('atlas', 'misa-left');
-        else if (prevVelocity.x > 0) {
-          this.player.setTexture('atlas', 'misa-right');
-        } else if (prevVelocity.y < 0) {
-          this.player.setTexture('atlas', 'misa-back');
-        } else if (prevVelocity.y > 0) {
-          this.player.setTexture('atlas', 'misa-front');
-        }
-      }
-    }
-  };
-
-  public static debug = (scene: Scene, tileMapLayer: Tilemaps.TilemapLayer) => {
-    // 衝突判定のデバッグレンダリング
-    tileMapLayer.renderDebug(scene.add.graphics(), {
-      tileColor: null, // Color of non-colliding tiles
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
     });
   };
 }

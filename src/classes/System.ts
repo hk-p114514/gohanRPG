@@ -1,4 +1,3 @@
-import { Scene } from 'phaser';
 import { Player } from './Player';
 
 export class System {
