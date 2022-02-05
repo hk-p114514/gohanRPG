@@ -152,18 +152,6 @@ class Test2 extends Scene {
   update = (_time: number, delta: number) => {
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
-
-    // プレイヤーの座標を取得
-    const pos = this.player?.getTilePos();
-    this.add
-      .text(0, 0, `${pos?.x}, ${pos?.y}`, {
-        font: '18px',
-        color: '#000000',
-        padding: { x: 20 },
-        backgroundColor: 'rgba(255,255,255,0.5)',
-      })
-      .setScrollFactor(0)
-      .setDepth(1);
   };
 
   private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
