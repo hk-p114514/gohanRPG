@@ -72,9 +72,80 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"boxes",
+         "objects":[
+                {
+                 "gid":1299,
+                 "height":32,
+                 "id":15,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1040,
+                 "y":440
+                }, 
+                {
+                 "gid":1299,
+                 "height":32,
+                 "id":22,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1040,
+                 "y":600
+                }, 
+                {
+                 "gid":1299,
+                 "height":32,
+                 "id":23,
+                 "name":"boxPoint",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":480
+                }, 
+                {
+                 "gid":1299,
+                 "height":32,
+                 "id":24,
+                 "name":"boxPoint",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1041.26872246696,
+                 "y":443.679882525698
+                }, 
+                {
+                 "gid":1299,
+                 "height":32,
+                 "id":25,
+                 "name":"boxPoint",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1041.26872246696,
+                 "y":597.864904552129
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":7,
+ "nextlayerid":6,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -18237,6 +18308,19 @@
                         }]
                 }],
          "tilewidth":40
+        }, 
+        {
+         "columns":3,
+         "firstgid":1297,
+         "image":"..\/assets\/items\/box1.png",
+         "imageheight":128,
+         "imagewidth":96,
+         "margin":0,
+         "name":"box1",
+         "spacing":0,
+         "tilecount":12,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":40,
  "type":"map",

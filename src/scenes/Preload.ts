@@ -1,7 +1,6 @@
 import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
-import { characterSize } from './Test';
-import { keys } from './Test2';
+import { characterSize, keys } from './Test2';
 
 // マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';

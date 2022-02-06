@@ -1,3 +1,4 @@
+import { tileSize } from './../scenes/Test2';
 import { GameScene } from './../scenes/GameScene';
 import { Direction } from './Direction';
 import { Player } from './Player';
@@ -18,7 +19,7 @@ export class GridPhysics {
 
   private movementDirection: Direction = Direction.NONE;
 
-  private readonly speedPixelsPerSecond: number = GameScene.TILE_SIZE * 4;
+  private readonly speedPixelsPerSecond: number = tileSize * 4;
   private tileSizePixelsWalked: number = 0;
 
   private lastMovementIntent = Direction.NONE;
@@ -66,7 +67,7 @@ export class GridPhysics {
       this.movePlayerSprite(pixelsToWalkThisUpdate);
       this.updatePlayerTilePos();
     } else {
-      this.movePlayerSprite(GameScene.TILE_SIZE - this.tileSizePixelsWalked);
+      this.movePlayerSprite(tileSize - this.tileSizePixelsWalked);
       this.stopMoving();
     }
   }
@@ -88,7 +89,7 @@ export class GridPhysics {
     this.player.setPosition(newPlayerPos);
 
     this.tileSizePixelsWalked += pixelsToMove;
-    this.tileSizePixelsWalked %= GameScene.TILE_SIZE;
+    this.tileSizePixelsWalked %= tileSize;
   }
 
   private getPixelsToWalkThisUpdate(delta: number): number {
@@ -102,7 +103,7 @@ export class GridPhysics {
   }
 
   private willCrossTileBorderThisUpdate(pixelsToWalkThisUpdate: number): boolean {
-    return this.tileSizePixelsWalked + pixelsToWalkThisUpdate >= GameScene.TILE_SIZE;
+    return this.tileSizePixelsWalked + pixelsToWalkThisUpdate >= tileSize;
   }
 
   private shouldContinueMoving(): boolean {

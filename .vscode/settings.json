@@ -25,7 +25,8 @@
     "Tileset",
     "tilesets",
     "tilewidth",
-    "Tweens"
+    "Tweens",
+    "yoyo"
   ],
   // javascriptデバッグ設定
   "debug.allowBreakpointsEverywhere": true

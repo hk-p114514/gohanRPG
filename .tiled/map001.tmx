@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="5" nextobjectid="7">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="26">
  <editorsettings>
   <export target="../src/json/map001.json" format="json"/>
  </editorsettings>
@@ -7782,6 +7782,9 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="1297" name="box1" tilewidth="32" tileheight="32" tilecount="12" columns="3">
+  <image source="../src/assets/items/box1.png" width="96" height="128"/>
+ </tileset>
  <layer id="1" name="ground" width="60" height="30">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -7859,5 +7862,12 @@
   <object id="4" x="221.516" y="628.618" width="84.625" height="18.8438">
    <text wrap="1" color="#92bfff" halign="center">ちっす</text>
   </object>
+ </objectgroup>
+ <objectgroup id="5" name="boxes">
+  <object id="15" gid="1299" x="1040" y="440" width="32" height="32"/>
+  <object id="22" gid="1299" x="1040" y="600" width="32" height="32"/>
+  <object id="23" name="boxPoint" gid="1299" x="480" y="480" width="32" height="32"/>
+  <object id="24" name="boxPoint" gid="1299" x="1041.27" y="443.68" width="32" height="32"/>
+  <object id="25" name="boxPoint" gid="1299" x="1041.27" y="597.865" width="32" height="32"/>
  </objectgroup>
 </map>

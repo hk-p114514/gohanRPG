@@ -1,13 +1,16 @@
+// Phaser
+import { Scene, Tilemaps, Cameras, Types } from 'phaser';
+// classes
 import { Direction } from './../classes/Direction';
-import { tileSize } from './Test';
-import { characterSize } from './../index';
 import { GridPhysics } from './../classes/GridPhysics';
 import { GridControls } from './../classes/GridControls';
 import { Player } from './../classes/Player';
-import { Scene, Tilemaps, Game, Cameras, Input, GameObjects, Types } from 'phaser';
+// assets
 import mapJson from '@/json/map001.json';
 import mapTiles from '@/assets/maps/map001.png';
+import box1 from '@/assets/items/box1.png';
 import player from '@/assets/characters/dynamic/player.png';
+import { gameObjectsToObjectPoints } from 'functions/generalPurpose/gameObjectsToObjectPoints';
 
 export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
   { key: 'walkBack', frameStart: 9, frameEnd: 11 },
@@ -22,6 +25,8 @@ export const keys = {
   player: 'player',
 };
 
+export const tileSize: number = 40;
+export const characterSize: number = 32;
 class Test2 extends Scene {
   private tileset?: Tilemaps.Tileset;
   private tileMap?: Tilemaps.Tilemap;
@@ -30,6 +35,7 @@ class Test2 extends Scene {
   public player?: Player;
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
+  private boxes?: Types.Physics.Arcade.SpriteWithDynamicBody[];
 
   constructor() {
     super({
@@ -45,6 +51,10 @@ class Test2 extends Scene {
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
+    });
+    this.load.spritesheet('box1', box1, {
+      frameWidth: 32,
+      frameHeight: 32,
     });
   };
 
@@ -73,18 +83,6 @@ class Test2 extends Scene {
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
-    /* this.player = this.physics.add */
-    /*   .sprite( */
-    /*     Math.floor(spawnPoint.x || 0) || 1, */
-    /*     Math.floor(spawnPoint.y || 0) || 1, */
-    /*     'atlas', */
-    /*     'misa-front', */
-    /*   ) */
-    /*   .setSize(40, 40) */
-    /*   .setOffset(0, 24); */
-
-    // atlasのアニメーション
-    // this.createAnim();
 
     // プレイヤーの設定
     if (!!this.player) {
@@ -100,14 +98,6 @@ class Test2 extends Scene {
       this.tileMap.widthInPixels,
       this.tileMap.heightInPixels,
     );
-    // this.cameras.main.setBounds(
-    //   0,
-    //   0,
-    //   this.tileMap.widthInPixels,
-    //   this.tileMap.heightInPixels,
-    // );
-    // カメラの位置をプレイヤーの位置に設定
-    // this.cameras.main.startFollow(this.player);
 
     // プレイヤーを作成する
     const { x, y } = spawnPoint;
@@ -143,6 +133,8 @@ class Test2 extends Scene {
       playerAnims[3].frameEnd,
     );
 
+    this.initBoxes();
+
     this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\n`);
 
     // Debug graphics
@@ -167,6 +159,23 @@ class Test2 extends Scene {
     });
   }
 
+  private initBoxes = (): void => {
+    const points = this.tileMap?.filterObjects('boxes', (obj) => obj.name === 'boxPoint');
+    if (!points) return;
+    const boxPoints = gameObjectsToObjectPoints(points);
+    this.boxes = boxPoints.map((point) =>
+      this.physics.add.sprite(point.x, point.y, 'box1', 2).setScale(1),
+    );
+    const sprite = this.player?.getSprite();
+    if (!sprite) return;
+    this.boxes.forEach((box) => {
+      this.physics.add.overlap(sprite, box, (obj1, obj2) => {
+        obj2.destroy();
+        this.cameras.main.flash();
+      });
+    });
+  };
+
   public printMessage = (message: string) => {
     this.add
       .text(16, 16, message, {
@@ -177,55 +186,6 @@ class Test2 extends Scene {
       })
       .setScrollFactor(0)
       .setDepth(30);
-  };
-
-  public createAnim = () => {
-    const anims = this.anims;
-
-    anims.create({
-      key: 'misa-left-walk',
-      frames: anims.generateFrameNames('atlas', {
-        prefix: 'misa-left-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-right-walk',
-      frames: anims.generateFrameNames('atlas', {
-        prefix: 'misa-right-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-front-walk',
-      frames: anims.generateFrameNames('atlas', {
-        prefix: 'misa-front-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-back-walk',
-      frames: anims.generateFrameNames('atlas', {
-        prefix: 'misa-back-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
   };
 
   public static debug = (scene: Scene, tileMapLayer: Tilemaps.TilemapLayer) => {
