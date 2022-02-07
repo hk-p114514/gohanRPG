@@ -1,6 +1,5 @@
 import { tileSize } from './../index';
 import { Scene, GameObjects } from 'phaser';
-import { GameScene } from './../scenes/GameScene';
 import { playerAnims } from './../scenes/Test2';
 import { Direction } from './Direction';
 

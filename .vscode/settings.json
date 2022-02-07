@@ -2,8 +2,10 @@
   "cSpell.words": [
     "Anims",
     "compressionlevel",
+    "draworder",
     "firstgid",
     "gohan",
+    "halign",
     "hitbox",
     "hitboxes",
     "imageheight",
@@ -12,6 +14,7 @@
     "monospace",
     "nextlayerid",
     "nextobjectid",
+    "objectgroup",
     "onigiri",
     "pipo",
     "renderorder",
@@ -25,6 +28,7 @@
     "Tileset",
     "tilesets",
     "tilewidth",
+    "topdown",
     "Tweens",
     "yoyo"
   ],

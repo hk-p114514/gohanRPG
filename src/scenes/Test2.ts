@@ -8,9 +8,7 @@ import { Player } from './../classes/Player';
 // assets
 import mapJson from '@/json/map001.json';
 import mapTiles from '@/assets/maps/map001.png';
-import box1 from '@/assets/items/box1.png';
 import player from '@/assets/characters/dynamic/player.png';
-import { gameObjectsToObjectPoints } from 'functions/generalPurpose/gameObjectsToObjectPoints';
 
 export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
   { key: 'walkBack', frameStart: 9, frameEnd: 11 },
@@ -25,6 +23,11 @@ export const keys = {
   player: 'player',
 };
 
+type Point = {
+  x: number;
+  y: number;
+};
+
 export const tileSize: number = 40;
 export const characterSize: number = 32;
 class Test2 extends Scene {
@@ -33,9 +36,9 @@ class Test2 extends Scene {
   private tileMapLayer?: Tilemaps.TilemapLayer;
   private controls?: Cameras.Controls.FixedKeyControl;
   public player?: Player;
+  private eventPoints?: Point[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private boxes?: Types.Physics.Arcade.SpriteWithDynamicBody[];
 
   constructor() {
     super({
@@ -51,10 +54,6 @@ class Test2 extends Scene {
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
-    });
-    this.load.spritesheet('box1', box1, {
-      frameWidth: 32,
-      frameHeight: 32,
     });
   };
 
@@ -74,12 +73,27 @@ class Test2 extends Scene {
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
-    // デバッグ用に衝突判定を表示
-    // Test2.debug(this, this.tileMapLayer);
-
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
+
+    const events = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.name === 'event';
+    });
+    this.eventPoints = events.map((event) => {
+      const { x, y } = event;
+      if (!!x && !!y) {
+        return { x: x / tileSize, y: y / tileSize };
+      }
+
+      return { x: -1, y: -1 };
+    });
+    console.log(this.eventPoints);
+
+    // 0: {x: 10, y: 10}
+    // 1: {x: 10, y: 2}
+    // 2: {x: 2, y: 20}
+    // 3: {x: 1, y: 2}
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
@@ -111,6 +125,44 @@ class Test2 extends Scene {
     this.gridPhysics = new GridPhysics(this.player, this.tileMap);
     this.gridControls = new GridControls(this.input, this.gridPhysics);
 
+    this.createAnim();
+
+    this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\n`);
+
+    // Debug graphics
+    this.enableDebugMode();
+  };
+
+  update = (_time: number, delta: number) => {
+    this.gridControls?.update();
+    this.gridPhysics?.update(delta);
+    this.eventPoints?.forEach((target) => {
+      const p = this.player?.getTilePos();
+      if (!!p) {
+        const { x, y } = p;
+        console.log(`x: ${x} y: ${y}`);
+
+        if (x === target.x && y === target.y) {
+          console.log('EVENT');
+        }
+      }
+    });
+  };
+
+  private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
+    this.anims.create({
+      key: name,
+      frames: this.anims.generateFrameNumbers('player', {
+        start: startFrame,
+        end: endFrame,
+      }),
+      frameRate: 10,
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  public createAnim = () => {
     // プレイヤーのアニメーション
     this.createPlayerAnimation(
       Direction.UP,
@@ -132,48 +184,6 @@ class Test2 extends Scene {
       playerAnims[3].frameStart,
       playerAnims[3].frameEnd,
     );
-
-    this.initBoxes();
-
-    this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\n`);
-
-    // Debug graphics
-    this.enableDebugMode();
-  };
-
-  update = (_time: number, delta: number) => {
-    this.gridControls?.update();
-    this.gridPhysics?.update(delta);
-  };
-
-  private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
-    this.anims.create({
-      key: name,
-      frames: this.anims.generateFrameNumbers('player', {
-        start: startFrame,
-        end: endFrame,
-      }),
-      frameRate: 10,
-      repeat: -1,
-      yoyo: true,
-    });
-  }
-
-  private initBoxes = (): void => {
-    const points = this.tileMap?.filterObjects('boxes', (obj) => obj.name === 'boxPoint');
-    if (!points) return;
-    const boxPoints = gameObjectsToObjectPoints(points);
-    this.boxes = boxPoints.map((point) =>
-      this.physics.add.sprite(point.x, point.y, 'box1', 2).setScale(1),
-    );
-    const sprite = this.player?.getSprite();
-    if (!sprite) return;
-    this.boxes.forEach((box) => {
-      this.physics.add.overlap(sprite, box, (obj1, obj2) => {
-        obj2.destroy();
-        this.cameras.main.flash();
-      });
-    });
   };
 
   public printMessage = (message: string) => {
