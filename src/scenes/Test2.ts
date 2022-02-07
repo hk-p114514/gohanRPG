@@ -41,9 +41,7 @@ class Test2 extends Scene {
   private gridPhysics?: GridPhysics;
 
   constructor() {
-    super({
-      key: 'Test2',
-    });
+    super({ key: 'Test2' });
   }
 
   preload = () => {
@@ -80,6 +78,7 @@ class Test2 extends Scene {
     const events = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
+
     this.eventPoints = events.map((event) => {
       const { x, y } = event;
       if (!!x && !!y) {
@@ -136,17 +135,6 @@ class Test2 extends Scene {
   update = (_time: number, delta: number) => {
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
-    this.eventPoints?.forEach((target) => {
-      const p = this.player?.getTilePos();
-      if (!!p) {
-        const { x, y } = p;
-        console.log(`x: ${x} y: ${y}`);
-
-        if (x === target.x && y === target.y) {
-          console.log('EVENT');
-        }
-      }
-    });
   };
 
   private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
