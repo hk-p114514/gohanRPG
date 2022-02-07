@@ -1,6 +1,5 @@
 import { Test2 } from 'scenes/Test2';
 import { AUTO, Game, Scale, Scene, Types } from 'phaser';
-import { Test } from './scenes/Test';
 import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
 import { H, W } from 'functions/DOM/windowInfo';
@@ -11,7 +10,7 @@ export const tileSize: number = 40;
 export const characterSize: number = 32;
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Test, Test2];
+const scenes = [Preload, Test2];
 
 window.onload = () => {
   // 画面いっぱいに表示されるようにする

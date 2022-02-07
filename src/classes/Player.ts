@@ -1,35 +1,55 @@
-import { characterSize } from './../index';
-import { GameObjects, Scene, Tilemaps, Types } from 'phaser';
-import { Actor } from './Actor';
+import { tileSize } from './../index';
+import { Scene, GameObjects } from 'phaser';
+import { GameScene } from './../scenes/GameScene';
+import { playerAnims } from './../scenes/Test2';
+import { Direction } from './Direction';
 
-export type Direction = 'front' | 'back' | 'left' | 'right';
+type Vector2 = Phaser.Math.Vector2;
 
-export class Player extends Actor {
-  private isMoving: boolean = false;
-  private direction: Direction = 'front';
-  private cursors?: Types.Input.Keyboard.CursorKeys;
-  constructor(spData: GameObjects.Sprite, ActorData: Actor) {
-    super(spData, name, hp, mp, level, atk, def, characterSize);
-    var { name, hp, mp, level, atk, def } = ActorData.getActor();
+export class Player {
+  constructor(
+    /* parameter properties */
+    private sprite: GameObjects.Sprite,
+    private tilePos: Vector2,
+  ) {
+    const offsetX = tileSize / 2;
+    const offsetY = tileSize;
+    this.sprite.setOrigin(0.5, 1);
+    this.sprite.setPosition(
+      tilePos.x * tileSize + offsetX,
+      tilePos.y * tileSize + offsetY,
+    );
+    this.sprite.setFrame(playerAnims[playerAnims.length - 1].frameStart);
   }
 
-  public create = (scene: Scene, mapGround: Tilemaps.TilemapLayer) => {
-    super.create(scene, mapGround);
-  };
+  getPosition(): Vector2 {
+    return this.sprite.getBottomCenter();
+  }
 
-  public update = (scene: Scene): void => {
-    if (this.isMoving) {
-      // 動いているときはキー入力を受け付けない
-      return;
-    }
+  setPosition(position: Vector2): void {
+    this.sprite.setPosition(position.x, position.y);
+  }
 
-    // 十字キー入力
-    const arrow: Types.Input.Keyboard.CursorKeys | undefined = this.cursors;
+  stopAnimation(direction: Direction) {
+    const animationManager = this.sprite.anims.animationManager;
+    const standingFrame = animationManager.get(direction).frames[1].frame.name;
+    this.sprite.anims.stop();
+    this.sprite.setFrame(standingFrame);
+  }
 
-    // w a s d キー入力
-    const s: boolean = scene.input.keyboard.addKey('S').isDown;
-    const w: boolean = scene.input.keyboard.addKey('W').isDown;
-    const a: boolean = scene.input.keyboard.addKey('A').isDown;
-    const d: boolean = scene.input.keyboard.addKey('D').isDown;
-  };
+  startAnimation(direction: Direction) {
+    this.sprite.anims.play(direction);
+  }
+
+  getTilePos(): Vector2 {
+    return this.tilePos.clone();
+  }
+
+  setTilePos(tilePosition: Vector2): void {
+    this.tilePos = tilePosition.clone();
+  }
+
+  getSprite(): GameObjects.Sprite {
+    return this.sprite;
+  }
 }
