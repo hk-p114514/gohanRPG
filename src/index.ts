@@ -1,16 +1,12 @@
-import { Test2 } from 'scenes/Test2';
 import { AUTO, Game, Scale, Scene, Types } from 'phaser';
 import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
 import { H, W } from 'functions/DOM/windowInfo';
-
-// 40x40のマップチップを使用する
-export const tileSize: number = 40;
-// 32x32の画像を使用する
-export const characterSize: number = 32;
+import { Map1 } from 'scenes/Map1';
+import { Map2 } from 'scenes/Map2';
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Test2];
+const scenes = [Preload, Map1, Map2];
 
 window.onload = () => {
   // 画面いっぱいに表示されるようにする
@@ -33,9 +29,6 @@ window.onload = () => {
         },
       };
       super(config);
-
-      // シーンをスタート
-      this.scene.start('Preload');
     }
   }
 

@@ -1,13 +1,11 @@
 import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
-import { characterSize, keys } from './Test2';
 
 // マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import Atlas from '@/assets/characters/dynamic/atlas.png';
-import AtlasJson from '@/json/atlas.json';
 import onigiri from '@/assets/maps/onigiri.png';
+import { characterSize, keys } from './Map.tpl';
 
 const width = W();
 const height = H();
@@ -33,8 +31,6 @@ class Preload extends Scene {
     // マップの画像とjsonファイルを読み込む
     this.load.image(keys.image, mapTiles);
 
-    this.load.atlas('atlas', Atlas, AtlasJson);
-
     this.load.image('mapTiles', mapTiles);
 
     this.load.spritesheet('player', player, {
@@ -56,7 +52,7 @@ class Preload extends Scene {
     // Enterキーでが押されたらTest2シーンへ遷移
     const enter = this.input.keyboard.addKey('Enter');
     enter.on('down', () => {
-      this.scene.switch('Test2');
+      this.scene.switch('map1');
     });
   };
 }
