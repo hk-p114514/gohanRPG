@@ -1,8 +1,6 @@
-import { tileSize } from './../index';
 import { Scene, GameObjects } from 'phaser';
-import { GameScene } from './../scenes/GameScene';
-import { playerAnims } from './../scenes/Test2';
 import { Direction } from './Direction';
+import { playerAnims, tileSize } from 'scenes/Map.tpl';
 
 type Vector2 = Phaser.Math.Vector2;
 
