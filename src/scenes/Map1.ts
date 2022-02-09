@@ -1,52 +1,3 @@
-<<<<<<< HEAD
-// classes
-import { Point } from 'classes/Actor';
-import { GridControls } from 'classes/GridControls';
-import { GridPhysics } from 'classes/GridPhysics';
-import { Player } from 'classes/Player';
-import { Cameras, Scene, Tilemaps } from 'phaser';
-
-// assets
-import mapImg from '@/assets/maps/map001.png';
-import player from '@/assets/characters/dynamic/player.png';
-import json from '@/json/map001.json';
-import { Direction } from 'classes/Direction';
-import { printMessage } from 'functions/generalPurpose/printMessage';
-
-// values
-export const tileSize: number = 40;
-export const characterSize: number = 32;
-
-export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
-  { key: 'walkBack', frameStart: 9, frameEnd: 11 },
-  { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
-  { key: 'walkRight', frameStart: 6, frameEnd: 8 },
-  { key: 'walkFront', frameStart: 0, frameEnd: 2 },
-];
-
-export const keys = {
-  json: 'mapJson',
-  image: 'mapImg',
-  player: 'player',
-};
-
-export class Map1 extends Scene {
-  private tileset?: Tilemaps.Tileset;
-  private tileMap?: Tilemaps.Tilemap;
-  private tileMapLayer?: Tilemaps.TilemapLayer;
-  private controls?: Cameras.Controls.FixedKeyControl;
-  public player?: Player;
-  private eventPoints?: Point[];
-  private gridControls?: GridControls;
-  private gridPhysics?: GridPhysics;
-  constructor(private key = 'map1') {
-    super({ key: key });
-  }
-
-  public preload = () => {
-    this.load.image(keys.image, mapImg);
-    this.load.tilemapTiledJSON(keys.json, json);
-=======
 // Phaser
 import { Scene, Tilemaps, Cameras, Types } from 'phaser';
 // classes
@@ -79,7 +30,6 @@ export class Map1 extends Scene {
     this.load.image(keys.image, mapImg);
     this.load.tilemapTiledJSON(keys.json, mapJson);
     this.load.image(keys.image, mapImg);
->>>>>>> debug_move_map
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -87,16 +37,6 @@ export class Map1 extends Scene {
     });
   };
 
-<<<<<<< HEAD
-  public create = () => {
-    printMessage(this, `map: ${this.key}`);
-    // enterキーでシーンを切り替え
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      this.scene.switch('map2');
-    });
-    // マップを作成
-=======
   create = () => {
     // enterキーでシーンを切り替え
     const enter = this.input.keyboard.addKey('ENTER');
@@ -104,7 +44,6 @@ export class Map1 extends Scene {
       console.log('load map2');
       this.scene.switch('map2');
     });
->>>>>>> debug_move_map
     this.tileMap = this.make.tilemap({ key: keys.json });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
@@ -115,16 +54,10 @@ export class Map1 extends Scene {
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
-<<<<<<< HEAD
-    // プレイヤーの初期位置を取得
-=======
->>>>>>> debug_move_map
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
 
-<<<<<<< HEAD
-=======
     const events = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
@@ -144,7 +77,6 @@ export class Map1 extends Scene {
     // 2: {x: 2, y: 20}
     // 3: {x: 1, y: 2}
 
->>>>>>> debug_move_map
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -177,29 +109,18 @@ export class Map1 extends Scene {
 
     this.createAnim();
 
-<<<<<<< HEAD
-=======
     this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\nmap: map1`);
 
->>>>>>> debug_move_map
     // Debug graphics
     this.enableDebugMode();
   };
 
-<<<<<<< HEAD
-  public update = (_time: number, delta: number) => {
-=======
   update = (_time: number, delta: number) => {
->>>>>>> debug_move_map
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   };
 
-<<<<<<< HEAD
-  public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
-=======
   private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
->>>>>>> debug_move_map
     this.anims.create({
       key: name,
       frames: this.anims.generateFrameNumbers('player', {
@@ -236,8 +157,6 @@ export class Map1 extends Scene {
     );
   };
 
-<<<<<<< HEAD
-=======
   public printMessage = (message: string) => {
     this.add
       .text(16, 16, message, {
@@ -259,7 +178,6 @@ export class Map1 extends Scene {
     });
   };
 
->>>>>>> debug_move_map
   public enableDebugMode = () => {
     this.input.keyboard.once('keydown-D', () => {
       // Turn on physics debugging to show player's hitbox
