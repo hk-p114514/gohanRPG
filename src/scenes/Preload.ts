@@ -1,10 +1,8 @@
 import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
 
-// マップの画像とjsonファイルを読み込む
 import mapTiles from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import onigiri from '@/assets/maps/onigiri.png';
 import { characterSize, keys } from './Map.tpl';
 
 const width = W();
@@ -26,12 +24,8 @@ class Preload extends Scene {
 
   preload = () => {
     // 画像を読み込む
-    this.load.image('onigiri', onigiri);
 
-    // マップの画像とjsonファイルを読み込む
     this.load.image(keys.image, mapTiles);
-
-    this.load.image('mapTiles', mapTiles);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -51,9 +45,9 @@ class Preload extends Scene {
 
     // Enterキーでが押されたらTest2シーンへ遷移
     const enter = this.input.keyboard.addKey('Enter');
-    enter.on('down', () => {
-      this.scene.switch('map1');
-    });
+    // enter.on('down', () => {
+    this.scene.start('map1');
+    // });
   };
 }
 
