@@ -48,7 +48,7 @@ export class MapTpl extends Scene {
   public preload = () => {
     this.load.image(keys.image, mapImg);
     this.load.tilemapTiledJSON(keys.json, this.mapJson);
-    this.load.image('mapTiles', mapImg);
+    // this.load.image('mapTiles', mapImg);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -65,11 +65,11 @@ export class MapTpl extends Scene {
       if (this.key === 'map1') {
         console.log('load map2');
 
-        this.scene.start('map2');
+        this.scene.switch('map2');
       } else if (this.key === 'map2') {
         console.log('load map1');
 
-        this.scene.start('map1');
+        this.scene.switch('map1');
       }
     });
     // マップを作成

@@ -1,4 +1,4 @@
-import { AUTO, Game, Scale, Scene, Types } from 'phaser';
+import { AUTO, Game, Types } from 'phaser';
 import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
 import { H, W } from 'functions/DOM/windowInfo';
