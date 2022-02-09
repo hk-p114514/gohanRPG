@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // classes
 import { Point } from 'classes/Actor';
 import { GridControls } from 'classes/GridControls';
@@ -45,6 +46,40 @@ export class Map1 extends Scene {
   public preload = () => {
     this.load.image(keys.image, mapImg);
     this.load.tilemapTiledJSON(keys.json, json);
+=======
+// Phaser
+import { Scene, Tilemaps, Cameras, Types } from 'phaser';
+// classes
+import { Direction } from './../classes/Direction';
+import { GridPhysics } from './../classes/GridPhysics';
+import { GridControls } from './../classes/GridControls';
+import { Player } from './../classes/Player';
+// assets
+import mapJson from '@/json/map002.json';
+import mapImg from '@/assets/maps/map001.png';
+import player from '@/assets/characters/dynamic/player.png';
+import { characterSize, keys, playerAnims, tileSize } from './Map.tpl';
+import { Point } from 'classes/Actor';
+
+export class Map1 extends Scene {
+  private tileset?: Tilemaps.Tileset;
+  private tileMap?: Tilemaps.Tilemap;
+  private tileMapLayer?: Tilemaps.TilemapLayer;
+  private controls?: Cameras.Controls.FixedKeyControl;
+  public player?: Player;
+  private eventPoints?: Point[];
+  private gridControls?: GridControls;
+  private gridPhysics?: GridPhysics;
+
+  constructor() {
+    super({ key: 'map1' });
+  }
+
+  preload = () => {
+    this.load.image(keys.image, mapImg);
+    this.load.tilemapTiledJSON(keys.json, mapJson);
+    this.load.image(keys.image, mapImg);
+>>>>>>> debug_move_map
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -52,6 +87,7 @@ export class Map1 extends Scene {
     });
   };
 
+<<<<<<< HEAD
   public create = () => {
     printMessage(this, `map: ${this.key}`);
     // enterキーでシーンを切り替え
@@ -60,6 +96,15 @@ export class Map1 extends Scene {
       this.scene.switch('map2');
     });
     // マップを作成
+=======
+  create = () => {
+    // enterキーでシーンを切り替え
+    const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      console.log('load map2');
+      this.scene.switch('map2');
+    });
+>>>>>>> debug_move_map
     this.tileMap = this.make.tilemap({ key: keys.json });
     this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
 
@@ -70,11 +115,36 @@ export class Map1 extends Scene {
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
+<<<<<<< HEAD
     // プレイヤーの初期位置を取得
+=======
+>>>>>>> debug_move_map
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
 
+<<<<<<< HEAD
+=======
+    const events = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.name === 'event';
+    });
+
+    this.eventPoints = events.map((event) => {
+      const { x, y } = event;
+      if (!!x && !!y) {
+        return { x: x / tileSize, y: y / tileSize };
+      }
+
+      return { x: -1, y: -1 };
+    });
+    console.log(this.eventPoints);
+
+    // 0: {x: 10, y: 10}
+    // 1: {x: 10, y: 2}
+    // 2: {x: 2, y: 20}
+    // 3: {x: 1, y: 2}
+
+>>>>>>> debug_move_map
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -107,16 +177,29 @@ export class Map1 extends Scene {
 
     this.createAnim();
 
+<<<<<<< HEAD
+=======
+    this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\nmap: map1`);
+
+>>>>>>> debug_move_map
     // Debug graphics
     this.enableDebugMode();
   };
 
+<<<<<<< HEAD
   public update = (_time: number, delta: number) => {
+=======
+  update = (_time: number, delta: number) => {
+>>>>>>> debug_move_map
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   };
 
+<<<<<<< HEAD
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
+=======
+  private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
+>>>>>>> debug_move_map
     this.anims.create({
       key: name,
       frames: this.anims.generateFrameNumbers('player', {
@@ -153,6 +236,30 @@ export class Map1 extends Scene {
     );
   };
 
+<<<<<<< HEAD
+=======
+  public printMessage = (message: string) => {
+    this.add
+      .text(16, 16, message, {
+        font: '18px monospace',
+        color: '#000000',
+        padding: { x: 20, y: 10 },
+        backgroundColor: 'rgba(255,255,255,0.5)',
+      })
+      .setScrollFactor(0)
+      .setDepth(30);
+  };
+
+  public static debug = (scene: Scene, tileMapLayer: Tilemaps.TilemapLayer) => {
+    // 衝突判定のデバッグレンダリング
+    tileMapLayer.renderDebug(scene.add.graphics(), {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    });
+  };
+
+>>>>>>> debug_move_map
   public enableDebugMode = () => {
     this.input.keyboard.once('keydown-D', () => {
       // Turn on physics debugging to show player's hitbox
