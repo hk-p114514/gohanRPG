@@ -9,10 +9,10 @@ import { Player } from './../classes/Player';
 import mapJson from '@/json/map001.json';
 import mapTiles from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import { characterSize, Keys, playerAnims, tileSize } from './Map.tpl';
+import { characterSize, playerAnims, tileSize } from './Map.tpl';
 import { Point } from 'classes/Actor';
 
-const keys: Keys = {
+const keys = {
   image: 'mapTiles',
   json: 'json1',
   player: 'player',

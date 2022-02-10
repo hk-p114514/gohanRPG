@@ -11,7 +11,7 @@ import { OptionsJson } from 'body-parser';
 // 使用するシーンをまとめる
 const scenes = [Map1, Map2];
 
-export const json: string[] = [mapJson2, mapJson1];
+export const json: string[] = [mapJson1, mapJson2];
 
 window.onload = () => {
   // 画面いっぱいに表示されるようにする

@@ -13,6 +13,10 @@ import { Direction } from 'classes/Direction';
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
+export const keys = {
+  mapImg: 'mapImg',
+  player: 'player',
+};
 
 export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
   { key: 'walkBack', frameStart: 9, frameEnd: 11 },
@@ -20,17 +24,6 @@ export const playerAnims: { key: string; frameStart: number; frameEnd: number }[
   { key: 'walkRight', frameStart: 6, frameEnd: 8 },
   { key: 'walkFront', frameStart: 0, frameEnd: 2 },
 ];
-
-export type Keys = {
-  json: string;
-  image: string;
-  player: 'player';
-};
-const keys: Keys = {
-  image: 'mapTiles',
-  json: 'json1',
-  player: 'player',
-};
 
 export class MapTpl extends Scene {
   private tileset?: Tilemaps.Tileset;
@@ -41,19 +34,14 @@ export class MapTpl extends Scene {
   private eventPoints?: Point[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private mapJson: any;
-  constructor(private key: string, mapJson: any) {
-    super({ key: key });
-    this.mapJson = mapJson;
-    console.log(`key: ${key}`);
-
-    console.log(this.mapJson);
+  constructor(private json: string, public name: string) {
+    super({ key: name });
   }
 
   public preload = () => {
-    this.load.image(keys.image, mapImg);
-    this.load.tilemapTiledJSON(keys.json, this.mapJson);
-    // this.load.image('mapTiles', mapImg);
+    this.load.image(keys.mapImg, mapImg);
+    this.load.tilemapTiledJSON(this.name, this.json);
+    this.load.image('mapTiles', mapImg);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -65,21 +53,19 @@ export class MapTpl extends Scene {
     // enterキーでシーンを切り替え
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      console.log(this.key);
-
-      if (this.key === 'map1') {
+      if (this.name === 'map1') {
         console.log('load map2');
 
         this.scene.switch('map2');
-      } else if (this.key === 'map2') {
+      } else if (this.name === 'map2') {
         console.log('load map1');
 
         this.scene.switch('map1');
       }
     });
     // マップを作成
-    this.tileMap = this.make.tilemap({ key: keys.json });
-    this.tileset = this.tileMap.addTilesetImage('map001', keys.image);
+    this.tileMap = this.make.tilemap({ key: this.name });
+    this.tileset = this.tileMap.addTilesetImage('map001', keys.mapImg);
 
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
