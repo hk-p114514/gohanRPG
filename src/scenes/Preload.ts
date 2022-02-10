@@ -3,7 +3,7 @@ import { GameObjects, Scene, Types } from 'phaser';
 
 import mapTiles from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import { characterSize, keys } from './Map.tpl';
+import { characterSize } from './Map.tpl';
 
 const width = W();
 const height = H();
@@ -25,8 +25,6 @@ class Preload extends Scene {
   preload = () => {
     // 画像を読み込む
 
-    this.load.image(keys.image, mapTiles);
-
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
@@ -45,9 +43,9 @@ class Preload extends Scene {
 
     // Enterキーでが押されたらTest2シーンへ遷移
     const enter = this.input.keyboard.addKey('Enter');
-    // enter.on('down', () => {
-    this.scene.start('map1');
-    // });
+    enter.on('down', () => {
+      this.scene.start('map1');
+    });
   };
 }
 

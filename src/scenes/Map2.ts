@@ -6,12 +6,17 @@ import { GridPhysics } from './../classes/GridPhysics';
 import { GridControls } from './../classes/GridControls';
 import { Player } from './../classes/Player';
 // assets
-import mapJson from '@/json/map001.json';
 import mapImg from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import { characterSize, keys, playerAnims, tileSize } from './Map.tpl';
+import { characterSize, Keys, playerAnims, tileSize } from './Map.tpl';
 import { Point } from 'classes/Actor';
+import { json } from 'index';
 
+const keys: Keys = {
+  image: 'mapTiles',
+  json: 'json1',
+  player: 'player',
+};
 export class Map2 extends Scene {
   private tileset?: Tilemaps.Tileset;
   private tileMap?: Tilemaps.Tilemap;
@@ -28,9 +33,9 @@ export class Map2 extends Scene {
 
   preload = () => {
     this.load.image(keys.image, mapImg);
-    this.load.tilemapTiledJSON(keys.json, mapJson);
+    this.load.tilemapTiledJSON(keys.json, json[1]);
+    this.load.tilemapTiledJSON(keys.json, json[0]);
     this.load.image(keys.image, mapImg);
-
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
@@ -42,6 +47,7 @@ export class Map2 extends Scene {
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
       console.log('load map1');
+      this.cameras.main.flash();
       this.scene.switch('map1');
     });
     this.tileMap = this.make.tilemap({ key: keys.json });

@@ -9,8 +9,14 @@ import { Player } from './../classes/Player';
 import mapJson from '@/json/map001.json';
 import mapTiles from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
-import { characterSize, keys, playerAnims, tileSize } from './Map.tpl';
+import { characterSize, Keys, playerAnims, tileSize } from './Map.tpl';
 import { Point } from 'classes/Actor';
+
+const keys: Keys = {
+  image: 'mapTiles',
+  json: 'json1',
+  player: 'player',
+};
 
 class Test2 extends Scene {
   private tileset?: Tilemaps.Tileset;

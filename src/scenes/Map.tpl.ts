@@ -21,9 +21,14 @@ export const playerAnims: { key: string; frameStart: number; frameEnd: number }[
   { key: 'walkFront', frameStart: 0, frameEnd: 2 },
 ];
 
-export const keys = {
-  json: 'mapJson',
-  image: 'mapImg',
+export type Keys = {
+  json: string;
+  image: string;
+  player: 'player';
+};
+const keys: Keys = {
+  image: 'mapTiles',
+  json: 'json1',
   player: 'player',
 };
 
