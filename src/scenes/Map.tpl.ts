@@ -13,7 +13,7 @@ import { Direction } from 'classes/Direction';
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
-export const keys = {
+export const assetKeys = {
   mapImg: 'mapImg',
   player: 'player',
 };
@@ -38,8 +38,8 @@ export class MapTpl extends Scene {
     super({ key: name });
   }
 
-  public preload = () => {
-    this.load.image(keys.mapImg, mapImg);
+  public preload() {
+    this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
 
@@ -47,25 +47,12 @@ export class MapTpl extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
-  };
+  }
 
-  public create = () => {
-    // enterキーでシーンを切り替え
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      if (this.name === 'map1') {
-        console.log('load map2');
-
-        this.scene.switch('map2');
-      } else if (this.name === 'map2') {
-        console.log('load map1');
-
-        this.scene.switch('map1');
-      }
-    });
+  public create() {
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
-    this.tileset = this.tileMap.addTilesetImage('map001', keys.mapImg);
+    this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
 
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
@@ -113,12 +100,12 @@ export class MapTpl extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
-  };
+  }
 
-  public update = (_time: number, delta: number) => {
+  public update(_time: number, delta: number) {
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
-  };
+  }
 
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
     this.anims.create({
@@ -133,7 +120,7 @@ export class MapTpl extends Scene {
     });
   }
 
-  public createAnim = () => {
+  public createAnim() {
     // プレイヤーのアニメーション
     this.createPlayerAnimation(
       Direction.UP,
@@ -155,9 +142,9 @@ export class MapTpl extends Scene {
       playerAnims[3].frameStart,
       playerAnims[3].frameEnd,
     );
-  };
+  }
 
-  public enableDebugMode = () => {
+  public enableDebugMode() {
     this.input.keyboard.once('keydown-D', () => {
       // Turn on physics debugging to show player's hitbox
       this.physics.world.createDebugGraphic();
@@ -170,5 +157,5 @@ export class MapTpl extends Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
-  };
+  }
 }
