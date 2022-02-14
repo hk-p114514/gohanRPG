@@ -1,23 +1,14 @@
-import { H, W } from 'functions/DOM/windowInfo';
 import { GameObjects, Scene, Types } from 'phaser';
-import { characterSize } from './Test';
-import { keys } from './Test2';
-
-// マップの画像とjsonファイルを読み込む
-import mapTiles from '@/assets/maps/map001.png';
-import Atlas from '@/assets/characters/dynamic/atlas.png';
-import AtlasJson from '@/json/atlas.json';
+import { characterSize } from './Map.tpl';
 import player from '@/assets/characters/dynamic/player.png';
-import onigiri from '@/assets/maps/onigiri.png';
-
-const width = W();
-const height = H();
+import gohanBG from '@/images/gohan.jpg';
+import button from '@/images/button.png';
+import buttonOnHover from '@/images/button_onhover.png';
 
 class Preload extends Scene {
-  private backgroundColor: string = '#999';
-
+  private backgroundColor: string = '#000';
   constructor() {
-    super({ key: 'Preload' });
+    super({ key: 'preload' });
   }
 
   private fontStyle: Types.GameObjects.Text.TextStyle = {
@@ -25,41 +16,59 @@ class Preload extends Scene {
     fontSize: '70px',
   };
 
-  init = () => {};
+  init() {}
 
-  preload = () => {
+  preload() {
     // 画像を読み込む
-    this.load.image('onigiri', onigiri);
-
-    // マップの画像とjsonファイルを読み込む
-    this.load.image(keys.image, mapTiles);
-
-    this.load.atlas('atlas', Atlas, AtlasJson);
-
-    this.load.image('mapTiles', mapTiles);
+    this.load.image('gohan', gohanBG);
+    this.load.image('button', button);
+    this.load.image('button_onhover', buttonOnHover);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
-  };
+  }
 
-  create = () => {
+  create() {
+    // 画面の縦横幅を取得
+    const { height, width } = this.sys.game.canvas;
+
+    // 背景画像を設定
+    this.add
+      .image(width / 2, height / 2, 'gohan')
+      .setOrigin(0.5)
+      .setScale(0.25)
+      .setAlpha(0.5);
+
+    // 背景色を設定
     this.cameras.main.setBackgroundColor(this.backgroundColor);
+
+    // 画面中央に文字を表示
     const startMessage: GameObjects.Text = this.add.text(
       width / 2,
-      height / 2,
-      "'Enter' to start",
+      height / 4,
+      '🍚🍚🍚',
       this.fontStyle,
     );
     startMessage.setOrigin(0.5);
 
-    // Enterキーでが押されたらTest2シーンへ遷移
-    const enter = this.input.keyboard.addKey('Enter');
-    // enter.on('down', () => {
-    this.scene.start('Test2');
-    // });
-  };
+    // ボタンを設置
+    const button: GameObjects.Image = this.add.image(width / 2, height / 2, 'button');
+    button.setInteractive();
+    // ボタンにカーソルが乗った時
+    button.on('pointerover', () => {
+      button.setTexture('button_onhover');
+    });
+    // カーソルがボタンから離れた時
+    button.on('pointerout', () => {
+      button.setTexture('button');
+    });
+    // クリックした時
+    button.on('pointerdown', () => {
+      this.scene.start('map1');
+    });
+  }
 }
 
 export { Preload };

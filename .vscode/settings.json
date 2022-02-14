@@ -2,8 +2,10 @@
   "cSpell.words": [
     "Anims",
     "compressionlevel",
+    "draworder",
     "firstgid",
     "gohan",
+    "halign",
     "hitbox",
     "hitboxes",
     "imageheight",
@@ -12,6 +14,7 @@
     "monospace",
     "nextlayerid",
     "nextobjectid",
+    "objectgroup",
     "onigiri",
     "pipo",
     "renderorder",
@@ -25,7 +28,9 @@
     "Tileset",
     "tilesets",
     "tilewidth",
-    "Tweens"
+    "topdown",
+    "Tweens",
+    "yoyo"
   ],
   // javascriptデバッグ設定
   "debug.allowBreakpointsEverywhere": true

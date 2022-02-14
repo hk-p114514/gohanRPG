@@ -1,17 +1,17 @@
-import { Test2 } from 'scenes/Test2';
-import { AUTO, Game, Scale, Scene, Types } from 'phaser';
-import { Test } from './scenes/Test';
+import { AUTO, Game, Types } from 'phaser';
+import mapJson1 from '@/json/map001.json';
+import mapJson2 from '@/json/map002.json';
+import { H, W } from 'functions/DOM/windowInfo';
+import { Map1 } from 'scenes/Map1';
+import { Map2 } from 'scenes/Map2';
 import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
-import { H, W } from 'functions/DOM/windowInfo';
-
-// 40x40のマップチップを使用する
-export const tileSize: number = 40;
-// 32x32の画像を使用する
-export const characterSize: number = 32;
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Test, Test2];
+const scenes = [Preload, Map1, Map2];
+
+// マップデータのjsonをまとめる
+export const json: string[] = [mapJson1, mapJson2];
 
 window.onload = () => {
   // 画面いっぱいに表示されるようにする
@@ -34,9 +34,6 @@ window.onload = () => {
         },
       };
       super(config);
-
-      // シーンをスタート
-      this.scene.start('Preload');
     }
   }
 

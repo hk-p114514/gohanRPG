@@ -40,7 +40,108 @@
                             "created": 1643273053054,
                             "text": "マップが存在する"
                         },
-                        "children": []
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chqp3nfn15s0",
+                                    "created": 1644326512313,
+                                    "text": "マップ一つに付き\n一つのScene継承クラス"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chqp4abxr9s0",
+                                            "created": 1644326562155,
+                                            "text": "共通処理"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chqp4ce4vvk0",
+                                                    "created": 1644326566642,
+                                                    "text": "画像ファイルと\nJSONファイル\nの読み込み"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp4r995uo0",
+                                                    "created": 1644326598998,
+                                                    "text": "キー入力受け取りの準備"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp5ytbg4o0",
+                                                    "created": 1644326693813,
+                                                    "text": "JSONからレイヤーを作成、\n衝突判定の設定"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp773pd5s0",
+                                                    "created": 1644326790219,
+                                                    "text": "objectsレイヤーのspawnPointを\n探し出し、プレイヤーの初期位置を設定"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp8w2wup40",
+                                                    "created": 1644326922955,
+                                                    "text": "プレイヤースプライトの作成"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqpq6ovqe00",
+                                                    "created": 1644328278242,
+                                                    "text": "カメラの設定\n描画限界、\nプレイヤー追従"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqpqogammg0",
+                                                    "created": 1644328316905,
+                                                    "text": "プレイヤー作成"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "chqpquyvap40",
+                                                            "created": 1644328331089,
+                                                            "text": "グリッド移動設定、\nグリッド物理設定"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chqq5akn6vk0",
+                                            "created": 1644329462156,
+                                            "text": "変化する点"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chqq5d4vgtk0",
+                                                    "created": 1644329467732,
+                                                    "text": "読み込むJSONファイル"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
@@ -133,6 +234,6 @@
         ]
     },
     "template": "right",
-    "theme": "fresh-blue",
+    "theme": "snow",
     "version": "1.4.43"
 }
