@@ -4,6 +4,9 @@ import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 import { Cameras, Scene, Tilemaps } from 'phaser';
+import { DialogBox } from 'classes/DialogBox';
+import { DialogBoxConfig } from 'classes/DialogBox';
+import { W } from 'functions/DOM/windowInfo';
 
 // assets
 import mapImg from '@/assets/maps/map001.png';
@@ -100,6 +103,29 @@ export class MapTpl extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
+
+    //Dialog
+    const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
+      fontFamily:
+        '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
+      fontSize: '24px',
+    };
+
+    const dialogBoxConfig: DialogBoxConfig = {
+      x: 500,
+      y: 500,
+      width: W(),
+      height: 800,
+      padding: 0,
+      margin: 0,
+      textStyle: textStyle,
+    };
+    const dialogBox = new DialogBox(this, dialogBoxConfig);
+
+    dialogBox.setText('クリックでエンディングへ ▼');
+    dialogBox.setActorNameText('NAME');
+
+    this.add.existing(dialogBox);
   }
 
   public update(_time: number, delta: number) {
