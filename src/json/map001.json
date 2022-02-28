@@ -162,6 +162,18 @@
                  "width":40,
                  "x":40,
                  "y":40
+                }, 
+                {
+                 "gid":1309,
+                 "height":32,
+                 "id":48,
+                 "name":"npc",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":520,
+                 "y":640
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -170,7 +182,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":48,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -18346,6 +18358,10 @@
          "tilecount":12,
          "tileheight":32,
          "tilewidth":32
+        }, 
+        {
+         "firstgid":1309,
+         "source":"..\/..\/.tiled\/sample002.tsx"
         }],
  "tilewidth":40,
  "type":"map",
