@@ -38,4 +38,5 @@ window.onload = () => {
   }
 
   const game: Game = new Main();
+  console.log(game);
 };

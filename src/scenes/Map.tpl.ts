@@ -8,6 +8,7 @@ import { Cameras, Scene, Tilemaps } from 'phaser';
 // assets
 import mapImg from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
+import sample002 from '@/assets/characters/dynamic/sample002.png';
 import { Direction } from 'classes/Direction';
 
 // values
@@ -26,9 +27,9 @@ export const playerAnims: { key: string; frameStart: number; frameEnd: number }[
 ];
 
 export class MapTpl extends Scene {
-  private tileset?: Tilemaps.Tileset;
-  private tileMap?: Tilemaps.Tilemap;
-  private tileMapLayer?: Tilemaps.TilemapLayer;
+  public tileset?: Tilemaps.Tileset;
+  public tileMap?: Tilemaps.Tilemap;
+  public tileMapLayer?: Tilemaps.TilemapLayer;
   private controls?: Cameras.Controls.FixedKeyControl;
   public player?: Player;
   private eventPoints?: Point[];
@@ -42,6 +43,7 @@ export class MapTpl extends Scene {
     this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
+    this.load.image('sample002', sample002);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -57,9 +59,10 @@ export class MapTpl extends Scene {
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
     this.tileMapLayer = this.tileMap.createLayer('worldLayer', this.tileset, 0, 0);
+    const objects = this.tileMap.createFromObjects('npc', {});
 
     // 衝突判定を有効にする
-    this.tileMapLayer.setCollisionByProperty({ collides: true });
+    // this.tileMapLayer.setCollisionByProperty({ collides: true });
 
     // プレイヤーの初期位置を取得
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
@@ -71,7 +74,7 @@ export class MapTpl extends Scene {
 
     // プレイヤーの設定
     if (!!this.player) {
-      // this.physics.add.collider(this.player, this.tileMapLayer);
+      // this.physics.add.collider(this.player.sprite, this.tileMapLayer);
     }
 
     // カメラの設定
@@ -83,6 +86,7 @@ export class MapTpl extends Scene {
       this.tileMap.widthInPixels,
       this.tileMap.heightInPixels,
     );
+    this.tileMap.width;
 
     // プレイヤーを作成する
     const { x, y } = spawnPoint;

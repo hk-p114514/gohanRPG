@@ -7,7 +7,7 @@ type Vector2 = Phaser.Math.Vector2;
 export class Player {
   constructor(
     /* parameter properties */
-    private sprite: GameObjects.Sprite,
+    public sprite: GameObjects.Sprite,
     private tilePos: Vector2,
   ) {
     const offsetX = tileSize / 2;
