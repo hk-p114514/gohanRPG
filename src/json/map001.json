@@ -162,18 +162,6 @@
                  "width":40,
                  "x":40,
                  "y":40
-                }, 
-                {
-                 "gid":1309,
-                 "height":32,
-                 "id":48,
-                 "name":"npc",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":520,
-                 "y":640
                 }],
          "opacity":1,
          "type":"objectgroup",
