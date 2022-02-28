@@ -34,9 +34,10 @@ export class MapTpl extends Scene {
   private tileMapLayer?: Tilemaps.TilemapLayer;
   private controls?: Cameras.Controls.FixedKeyControl;
   public player?: Player;
-  private eventPoints?: Point[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
+  private dialogBox?: DialogBox;
+  private eventPoints?: Phaser.Types.Tilemaps.TiledObject[];
   constructor(private json: string, public name: string) {
     super({ key: name });
   }
@@ -67,6 +68,11 @@ export class MapTpl extends Scene {
     // プレイヤーの初期位置を取得
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
+    });
+
+    // イベントの位置を取得
+    this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.name === 'event';
     });
 
     // プレイヤーを作成する
@@ -104,31 +110,52 @@ export class MapTpl extends Scene {
     // Debug graphics
     this.enableDebugMode();
 
-    //Dialog
+    //Dialog==================================================================
+
+    // 設定
     const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
       fontFamily:
         '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
       fontSize: '24px',
     };
-
     const dialogBoxConfig: DialogBoxConfig = {
-      x: 500,
-      y: 500,
+      x: 600,
+      y: 700,
       width: W(),
-      height: 800,
+      height: 200,
       padding: 0,
       margin: 0,
       textStyle: textStyle,
+      backGroundColor: 0xde000000,
+      frameColor: 0xffffff,
     };
-    const dialogBox = new DialogBox(this, dialogBoxConfig);
+    this.dialogBox = new DialogBox(this, dialogBoxConfig);
 
-    dialogBox.setText('クリックでエンディングへ ▼');
-    dialogBox.setActorNameText('NAME');
-
-    this.add.existing(dialogBox);
+    this.dialogBox.setText('クリックでエンディングへ ▼');
+    this.dialogBox.setActorNameText('NAME');
+    //Dialog==================================================================
   }
 
   public update(_time: number, delta: number) {
+    if (!!this.eventPoints) {
+      this.eventPoints.forEach((event) => {
+        const { x, y } = event;
+        if (!x || !y) {
+          /*
+           * xかyが...
+           */
+          return;
+        }
+        if (!this.dialogBox) return;
+        if (
+          this.player?.getTilePos().x === x / tileSize &&
+          this.player?.getTilePos().y === y / tileSize
+        ) {
+          this.add.existing(this.dialogBox);
+        }
+      });
+    }
+
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   }
