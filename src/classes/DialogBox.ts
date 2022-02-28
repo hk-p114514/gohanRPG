@@ -6,6 +6,8 @@ export type DialogBoxConfig = {
   padding?: number;
   margin?: number;
   textStyle?: Phaser.Types.GameObjects.Text.TextStyle;
+  backGroundColor?: number;
+  frameColor?: number;
 };
 
 // Phaser.GameObjects.Containerを継承してDialogBoxを作成
@@ -20,7 +22,17 @@ export class DialogBox extends Phaser.GameObjects.Container {
 
   constructor(
     public scene: Phaser.Scene,
-    { x, y, width, height, padding = 10, margin = 10, textStyle = {} }: DialogBoxConfig,
+    {
+      x,
+      y,
+      width,
+      height,
+      padding = 10,
+      margin = 10,
+      textStyle = {},
+      backGroundColor,
+      frameColor,
+    }: DialogBoxConfig,
   ) {
     // Phaser.GameObjects.Containerのコンストラクタ
     super(scene, 0, 0);
@@ -32,8 +44,8 @@ export class DialogBox extends Phaser.GameObjects.Container {
       y,
       width,
       height,
-      0x000000,
-    ).setStrokeStyle(1, 0xffffff);
+      backGroundColor,
+    ).setStrokeStyle(1, frameColor);
     this.add(this.box); // Containerへの追加
 
     // wordWrap（折り返し設定）を追加した会話テキスト用のTextStyleを作成
