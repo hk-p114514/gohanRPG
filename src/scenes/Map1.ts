@@ -13,5 +13,12 @@ export class Map1 extends MapTpl {
     enter.on('down', () => {
       this.scene.switch('map2');
     });
+
+    // イベントの位置を取得
+    // const events = this.tileMap?.filterTiles((tile) => {});
+  }
+
+  public update(_time: number, delta: number): void {
+    super.update(_time, delta);
   }
 }
