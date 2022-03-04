@@ -16,7 +16,7 @@ module.exports = merge(common, {
     open: true,
     compress: true,
     hot: true,
-    port: 8081,
+    port: 8080,
   },
 
   module: {
