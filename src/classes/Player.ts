@@ -1,6 +1,7 @@
 import { Scene, GameObjects } from 'phaser';
 import { Direction } from './Direction';
-import { playerAnims, tileSize } from 'scenes/Map.tpl';
+import { tileSize } from 'scenes/Map.tpl';
+import { playerAnims } from 'playerAnims';
 
 type Vector2 = Phaser.Math.Vector2;
 
@@ -9,13 +10,13 @@ export class Player {
     /* parameter properties */
     public sprite: GameObjects.Sprite,
     private tilePos: Vector2,
+    private offsetX: number = tileSize / 2,
+    private offsetY: number = tileSize,
   ) {
-    const offsetX = tileSize / 2;
-    const offsetY = tileSize;
     this.sprite.setOrigin(0.5, 1);
     this.sprite.setPosition(
-      tilePos.x * tileSize + offsetX,
-      tilePos.y * tileSize + offsetY,
+      tilePos.x * tileSize + this.offsetX,
+      tilePos.y * tileSize + this.offsetY,
     );
     this.sprite.setFrame(playerAnims[playerAnims.length - 1].frameStart);
   }
@@ -43,8 +44,18 @@ export class Player {
     return this.tilePos.clone();
   }
 
-  setTilePos(tilePosition: Vector2): void {
-    this.tilePos = tilePosition.clone();
+  // method overloading
+  setTilePos(tilePosition: Vector2): void;
+  setTilePos(x: number, y: number): void;
+  setTilePos(...values: any[]): void {
+    if (values.length === 1) {
+      this.tilePos = values[0].clone();
+    } else {
+      this.sprite.setPosition(
+        values[0] * tileSize + this.offsetX,
+        values[1] * tileSize + this.offsetY,
+      );
+    }
   }
 
   getSprite(): GameObjects.Sprite {
