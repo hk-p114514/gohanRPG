@@ -1,16 +1,14 @@
+// assets
+import player from '@/assets/characters/dynamic/player.png';
+import mapImg from '@/assets/maps/map001.png';
 // classes
-import { Point } from 'classes/Actor';
+import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
-import { Cameras, Scene, Tilemaps } from 'phaser';
-
-// assets
-import mapImg from '@/assets/maps/map001.png';
-import player from '@/assets/characters/dynamic/player.png';
-import sample002 from '@/assets/characters/dynamic/sample002.png';
-import { Direction } from 'classes/Direction';
-
+import { system } from 'index';
+import { Scene, Tilemaps, Types } from 'phaser';
+import { playerAnims } from 'playerAnims';
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -19,20 +17,12 @@ export const assetKeys = {
   player: 'player',
 };
 
-export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
-  { key: 'walkBack', frameStart: 9, frameEnd: 11 },
-  { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
-  { key: 'walkRight', frameStart: 6, frameEnd: 8 },
-  { key: 'walkFront', frameStart: 0, frameEnd: 2 },
-];
-
-export class MapTpl extends Scene {
+export class Map extends Scene {
   public tileset?: Tilemaps.Tileset;
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
-  private controls?: Cameras.Controls.FixedKeyControl;
   public player?: Player;
-  private eventPoints?: Point[];
+  private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   constructor(private json: string, public name: string) {
@@ -43,7 +33,6 @@ export class MapTpl extends Scene {
     this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
-    this.load.image('sample002', sample002);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -52,6 +41,11 @@ export class MapTpl extends Scene {
   }
 
   public create() {
+    const space = this.input.keyboard.addKey('SPACE');
+    space.on('down', () => {
+      console.log(this.player);
+    });
+
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -59,7 +53,6 @@ export class MapTpl extends Scene {
     // 各レイヤーを紐付ける(地面とか建物とか木とか...)
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
     this.tileMapLayer = this.tileMap.createLayer('worldLayer', this.tileset, 0, 0);
-    const objects = this.tileMap.createFromObjects('npc', {});
 
     // 衝突判定を有効にする
     // this.tileMapLayer.setCollisionByProperty({ collides: true });
@@ -69,13 +62,13 @@ export class MapTpl extends Scene {
       return obj.name === 'spawnPoint';
     });
 
+    this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.name === 'event';
+    });
+    console.log(this.eventPoints);
+
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
-
-    // プレイヤーの設定
-    if (!!this.player) {
-      // this.physics.add.collider(this.player.sprite, this.tileMapLayer);
-    }
 
     // カメラの設定
     this.cameras.main.startFollow(playerSprite);
@@ -89,16 +82,20 @@ export class MapTpl extends Scene {
     this.tileMap.width;
 
     // プレイヤーを作成する
+    console.log(system);
+
     const { x, y } = spawnPoint;
-    if (x === undefined || y === undefined) return;
+    if (!x || !y) return;
     // タイルの位置を取得
     const tileX = Math.floor(x / tileSize);
     const tileY = Math.floor(y / tileSize);
     this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
 
     // グリッドの設定
-    this.gridPhysics = new GridPhysics(this.player, this.tileMap);
-    this.gridControls = new GridControls(this.input, this.gridPhysics);
+    if (this.player) {
+      this.gridPhysics = new GridPhysics(this.player, this.tileMap);
+      this.gridControls = new GridControls(this.input, this.gridPhysics);
+    }
 
     this.createAnim();
 
