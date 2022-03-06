@@ -88,8 +88,8 @@
                  "type":"",
                  "visible":true,
                  "width":40,
-                 "x":400,
-                 "y":520
+                 "x":396.57651489216,
+                 "y":516.57651489216
                 }, 
                 {
                  "gid":3,
@@ -18346,10 +18346,6 @@
          "tilecount":12,
          "tileheight":32,
          "tilewidth":32
-        }, 
-        {
-         "firstgid":1309,
-         "source":"..\/..\/.tiled\/sample002.tsx"
         }],
  "tilewidth":40,
  "type":"map",

@@ -7785,7 +7785,6 @@
  <tileset firstgid="1297" name="box1" tilewidth="32" tileheight="32" tilecount="12" columns="3">
   <image source="../src/assets/items/box1.png" width="96" height="128"/>
  </tileset>
- <tileset firstgid="1309" source="sample002.tsx"/>
  <layer id="1" name="ground" width="60" height="30">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -7864,7 +7863,7 @@
    <text wrap="1" color="#92bfff" halign="center">ちっす</text>
   </object>
   <object id="36" gid="3" x="400" y="440" width="40" height="40"/>
-  <object id="37" gid="3" x="400" y="520" width="40" height="40"/>
+  <object id="37" gid="3" x="396.577" y="516.577" width="40" height="40"/>
   <object id="38" gid="3" x="400" y="440" width="40" height="40"/>
   <object id="43" gid="3" x="400" y="440" width="40" height="40"/>
   <object id="44" name="event" gid="1" x="400" y="400" width="40" height="40"/>
