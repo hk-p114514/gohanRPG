@@ -1,9 +1,10 @@
+import { sceneKeys } from './sceneKeys';
 import { json } from 'index';
-import { MapTpl } from './Map.tpl';
+import { Map } from './Map.tpl';
 
-export class Map1 extends MapTpl {
+export class Map1 extends Map {
   constructor() {
-    super(json[0], 'map1');
+    super(json[0], sceneKeys.map1);
   }
 
   create() {
@@ -11,7 +12,7 @@ export class Map1 extends MapTpl {
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      this.scene.switch('map2');
+      this.scene.switch(sceneKeys.map2);
     });
 
     // イベントの位置を取得

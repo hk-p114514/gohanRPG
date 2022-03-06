@@ -7,11 +7,12 @@ import eatBG from '@/images/eat.jpg';
 import button from '@/images/button.png';
 import buttonOnHover from '@/images/button_onhover.png';
 import { randArr } from 'functions/generalPurpose/rand';
+import { sceneKeys } from './sceneKeys';
 
 class Preload extends Scene {
   private backgroundColor: string = '#000';
   constructor() {
-    super({ key: 'preload' });
+    super({ key: sceneKeys.preload });
   }
 
   private fontStyle: Types.GameObjects.Text.TextStyle = {
