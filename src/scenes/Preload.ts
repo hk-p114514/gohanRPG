@@ -68,13 +68,22 @@ class Preload extends Scene {
     button.on('pointerover', () => {
       button.setTexture('button_onhover');
     });
+
     // カーソルがボタンから離れた時
     button.on('pointerout', () => {
       button.setTexture('button');
     });
+
     // クリックした時
     button.on('pointerdown', () => {
-      this.scene.start('map1');
+      this.scene.start(sceneKeys.map1);
+    });
+    const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      button.setTexture('button_onhover');
+      setTimeout(() => {
+        this.scene.start(sceneKeys.map1);
+      }, 100);
     });
   }
 }
