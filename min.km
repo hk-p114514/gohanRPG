@@ -183,6 +183,14 @@
                                     }
                                 },
                                 "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqwgf37rs0",
+                                    "created": 1646667469716,
+                                    "text": "技はとりあえず攻撃力分の物理攻撃のみで進める"
+                                },
+                                "children": []
                             }
                         ]
                     }
@@ -209,6 +217,23 @@
                                     "text": "倒した時点で例外処理"
                                 },
                                 "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqxat4o3c0",
+                                    "created": 1646667535869,
+                                    "text": "　ユニークイベント"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cidqxjej6wo0",
+                                            "created": 1646667554577,
+                                            "text": "イベントシーンを作る"
+                                        },
+                                        "children": []
+                                    }
+                                ]
                             }
                         ]
                     },
