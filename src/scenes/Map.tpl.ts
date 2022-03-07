@@ -1,6 +1,8 @@
 // assets
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
+import { allInitStatus, enemies, getEnemies } from 'battleActors';
+import { BattleActor } from 'classes/BattleActor';
 // classes
 import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
@@ -22,11 +24,13 @@ export class Map extends Scene {
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
   public player?: Player;
+  public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   constructor(private json: string, public name: string) {
     super({ key: name });
+    this.enemies = getEnemies(name);
   }
 
   public preload() {
@@ -43,7 +47,8 @@ export class Map extends Scene {
   public create() {
     const space = this.input.keyboard.addKey('SPACE');
     space.on('down', () => {
-      console.log(this.player);
+      console.log(system.player);
+      system.player.levelUp();
     });
 
     // マップを作成
@@ -80,9 +85,6 @@ export class Map extends Scene {
       this.tileMap.heightInPixels,
     );
     this.tileMap.width;
-
-    // プレイヤーを作成する
-    console.log(system);
 
     const { x, y } = spawnPoint;
     if (!x || !y) return;
