@@ -16,13 +16,6 @@ export type SpriteAnims = {
 export class Actor {
   public offsetX: number = tileSize / 2;
   public offsetY: number = tileSize;
-  private anims: SpriteAnims[] = [
-    // 画像データは"ぴぽや"のキャラクターシートを使っているため、順番は固定
-    { key: 'front', start: 0, end: 2 },
-    { key: 'back', start: 3, end: 5 },
-    { key: 'left', start: 6, end: 8 },
-    { key: 'right', start: 9, end: 11 },
-  ];
   constructor(public sprite: GameObjects.Sprite, public tilePos: Vector2) {
     this.sprite.setOrigin(0.5, 1);
     this.sprite.setPosition(
