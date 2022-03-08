@@ -11,7 +11,7 @@ import mapTiles from '@/assets/maps/map001.png';
 import box1 from '@/assets/items/box1.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { gameObjectsToObjectPoints } from 'functions/generalPurpose/gameObjectsToObjectPoints';
-
+import {charas} from './../scenes/Characters';
 export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
   { key: 'walkBack', frameStart: 9, frameEnd: 11 },
   { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
@@ -24,19 +24,18 @@ export const keys = {
   image: 'mapTiles',
   player: 'player',
 };
-
+import { NPC,map } from './../scenes/exam';
 export const tileSize: number = 40;
 export const characterSize: number = 32;
 class Test2 extends Scene {
   private tileset?: Tilemaps.Tileset;
   private tileMap?: Tilemaps.Tilemap;
   private tileMapLayer?: Tilemaps.TilemapLayer;
-  private controls?: Cameras.Controls.FixedKeyControl;
   public player?: Player;
+  public npc?:NPC;
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private boxes?: Types.Physics.Arcade.SpriteWithDynamicBody[];
-
+  private flag:number=-1;
   constructor() {
     super({
       key: 'Test2',
@@ -52,9 +51,9 @@ class Test2 extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
-    this.load.spritesheet('box1', box1, {
-      frameWidth: 32,
-      frameHeight: 32,
+    this.load.spritesheet('npc1',charas[0],{
+      frameWidth: characterSize,
+      frameHeight: characterSize,
     });
   };
 
@@ -71,6 +70,12 @@ class Test2 extends Scene {
     this.tileMapLayer = this.tileMap.createLayer('ground', this.tileset, 0, 0);
     this.tileMapLayer = this.tileMap.createLayer('worldLayer', this.tileset, 0, 0);
 
+    // console.log(this.tileMap?.width,this.tileMapLayer?.width,this.tileMap?.width*12+12);
+    //this.tileMapLayer.setCollision(3);
+    //
+    //let tile = this.tileMap.getTileAt(12,11, false,'worldLayer');
+    this.tileMap.putTileAt(this.tileMap.getTileAt(0,0, false,'worldLayer'),11,11,false,'worldLayer');
+    // tile.collides=false;
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
@@ -104,13 +109,50 @@ class Test2 extends Scene {
     if (x === undefined || y === undefined) return;
     // タイルの位置を取得
     const tileX = Math.floor(x / tileSize);
-    const tileY = Math.floor(y / tileSize);
+    const tileY = Math.floor(y / tileSize)-1;
     this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
 
+    const npcSprite = this.add.sprite(0, 0, 'npc1');
+    let v=new Phaser.Math.Vector2(11,11);
+    map.set('11,11',new NPC(npcSprite, new Phaser.Math.Vector2(11,11),["nya","!"]));
+    const Shift = this.input.keyboard.addKey('SHIFT');
+    ////////////////////////////////////////////////////////////////////////////////////
+    Shift.on('down', () => {
+      if(!!this.player){
+        let xy=this.player.getTilePos();
+        let z=this.player.getdir();
+        xy.x+=map.get(z).x;
+        xy.y+=map.get(z).y;
+        if(this.flag!=-1){
+          let n=map.get(""+xy.x+","+xy.y);
+          if(n.took.length==this.flag){
+            this.flag=-1;
+          }else{
+            console.log(n.took[this.flag]);
+            ++this.flag;
+          }
+        }else if(!!map.has(""+xy.x+","+xy.y)){
+          //this.scene.pause();
+          let n=map.get(""+xy.x+","+xy.y);
+          switch(z){
+            case "up":n.startAnimation("NDOWN");break;
+            case "down":n.startAnimation("NUP");break;
+            case "left":n.startAnimation("NRIGHT");break;
+            case "right":n.startAnimation("NLEFT");break;
+          }
+          //n.startAnimation("NUP");
+          console.log(n.took[0]);
+          this.flag=1;
+        }else{
+          console.log("?");
+        }
+      }
+    });
+    ////////////////////////////////////////////////////////////////////////////////////
     // グリッドの設定
     this.gridPhysics = new GridPhysics(this.player, this.tileMap);
     this.gridControls = new GridControls(this.input, this.gridPhysics);
-
+    
     // プレイヤーのアニメーション
     this.createPlayerAnimation(
       Direction.UP,
@@ -142,8 +184,10 @@ class Test2 extends Scene {
   };
 
   update = (_time: number, delta: number) => {
-    this.gridControls?.update();
-    this.gridPhysics?.update(delta);
+    if(this.flag==-1){
+      this.gridControls?.update();
+      this.gridPhysics?.update(delta);
+    }
   };
 
   private createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
@@ -158,24 +202,37 @@ class Test2 extends Scene {
       yoyo: true,
     });
   }
-
-  private initBoxes = (): void => {
-    const points = this.tileMap?.filterObjects('boxes', (obj) => obj.name === 'boxPoint');
-    if (!points) return;
-    const boxPoints = gameObjectsToObjectPoints(points);
-    this.boxes = boxPoints.map((point) =>
-      this.physics.add.sprite(point.x, point.y, 'box1', 2).setScale(1),
-    );
-    const sprite = this.player?.getSprite();
-    if (!sprite) return;
-    this.boxes.forEach((box) => {
-      this.physics.add.overlap(sprite, box, (obj1, obj2) => {
-        obj2.destroy();
-        this.cameras.main.flash();
-      });
+  private createNpcAnimation(name: string, Frame: number) {
+    this.anims.create({
+      key: name,
+      frames: this.anims.generateFrameNumbers('npc1', {
+        start: Frame,
+        end: Frame,
+      }),
+      frameRate: 0,
+      repeat: 0,
+      yoyo: true,
     });
+  }
+  private initBoxes = (): void => {
+    this.createNpcAnimation(
+      'NUP',
+      playerAnims[0].frameStart,
+    );
+    this.createNpcAnimation(
+      'NLEFT',
+      playerAnims[1].frameStart,
+    );
+    this.createNpcAnimation(
+      'NRIGHT',
+      playerAnims[2].frameStart,
+    );
+    this.createNpcAnimation(
+      'NDOWN',
+      playerAnims[3].frameStart,
+    );
   };
-
+  
   public printMessage = (message: string) => {
     this.add
       .text(16, 16, message, {

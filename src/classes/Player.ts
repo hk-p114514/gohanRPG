@@ -19,9 +19,9 @@ export class Player {
       tilePos.x * tileSize + offsetX,
       tilePos.y * tileSize + offsetY,
     );
-    this.sprite.setFrame(playerAnims[playerAnims.length - 1].frameStart);
+    this.sprite.setFrame(/*playerAnims[playerAnims.length - 1].frameStart*/1);
   }
-
+  public dir:string="down";
   getPosition(): Vector2 {
     return this.sprite.getBottomCenter();
   }
@@ -35,10 +35,12 @@ export class Player {
     const standingFrame = animationManager.get(direction).frames[1].frame.name;
     this.sprite.anims.stop();
     this.sprite.setFrame(standingFrame);
+    this.dir=direction;
   }
 
   startAnimation(direction: Direction) {
     this.sprite.anims.play(direction);
+    this.dir=direction;
   }
 
   getTilePos(): Vector2 {
@@ -51,5 +53,9 @@ export class Player {
 
   getSprite(): GameObjects.Sprite {
     return this.sprite;
+  }
+
+  getdir():string{
+    return this.dir;
   }
 }
