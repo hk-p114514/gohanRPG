@@ -1,4 +1,5 @@
-import { randF } from './../functions/generalPurpose/rand';
+import { oneShotAttack } from 'skills';
+import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -23,6 +24,7 @@ export class BattleActor {
   atk: number;
   def: number;
   speed: number;
+  skills: Function[] = [oneShotAttack];
   constructor(
     name: string,
     level: Level,
@@ -72,17 +74,27 @@ export class BattleActor {
     return 0;
   }
 
-  beInjured(damage: number) {
+  // 被ダメ
+  beInjured(damage: number): void {
     this.hp.current -= Math.floor(damage - damage / this.def);
     if (this.hp.current < 0) {
       this.hp.current = 0;
     }
   }
 
-  beHealed(heal: number) {
+  // 回復
+  beHealed(heal: number): void {
     this.hp.current += Math.floor(heal);
     if (this.hp.current > this.hp.max) {
       this.hp.current = this.hp.max;
     }
+  }
+
+  getRandSkill(): Function {
+    return this.skills[randI(this.skills.length)];
+  }
+
+  isDead(): boolean {
+    return this.hp.current <= 0;
   }
 }

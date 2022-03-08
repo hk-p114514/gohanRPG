@@ -1,5 +1,5 @@
 import { BattleActor, Level, LimitValue } from 'classes/BattleActor';
-import { SceneKeys, sceneKeys } from 'scenes/sceneKeys';
+import { sceneKeys } from 'scenes/sceneKeys';
 
 const level1: Level = { current: 1, exp: 0, toNext: 5, max: 100 };
 const initHp: LimitValue = { current: 5, max: 5 };
@@ -11,7 +11,10 @@ const initSpeed: number = 5;
 export const allInitStatus = (name: string): BattleActor =>
   new BattleActor(name, level1, initHp, initMp, initAtk, initDef, initSpeed);
 
-export const players: BattleActor[] = [allInitStatus('player'), allInitStatus('sub1')];
+export const playersParty: BattleActor[] = [
+  allInitStatus('player'),
+  allInitStatus('sub1'),
+];
 
 export const enemies = new Map<string, BattleActor[]>([
   [

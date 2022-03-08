@@ -8,13 +8,13 @@ import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { players } from 'battleActors';
+import { playersParty } from 'battleActors';
 
 // 使用するシーンをまとめる
 const scenes = [Preload, Map1, Map2];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map1, players[0]);
+export const system = new System(sceneKeys.map1, playersParty[0]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [mapJson1, mapJson2];
