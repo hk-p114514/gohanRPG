@@ -6,36 +6,35 @@ import { Map1 } from 'scenes/Map1';
 import { Map2 } from 'scenes/Map2';
 import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
+import { System } from 'classes/System';
+import { sceneKeys } from 'scenes/sceneKeys';
+import { players } from 'battleActors';
 
 // 使用するシーンをまとめる
 const scenes = [Preload, Map1, Map2];
+// const scenes = [Map1, Map2];
+
+export const system = new System(sceneKeys.map1, players[0]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [mapJson1, mapJson2];
 
-window.onload = () => {
-  // 画面いっぱいに表示されるようにする
-  const height = H();
-  const width = W();
-
-  class Main extends Game {
-    constructor() {
-      const config: Types.Core.GameConfig = {
-        type: AUTO,
-        backgroundColor: '#123456',
-        width: width,
-        height: height,
-        scene: scenes,
-        physics: {
-          default: 'arcade',
-          arcade: {
-            gravity: { y: 0 },
-          },
+class Main extends Game {
+  constructor() {
+    const config: Types.Core.GameConfig = {
+      type: AUTO,
+      backgroundColor: '#123456',
+      width: W(),
+      height: H(),
+      scene: scenes,
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 0 },
         },
-      };
-      super(config);
-    }
+      },
+    };
+    super(config);
   }
-
-  const game: Game = new Main();
-};
+}
+export const game: Game = new Main();

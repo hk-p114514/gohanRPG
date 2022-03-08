@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="48">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="30" tilewidth="40" tileheight="40" infinite="0" nextlayerid="6" nextobjectid="49">
  <editorsettings>
   <export target="../src/json/map001.json" format="json"/>
  </editorsettings>
@@ -7863,7 +7863,7 @@
    <text wrap="1" color="#92bfff" halign="center">ちっす</text>
   </object>
   <object id="36" gid="3" x="400" y="440" width="40" height="40"/>
-  <object id="37" gid="3" x="400" y="520" width="40" height="40"/>
+  <object id="37" gid="3" x="396.577" y="516.577" width="40" height="40"/>
   <object id="38" gid="3" x="400" y="440" width="40" height="40"/>
   <object id="43" gid="3" x="400" y="440" width="40" height="40"/>
   <object id="44" name="event" gid="1" x="400" y="400" width="40" height="40"/>
