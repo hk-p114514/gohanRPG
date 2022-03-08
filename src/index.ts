@@ -1,3 +1,4 @@
+import { Battle } from './scenes/Battle';
 import { AUTO, Game, Types } from 'phaser';
 import mapJson1 from '@/json/map001.json';
 import mapJson2 from '@/json/map002.json';
@@ -11,7 +12,7 @@ import { sceneKeys } from 'scenes/sceneKeys';
 import { playersParty } from 'battleActors';
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Map1, Map2];
+const scenes = [Preload, Map1, Map2, Battle];
 // const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map1, playersParty[0]);

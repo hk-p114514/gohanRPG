@@ -30,6 +30,8 @@ export const enemies = new Map<string, BattleActor[]>([
   ],
 ]);
 
+export const getGhost = (): BattleActor => allInitStatus('ghost');
+
 export const getEnemies = (key: string): BattleActor[] => {
-  return enemies.get(key) || [allInitStatus('ghost')];
+  return enemies.get(key) || [getGhost()];
 };

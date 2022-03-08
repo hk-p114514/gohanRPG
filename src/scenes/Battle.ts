@@ -1,27 +1,30 @@
-import { getEnemies, playersParty } from 'battleActors';
+import { getEnemies, getGhost, playersParty } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { Scene } from 'phaser';
+import { sceneKeys } from './sceneKeys';
 
 export class Battle extends Scene {
-  private players: BattleActor[];
-  private enemies: BattleActor[];
-  private sorted: BattleActor[];
+  private players: BattleActor[] = playersParty;
+  private enemies: BattleActor[] = getEnemies(system.map);
+  private sorted: BattleActor[] = [...this.players, ...this.enemies].sort((a, b) => {
+    return b.speed - a.speed;
+  });
   constructor() {
-    super({ key: 'battle' });
-    this.players = playersParty;
-    this.enemies = getEnemies(system.map);
-    // playersとenemiesを.speedでソート(降順)し、sortedに入れる
-    this.sorted = [...this.players, ...this.enemies].sort((a, b) => {
-      return b.speed - a.speed;
-    });
+    super({ key: sceneKeys.battle });
   }
 
-  preload() {}
+  preload() {
+    console.log('preload');
+    console.log('end preload');
+  }
 
-  create() {}
+  create() {
+    console.log('create');
+  }
 
   update() {
+    console.log('update');
     /**
      * バトルのループ
      * 1.敵味方のどちらかのHPが0になっていれば元いたマップに戻る
@@ -30,17 +33,28 @@ export class Battle extends Scene {
      * 4.1へ戻る
      */
     const isEnd = this.isEndBattle(this.players, this.enemies);
-    switch (isEnd) {
-      case 1:
-        console.log('WIN');
-      case 2:
-        console.log('LOSE');
-      case 3:
-        this.scene.wake(system.map);
-        break;
+    console.log(`isEnd: ${isEnd}`);
+
+    if (isEnd != 0) {
+      switch (isEnd) {
+        case 1:
+          console.log('player win');
+          break;
+        case 2:
+          console.log('enemy win');
+          break;
+        case 3:
+          console.log('draw');
+          break;
+      }
+      // exit battle scene
+      this.scene.sleep(this);
+      this.scene.switch(system.map);
     }
 
     for (const actor of this.sorted) {
+      actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
+      console.log(actor.name + ': ' + actor.hp.current);
     }
   }
 
@@ -50,6 +64,20 @@ export class Battle extends Scene {
         return group;
       }
     });
+  }
+
+  getEnemyGroup(
+    subject: BattleActor,
+    group1: BattleActor[],
+    group2: BattleActor[],
+  ): BattleActor[] {
+    if (group1.includes(subject)) {
+      return group2;
+    } else if (group2.includes(subject)) {
+      return group1;
+    }
+
+    return [getGhost()];
   }
 
   /**

@@ -1,4 +1,4 @@
-import { oneShotAttack } from 'skills';
+import { oneShotAttack, SkillFunction } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
   // 現在のレベル
@@ -24,7 +24,8 @@ export class BattleActor {
   atk: number;
   def: number;
   speed: number;
-  skills: Function[] = [oneShotAttack];
+  // 引数にskillArgを持つ関数の配列を持つ
+  skills: SkillFunction[] = [oneShotAttack];
   constructor(
     name: string,
     level: Level,
@@ -90,7 +91,7 @@ export class BattleActor {
     }
   }
 
-  getRandSkill(): Function {
+  getRandSkill(): SkillFunction {
     return this.skills[randI(this.skills.length)];
   }
 
