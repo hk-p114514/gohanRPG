@@ -1,8 +1,7 @@
-import { tileSize } from './../scenes/Test2';
-import { GameScene } from './../scenes/GameScene';
 import { Direction } from './Direction';
 import { Player } from './Player';
 import * as Phaser from 'phaser';
+import { tileSize } from 'scenes/Map.tpl';
 
 const Vector2 = Phaser.Math.Vector2;
 type Vector2 = Phaser.Math.Vector2;

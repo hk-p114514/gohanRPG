@@ -8,8 +8,8 @@ import { Player } from './../classes/Player';
 // assets
 import mapJson from '@/json/map001.json';
 import mapTiles from '@/assets/maps/map001.png';
-import box1 from '@/assets/items/box1.png';
 import player from '@/assets/characters/dynamic/player.png';
+
 import { gameObjectsToObjectPoints } from 'functions/generalPurpose/gameObjectsToObjectPoints';
 import {charas} from './../scenes/Characters';
 export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
@@ -21,31 +21,35 @@ export const playerAnims: { key: string; frameStart: number; frameEnd: number }[
 
 export const keys = {
   json: 'mapJson',
+
   image: 'mapTiles',
+  json: 'json1',
   player: 'player',
 };
+
 import { NPC,map } from './../scenes/exam';
 export const tileSize: number = 40;
 export const characterSize: number = 32;
+
 class Test2 extends Scene {
   private tileset?: Tilemaps.Tileset;
   private tileMap?: Tilemaps.Tilemap;
   private tileMapLayer?: Tilemaps.TilemapLayer;
   public player?: Player;
+
   public npc?:NPC;
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   private flag:number=-1;
+
   constructor() {
-    super({
-      key: 'Test2',
-    });
+    super({ key: 'Test2' });
   }
 
   preload = () => {
     this.load.image(keys.image, mapTiles);
     this.load.tilemapTiledJSON(keys.json, mapJson);
-    this.load.image('mapTiles', mapTiles);
+    this.load.image(keys.image, mapTiles);
 
     this.load.spritesheet('player', player, {
       frameWidth: characterSize,
@@ -55,6 +59,7 @@ class Test2 extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
+
   };
 
   create = () => {
@@ -79,12 +84,28 @@ class Test2 extends Scene {
     // 衝突判定を有効にする
     this.tileMapLayer.setCollisionByProperty({ collides: true });
 
-    // デバッグ用に衝突判定を表示
-    // Test2.debug(this, this.tileMapLayer);
-
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
+
+    const events = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.name === 'event';
+    });
+
+    this.eventPoints = events.map((event) => {
+      const { x, y } = event;
+      if (!!x && !!y) {
+        return { x: x / tileSize, y: y / tileSize };
+      }
+
+      return { x: -1, y: -1 };
+    });
+    console.log(this.eventPoints);
+
+    // 0: {x: 10, y: 10}
+    // 1: {x: 10, y: 2}
+    // 2: {x: 2, y: 20}
+    // 3: {x: 1, y: 2}
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
@@ -152,6 +173,7 @@ class Test2 extends Scene {
     // グリッドの設定
     this.gridPhysics = new GridPhysics(this.player, this.tileMap);
     this.gridControls = new GridControls(this.input, this.gridPhysics);
+
     
     // プレイヤーのアニメーション
     this.createPlayerAnimation(
@@ -176,6 +198,7 @@ class Test2 extends Scene {
     );
 
     this.initBoxes();
+
 
     this.printMessage(`Arrow keys to move\nPress "D" to show hitboxes\n`);
 
