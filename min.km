@@ -183,6 +183,14 @@
                                     }
                                 },
                                 "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqwgf37rs0",
+                                    "created": 1646667469716,
+                                    "text": "技はとりあえず攻撃力分の物理攻撃のみで進める"
+                                },
+                                "children": []
                             }
                         ]
                     }
@@ -209,6 +217,23 @@
                                     "text": "倒した時点で例外処理"
                                 },
                                 "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqxat4o3c0",
+                                    "created": 1646667535869,
+                                    "text": "　ユニークイベント"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cidqxjej6wo0",
+                                            "created": 1646667554577,
+                                            "text": "イベントシーンを作る"
+                                        },
+                                        "children": []
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -226,6 +251,177 @@
                                     "text": "スタート画面がある"
                                 },
                                 "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "cib5gxtjjxs0",
+                    "created": 1646403890548,
+                    "text": "イベントを発生できる"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cib5h4zcgkg0",
+                            "created": 1646403906136,
+                            "text": "特定のタイル（座標）\nに乗った時にイベントを発火"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cib5iao9how0",
+                                    "created": 1646403996891,
+                                    "text": "とりあえず場所は固定で動作"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cib5j8gm4gw0",
+                                    "created": 1646404070439,
+                                    "text": "イベント",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cib65rlav5s0",
+                                            "created": 1646405836093,
+                                            "text": "固定イベント"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib66ileijk0",
+                                                    "created": 1646405894872,
+                                                    "text": "マップのオブジェクトレイヤーから"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib65x05neo0",
+                                                    "created": 1646405847875,
+                                                    "text": "ただの会話"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib65zzb7mg0",
+                                                    "created": 1646405854354,
+                                                    "text": "ボス戦等"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib65urpi0w0",
+                                            "created": 1646405843010,
+                                            "text": "ランダムイベント"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib66wbwyug0",
+                                                    "created": 1646405924773,
+                                                    "text": "プログラムから"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib663a6kww0",
+                                                    "created": 1646405861542,
+                                                    "text": "通常敵遭遇"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib6687nak00",
+                                                    "created": 1646405872272,
+                                                    "text": "その他トラップ等"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib6g80qns00",
+                                            "created": 1646406655496,
+                                            "text": "メンバ"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib6gi3muh40",
+                                                    "created": 1646406677439,
+                                                    "text": "実行する座標"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib6gl9b83s0",
+                                            "created": 1646406684313,
+                                            "text": "メソッド"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib6gmge0gg0",
+                                                    "created": 1646406686917,
+                                                    "text": "実行内容"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "cib5jk49sj40",
+                                    "created": 1646404095814,
+                                    "text": "一度切り or 座標に乗るたび\nイベントそのものかタイルにフラグを持たせる"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cib5kpa5syg0",
+                                            "created": 1646404185418,
+                                            "text": "イベントをタイルに"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib5ktatxcw0",
+                                                    "created": 1646404194166,
+                                                    "text": "乗っている間"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib5kzp7pt40",
+                                                    "created": 1646404208096,
+                                                    "text": "乗った瞬間に一回",
+                                                    "progress": 9
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }

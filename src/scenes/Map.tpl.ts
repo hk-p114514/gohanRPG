@@ -1,8 +1,14 @@
+// assets
+import player from '@/assets/characters/dynamic/player.png';
+import mapImg from '@/assets/maps/map001.png';
+import { getEnemies } from 'battleActors';
+import { BattleActor } from 'classes/BattleActor';
 // classes
-import { Point } from 'classes/Actor';
+import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+
 import { Cameras, Scene, Tilemaps } from 'phaser';
 import { DialogBox } from 'classes/DialogBox';
 import { DialogBoxConfig } from 'classes/DialogBox';
@@ -13,6 +19,12 @@ import mapImg from '@/assets/maps/map001.png';
 import player from '@/assets/characters/dynamic/player.png';
 import { Direction } from 'classes/Direction';
 
+
+import { system } from 'index';
+import { Scene, Tilemaps, Types } from 'phaser';
+import { playerAnims } from 'playerAnims';
+import { sceneKeys } from './sceneKeys';
+
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -21,25 +33,26 @@ export const assetKeys = {
   player: 'player',
 };
 
-export const playerAnims: { key: string; frameStart: number; frameEnd: number }[] = [
-  { key: 'walkBack', frameStart: 9, frameEnd: 11 },
-  { key: 'walkLeft', frameStart: 3, frameEnd: 5 },
-  { key: 'walkRight', frameStart: 6, frameEnd: 8 },
-  { key: 'walkFront', frameStart: 0, frameEnd: 2 },
-];
-
-export class MapTpl extends Scene {
-  private tileset?: Tilemaps.Tileset;
-  private tileMap?: Tilemaps.Tilemap;
-  private tileMapLayer?: Tilemaps.TilemapLayer;
-  private controls?: Cameras.Controls.FixedKeyControl;
+export class Map extends Scene {
+  public tileset?: Tilemaps.Tileset;
+  public tileMap?: Tilemaps.Tilemap;
+  public tileMapLayer?: Tilemaps.TilemapLayer;
   public player?: Player;
+
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   private dialogBox?: DialogBox;
   private eventPoints?: Phaser.Types.Tilemaps.TiledObject[];
+  public enemies: BattleActor[];
+  private eventPoints?: Types.Tilemaps.TiledObject[];
+  private gridControls?: GridControls;
+  private gridPhysics?: GridPhysics;
+  private mapName: string;
+
   constructor(private json: string, public name: string) {
     super({ key: name });
+    this.enemies = getEnemies(name);
+    this.mapName = name;
   }
 
   public preload() {
@@ -54,6 +67,18 @@ export class MapTpl extends Scene {
   }
 
   public create() {
+    const space = this.input.keyboard.addKey('SPACE');
+    space.on('down', () => {
+      console.log(system.player);
+      system.player.levelUp();
+    });
+    const B = this.input.keyboard.addKey('B');
+    // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
+    B.on('down', () => {
+      this.cameras.main.shake(500);
+      this.scene.switch(sceneKeys.battle);
+    });
+
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -63,7 +88,7 @@ export class MapTpl extends Scene {
     this.tileMapLayer = this.tileMap.createLayer('worldLayer', this.tileset, 0, 0);
 
     // 衝突判定を有効にする
-    this.tileMapLayer.setCollisionByProperty({ collides: true });
+    // this.tileMapLayer.setCollisionByProperty({ collides: true });
 
     // プレイヤーの初期位置を取得
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
@@ -74,14 +99,10 @@ export class MapTpl extends Scene {
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
+    console.log(this.eventPoints);
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
-
-    // プレイヤーの設定
-    if (!!this.player) {
-      // this.physics.add.collider(this.player, this.tileMapLayer);
-    }
 
     // カメラの設定
     this.cameras.main.startFollow(playerSprite);
@@ -92,18 +113,20 @@ export class MapTpl extends Scene {
       this.tileMap.widthInPixels,
       this.tileMap.heightInPixels,
     );
+    this.tileMap.width;
 
-    // プレイヤーを作成する
     const { x, y } = spawnPoint;
-    if (x === undefined || y === undefined) return;
+    if (!x || !y) return;
     // タイルの位置を取得
     const tileX = Math.floor(x / tileSize);
     const tileY = Math.floor(y / tileSize);
     this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
 
     // グリッドの設定
-    this.gridPhysics = new GridPhysics(this.player, this.tileMap);
-    this.gridControls = new GridControls(this.input, this.gridPhysics);
+    if (this.player) {
+      this.gridPhysics = new GridPhysics(this.player, this.tileMap);
+      this.gridControls = new GridControls(this.input, this.gridPhysics);
+    }
 
     this.createAnim();
 
@@ -210,5 +233,17 @@ export class MapTpl extends Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
+  }
+
+  startMap(to: string): void {
+    system.map = to;
+    console.log(system.map);
+    this.scene.start(to);
+  }
+
+  switchMap(to: string): void {
+    system.map = to;
+    console.log(system.map);
+    this.scene.switch(to);
   }
 }
