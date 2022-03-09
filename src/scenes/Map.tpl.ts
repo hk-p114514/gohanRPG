@@ -8,20 +8,13 @@ import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
-
 import { Cameras, Scene, Tilemaps } from 'phaser';
 import { DialogBox } from 'classes/DialogBox';
 import { DialogBoxConfig } from 'classes/DialogBox';
 import { W } from 'functions/DOM/windowInfo';
 
-// assets
-import mapImg from '@/assets/maps/map001.png';
-import player from '@/assets/characters/dynamic/player.png';
-import { Direction } from 'classes/Direction';
-
-
 import { system } from 'index';
-import { Scene, Tilemaps, Types } from 'phaser';
+import { Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
 
@@ -42,11 +35,8 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   private dialogBox?: DialogBox;
-  private eventPoints?: Phaser.Types.Tilemaps.TiledObject[];
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
-  private gridControls?: GridControls;
-  private gridPhysics?: GridPhysics;
   private mapName: string;
 
   constructor(private json: string, public name: string) {
