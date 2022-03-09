@@ -138,7 +138,8 @@
                                                             "id": "chh4xx2tkig0",
                                                             "created": 1643355601313,
                                                             "text": "乗った時のイベント",
-                                                            "expandState": "expand"
+                                                            "expandState": "expand",
+                                                            "progress": null
                                                         },
                                                         "children": []
                                                     }

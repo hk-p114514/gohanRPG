@@ -1,4 +1,3 @@
-import { GameScene } from './../scenes/GameScene';
 import { Direction } from './Direction';
 import { Player } from './Player';
 import * as Phaser from 'phaser';
