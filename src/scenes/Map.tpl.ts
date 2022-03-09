@@ -8,10 +8,23 @@ import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+
+import { Cameras, Scene, Tilemaps } from 'phaser';
+import { DialogBox } from 'classes/DialogBox';
+import { DialogBoxConfig } from 'classes/DialogBox';
+import { W } from 'functions/DOM/windowInfo';
+
+// assets
+import mapImg from '@/assets/maps/map001.png';
+import player from '@/assets/characters/dynamic/player.png';
+import { Direction } from 'classes/Direction';
+
+
 import { system } from 'index';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
+
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -25,11 +38,17 @@ export class Map extends Scene {
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
   public player?: Player;
+
+  private gridControls?: GridControls;
+  private gridPhysics?: GridPhysics;
+  private dialogBox?: DialogBox;
+  private eventPoints?: Phaser.Types.Tilemaps.TiledObject[];
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   private mapName: string;
+
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
@@ -76,6 +95,7 @@ export class Map extends Scene {
       return obj.name === 'spawnPoint';
     });
 
+    // イベントの位置を取得
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
@@ -112,9 +132,53 @@ export class Map extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
+
+    //Dialog==================================================================
+
+    // 設定
+    const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
+      fontFamily:
+        '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
+      fontSize: '24px',
+    };
+    const dialogBoxConfig: DialogBoxConfig = {
+      x: 600,
+      y: 700,
+      width: W(),
+      height: 200,
+      padding: 0,
+      margin: 0,
+      textStyle: textStyle,
+      backGroundColor: 0xde000000,
+      frameColor: 0xffffff,
+    };
+    this.dialogBox = new DialogBox(this, dialogBoxConfig);
+
+    this.dialogBox.setText('クリックでエンディングへ ▼');
+    this.dialogBox.setActorNameText('NAME');
+    //Dialog==================================================================
   }
 
   public update(_time: number, delta: number) {
+    if (!!this.eventPoints) {
+      this.eventPoints.forEach((event) => {
+        const { x, y } = event;
+        if (!x || !y) {
+          /*
+           * xかyが...
+           */
+          return;
+        }
+        if (!this.dialogBox) return;
+        if (
+          this.player?.getTilePos().x === x / tileSize &&
+          this.player?.getTilePos().y === y / tileSize
+        ) {
+          this.add.existing(this.dialogBox);
+        }
+      });
+    }
+
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   }
