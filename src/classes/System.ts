@@ -18,6 +18,7 @@ export class System {
     if (from.scene.key === to) {
       return 1;
     }
+    this.map = to;
     from.scene.start(to);
 
     return 0;

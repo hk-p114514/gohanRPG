@@ -4,6 +4,7 @@ export const sceneKeys = {
   map1: 'map1',
   map2: 'map2',
   battle: 'battle',
+  ui: 'ui',
 };
 
 export type SceneKeys = keyof typeof sceneKeys;

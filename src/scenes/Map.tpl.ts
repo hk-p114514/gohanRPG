@@ -56,7 +56,7 @@ export class Map extends Scene {
     const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     B.on('down', () => {
-      this.cameras.main.shake(500);
+      // this.cameras.main.shake(500);
       this.scene.switch(sceneKeys.battle);
     });
 
@@ -93,7 +93,6 @@ export class Map extends Scene {
       this.tileMap.widthInPixels,
       this.tileMap.heightInPixels,
     );
-    this.tileMap.width;
 
     const { x, y } = spawnPoint;
     if (!x || !y) return;
