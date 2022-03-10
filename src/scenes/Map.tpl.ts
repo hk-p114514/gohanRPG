@@ -11,6 +11,8 @@ import { Player } from 'classes/Player';
 import { system } from 'index';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
+import {charas} from 'classes/Characters';
+import {NPC,map} from 'classes/exam'
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -28,11 +30,11 @@ export class Map extends Scene {
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
+  public flag:number=-1;
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
   }
-
   public preload() {
     this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
@@ -43,14 +45,22 @@ export class Map extends Scene {
       frameHeight: characterSize,
     });
   }
-
+  public npcs=new Array();
+  public cn:number=0;
+  public makeNPC(char:number,x:number,y:number,took:Array<string>,eve?:Function){
+    this.load.spritesheet(system.map+','+'npc'+this.cn,charas[char], {
+      frameWidth: characterSize,
+      frameHeight: characterSize,
+    });
+    this.npcs.push([x,y,took.concat(),(eve===undefined?()=>{}:eve)]);
+    ++this.cn;
+  }
   public create() {
     const space = this.input.keyboard.addKey('SPACE');
     space.on('down', () => {
       console.log(system.player);
       system.player.levelUp();
     });
-
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -98,8 +108,53 @@ export class Map extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-
     this.createAnim();
+    const shift = this.input.keyboard.addKey('SHIFT');
+    shift.on('down', () => {
+      if(!!this.player){
+        let xy=this.player.getTilePos();
+        let z=this.player.getdir();
+        xy.x+=map.get(z).x;
+        xy.y+=map.get(z).y;
+        if(this.flag!=-1){
+          let n=map.get(system.map+','+xy.x+","+xy.y);
+          if(n.took.length<=this.flag){
+            this.flag=-1;
+            n.event();
+          }else{
+            console.log(n.took[this.flag]);
+            ++this.flag;
+          }
+        }else if(!!map.has(system.map+','+xy.x+","+xy.y)){
+          let n=map.get(system.map+','+xy.x+","+xy.y);
+          if(n.object=='npc'){
+            switch(z){
+              case "up":n.changedir("NDOWN");break;
+              case "down":n.changedir("NUP");break;
+              case "left":n.changedir("NRIGHT");break;
+              case "right":n.changedir("NLEFT");break;
+            }
+          }else if(n.object=='box'){
+
+          }
+          console.log(n.took[0]);
+          this.flag=1;
+        }else{
+          console.log("?");
+        }
+        console.log(system.map+','+xy.x+","+xy.y);
+      }
+    });
+    for(let i=0;i<this.cn;++i){
+      //console.log(system.map);
+      let l=this.add.sprite(0, 0, system.map+','+'npc'+i);
+      map.set(system.map+','+this.npcs[i][0]+','+this.npcs[i][1],
+      new NPC(i,l, new Phaser.Math.Vector2(
+        this.npcs[i][0],this.npcs[i][1]),
+        this.npcs[i][2],this.npcs[i][3]));
+        this.tileMap.putTileAt(this.tileMap.getTileAt(0,0, false,'worldLayer'),this.npcs[i][0],this.npcs[i][1],false,'worldLayer');
+        console.log(system.map+','+this.npcs[i][0]+','+this.npcs[i][1]);
+    }
 
     // Debug graphics
     this.enableDebugMode();
