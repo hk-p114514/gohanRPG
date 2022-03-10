@@ -36,6 +36,7 @@ export class DialogBox extends Phaser.GameObjects.Container {
   ) {
     // Phaser.GameObjects.Containerのコンストラクタ
     super(scene, 0, 0);
+    this.height = height;
 
     // 白枠付きの黒いRectangleを作成
     this.box = new Phaser.GameObjects.Rectangle(

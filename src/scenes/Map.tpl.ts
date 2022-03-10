@@ -9,9 +9,11 @@ import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 import { Cameras, Scene, Tilemaps } from 'phaser';
-import { DialogBox } from 'classes/DialogBox';
-import { DialogBoxConfig } from 'classes/DialogBox';
-import { W } from 'functions/DOM/windowInfo';
+import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
+import { W, H } from 'functions/DOM/windowInfo';
+import { TimelinePlayer } from 'classes/TimelinePlayer';
+import { Timeline } from 'classes/Timeline';
+import { timelineData } from 'classes/timelineWords';
 
 import { system } from 'index';
 import { Types } from 'phaser';
@@ -34,6 +36,8 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   private dialogBox?: DialogBox;
+  private timelinePlayer?: TimelinePlayer;
+  private timeline?: Timeline;
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
@@ -48,6 +52,20 @@ export class Map extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
+  }
+
+  init(data: any) {
+    // this.scene.restart()の第1引数もしくは
+    // this.scene.start()の第2引数に指定されたオブジェクトがdataに渡される
+    const timelineID = data.timelineID || 'start';
+
+    if (!(timelineID in timelineData)) {
+      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
+      // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
+      this.scene.start('title');
+      return;
+    }
+    this.timeline = timelineData[timelineID];
   }
 
   public create() {
@@ -120,20 +138,18 @@ export class Map extends Scene {
       fontSize: '24px',
     };
     const dialogBoxConfig: DialogBoxConfig = {
-      x: 600,
-      y: 700,
-      width: W(),
-      height: 200,
+      x: 0,
+      y: 0,
+      width: W() - tileSize * 2,
+      height: H() / 3,
       padding: 0,
       margin: 0,
       textStyle: textStyle,
-      backGroundColor: 0xde000000,
-      frameColor: 0xffffff,
+      backGroundColor: 0x000000,
+      frameColor: 0xff0000,
     };
     this.dialogBox = new DialogBox(this, dialogBoxConfig);
-
-    this.dialogBox.setText('クリックでエンディングへ ▼');
-    this.dialogBox.setActorNameText('NAME');
+    this.timelinePlayer = new TimelinePlayer(this, this.dialogBox, textStyle);
     //Dialog==================================================================
   }
 
@@ -141,18 +157,18 @@ export class Map extends Scene {
     if (!!this.eventPoints) {
       this.eventPoints.forEach((event) => {
         const { x, y } = event;
-        if (!x || !y) {
-          /*
-           * xかyが...
-           */
-          return;
-        }
+        if (!x || !y) return;
         if (!this.dialogBox) return;
+        if (!this.timelinePlayer || !this.timeline) return;
+        // プレイヤーの位置とタイルのイベントの位置が同じだったら...
         if (
           this.player?.getTilePos().x === x / tileSize &&
           this.player?.getTilePos().y === y / tileSize
         ) {
-          this.add.existing(this.dialogBox);
+          this.dialogBox.x = this.cameras.main.scrollX + W() / 2;
+          this.dialogBox.y =
+            this.cameras.main.scrollY + H() - this.dialogBox.height / 2 - tileSize;
+          this.timelinePlayer.start(this.timeline);
         }
       });
     }
