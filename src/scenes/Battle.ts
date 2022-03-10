@@ -1,7 +1,8 @@
 import { getEnemies, getGhost, playersParty } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
-import { GameObjects, Scene } from 'phaser';
+import { GameObjects, Scene, Time } from 'phaser';
+import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
 
 export class Battle extends Scene {
@@ -10,15 +11,14 @@ export class Battle extends Scene {
   private sorted: BattleActor[] = [...this.players, ...this.enemies].sort((a, b) => {
     return b.speed - a.speed;
   });
-  private isPassedPreload: boolean = false;
   private actorIndex: number = 0;
+  timerOneShot?: Time.TimerEvent;
+  elapsedTime: number = 0;
   constructor() {
     super({ key: sceneKeys.battle });
   }
 
-  preload() {
-    this.isPassedPreload = true;
-  }
+  preload() {}
 
   create() {
     this.cameras.main.setBackgroundColor('rgba(0, 100, 150, 0.5)');
@@ -37,7 +37,7 @@ export class Battle extends Scene {
     this.actorIndex %= this.sorted.length - 1;
   }
 
-  update() {
+  update(time: number, delta: number) {
     /**
      * バトルのループ
      * 1.敵味方のどちらかのHPが0になっていれば元いたマップに戻る
@@ -45,6 +45,13 @@ export class Battle extends Scene {
      * 3.属していない方の配列を対象に攻撃をする
      * 4.1へ戻る
      */
+    const enter = this.input.keyboard.addKey('ENTER');
+    if (this.isEndBattle(this.players, this.enemies) != 0) {
+      this.scene.switch(system.map);
+    }
+    for (const actor of this.sorted) {
+      actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
+    }
   }
 
   nextTurn() {
