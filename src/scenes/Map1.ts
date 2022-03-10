@@ -20,6 +20,7 @@ export class Map1 extends Map {
     enter.on('down', () => {
       system.map=sceneKeys.map2;
       this.scene.switch(sceneKeys.map2);
+      // this.startMap(sceneKeys.map2);
     });
 
     // イベントの位置を取得

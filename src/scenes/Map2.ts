@@ -20,6 +20,8 @@ export class Map2 extends Map {
     enter.on('down', () => {
       system.map=sceneKeys.map1;
       this.scene.switch(sceneKeys.map1);
+      // this.scene.switch(sceneKeys.map1);
+      this.startMap(sceneKeys.map1);
     });
     super.create();
   }

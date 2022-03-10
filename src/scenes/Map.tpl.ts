@@ -1,7 +1,7 @@
 // assets
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
-import { allInitStatus, enemies, getEnemies } from 'battleActors';
+import { getEnemies } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 // classes
 import { Direction } from 'classes/Direction';
@@ -13,6 +13,7 @@ import { Scene, Tilemaps, Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import {charas} from 'classes/Characters';
 import {NPC,map} from 'classes/exam'
+import { sceneKeys } from './sceneKeys';
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -31,9 +32,11 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag:number=-1;
+  private mapName: string;
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
+    this.mapName = name;
   }
   public preload() {
     this.load.image(assetKeys.mapImg, mapImg);
@@ -61,6 +64,13 @@ export class Map extends Scene {
       console.log(system.player);
       system.player.levelUp();
     });
+    const B = this.input.keyboard.addKey('B');
+    // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
+    B.on('down', () => {
+      // this.cameras.main.shake(500);
+      this.scene.switch(sceneKeys.battle);
+    });
+
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -94,7 +104,6 @@ export class Map extends Scene {
       this.tileMap.widthInPixels,
       this.tileMap.heightInPixels,
     );
-    this.tileMap.width;
 
     const { x, y } = spawnPoint;
     if (!x || !y) return;
@@ -215,5 +224,17 @@ export class Map extends Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
+  }
+
+  startMap(to: string): void {
+    system.map = to;
+    console.log(system.map);
+    this.scene.start(to);
+  }
+
+  switchMap(to: string): void {
+    system.map = to;
+    console.log(system.map);
+    this.scene.switch(to);
   }
 }
