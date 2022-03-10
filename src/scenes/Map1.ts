@@ -9,16 +9,21 @@ export class Map1 extends Map {
   }
   preload() {
     super.preload();
-    super.makeNPC(1,11,11,['nyaaa','!!'],()=>{console.log('yeeeeeeeee')});
-    super.makeNPC(1,10,10,['naaaa','!!']);
-    super.makeNPC(1,8,8,['shaaa','!!']);
+    // super.makeNPC(1, 11, 11, ['nyaaa', '!!'], () => {
+    //   console.log('yeeeeeeeee');
+    // });
+    // super.makeNPC(1, 10, 10, ['naaaa', '!!']);
+    // super.makeNPC(1, 8, 8, ['shaaa', '!!']);
   }
   create() {
     super.create();
+    super.setevent('event', ['nya?', 'nyanya!', 'nya~'], () => {
+      console.error('出来た');
+    });
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      system.map=sceneKeys.map2;
+      system.map = sceneKeys.map2;
       this.scene.switch(sceneKeys.map2);
       // this.startMap(sceneKeys.map2);
     });

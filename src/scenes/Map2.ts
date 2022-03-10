@@ -9,16 +9,16 @@ export class Map2 extends Map {
   }
   preload() {
     super.preload();
-    super.makeNPC(0,11,11,['nyaa','!']);
-    super.makeNPC(0,10,10,['naaa','!']);
-    super.makeNPC(0,8,8,['shaa','!']);
+    // super.makeNPC(0, 11, 11, ['nyaa', '!']);
+    // super.makeNPC(0, 10, 10, ['naaa', '!']);
+    // super.makeNPC(0, 8, 8, ['shaa', '!']);
   }
 
   create() {
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      system.map=sceneKeys.map1;
+      system.map = sceneKeys.map1;
       this.scene.switch(sceneKeys.map1);
       // this.scene.switch(sceneKeys.map1);
       this.startMap(sceneKeys.map1);
