@@ -1,5 +1,5 @@
 import { sceneKeys } from './sceneKeys';
-import { json } from 'index';
+import { json, system } from 'index';
 import { Map } from './Map.tpl';
 
 export class Map1 extends Map {
@@ -12,8 +12,7 @@ export class Map1 extends Map {
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      // this.scene.switch(sceneKeys.map2);
-      this.startMap(sceneKeys.map2);
+      this.switchMap(sceneKeys.map2);
     });
 
     // イベントの位置を取得

@@ -13,7 +13,7 @@ export const allInitStatus = (name: string): BattleActor =>
 
 export const playersParty: BattleActor[] = [
   allInitStatus('player'),
-  allInitStatus('sub1'),
+  // allInitStatus('sub1'),
 ];
 
 export const enemies = new Map<string, BattleActor[]>([
@@ -21,7 +21,7 @@ export const enemies = new Map<string, BattleActor[]>([
     sceneKeys.map1,
     [
       new BattleActor('enemy1', level1, initHp, initMp, initAtk, initDef, initSpeed),
-      new BattleActor('enemy2', level1, initHp, initMp, initAtk, initDef, initSpeed),
+      // new BattleActor('enemy2', level1, initHp, initMp, initAtk, initDef, initSpeed),
     ],
   ],
   [

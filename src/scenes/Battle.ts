@@ -1,7 +1,8 @@
 import { getEnemies, getGhost, playersParty } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
-import { Scene } from 'phaser';
+import { GameObjects, Scene, Time } from 'phaser';
+import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
 
 export class Battle extends Scene {
@@ -10,21 +11,33 @@ export class Battle extends Scene {
   private sorted: BattleActor[] = [...this.players, ...this.enemies].sort((a, b) => {
     return b.speed - a.speed;
   });
+  private actorIndex: number = 0;
+  timerOneShot?: Time.TimerEvent;
+  elapsedTime: number = 0;
   constructor() {
     super({ key: sceneKeys.battle });
   }
 
-  preload() {
-    console.log('preload');
-    console.log('end preload');
-  }
+  preload() {}
 
   create() {
-    console.log('create');
+    this.cameras.main.setBackgroundColor('rgba(0, 100, 150, 0.5)');
   }
 
-  update() {
-    console.log('update');
+  logAllActorHP() {
+    console.log('==================');
+    this.sorted.forEach((actor) => {
+      console.log(`${actor.name} HP: ${actor.hp.current}`);
+    });
+    console.log('==================');
+  }
+
+  addActorIndex() {
+    this.actorIndex++;
+    this.actorIndex %= this.sorted.length - 1;
+  }
+
+  update(time: number, delta: number) {
     /**
      * バトルのループ
      * 1.敵味方のどちらかのHPが0になっていれば元いたマップに戻る
@@ -32,38 +45,27 @@ export class Battle extends Scene {
      * 3.属していない方の配列を対象に攻撃をする
      * 4.1へ戻る
      */
-    const isEnd = this.isEndBattle(this.players, this.enemies);
-    console.log(`isEnd: ${isEnd}`);
-
-    if (isEnd != 0) {
-      switch (isEnd) {
-        case 1:
-          console.log('player win');
-          break;
-        case 2:
-          console.log('enemy win');
-          break;
-        case 3:
-          console.log('draw');
-          break;
-      }
-      // exit battle scene
-      this.scene.sleep(this);
+    const enter = this.input.keyboard.addKey('ENTER');
+    if (this.isEndBattle(this.players, this.enemies) != 0) {
       this.scene.switch(system.map);
     }
-
     for (const actor of this.sorted) {
       actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
-      console.log(actor.name + ': ' + actor.hp.current);
     }
   }
 
+  nextTurn() {
+    const i = this.actorIndex;
+    const actor = this.sorted[i];
+    actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
+  }
+
   getGroupBelongsTo(actor: BattleActor, groups: BattleActor[][]) {
-    return groups.map((group) => {
+    for (const group of groups) {
       if (group.includes(actor)) {
         return group;
       }
-    });
+    }
   }
 
   getEnemyGroup(

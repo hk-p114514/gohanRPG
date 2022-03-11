@@ -11,8 +11,7 @@ export class Map2 extends Map {
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      // this.scene.switch(sceneKeys.map1);
-      this.startMap(sceneKeys.map1);
+      this.switchMap(sceneKeys.map1);
     });
     super.create();
   }
