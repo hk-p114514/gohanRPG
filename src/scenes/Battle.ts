@@ -2,7 +2,6 @@ import { getEnemies, getGhost, playersParty } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { GameObjects, Scene, Time } from 'phaser';
-import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
 
 export class Battle extends Scene {
@@ -21,7 +20,16 @@ export class Battle extends Scene {
   preload() {}
 
   create() {
-    this.cameras.main.setBackgroundColor('rgba(0, 100, 150, 0.5)');
+    // UIシーンを起動
+    this.scene.launch(sceneKeys.ui);
+
+    const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      // UIシーンとバトルシーンを停止してマップシーンを再開(マップシーンはsleepしている)
+      this.scene.stop(sceneKeys.ui);
+      this.scene.stop(sceneKeys.battle);
+      this.scene.wake(system.map);
+    });
   }
 
   logAllActorHP() {
@@ -37,22 +45,7 @@ export class Battle extends Scene {
     this.actorIndex %= this.sorted.length - 1;
   }
 
-  update(time: number, delta: number) {
-    /**
-     * バトルのループ
-     * 1.敵味方のどちらかのHPが0になっていれば元いたマップに戻る
-     * 2.ソートした配列の先頭からplayersかenemiesかどちらに属するかを判定
-     * 3.属していない方の配列を対象に攻撃をする
-     * 4.1へ戻る
-     */
-    const enter = this.input.keyboard.addKey('ENTER');
-    if (this.isEndBattle(this.players, this.enemies) != 0) {
-      this.scene.switch(system.map);
-    }
-    for (const actor of this.sorted) {
-      actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
-    }
-  }
+  update(time: number, delta: number) {}
 
   nextTurn() {
     const i = this.actorIndex;

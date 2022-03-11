@@ -57,6 +57,7 @@ export class Map extends Scene {
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     B.on('down', () => {
       // this.cameras.main.shake(500);
+      // switch -> sleep + start
       this.scene.switch(sceneKeys.battle);
     });
 
