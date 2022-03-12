@@ -2,6 +2,7 @@ import { Timelines } from './Timelines';
 
 export const timelineData: Timelines = {
   start: [
+    // { type: 'startTimeline' },
     { type: 'dialog', text: '・・・・・・ ▼' },
     { type: 'dialog', text: 'う、うーん・・・ ▼' },
     { type: 'setBackground', x: 400, y: 300, key: 'street' },
@@ -36,6 +37,7 @@ export const timelineData: Timelines = {
     { type: 'clearForeground' },
     { type: 'dialog', text: 'こうして銀河を股にかけた物語が始まるのであった・・・ ▼' },
     { type: 'sceneTransition', key: 'ending' },
+    // { type: 'endTimeline' },
   ],
   choice01_a02: [
     { type: 'setBackground', x: 400, y: 300, key: 'street' },
@@ -58,5 +60,6 @@ export const timelineData: Timelines = {
       text: 'この後俺は謎の組織に捕まり色々されてしまうのだった・・・ ▼',
     },
     { type: 'sceneTransition', key: 'ending' },
+    // { type: 'endTimeline' },
   ],
 };

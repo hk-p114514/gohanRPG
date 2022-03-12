@@ -124,4 +124,16 @@ export class DialogBox extends Phaser.GameObjects.Container {
     this.actorNameBox.setVisible(false);
     this.actorNameText.setVisible(false);
   }
+
+  // テキストのクリア（非表示）
+  public clearTextBox() {
+    this.box.setVisible(false);
+    this.text.setVisible(false);
+  }
+
+  // ダイアログボックスのクリア（非表示）
+  public clearDialogBox() {
+    this.clearActorNameText();
+    this.clearTextBox();
+  }
 }

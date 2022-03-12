@@ -2,20 +2,24 @@ import { Timeline } from './Timeline';
 import { Choice } from './Choice';
 import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Physics, Scene } from 'phaser';
+import { tileSize } from 'scenes/Map.tpl';
+import { H, W } from 'functions/DOM/windowInfo';
+import { Timelines } from './Timelines';
 
 export class TimelinePlayer {
+  private dialogBox?: DialogBox;
+  private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
   private backgroundLayer: Phaser.GameObjects.Container;
   private foregroundLayer: Phaser.GameObjects.Container;
   private uiLayer: Phaser.GameObjects.Container;
   private hitArea: Phaser.GameObjects.Zone;
   private timeline?: Timeline;
   private timelineIndex = 0;
-  private f: boolean = true;
+  private isText: boolean = true;
 
   constructor(
-    private scene: Phaser.Scene,
-    private dialogBox: DialogBox,
-    private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {},
+    private scene: Phaser.Scene, // private dialogBox: DialogBox,
+    private timelineData: Timelines, // private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {},
   ) {
     // 背景レイヤー・前景レイヤー・UIレイヤーをコンテナを使って表現
     this.backgroundLayer = this.scene.add.container(0, 0);
@@ -38,19 +42,62 @@ export class TimelinePlayer {
 
     // hitAreaをクリックしたらnext()を実行
     this.hitArea.on('pointerdown', () => {
-      this.f = true;
+      this.isText = true;
     });
 
     // hitAreaをUIレイヤーに追加
     this.uiLayer.add(this.hitArea);
   }
 
-  // タイムラインの再生を開始
-  public start(timeline: Timeline) {
-    this.scene.add.existing(this.dialogBox); // ダイアログボックスは前景レイヤーとUIレイヤーの間に配置
-    this.timeline = timeline;
-    this.update();
-    // this.next();
+  // ダイアログの作成
+  private createDialogBox() {
+    // ダイアログボックスの設定
+    const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
+      fontFamily:
+        '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
+      fontSize: '24px',
+    };
+    const dialogBoxConfig: DialogBoxConfig = {
+      x: 0,
+      y: 0,
+      width: W() - tileSize * 2,
+      height: H() / 3,
+      padding: 0,
+      margin: 0,
+      textStyle: textStyle,
+      backGroundColor: 0x000000,
+      frameColor: 0xff0000,
+    };
+    this.dialogBox = new DialogBox(this.scene, dialogBoxConfig);
+  }
+
+  private specTimeline(data: any) {
+    // this.scene.restart()の第1引数もしくは
+    // this.scene.start()の第2引数に指定されたオブジェクトがdataに渡される
+    const timelineID = data.timelineID || 'start';
+
+    if (!(timelineID in this.timelineData)) {
+      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
+      // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
+      // this.scene.start('title');
+      return;
+    }
+    // タイムラインの指定
+    this.timeline = this.timelineData[timelineID];
+  }
+
+  // タイムラインの初期化
+  public initTimeline(specID?: string) {
+    this.scene.input.keyboard.enabled = false;
+    this.createDialogBox();
+    if (!this.dialogBox) return;
+    this.specTimeline({ timelineID: specID });
+    this.dialogBox.x = this.scene.cameras.main.scrollX + W() / 2;
+    this.dialogBox.y =
+      this.scene.cameras.main.scrollY + H() - this.dialogBox.height / 2 - tileSize;
+    // ダイアログの表示
+    this.scene.add.existing(this.dialogBox);
+    this.timelineIndex = 0;
   }
 
   // 背景画像をセット
@@ -140,14 +187,22 @@ export class TimelinePlayer {
   }
 
   // 次のタイムラインを実行
-  update() {
+  public updateTimeline(specID?: string): void {
+    // ここをthis.timelineIndexではなくてべつのものにしなければ！
+    if (this.timelineIndex === 0) {
+      this.initTimeline(specID);
+    }
     if (!this.timeline) {
       return;
     }
+    if (!this.dialogBox) return;
     if (this.timelineIndex >= this.timeline.length) {
+      // this.dialogBox.clearDialogBox();
+      // this.timelineIndex = 0;
       return;
     }
-    if (!this.f) {
+    // 文字があるなら、キーが押されるまで待つ
+    if (!this.isText) {
       return;
     }
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
@@ -155,7 +210,6 @@ export class TimelinePlayer {
 
     switch (timelineEvent.type) {
       case 'dialog': // ダイアログイベント
-        // 文字があるなら、キーが押されるまで待つ
         if (timelineEvent.actorName) {
           // actorNameが設定されていたら名前を表示
           this.dialogBox.setActorNameText(timelineEvent.actorName);
@@ -164,7 +218,7 @@ export class TimelinePlayer {
           this.dialogBox.clearActorNameText();
         }
         this.dialogBox.setText(timelineEvent.text);
-        this.f = false;
+        this.isText = false;
         break;
 
       case 'setBackground': // 背景設定イベント
@@ -182,19 +236,29 @@ export class TimelinePlayer {
       case 'timelineTransition': // タイムライン遷移イベント
         // シーンをリスタートし、指定のタイムラインを実行する
         // restart()の引数がシーンのinit()の引数に渡される
-        this.scene.scene.restart({ timelineID: timelineEvent.timelineID });
+        this.specTimeline({ timelineID: timelineEvent.timelineID });
+        // this.scene.scene.restart({ timelineID: timelineEvent.timelineID });
         break;
 
       case 'sceneTransition': // シーン遷移イベント
         // 指定のシーンに遷移する
         // start()の第2引数がシーンのinit()の引数に渡される
-        this.scene.scene.start(timelineEvent.key, timelineEvent.data);
+        // this.dialogBox.clearDialogBox();
+        // this.timelineIndex = 0;
+        return;
+        // this.scene.scene.start(timelineEvent.key, timelineEvent.data);
         break;
 
       case 'choice': // 選択肢イベント
         this.setChoiceButtons(timelineEvent.choices);
         break;
-
+      case 'startTimeline':
+        this.initTimeline(specID);
+        break;
+      case 'endTimeline':
+        this.dialogBox.clearDialogBox();
+        this.timelineIndex = 0;
+        return;
       default:
         break;
     }

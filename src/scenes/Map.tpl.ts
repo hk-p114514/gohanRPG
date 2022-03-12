@@ -42,7 +42,6 @@ export class Map extends Scene {
     super({ key: name });
     this.enemies = getEnemies(name);
   }
-
   public preload() {
     this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
@@ -52,20 +51,6 @@ export class Map extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
-  }
-
-  init(data: any) {
-    // this.scene.restart()の第1引数もしくは
-    // this.scene.start()の第2引数に指定されたオブジェクトがdataに渡される
-    const timelineID = data.timelineID || 'start';
-
-    if (!(timelineID in timelineData)) {
-      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
-      // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
-      this.scene.start('title');
-      return;
-    }
-    this.timeline = timelineData[timelineID];
   }
 
   public create() {
@@ -130,48 +115,35 @@ export class Map extends Scene {
     this.enableDebugMode();
 
     //Dialog==================================================================
-
-    // 設定
-    const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
-      fontFamily:
-        '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
-      fontSize: '24px',
-    };
-    const dialogBoxConfig: DialogBoxConfig = {
-      x: 0,
-      y: 0,
-      width: W() - tileSize * 2,
-      height: H() / 3,
-      padding: 0,
-      margin: 0,
-      textStyle: textStyle,
-      backGroundColor: 0x000000,
-      frameColor: 0xff0000,
-    };
-    this.dialogBox = new DialogBox(this, dialogBoxConfig);
-    this.timelinePlayer = new TimelinePlayer(this, this.dialogBox, textStyle);
+    this.timelinePlayer = new TimelinePlayer(this, timelineData);
+    const push = this.input.keyboard.addKey('SHIFT');
+    push.on('down', () => {
+      this.flag = true;
+    });
     //Dialog==================================================================
   }
-
+  private flag: boolean = false;
   public update(_time: number, delta: number) {
-    if (!!this.eventPoints) {
-      this.eventPoints.forEach((event) => {
-        const { x, y } = event;
-        if (!x || !y) return;
-        if (!this.dialogBox) return;
-        if (!this.timelinePlayer || !this.timeline) return;
-        // プレイヤーの位置とタイルのイベントの位置が同じだったら...
-        if (
-          this.player?.getTilePos().x === x / tileSize &&
-          this.player?.getTilePos().y === y / tileSize
-        ) {
-          this.dialogBox.x = this.cameras.main.scrollX + W() / 2;
-          this.dialogBox.y =
-            this.cameras.main.scrollY + H() - this.dialogBox.height / 2 - tileSize;
-          this.timelinePlayer.start(this.timeline);
-        }
-      });
+    if (this.flag) {
+      if (!this.timelinePlayer) return;
+      this.timelinePlayer.updateTimeline();
     }
+    // if (!!this.eventPoints) {
+    //   this.eventPoints.forEach((event) => {
+    //     const { x, y } = event;
+    //     if (!x || !y) return;
+    //     if (!this.timelinePlayer /*|| !this.timeline*/) return;
+    //     // プレイヤーの位置とタイルのイベントの位置が同じだったら...
+    //     if (
+    //       this.player?.getTilePos().x === x / tileSize &&
+    //       this.player?.getTilePos().y === y / tileSize
+    //     ) {
+    //       // while (this.timelinePlayer.update());
+    //       // this.scene.pause();
+    //       this.timelinePlayer.update();
+    //     }
+    //   });
+    // }
 
     this.gridControls?.update();
     this.gridPhysics?.update(delta);

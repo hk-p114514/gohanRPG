@@ -47,6 +47,18 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
+/*======タイムラインIDの最初と最後に必ず付ける！====== */
+// ダイアログが始まる時のイベント
+type StartTimeline = {
+  type: 'startTimeline';
+};
+
+// ダイアログが終わる時のイベント
+type EndTimeline = {
+  type: 'endTimeline';
+};
+/*=================================================== */
+
 // Timelineはイベントの配列
 export type Timeline = (
   | DialogEvent
@@ -56,4 +68,6 @@ export type Timeline = (
   | TimelineTransitionEvent
   | SceneTransitionEvent
   | ChoiceEvent
+  | StartTimeline
+  | EndTimeline
 )[];
