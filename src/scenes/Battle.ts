@@ -1,11 +1,19 @@
 import { getEnemies, getGhost } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
-import { GameObjects, Scene, Time } from 'phaser';
+import { Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
 
+/*    Spread Syntax
+ *    スプレッド構文構文を利用すると、
+ *    簡単に配列のコピーや結合ができる。
+ *    これは配列そのものへの参照ではなく、新しい配列を作る操作である。
+ *    しかし、行われるのは shallow copy(浅いコピー)なので、
+ *    配列の中でネストしている場合や中身がオブジェクトの場合は参照を共有することになる。
+ * */
+
 export class Battle extends Scene {
-  private party: BattleActor[] = system.party;
+  private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = getEnemies(system.map);
   private sorted: BattleActor[] = [...this.party, ...this.enemies].sort((a, b) => {
     return b.speed - a.speed;
@@ -47,31 +55,39 @@ export class Battle extends Scene {
     console.log('------------------------------------');
   }
 
-  update(time: number, delta: number) {}
-
   nextTurn() {
     this.logAllActorHP();
     const actor = this.sorted[this.index];
-    console.log(`${actor.name}のターン`);
-
     const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
+    if (!actor.isDead()) {
+      console.log('####################');
+      console.log(`this.sorted[${this.index}]の${actor.name}のターン`);
+      actor.getRandSkill()(actor, enemies);
+      console.log('####################');
 
-    actor.getRandSkill()(actor, enemies);
-
-    this.logAllActorHP();
-    this.index = (this.index + 1) % this.sorted.length;
-    const endBattle = this.isEndBattle(this.party, this.enemies);
-    if (endBattle === 1) {
-      console.log('プレイヤーの勝利');
-      this.backToMap();
-    } else if (endBattle === 2) {
-      console.log('敵の勝利');
-      this.backToMap();
-    } else if (endBattle === 3) {
-      console.log('両者が死んでいる');
-      this.backToMap();
+      this.logAllActorHP();
+      this.index = (this.index + 1) % this.sorted.length;
+      const endBattle = this.isEndBattle(this.party, this.enemies);
+      if (endBattle === 1) {
+        console.log('プレイヤーの勝利');
+        this.backToMap();
+      } else if (endBattle === 2) {
+        console.log('敵の勝利');
+        this.backToMap();
+      } else if (endBattle === 3) {
+        console.log('両者が死んでいる');
+        this.backToMap();
+      }
+    } else {
+      this.sorted.splice(this.index, 1);
+      if (enemies === this.party) {
+        this.enemies.splice(this.enemies.indexOf(actor), 1);
+      } else if (enemies === this.enemies) {
+        this.party.splice(this.enemies.indexOf(actor), 1);
+      }
     }
 
+    this.index = (this.index + 1) % this.sorted.length;
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 

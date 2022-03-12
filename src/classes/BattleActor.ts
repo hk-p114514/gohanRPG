@@ -1,5 +1,11 @@
-import { initHp, initMp, initAtk, initDef, initSpeed } from './../battleActors';
-import { level1 } from 'battleActors';
+import {
+  initAtk,
+  initDef,
+  initHp,
+  initMp,
+  initSpeed,
+  level1,
+} from 'functions/generalPurpose/allInitStatus';
 import { oneShotAttack, SkillFunction } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
@@ -16,16 +22,6 @@ export type Level = {
 export type LimitValue = {
   current: number;
   max: number;
-};
-
-type args = {
-  name: string;
-  level: Level;
-  hp: LimitValue;
-  mp: LimitValue;
-  atk: number;
-  def: number;
-  speed: number;
 };
 
 export class BattleActor {
