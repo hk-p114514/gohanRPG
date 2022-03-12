@@ -17,6 +17,7 @@ export const oneShotAttack: SkillFunction = (
 ): number => {
   const i = randI(targets.length);
   targets[i].beInjured(attacker.atk);
-  console.log(`${attacker.name} - > ${targets[i].name} : ${attacker.atk}`);
-  return targets[i].isDead() ? 1 : 0;
+  const isDead = targets[i].isDead();
+
+  return isDead ? 1 : 0;
 };

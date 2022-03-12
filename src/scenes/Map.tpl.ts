@@ -48,17 +48,10 @@ export class Map extends Scene {
   }
 
   public create() {
-    const space = this.input.keyboard.addKey('SPACE');
-    space.on('down', () => {
-      console.log(system.player);
-      system.player.levelUp();
-    });
     const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     B.on('down', () => {
-      // this.cameras.main.shake(500);
-      // switch -> sleep + start
-      this.scene.switch(sceneKeys.battle);
+      this.moveBattle();
     });
 
     // マップを作成
@@ -117,6 +110,17 @@ export class Map extends Scene {
   public update(_time: number, delta: number) {
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
+  }
+
+  moveBattle() {
+    const effectsTime = 500;
+    this.cameras.main.shake(effectsTime);
+    this.cameras.main.flash(effectsTime);
+    // カメラのシェイクを終了するまで待つ
+    this.time.delayedCall(effectsTime, () => {
+      // switch -> sleep + start
+      this.scene.switch(sceneKeys.battle);
+    });
   }
 
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {

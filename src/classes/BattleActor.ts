@@ -1,3 +1,5 @@
+import { initHp, initMp, initAtk, initDef, initSpeed } from './../battleActors';
+import { level1 } from 'battleActors';
 import { oneShotAttack, SkillFunction } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
@@ -16,29 +18,39 @@ export type LimitValue = {
   max: number;
 };
 
+type args = {
+  name: string;
+  level: Level;
+  hp: LimitValue;
+  mp: LimitValue;
+  atk: number;
+  def: number;
+  speed: number;
+};
+
 export class BattleActor {
   name: string = '';
-  level: Level = { current: 1, exp: 0, toNext: 1, max: 1 };
-  hp: LimitValue = { current: 1, max: 1 };
-  mp: LimitValue = { current: 1, max: 1 };
+  level: Level;
+  hp: LimitValue;
+  mp: LimitValue;
   atk: number;
   def: number;
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
   skills: SkillFunction[] = [oneShotAttack];
-  constructor(
-    name: string,
-    level: Level,
-    hp: LimitValue,
-    mp: LimitValue,
-    atk: number,
-    def: number,
-    speed: number,
-  ) {
+  constructor({
+    name = 'unknown',
+    level = level1,
+    hp = initHp,
+    mp = initMp,
+    atk = initAtk,
+    def = initDef,
+    speed = initSpeed,
+  }) {
     this.name = name;
     this.level = level;
-    this.hp = hp;
-    this.mp = mp;
+    this.hp = hp();
+    this.mp = mp();
     this.atk = atk;
     this.def = def;
     this.speed = speed;

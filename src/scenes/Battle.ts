@@ -1,16 +1,16 @@
-import { getEnemies, getGhost, playersParty } from 'battleActors';
+import { getEnemies, getGhost } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { GameObjects, Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
 
 export class Battle extends Scene {
-  private players: BattleActor[] = playersParty;
+  private party: BattleActor[] = system.party;
   private enemies: BattleActor[] = getEnemies(system.map);
-  private sorted: BattleActor[] = [...this.players, ...this.enemies].sort((a, b) => {
+  private sorted: BattleActor[] = [...this.party, ...this.enemies].sort((a, b) => {
     return b.speed - a.speed;
   });
-  private actorIndex: number = 0;
+  private index: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
   constructor() {
@@ -26,31 +26,53 @@ export class Battle extends Scene {
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
       // UIシーンとバトルシーンを停止してマップシーンを再開(マップシーンはsleepしている)
-      this.scene.stop(sceneKeys.ui);
-      this.scene.stop(sceneKeys.battle);
-      this.scene.wake(system.map);
+      this.backToMap();
     });
+
+    // バトル開始
+    this.nextTurn();
+  }
+
+  backToMap() {
+    this.scene.stop(sceneKeys.ui);
+    this.scene.stop(sceneKeys.battle);
+    this.scene.wake(system.map);
   }
 
   logAllActorHP() {
-    console.log('==================');
+    console.log('キャラクターのステータス');
     this.sorted.forEach((actor) => {
       console.log(`${actor.name} HP: ${actor.hp.current}`);
     });
-    console.log('==================');
-  }
-
-  addActorIndex() {
-    this.actorIndex++;
-    this.actorIndex %= this.sorted.length - 1;
+    console.log('------------------------------------');
   }
 
   update(time: number, delta: number) {}
 
   nextTurn() {
-    const i = this.actorIndex;
-    const actor = this.sorted[i];
-    actor.getRandSkill()(actor, this.getEnemyGroup(actor, this.players, this.enemies));
+    this.logAllActorHP();
+    const actor = this.sorted[this.index];
+    console.log(`${actor.name}のターン`);
+
+    const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
+
+    actor.getRandSkill()(actor, enemies);
+
+    this.logAllActorHP();
+    this.index = (this.index + 1) % this.sorted.length;
+    const endBattle = this.isEndBattle(this.party, this.enemies);
+    if (endBattle === 1) {
+      console.log('プレイヤーの勝利');
+      this.backToMap();
+    } else if (endBattle === 2) {
+      console.log('敵の勝利');
+      this.backToMap();
+    } else if (endBattle === 3) {
+      console.log('両者が死んでいる');
+      this.backToMap();
+    }
+
+    this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 
   getGroupBelongsTo(actor: BattleActor, groups: BattleActor[][]) {
