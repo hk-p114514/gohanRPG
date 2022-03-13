@@ -126,7 +126,7 @@ export class Map extends Scene {
   public update(_time: number, delta: number) {
     if (this.flag) {
       if (!this.timelinePlayer) return;
-      this.timelinePlayer.updateTimeline();
+      this.flag = this.timelinePlayer.updateTimeline();
     }
     // if (!!this.eventPoints) {
     //   this.eventPoints.forEach((event) => {

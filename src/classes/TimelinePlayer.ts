@@ -1,4 +1,4 @@
-import { Timeline } from './Timeline';
+import { dialogButton, Timeline } from './Timeline';
 import { Choice } from './Choice';
 import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Physics, Scene } from 'phaser';
@@ -14,7 +14,7 @@ export class TimelinePlayer {
   private uiLayer: Phaser.GameObjects.Container;
   private hitArea: Phaser.GameObjects.Zone;
   private timeline?: Timeline;
-  private timelineIndex = 0;
+  private timelineIndex = -1;
   private isText: boolean = true;
 
   constructor(
@@ -66,7 +66,7 @@ export class TimelinePlayer {
       margin: 0,
       textStyle: textStyle,
       backGroundColor: 0x000000,
-      frameColor: 0xff0000,
+      frameColor: 0xffffff,
     };
     this.dialogBox = new DialogBox(this.scene, dialogBoxConfig);
   }
@@ -84,6 +84,7 @@ export class TimelinePlayer {
     }
     // タイムラインの指定
     this.timeline = this.timelineData[timelineID];
+    this.timelineIndex = 0;
   }
 
   // タイムラインの初期化
@@ -129,81 +130,93 @@ export class TimelinePlayer {
     if (choices.length === 0) {
       return;
     }
+    if (!this.dialogBox) return;
     this.hitArea.disableInteractive(); // hitAreaのクリックを無効化
 
     // ボタンを中央に配置するようにボタングループのY原点を計算
     const buttonHeight = 40;
-    const buttonMargin = 40;
-    const { width, height } = this.scene.game.canvas;
+    const buttonWidth = 400;
+    const buttonMargin = 0;
     const buttonGroupHeight =
-      buttonHeight * choices.length + buttonMargin * (choices.length - 1);
-    const buttonGroupOriginY = height / 2 - buttonGroupHeight / 2;
+      buttonHeight * choices.length + buttonMargin * (choices.length - 1); // 選択ボタンの高さ
+    const buttonGroupOriginY =
+      this.dialogBox.y - this.dialogBox.height / 2 - buttonGroupHeight; // 選択ボタングループの上側Y座標
 
-    choices.forEach((choice, index) => {
+    const choiceButton: Array<dialogButton> = [];
+    choices.forEach((choice, index: number) => {
+      if (!this.dialogBox) return;
       const y = buttonGroupOriginY + buttonHeight * (index + 0.5) + buttonMargin * index;
-
-      // Rectangleでボタンを作成
-      const button = new Phaser.GameObjects.Rectangle(
-        this.scene,
-        width / 2,
-        y,
-        width - buttonMargin * 2,
-        buttonHeight,
-        0x000000,
-      ).setStrokeStyle(1, 0xffffff);
-      button.setInteractive({
+      choiceButton[index] = {
+        // Rectangleでボタンを作成
+        range: new Phaser.GameObjects.Rectangle(
+          this.scene,
+          this.dialogBox.x + this.dialogBox.width / 2 - buttonWidth / 2,
+          y,
+          buttonWidth,
+          buttonHeight,
+          0x000000,
+        ).setStrokeStyle(1, 0xffffff),
+        // ボタンテキストを追加
+        text: new Phaser.GameObjects.Text(
+          this.scene,
+          this.dialogBox.x + this.dialogBox.width / 2 - buttonWidth / 2,
+          y,
+          choice.text,
+          this.textStyle,
+        ).setOrigin(0.5),
+      };
+      choiceButton[index].range.setInteractive({
         useHandCursor: true,
       });
 
       // マウスオーバーで色が変わるように設定
-      button.on('pointerover', () => {
-        button.setFillStyle(0x333333);
+      choiceButton[index].range.on('pointerover', () => {
+        choiceButton[index].range.setFillStyle(0x333333);
       });
-      button.on('pointerout', () => {
-        button.setFillStyle(0x000000);
+      choiceButton[index].range.on('pointerout', () => {
+        choiceButton[index].range.setFillStyle(0x000000);
       });
 
       // ボタンクリックでシーンをリスタートし、指定のタイムラインを実行する
-      button.on('pointerdown', () => {
+      choiceButton[index].range.on('pointerdown', () => {
         // restart()の引数がシーンのinit()の引数に渡される
-        this.scene.scene.restart({ timelineID: choice.timelineID });
+        // this.scene.scene.restart({ timelineID: choice.timelineID });
+        this.hitArea.setInteractive({
+          useHandCursor: true,
+        });
+        clearButton(choiceButton);
+        this.specTimeline({ timelineID: choice.timelineID });
       });
 
       // ボタンをUIレイヤーに追加
-      this.uiLayer.add(button);
-
-      // ボタンテキストを作成
-      const buttonText = new Phaser.GameObjects.Text(
-        this.scene,
-        width / 2,
-        y,
-        choice.text,
-        this.textStyle,
-      ).setOrigin(0.5);
-
+      this.uiLayer.add(choiceButton[index].range);
       // ボタンテキストをUIレイヤーに追加
-      this.uiLayer.add(buttonText);
+      this.uiLayer.add(choiceButton[index].text);
     });
+    const clearButton = (allbutton: dialogButton[]) => {
+      allbutton.forEach((button) => {
+        button.range.destroy();
+        button.text.destroy();
+      });
+    };
   }
 
   // 次のタイムラインを実行
-  public updateTimeline(specID?: string): void {
-    // ここをthis.timelineIndexではなくてべつのものにしなければ！
-    if (this.timelineIndex === 0) {
+  public updateTimeline(specID?: string): boolean {
+    // this.timelineIndex === -1はダイアログが呼び出される最初のこと
+    if (this.timelineIndex === -1) {
       this.initTimeline(specID);
     }
     if (!this.timeline) {
-      return;
+      return true;
     }
-    if (!this.dialogBox) return;
+    if (!this.dialogBox) return true;
     if (this.timelineIndex >= this.timeline.length) {
-      // this.dialogBox.clearDialogBox();
-      // this.timelineIndex = 0;
-      return;
+      return true;
     }
     // 文字があるなら、キーが押されるまで待つ
     if (!this.isText) {
-      return;
+      return true;
     }
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
     const timelineEvent = this.timeline[this.timelineIndex++];
@@ -245,7 +258,8 @@ export class TimelinePlayer {
         // start()の第2引数がシーンのinit()の引数に渡される
         // this.dialogBox.clearDialogBox();
         // this.timelineIndex = 0;
-        return;
+        this.scene.scene.switch(timelineEvent.key);
+        // return;
         // this.scene.scene.start(timelineEvent.key, timelineEvent.data);
         break;
 
@@ -257,10 +271,12 @@ export class TimelinePlayer {
         break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
-        this.timelineIndex = 0;
-        return;
+        this.timelineIndex = -1;
+        this.scene.input.keyboard.enabled = true;
+        return false;
       default:
         break;
     }
+    return true;
   }
 }

@@ -71,3 +71,8 @@ export type Timeline = (
   | StartTimeline
   | EndTimeline
 )[];
+
+export type dialogButton = {
+  range: Phaser.GameObjects.Rectangle;
+  text: Phaser.GameObjects.Text;
+};
