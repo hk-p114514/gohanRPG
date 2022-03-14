@@ -1,7 +1,7 @@
 import { BattleActor } from 'classes/BattleActor';
 import { randI } from 'functions/generalPurpose/rand';
 
-export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => number;
+export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => void;
 
 /**
  * @brief targetsのいずれかに単体物理攻撃を行う
@@ -14,10 +14,7 @@ export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => n
 export const randomNormalAttack: SkillFunction = (
   attacker: BattleActor,
   targets: BattleActor[],
-): number => {
+) => {
   const i = randI(targets.length);
   targets[i].beInjured(attacker.atk);
-  const isDead = targets[i].isDead();
-
-  return isDead ? 1 : 0;
 };

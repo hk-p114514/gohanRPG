@@ -1,12 +1,19 @@
 import { SceneKeys } from './../scenes/sceneKeys';
 import { Scene } from 'phaser';
 import { BattleActor } from './BattleActor';
+import { SkillFunction } from 'skills';
+
+type Battling = {
+  actor: BattleActor;
+  selectedSkill?: SkillFunction;
+};
 
 export class System {
   static readonly TILE_SIZE: number = 40;
   public map: string;
   public party: BattleActor[] = [];
   public isBattle: boolean = false;
+  public isBattling?: Battling;
 
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
@@ -33,5 +40,17 @@ export class System {
     from.scene.switch(to);
 
     return 0;
+  }
+
+  setActor(actor: BattleActor) {
+    this.isBattling = {
+      actor,
+    };
+  }
+
+  setSkill(skill: SkillFunction) {
+    if (this.isBattling) {
+      this.isBattling.selectedSkill = skill;
+    }
   }
 }
