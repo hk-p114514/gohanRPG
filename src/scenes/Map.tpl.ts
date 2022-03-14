@@ -1,19 +1,21 @@
 // assets
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
-import { getEnemies } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 // classes
 import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+
 import { Cameras, Scene, Tilemaps } from 'phaser';
 import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
 import { W, H } from 'functions/DOM/windowInfo';
 import { TimelinePlayer } from 'classes/TimelinePlayer';
 import { Timeline } from 'classes/Timeline';
 import { timelineData } from 'classes/timelineWords';
+
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
 
 import { system } from 'index';
 import { Types } from 'phaser';
@@ -58,16 +60,10 @@ export class Map extends Scene {
   }
 
   public create() {
-    const space = this.input.keyboard.addKey('SPACE');
-    space.on('down', () => {
-      console.log(system.player);
-      system.player.levelUp();
-    });
     const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     B.on('down', () => {
-      // this.cameras.main.shake(500);
-      this.scene.switch(sceneKeys.battle);
+      this.moveBattle();
     });
 
     // マップを作成
@@ -90,7 +86,6 @@ export class Map extends Scene {
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
-    console.log(this.eventPoints);
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
@@ -106,11 +101,12 @@ export class Map extends Scene {
     );
 
     const { x, y } = spawnPoint;
-    if (!x || !y) return;
-    // タイルの位置を取得
-    const tileX = Math.floor(x / tileSize);
-    const tileY = Math.floor(y / tileSize);
-    this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    if (x && y) {
+      // タイルの位置を取得
+      const tileX = Math.floor(x / tileSize);
+      const tileY = Math.floor(y / tileSize);
+      this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    }
 
     // グリッドの設定
     if (this.player) {
@@ -156,6 +152,17 @@ export class Map extends Scene {
 
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
+  }
+
+  moveBattle() {
+    const effectsTime = 500;
+    this.cameras.main.shake(effectsTime);
+    this.cameras.main.flash(effectsTime);
+    // カメラのシェイクを終了するまで待つ
+    this.time.delayedCall(effectsTime, () => {
+      // switch -> sleep + start
+      this.scene.switch(sceneKeys.battle);
+    });
   }
 
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
