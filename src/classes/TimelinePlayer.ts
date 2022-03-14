@@ -50,7 +50,7 @@ export class TimelinePlayer {
   }
 
   // ダイアログの作成
-  private createDialogBox() {
+  public createDialogBox(x: number, y: number, width: number, height: number) {
     // ダイアログボックスの設定
     const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
       fontFamily:
@@ -60,8 +60,8 @@ export class TimelinePlayer {
     const dialogBoxConfig: DialogBoxConfig = {
       x: 0,
       y: 0,
-      width: W() - tileSize * 2,
-      height: H() / 3,
+      width: width,
+      height: height,
       padding: 0,
       margin: 0,
       textStyle: textStyle,
@@ -69,6 +69,8 @@ export class TimelinePlayer {
       frameColor: 0xffffff,
     };
     this.dialogBox = new DialogBox(this.scene, dialogBoxConfig);
+    this.dialogBox.x = x;
+    this.dialogBox.y = y;
   }
 
   private specTimeline(data: any) {
@@ -90,14 +92,16 @@ export class TimelinePlayer {
   // タイムラインの初期化
   public initTimeline(specID?: string) {
     this.scene.input.keyboard.enabled = false;
-    this.createDialogBox();
+    this.createDialogBox(
+      this.scene.cameras.main.scrollX + W() / 2,
+      this.scene.cameras.main.scrollY + H() - H() / 3 / 2 - tileSize,
+      W() - tileSize * 2,
+      H() / 3,
+    );
     if (!this.dialogBox) return;
-    this.specTimeline({ timelineID: specID });
-    this.dialogBox.x = this.scene.cameras.main.scrollX + W() / 2;
-    this.dialogBox.y =
-      this.scene.cameras.main.scrollY + H() - this.dialogBox.height / 2 - tileSize;
     // ダイアログの表示
     this.scene.add.existing(this.dialogBox);
+    this.specTimeline({ timelineID: specID });
     this.timelineIndex = 0;
   }
 
