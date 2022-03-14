@@ -1,3 +1,4 @@
+import { UI } from './scenes/UI';
 import { Battle } from './scenes/Battle';
 import { AUTO, Game, Types } from 'phaser';
 import mapJson1 from '@/json/map001.json';
@@ -9,13 +10,16 @@ import { Preload } from './scenes/Preload';
 import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { playersParty } from 'battleActors';
+import { BattleActor } from 'classes/BattleActor';
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Map1, Map2, Battle];
+const scenes = [Preload, Map1, Map2, Battle, UI];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map1, playersParty[0]);
+export const system = new System(sceneKeys.map1, [
+  new BattleActor({ name: 'ゆーしゃ' }),
+  new BattleActor({ name: 'なかま1' }),
+]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [mapJson1, mapJson2];
