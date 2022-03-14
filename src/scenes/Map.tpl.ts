@@ -7,9 +7,18 @@ import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+
+import { Cameras, Scene, Tilemaps } from 'phaser';
+import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
+import { W, H } from 'functions/DOM/windowInfo';
+import { TimelinePlayer } from 'classes/TimelinePlayer';
+import { Timeline } from 'classes/Timeline';
+import { timelineData } from 'classes/timelineWords';
+
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
+
 import { system } from 'index';
-import { Scene, Tilemaps, Types } from 'phaser';
+import { Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import { sceneKeys } from './sceneKeys';
 // values
@@ -29,13 +38,16 @@ export class Map extends Scene {
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
+  private dialogBox?: DialogBox;
+  private timelinePlayer?: TimelinePlayer;
+  private timeline?: Timeline;
   private mapName: string;
+
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
     this.mapName = name;
   }
-
   public preload() {
     this.load.image(assetKeys.mapImg, mapImg);
     this.load.tilemapTiledJSON(this.name, this.json);
@@ -70,6 +82,7 @@ export class Map extends Scene {
       return obj.name === 'spawnPoint';
     });
 
+    // イベントの位置を取得
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
@@ -105,9 +118,38 @@ export class Map extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
-  }
 
+    //Dialog==================================================================
+    this.timelinePlayer = new TimelinePlayer(this, timelineData);
+    const push = this.input.keyboard.addKey('SHIFT');
+    push.on('down', () => {
+      this.flag = true;
+    });
+    //Dialog==================================================================
+  }
+  private flag: boolean = false;
   public update(_time: number, delta: number) {
+    if (this.flag) {
+      if (!this.timelinePlayer) return;
+      this.flag = this.timelinePlayer.updateTimeline();
+    }
+    // if (!!this.eventPoints) {
+    //   this.eventPoints.forEach((event) => {
+    //     const { x, y } = event;
+    //     if (!x || !y) return;
+    //     if (!this.timelinePlayer /*|| !this.timeline*/) return;
+    //     // プレイヤーの位置とタイルのイベントの位置が同じだったら...
+    //     if (
+    //       this.player?.getTilePos().x === x / tileSize &&
+    //       this.player?.getTilePos().y === y / tileSize
+    //     ) {
+    //       // while (this.timelinePlayer.update());
+    //       // this.scene.pause();
+    //       this.timelinePlayer.update();
+    //     }
+    //   });
+    // }
+
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   }
