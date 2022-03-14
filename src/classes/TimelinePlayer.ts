@@ -234,7 +234,7 @@ export class TimelinePlayer {
           // actorNameが設定されていなかったら名前を非表示
           this.dialogBox.clearActorNameText();
         }
-        this.dialogBox.setText(timelineEvent.text);
+        this.dialogBox.setText(timelineEvent.text, true);
         this.isText = false;
         break;
 
