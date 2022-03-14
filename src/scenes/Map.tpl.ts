@@ -1,13 +1,13 @@
 // assets
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
-import { getEnemies } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 // classes
 import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { system } from 'index';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
@@ -73,7 +73,6 @@ export class Map extends Scene {
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.name === 'event';
     });
-    console.log(this.eventPoints);
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
@@ -89,11 +88,12 @@ export class Map extends Scene {
     );
 
     const { x, y } = spawnPoint;
-    if (!x || !y) return;
-    // タイルの位置を取得
-    const tileX = Math.floor(x / tileSize);
-    const tileY = Math.floor(y / tileSize);
-    this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    if (x && y) {
+      // タイルの位置を取得
+      const tileX = Math.floor(x / tileSize);
+      const tileY = Math.floor(y / tileSize);
+      this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    }
 
     // グリッドの設定
     if (this.player) {

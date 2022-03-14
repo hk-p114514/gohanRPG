@@ -6,6 +6,7 @@ export class System {
   static readonly TILE_SIZE: number = 40;
   public map: string;
   public party: BattleActor[] = [];
+  public isBattle: boolean = false;
 
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;

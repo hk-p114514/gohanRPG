@@ -1,4 +1,3 @@
-import { allInitStatus } from './battleActors';
 import { UI } from './scenes/UI';
 import { Battle } from './scenes/Battle';
 import { AUTO, Game, Types } from 'phaser';

@@ -7,12 +7,13 @@ export const initAtk: number = 5;
 export const initDef: number = 5;
 export const initSpeed: number = 5;
 
-export const allInitStatus = (name: string): BattleActor =>
+export const allInitStatus = (name: string, spriteSrp: string = ''): BattleActor =>
   new BattleActor({
     name: name,
+    spriteSrc: spriteSrp,
     level: level1,
-    hp: initHp,
-    mp: initMp,
+    hp: initHp(),
+    mp: initMp(),
     atk: initAtk,
     def: initDef,
     speed: initSpeed,
