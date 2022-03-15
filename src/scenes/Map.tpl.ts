@@ -120,36 +120,16 @@ export class Map extends Scene {
     this.enableDebugMode();
 
     //Dialog==================================================================
-    this.timelinePlayer = new TimelinePlayer(this, timelineData);
     const push = this.input.keyboard.addKey('SHIFT');
     push.on('down', () => {
-      this.flag = true;
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: timelineData,
+      });
     });
     //Dialog==================================================================
   }
-  private flag: boolean = false;
   public update(_time: number, delta: number) {
-    if (this.flag) {
-      if (!this.timelinePlayer) return;
-      this.flag = this.timelinePlayer.updateTimeline();
-    }
-    // if (!!this.eventPoints) {
-    //   this.eventPoints.forEach((event) => {
-    //     const { x, y } = event;
-    //     if (!x || !y) return;
-    //     if (!this.timelinePlayer /*|| !this.timeline*/) return;
-    //     // プレイヤーの位置とタイルのイベントの位置が同じだったら...
-    //     if (
-    //       this.player?.getTilePos().x === x / tileSize &&
-    //       this.player?.getTilePos().y === y / tileSize
-    //     ) {
-    //       // while (this.timelinePlayer.update());
-    //       // this.scene.pause();
-    //       this.timelinePlayer.update();
-    //     }
-    //   });
-    // }
-
     this.gridControls?.update();
     this.gridPhysics?.update(delta);
   }
