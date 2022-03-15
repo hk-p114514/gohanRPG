@@ -63,3 +63,13 @@ export const timelineData: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
+export const prologue: Timelines = {
+  start: [
+    { type: 'dialog', text: 'はぁーあ、最近のヤトウは碌なのがいねぇなぁ…ん？', actorName: 'マルク' }, 
+    { type: 'dialog', text: '魔王を倒せたら大盛りご飯無料？？', actorName: 'マルク'}, 
+    { type: 'dialog', text: 'へぇ…腹減ってんだ、ちょうどいい', actorName: 'マルク'}, 
+    { type: 'dialog', text: '魔王でもヤトウでも、俺が倒してやろうじゃねーか', actorName: 'マルク'},
+    { type: 'endTimeline' },
+  ]
+}

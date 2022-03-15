@@ -7,13 +7,15 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Map1 } from 'scenes/Map1';
 import { Map2 } from 'scenes/Map2';
 import { Preload } from './scenes/Preload';
+import { Prologue } from 'scenes/Prologue';
+import { Title } from 'scenes/Title';
 import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from 'classes/BattleActor';
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Map1, Map2, Battle, UI];
+const scenes = [Prologue, Title, Preload, Map1, Map2, Battle, UI];
 // const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map1, [
