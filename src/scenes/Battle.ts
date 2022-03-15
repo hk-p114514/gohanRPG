@@ -64,7 +64,7 @@ export class Battle extends Scene {
         this.scene.pause();
         system.setActor(actor);
       } else {
-        system.isBattling = undefined;
+        system.battling = undefined;
         // 該当のキャラクターが敵側なら、
         // ランダムに技を選択する
         actor.getRandSkill()(actor, enemies);

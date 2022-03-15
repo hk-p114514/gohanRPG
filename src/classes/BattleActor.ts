@@ -1,4 +1,3 @@
-import { skills, getSkill } from './../skills';
 import {
   initAtk,
   initDef,
@@ -7,8 +6,9 @@ import {
   initSpeed,
   level1,
 } from 'functions/generalPurpose/allInitStatus';
-import { SkillFunction } from 'skills';
+import { SkillFunction, skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
+import { Skill } from './Skill';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -25,6 +25,27 @@ export type LimitValue = {
   max: number;
 };
 
+class SkillMenu {
+  private target: BattleActor;
+  private skills: Skill[];
+  private select: Skill;
+  private index: number;
+  constructor(target: BattleActor) {
+    this.target = target;
+    this.skills = this.target.skills;
+    this.select = this.skills[0];
+    this.index = 0;
+  }
+
+  selectPrevious() {
+    if (this.index <= 0) {
+      this.index = 0;
+      return;
+    } else if (this.index > this.skills.length - 1) {
+    }
+  }
+}
+
 export class BattleActor {
   name: string = '';
   spriteSrc: string = '';
@@ -35,7 +56,7 @@ export class BattleActor {
   def: number;
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
-  skills: SkillFunction[];
+  skills: Skill[];
   constructor({
     name = 'unknown',
     spriteSrc = '',
@@ -46,7 +67,7 @@ export class BattleActor {
     def = initDef,
     speed = initSpeed,
     startLevel = 1,
-    skills = [getSkill('attackForAll')],
+    initSkills = [skills[0]],
   }) {
     this.name = name;
     this.spriteSrc = spriteSrc;
@@ -57,7 +78,7 @@ export class BattleActor {
     this.def = def;
     this.speed = speed;
     this.setLevel(startLevel);
-    this.skills = skills;
+    this.skills = initSkills;
   }
 
   addExp(exp: number) {
@@ -110,7 +131,7 @@ export class BattleActor {
   }
 
   getRandSkill(): SkillFunction {
-    return this.skills[randI(this.skills.length)];
+    return this.skills[randI(this.skills.length)].getSkill();
   }
 
   isDead(): boolean {

@@ -1,4 +1,5 @@
 import { BattleActor } from 'classes/BattleActor';
+import { Skill } from 'classes/Skill';
 
 export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => void;
 
@@ -14,11 +15,7 @@ const healForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]
   });
 };
 
-export const skills: Map<string, SkillFunction> = new Map([
-  ['attackForAll', attackForAll],
-  ['healForAll', healForAll],
-]);
-
-export const getSkill = (name: string): SkillFunction => {
-  return skills.get(name) || attackForAll;
-};
+export const skills: Skill[] = [
+  new Skill('裏拳', attackForAll, false, true),
+  new Skill('ヒール', healForAll, false, false),
+];

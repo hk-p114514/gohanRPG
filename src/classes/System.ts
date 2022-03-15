@@ -13,7 +13,7 @@ export class System {
   public map: string;
   public party: BattleActor[] = [];
   public isBattle: boolean = false;
-  public isBattling?: Battling;
+  public battling?: Battling;
 
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
@@ -43,14 +43,14 @@ export class System {
   }
 
   setActor(actor: BattleActor) {
-    this.isBattling = {
+    this.battling = {
       actor,
     };
   }
 
   setSkill(skill: SkillFunction) {
-    if (this.isBattling) {
-      this.isBattling.selectedSkill = skill;
+    if (this.battling) {
+      this.battling.selectedSkill = skill;
     }
   }
 }
