@@ -1,20 +1,24 @@
 import { BattleActor } from 'classes/BattleActor';
-import { randI } from 'functions/generalPurpose/rand';
 
 export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => void;
 
-/**
- * @brief targetsのいずれかに単体物理攻撃を行う
- *
- * @param BattleActor     attacker 攻撃する側のキャラクター
- * @param BattleActor[]   targets  攻撃を受ける可能性のあるキャラクターの配列
- *
- * @return 攻撃の結果、対象が死亡した場合:1, 存命の場合: 0
- */
-export const randomNormalAttack: SkillFunction = (
-  attacker: BattleActor,
-  targets: BattleActor[],
-) => {
-  const i = randI(targets.length);
-  targets[i].beInjured(attacker.atk);
+const attackForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.beInjured(attacker.atk);
+  });
+};
+
+const healForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.beHealed(target.hp.current * 0.4);
+  });
+};
+
+export const skills: Map<string, SkillFunction> = new Map([
+  ['attackForAll', attackForAll],
+  ['healForAll', healForAll],
+]);
+
+export const getSkill = (name: string): SkillFunction => {
+  return skills.get(name) || attackForAll;
 };

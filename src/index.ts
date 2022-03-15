@@ -1,3 +1,4 @@
+import { getSkill } from './skills';
 import { UI } from './scenes/UI';
 import { Battle } from './scenes/Battle';
 import { AUTO, Game, Types } from 'phaser';
@@ -18,7 +19,10 @@ const scenes = [Preload, Map1, Map2, Battle, UI];
 
 export const system = new System(sceneKeys.map1, [
   new BattleActor({ name: 'ゆーしゃ' }),
-  new BattleActor({ name: 'なかま1' }),
+  new BattleActor({
+    name: 'なかま1',
+    skills: [getSkill('attackForAll'), getSkill('healForAll')],
+  }),
 ]);
 
 // マップデータのjsonをまとめる

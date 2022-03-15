@@ -19,13 +19,14 @@ export class UI extends Scene {
   private enemies: BattleActor[] = [];
   private units: Unit[] = [];
   private hpBar = { width: 100, height: 10, margin: 20 };
-  private menu = {
+  private menuUI = {
     boxCount: 3,
     x: 0,
     y: 0,
     height: 0,
     width: 0,
   };
+
   constructor() {
     super({ key: sceneKeys.ui });
   }
@@ -41,7 +42,7 @@ export class UI extends Scene {
     const boxCount = 3;
     const boxHeight = height / 2.5;
 
-    this.menu = {
+    this.menuUI = {
       x: 0,
       y: height - boxHeight,
       height: boxHeight,
@@ -58,15 +59,17 @@ export class UI extends Scene {
   }
 
   create() {
+    // キー入力イベントを設定する
+    this.input.keyboard.on('keydown', this.onKeyInput, this);
     // 背景色を黒に変更
     this.cameras.main.setBackgroundColor('rgba(0, 0, 0, 1)');
     const { height } = this.game.canvas;
-    const boxCount = this.menu.boxCount;
-    const boxHeight = this.menu.height;
-    const boxWidth = this.menu.width;
+    const boxCount = this.menuUI.boxCount;
+    const boxHeight = this.menuUI.height;
+    const boxWidth = this.menuUI.width;
 
-    const boxStartX = this.menu.x;
-    const boxStartY = this.menu.y;
+    const boxStartX = this.menuUI.x;
+    const boxStartY = this.menuUI.y;
 
     // ボックスと枠を3つ描画する
     for (let i = 0; i < boxCount; i++) {
@@ -152,7 +155,7 @@ export class UI extends Scene {
         fontSize: '20px',
         color: '#ffffff',
       };
-      let { x, y } = this.menu;
+      let { x, y } = this.menuUI;
       const { current, max } = actor.hp;
       const { current: mp, max: mpMax } = actor.mp;
       const margin = 30;
@@ -169,6 +172,21 @@ export class UI extends Scene {
         this.add.text(x + margin, y + margin, text, style);
         y += margin;
       });
+    }
+  }
+
+  onKeyInput(event: KeyboardEvent): void {
+    const { key } = event;
+    if (key === 'ArrowLeft') {
+      console.log('left');
+    } else if (key === 'ArrowRight') {
+      console.log('right');
+    } else if (key === 'ArrowUp') {
+      console.log('up');
+    } else if (key === 'ArrowDown') {
+      console.log('down');
+    } else if (key === 'Enter') {
+      console.log('enter');
     }
   }
 }

@@ -40,29 +40,11 @@ export class Battle extends Scene {
   }
 
   create() {
-    this.input.keyboard.on('keydown', this.onKeyInput, this);
     // UIシーンを起動
     this.scene.launch(sceneKeys.ui, [this.party, this.enemies]);
 
     // バトル開始
     this.nextTurn();
-  }
-
-  onKeyInput(event: KeyboardEvent) {
-    if (event.code === 'ArrowUp') {
-      // 上矢印キー
-    } else if (event.code === 'ArrowDown') {
-      // 下矢印キー
-    } else if (event.code === 'ArrowLeft') {
-      // 左矢印キー
-    } else if (event.code === 'ArrowRight') {
-      // 右矢印キー
-    } else if (event.code === 'Space') {
-      // スペースキー
-      this.nextTurn();
-    } else if (event.code === 'Enter') {
-      // Enterキー
-    }
   }
 
   nextTurn() {

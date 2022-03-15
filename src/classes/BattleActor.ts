@@ -1,3 +1,4 @@
+import { skills, getSkill } from './../skills';
 import {
   initAtk,
   initDef,
@@ -6,7 +7,7 @@ import {
   initSpeed,
   level1,
 } from 'functions/generalPurpose/allInitStatus';
-import { randomNormalAttack, SkillFunction } from 'skills';
+import { SkillFunction } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
   // 現在のレベル
@@ -34,7 +35,7 @@ export class BattleActor {
   def: number;
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
-  skills: SkillFunction[] = [randomNormalAttack];
+  skills: SkillFunction[];
   constructor({
     name = 'unknown',
     spriteSrc = '',
@@ -45,6 +46,7 @@ export class BattleActor {
     def = initDef,
     speed = initSpeed,
     startLevel = 1,
+    skills = [getSkill('attackForAll')],
   }) {
     this.name = name;
     this.spriteSrc = spriteSrc;
@@ -55,6 +57,7 @@ export class BattleActor {
     this.def = def;
     this.speed = speed;
     this.setLevel(startLevel);
+    this.skills = skills;
   }
 
   addExp(exp: number) {
