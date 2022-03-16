@@ -116,6 +116,12 @@ export class TimelinePlayer extends Scene {
       case 'choice': // 選択肢イベント
         this.setChoiceButtons(timelineEvent.choices);
         break;
+      case 'event': // イベント追加
+      /*if(timelineEvent.event == イベント指定){
+
+        }else if(){
+
+        }*/
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
         this.timelineIndex = -1;
