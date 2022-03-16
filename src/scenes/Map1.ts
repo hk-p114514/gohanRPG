@@ -1,7 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
-import { system } from 'index';
 
 export class Map1 extends Map {
   constructor() {
