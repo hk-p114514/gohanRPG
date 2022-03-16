@@ -2,7 +2,6 @@ import { system } from 'index';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { GameObjects, Scene, Types } from 'phaser';
 import { BattleActor } from 'classes/BattleActor';
-import { Skill } from 'classes/Skill';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;
@@ -14,57 +13,6 @@ type Unit = {
   sprite: EnemySprite;
 };
 
-class SkillMenu {
-  private target: BattleActor;
-  private skills: Skill[];
-  private select: Skill;
-  private index: number = 0;
-  public isDecided: boolean = false;
-  constructor(target: BattleActor) {
-    this.target = target;
-    this.skills = this.target.skills;
-    this.select = this.target.skills[this.index];
-  }
-
-  selectPrevious() {
-    if (this.index < 0) {
-      this.index = 0;
-    } else if (this.index > this.skills.length - 1) {
-      this.index = this.skills.length - 1;
-    } else {
-      this.index--;
-    }
-    this.select = this.skills[this.index];
-  }
-
-  selectNext() {
-    if (this.index < 0) {
-      this.index = 0;
-    } else if (this.index >= this.skills.length - 1) {
-      this.index = this.skills.length - 1;
-    } else {
-      this.index++;
-    }
-    this.select = this.skills[this.index];
-  }
-
-  getCurrent() {
-    return this.select;
-  }
-
-  getSkills() {
-    return this.skills;
-  }
-
-  getIndex() {
-    return this.index;
-  }
-
-  toggleDecided() {
-    this.isDecided != this.isDecided;
-  }
-}
-
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
   private party: BattleActor[] = [];
@@ -75,7 +23,6 @@ export class UI extends Scene {
     fontSize: '20px',
     color: '#ffffff',
   };
-  private skillText?: GameObjects.Text;
   private boxMargin: number = 30;
   private menuUI = {
     boxCount: 3,
@@ -84,7 +31,6 @@ export class UI extends Scene {
     height: 0,
     width: 0,
   };
-  private menu?: SkillMenu;
 
   constructor() {
     super({ key: sceneKeys.ui });
@@ -118,8 +64,6 @@ export class UI extends Scene {
   }
 
   create() {
-    // キー入力イベントを設定する
-    this.input.keyboard.on('keydown', this.onKeyInput, this);
     // 背景色を黒に変更
     this.cameras.main.setBackgroundColor('rgba(0, 0, 0, 1)');
     const { height } = this.game.canvas;
@@ -145,21 +89,6 @@ export class UI extends Scene {
     this.drawPlayerData();
     const actor = system.battling?.actor;
     if (!actor) return;
-    if (system.isBattle && !this.menu) {
-      this.menu = new SkillMenu(actor);
-    } else if (!system.isBattle && !!this.menu) {
-      this.menu = undefined;
-    }
-    // menuに入っているキャラクターの技を全て中央のボックスに表示する
-    this.drawSkills();
-    console.log(`isDecided : ${this.menu?.isDecided}`);
-    if (this.menu?.isDecided) {
-      // 技決定後
-      // 右のボックスに効果対象のキャラクターを表示する
-      this.menu.getCurrent().exe(actor, this.enemies);
-      this.menu.isDecided = false;
-      this.scene.run(sceneKeys.battle);
-    }
   }
 
   drawBox(
@@ -244,44 +173,6 @@ export class UI extends Scene {
         this.add.text(x + margin, y + margin, text, this.fontStyle);
         y += margin;
       });
-    }
-  }
-
-  drawSkills(): void {
-    if (!system.isBattle) return;
-    // 中央のボックスに操作対象のキャラクターの技を全て表示
-    const skills = this.menu?.getSkills();
-    if (skills) {
-      let { x, y, width } = this.menuUI;
-      x += width;
-      const margin = this.boxMargin;
-      skills.forEach((skill, i) => {
-        let color = 'white';
-        const index = this.menu?.getIndex();
-
-        if (i == index) {
-          color = 'yellow';
-        }
-
-        this.add.text(x + margin, y + margin, `${skill.getName()}`, {
-          ...this.fontStyle,
-          color: color,
-        });
-        y += margin;
-      });
-    }
-  }
-
-  onKeyInput(event: KeyboardEvent): void {
-    const { key } = event;
-    if (key === 'ArrowUp') {
-      this.menu?.selectPrevious();
-    } else if (key === 'ArrowDown') {
-      this.menu?.selectNext();
-    } else if (key === 'Enter') {
-      if (this.menu) {
-        this.menu.isDecided = true;
-      }
     }
   }
 }

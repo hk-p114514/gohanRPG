@@ -11,7 +11,7 @@ const attackForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor
 
 const healForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
-    target.beHealed(target.hp.current * 0.4);
+    target.beHealed(target.hp.max * 0.4);
   });
 };
 

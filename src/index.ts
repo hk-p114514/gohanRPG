@@ -18,7 +18,7 @@ const scenes = [Preload, Map1, Map2, Battle, UI];
 // const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map1, [
-  new BattleActor({ name: 'ゆーしゃ', initSkills: [skills[0], skills[1]] }),
+  new BattleActor({ name: 'ゆーしゃ', initSkills: [skills[0]] }),
   new BattleActor({
     name: 'なかま1',
     initSkills: [skills[0], skills[1]],
