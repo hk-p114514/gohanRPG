@@ -12,7 +12,7 @@ import { system } from 'index';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import { charas } from 'classes/Characters';
-import { NPC, map, events } from 'classes/exam';
+import { NPC, map, events, hints } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
 // values
 export const tileSize: number = 40;
@@ -28,6 +28,7 @@ export class Map extends Scene {
   public player?: Player;
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
+  private hintPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
@@ -73,10 +74,60 @@ export class Map extends Scene {
       }
     }
   }
+  public sethint(name: string, took: Array<string>, eve: Function = () => {}) {
+    for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
+      let e = this.hintPoints[i];
+      if (name === e.name && !!e.x && !!e.y) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        hints.set(system.map + ',' + x + ',' + y, [took.concat(), eve]);
+      }
+    }
+  }
   public create() {
     const space = this.input.keyboard.addKey('SPACE');
     space.on('down', () => {
       console.log(this.player);
+      if (!!this.player) {
+        let xy = this.player.getTilePos();
+        let z = this.player.getdir();
+        xy.x += map.get(z).x;
+        xy.y += map.get(z).y;
+        if (this.flag != -1) {
+          let n = hints.get(system.map + ',' + xy.x + ',' + xy.y);
+          if (n.took.length <= this.flag) {
+            this.flag = -1;
+            n.event();
+          } else {
+            console.log(n.took[this.flag]);
+            ++this.flag;
+          }
+        } else if (!!hints.has(system.map + ',' + xy.x + ',' + xy.y)) {
+          let n = hints.get(system.map + ',' + xy.x + ',' + xy.y);
+          if (n.object == 'npc') {
+            switch (z) {
+              case 'up':
+                n.changedir('NDOWN');
+                break;
+              case 'down':
+                n.changedir('NUP');
+                break;
+              case 'left':
+                n.changedir('NRIGHT');
+                break;
+              case 'right':
+                n.changedir('NLEFT');
+                break;
+            }
+          } else if (n.object == 'box') {
+          }
+          console.log(n.took[0]);
+          this.flag = 1;
+        } else {
+          console.log('?');
+        }
+        console.log(system.map + ',' + xy.x + ',' + xy.y);
+      }
     });
     const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
@@ -103,6 +154,10 @@ export class Map extends Scene {
 
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'event';
+    });
+    console.log(this.eventPoints);
+    this.hintPoints = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.type === 'hint';
     });
     console.log(this.eventPoints);
 
@@ -134,46 +189,46 @@ export class Map extends Scene {
     this.createAnim();
     const shift = this.input.keyboard.addKey('SHIFT');
     shift.on('down', () => {
-      if (!!this.player) {
-        let xy = this.player.getTilePos();
-        let z = this.player.getdir();
-        xy.x += map.get(z).x;
-        xy.y += map.get(z).y;
-        if (this.flag != -1) {
-          let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
-          if (n.took.length <= this.flag) {
-            this.flag = -1;
-            n.event();
-          } else {
-            console.log(n.took[this.flag]);
-            ++this.flag;
-          }
-        } else if (!!map.has(system.map + ',' + xy.x + ',' + xy.y)) {
-          let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
-          if (n.object == 'npc') {
-            switch (z) {
-              case 'up':
-                n.changedir('NDOWN');
-                break;
-              case 'down':
-                n.changedir('NUP');
-                break;
-              case 'left':
-                n.changedir('NRIGHT');
-                break;
-              case 'right':
-                n.changedir('NLEFT');
-                break;
-            }
-          } else if (n.object == 'box') {
-          }
-          console.log(n.took[0]);
-          this.flag = 1;
-        } else {
-          console.log('?');
-        }
-        console.log(system.map + ',' + xy.x + ',' + xy.y);
-      }
+      //   if (!!this.player) {
+      //     let xy = this.player.getTilePos();
+      //     let z = this.player.getdir();
+      //     xy.x += map.get(z).x;
+      //     xy.y += map.get(z).y;
+      //     if (this.flag != -1) {
+      //       let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
+      //       if (n.took.length <= this.flag) {
+      //         this.flag = -1;
+      //         n.event();
+      //       } else {
+      //         console.log(n.took[this.flag]);
+      //         ++this.flag;
+      //       }
+      //     } else if (!!map.has(system.map + ',' + xy.x + ',' + xy.y)) {
+      //       let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
+      //       if (n.object == 'npc') {
+      //         switch (z) {
+      //           case 'up':
+      //             n.changedir('NDOWN');
+      //             break;
+      //           case 'down':
+      //             n.changedir('NUP');
+      //             break;
+      //           case 'left':
+      //             n.changedir('NRIGHT');
+      //             break;
+      //           case 'right':
+      //             n.changedir('NLEFT');
+      //             break;
+      //         }
+      //       } else if (n.object == 'box') {
+      //       }
+      //       console.log(n.took[0]);
+      //       this.flag = 1;
+      //     } else {
+      //       console.log('?');
+      //     }
+      //     console.log(system.map + ',' + xy.x + ',' + xy.y);
+      //   }
     });
     for (let i = 0; i < this.cn; ++i) {
       //console.log(system.map);

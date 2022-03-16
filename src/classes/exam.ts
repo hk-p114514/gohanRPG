@@ -76,3 +76,4 @@ export class mono extends Actor {
   }
 }
 export let events = new Map();
+export let hints = new Map();
