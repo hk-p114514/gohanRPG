@@ -67,9 +67,28 @@ export const timelineData: Timelines = {
 export const prologue: Timelines = {
   start: [
     { type: 'dialog', text: 'はぁーあ、最近のヤトウは碌なのがいねぇなぁ…ん？', actorName: 'マルク' }, 
-    { type: 'dialog', text: '魔王を倒せたら大盛りご飯無料？？', actorName: 'マルク'}, 
-    { type: 'dialog', text: 'へぇ…腹減ってんだ、ちょうどいい', actorName: 'マルク'}, 
-    { type: 'dialog', text: '魔王でもヤトウでも、俺が倒してやろうじゃねーか', actorName: 'マルク'},
+    { type: 'dialog', text: '魔王を倒せたら大盛りご飯無料？？', actorName: 'マルク' }, 
+    { type: 'dialog', text: 'へぇ…腹減ってんだ、ちょうどいい', actorName: 'マルク' }, 
+    { type: 'dialog', text: '魔王でもヤトウでも、俺が倒してやろうじゃねーか', actorName: 'マルク' },
     { type: 'endTimeline' },
+  ]
+}
+
+export const beforeAteBattle: Timelines = {
+  start: [
+    { type: 'dialog', text: 'おい！食堂への鍵を寄越せ！', actorName: 'マルク' }, 
+    { type: 'dialog', text: 'ふん、初対面で随分偉そうな口を聞くじゃないか…', actorName: 'エーテ' },
+    { type: 'dialog', text: 'この私が、魔王直属の四天王の一人、エーテ様と知っての言葉ではあるまいな！', actorName: 'エーテ' }, 
+    { type: 'dialog', text: 'うん、知らんかった', actorName: 'マルク' }, 
+    { type: 'dialog', text: 'あ、そう', actorName: 'エーテ'}, 
+    { type: 'dialog', text: '……', actorName: 'マルク' }, 
+    { type: 'dialog', text: '……', actorName: 'エーテ' }, 
+    { type: 'dialog', text: 'なんか、ごめん', actorName: 'マルク' }, 
+    { type: 'dialog', text: 'いいよ、俺もちょっと調子乗ってたし' }, 
+    { type: 'dialog', text: '…雰囲気戻していい？', actorName: 'エーテ' }, 
+    { type: 'dialog', text: 'お願いします', actorName: 'マルク' }, 
+    { type: 'dialog', text: '母なる魔王の元へ行きたくば、この私を倒していくがいい！', actorName: 'エーテ' }, 
+    { type: 'dialog', text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！', actorName: 'エーテ' }, 
+    { type: 'endTimeline' }, 
   ]
 }
