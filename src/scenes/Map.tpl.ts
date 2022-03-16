@@ -1,15 +1,24 @@
 // assets
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
-import { getEnemies } from 'battleActors';
 import { BattleActor } from 'classes/BattleActor';
 // classes
 import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
+
+import { Cameras, Scene, Tilemaps } from 'phaser';
+import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
+import { W, H } from 'functions/DOM/windowInfo';
+import { TimelinePlayer } from 'classes/TimelinePlayer';
+import { Timeline } from 'classes/Timeline';
+import { timelineData } from 'classes/timelineWords';
+
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
+
 import { system } from 'index';
-import { Scene, Tilemaps, Types } from 'phaser';
+import { Types } from 'phaser';
 import { playerAnims } from 'playerAnims';
 import { charas } from 'classes/Characters';
 import { NPC, map, events } from 'classes/exam';
@@ -30,8 +39,12 @@ export class Map extends Scene {
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
+  private dialogBox?: DialogBox;
+  private timelinePlayer?: TimelinePlayer;
+  private timeline?: Timeline;
   public flag: number = -1;
   private mapName: string;
+
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
@@ -81,8 +94,7 @@ export class Map extends Scene {
     const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     B.on('down', () => {
-      // this.cameras.main.shake(500);
-      this.scene.switch(sceneKeys.battle);
+      this.moveBattle();
     });
 
     // マップを作成
@@ -101,10 +113,10 @@ export class Map extends Scene {
       return obj.name === 'spawnPoint';
     });
 
+    // イベントの位置を取得
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'event';
     });
-    console.log(this.eventPoints);
 
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
@@ -120,11 +132,12 @@ export class Map extends Scene {
     );
 
     const { x, y } = spawnPoint;
-    if (!x || !y) return;
-    // タイルの位置を取得
-    const tileX = Math.floor(x / tileSize);
-    const tileY = Math.floor(y / tileSize);
-    this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    if (x && y) {
+      // タイルの位置を取得
+      const tileX = Math.floor(x / tileSize);
+      const tileY = Math.floor(y / tileSize);
+      this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+    }
 
     // グリッドの設定
     if (this.player) {
@@ -200,6 +213,16 @@ export class Map extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
+    //Dialog==================================================================
+    const push = this.input.keyboard.addKey('SHIFT');
+    push.on('down', () => {
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: timelineData,
+      });
+    });
+    //Dialog==================================================================
+  }
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
@@ -231,6 +254,17 @@ export class Map extends Scene {
       }
       //console.log(system.map + ',' + xy.x + ',' + xy.y);
     }
+  }
+
+  moveBattle() {
+    const effectsTime = 500;
+    this.cameras.main.shake(effectsTime);
+    this.cameras.main.flash(effectsTime);
+    // カメラのシェイクを終了するまで待つ
+    this.time.delayedCall(effectsTime, () => {
+      // switch -> sleep + start
+      this.scene.switch(sceneKeys.battle);
+    });
   }
 
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
