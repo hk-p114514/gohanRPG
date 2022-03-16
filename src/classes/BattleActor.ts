@@ -1,4 +1,12 @@
-import { oneShotAttack, SkillFunction } from 'skills';
+import {
+  initAtk,
+  initDef,
+  initHp,
+  initMp,
+  initSpeed,
+  level1,
+} from 'functions/generalPurpose/allInitStatus';
+import { randomNormalAttack, SkillFunction } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 export type Level = {
   // 現在のレベル
@@ -18,30 +26,35 @@ export type LimitValue = {
 
 export class BattleActor {
   name: string = '';
-  level: Level = { current: 1, exp: 0, toNext: 1, max: 1 };
-  hp: LimitValue = { current: 1, max: 1 };
-  mp: LimitValue = { current: 1, max: 1 };
+  spriteSrc: string = '';
+  level: Level;
+  hp: LimitValue;
+  mp: LimitValue;
   atk: number;
   def: number;
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
-  skills: SkillFunction[] = [oneShotAttack];
-  constructor(
-    name: string,
-    level: Level,
-    hp: LimitValue,
-    mp: LimitValue,
-    atk: number,
-    def: number,
-    speed: number,
-  ) {
+  skills: SkillFunction[] = [randomNormalAttack];
+  constructor({
+    name = 'unknown',
+    spriteSrc = '',
+    level = level1,
+    hp = { ...initHp() },
+    mp = { ...initMp() },
+    atk = initAtk,
+    def = initDef,
+    speed = initSpeed,
+    startLevel = 1,
+  }) {
     this.name = name;
+    this.spriteSrc = spriteSrc;
     this.level = level;
     this.hp = hp;
     this.mp = mp;
     this.atk = atk;
     this.def = def;
     this.speed = speed;
+    this.setLevel(startLevel);
   }
 
   addExp(exp: number) {
