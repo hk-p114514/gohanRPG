@@ -1,3 +1,4 @@
+import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { Scene, Time } from 'phaser';
@@ -17,6 +18,10 @@ export class Battle extends Scene {
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
+  private playerFunction: SkillFunction = (
+    attacker: BattleActor,
+    targets: BattleActor[],
+  ) => {};
   private index: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
@@ -36,7 +41,7 @@ export class Battle extends Scene {
 
   create() {
     // UIシーンを起動
-    this.scene.launch(sceneKeys.ui, this.enemies);
+    this.scene.launch(sceneKeys.ui, [this.party, this.enemies]);
 
     // バトル開始
     this.nextTurn();
@@ -50,7 +55,20 @@ export class Battle extends Scene {
       console.log('####################');
       console.log(`${actor.name}のターン`);
       console.log('####################');
-      actor.getRandSkill()(actor, enemies);
+
+      // actor.getRandSkill()(actor, enemies);
+      if (this.party.includes(actor)) {
+        // 該当のキャラクターがプレイヤー側なら、
+        // 使う技をプレイヤーに選択させる
+        // プレイヤーが技を選択するまで待つ
+        this.scene.pause();
+        system.setActor(actor);
+      } else {
+        system.battling = undefined;
+        // 該当のキャラクターが敵側なら、
+        // ランダムに技を選択する
+        actor.getRandSkill()(actor, enemies);
+      }
 
       this.index = (this.index + 1) % this.sorted.length;
       const endBattle = this.isEndBattle(this.party, this.enemies);
