@@ -30,8 +30,4 @@ export class Title extends Scene {
 
     this.time.addEvent({delay: 5000, callback: () => {this.scene.start(sceneKeys.preload)}, callbackScope: this})
   }
-
-  update() {
-
-  }
 }
