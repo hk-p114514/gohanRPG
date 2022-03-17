@@ -1,6 +1,6 @@
 import { system } from 'index';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { GameObjects, Scene, Types } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 import { BattleActor } from 'classes/BattleActor';
 
 type EnemySprite = {
@@ -15,6 +15,8 @@ type Unit = {
 
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
+  private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
+  private playerTexts?: GameObjects.Text[];
   private party: BattleActor[] = [];
   private enemies: BattleActor[] = [];
   private units: Unit[] = [];
@@ -54,6 +56,10 @@ export class UI extends Scene {
       width: width / boxCount,
       boxCount: boxCount,
     };
+
+    this.playerData.forEach((text) => {
+      this.playerTexts?.push(this.add.text(0, 0, text));
+    });
   }
 
   preload() {
@@ -169,9 +175,8 @@ export class UI extends Scene {
         `SPD: ${actor.speed}`,
       ];
 
-      data.forEach((text) => {
-        this.add.text(x + margin, y + margin, text, this.fontStyle);
-        y += margin;
+      this.playerTexts?.forEach((text, i) => {
+        text.setText(data[i]).setStyle(this.fontStyle);
       });
     }
   }

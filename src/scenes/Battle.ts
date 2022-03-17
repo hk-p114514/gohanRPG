@@ -64,7 +64,7 @@ export class Battle extends Scene {
         // 使う技をプレイヤーに選択させる
         // プレイヤーが技を選択するまで待つ
         // this.scene.pause();
-        // system.setActor(actor);
+        system.setActor(actor);
         this.actorAction(actor);
       } else {
         system.battling = undefined;
