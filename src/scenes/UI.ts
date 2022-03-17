@@ -16,7 +16,7 @@ type Unit = {
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
   private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
-  private playerTexts?: GameObjects.Text[];
+  private playerTexts: GameObjects.Text[] = [];
   private party: BattleActor[] = [];
   private enemies: BattleActor[] = [];
   private units: Unit[] = [];
@@ -56,10 +56,6 @@ export class UI extends Scene {
       width: width / boxCount,
       boxCount: boxCount,
     };
-
-    this.playerData.forEach((text) => {
-      this.playerTexts?.push(this.add.text(0, 0, text));
-    });
   }
 
   preload() {
@@ -87,6 +83,15 @@ export class UI extends Scene {
 
     // 敵キャラクターを表示
     this.drawActors(boxHeight);
+
+    // プレイヤーキャラクターのデータを表示するテキストを作成する
+    let { x, y } = this.menuUI;
+    const margin = this.boxMargin;
+    this.playerData.forEach((data) => {
+      const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
+      this.playerTexts.push(text);
+      y += margin;
+    });
   }
 
   update(time: number, delta: number) {
@@ -162,10 +167,8 @@ export class UI extends Scene {
     // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
     const actor = system.battling?.actor;
     if (actor) {
-      let { x, y } = this.menuUI;
       const { current, max } = actor.hp;
       const { current: mp, max: mpMax } = actor.mp;
-      const margin = this.boxMargin;
       const data: string[] = [
         `${actor.name}`,
         `HP_: ${current}/${max}`,
@@ -175,8 +178,9 @@ export class UI extends Scene {
         `SPD: ${actor.speed}`,
       ];
 
-      this.playerTexts?.forEach((text, i) => {
-        text.setText(data[i]).setStyle(this.fontStyle);
+      // playerTextsの中身を更新する
+      this.playerTexts.forEach((text, i) => {
+        text.setText(data[i]);
       });
     }
   }
