@@ -1,9 +1,11 @@
+import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
+import { randArr } from 'functions/generalPurpose/rand';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -17,6 +19,10 @@ export class Battle extends Scene {
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
+  private playerFunction: SkillFunction = (
+    attacker: BattleActor,
+    targets: BattleActor[],
+  ) => {};
   private index: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
@@ -36,7 +42,7 @@ export class Battle extends Scene {
 
   create() {
     // UIシーンを起動
-    this.scene.launch(sceneKeys.ui, this.enemies);
+    this.scene.launch(sceneKeys.ui, [this.party, this.enemies]);
 
     // バトル開始
     this.nextTurn();
@@ -44,15 +50,29 @@ export class Battle extends Scene {
 
   nextTurn() {
     this.logAllActorHP();
+    console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
     const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
     if (!actor.isDead()) {
       console.log('####################');
-      console.log(`${actor.name}のターン`);
+      console.log(`${this.index}番目の${actor.name}のターン`);
       console.log('####################');
-      actor.getRandSkill()(actor, enemies);
 
-      this.index = (this.index + 1) % this.sorted.length;
+      // actor.getRandSkill()(actor, enemies);
+      if (this.party.includes(actor)) {
+        // 該当のキャラクターがプレイヤー側なら、
+        // 使う技をプレイヤーに選択させる
+        // プレイヤーが技を選択するまで待つ
+        // this.scene.pause();
+        // system.setActor(actor);
+        this.actorAction(actor);
+      } else {
+        system.battling = undefined;
+        // 該当のキャラクターが敵側なら、
+        // ランダムに技を選択する
+        this.actorAction(actor);
+      }
+
       const endBattle = this.isEndBattle(this.party, this.enemies);
       // endBattleが0でない場合は、ターン終了
       if (endBattle !== 0) {
@@ -82,6 +102,29 @@ export class Battle extends Scene {
 
     this.index = (this.index + 1) % this.sorted.length;
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
+  }
+
+  actorAction(actor: BattleActor): void {
+    const skill = actor.getRandSkill();
+    const { forAllTargets, forEnemy } = skill.getSkillInfo();
+    console.log(`${actor.name}の${skill.getName()}!!`);
+    if (!forAllTargets) {
+      // 単体効果
+      if (forEnemy) {
+        // 現在のキャラクター主観で敵に使う技
+        skill.exe(actor, [randArr(this.getEnemyGroup(actor, this.party, this.enemies))]);
+      } else {
+        // 現在のキャラクター主観で味方に使う技
+        skill.exe(actor, [randArr(this.getGroup(actor, [this.party, this.enemies]))]);
+      }
+    } else {
+      // 全体効果
+      if (forEnemy) {
+        skill.exe(actor, this.getEnemyGroup(actor, this.party, this.enemies));
+      } else {
+        skill.exe(actor, this.getGroup(actor, [this.party, this.enemies]));
+      }
+    }
   }
 
   /**
