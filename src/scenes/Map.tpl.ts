@@ -9,10 +9,6 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 
 import { Cameras, Scene, Tilemaps } from 'phaser';
-import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
-import { W, H } from 'functions/DOM/windowInfo';
-import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { Timeline } from 'classes/Timeline';
 import { timelineData } from 'classes/timelineWords';
 
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
@@ -38,9 +34,6 @@ export class Map extends Scene {
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private dialogBox?: DialogBox;
-  private timelinePlayer?: TimelinePlayer;
-  private timeline?: Timeline;
   private mapName: string;
 
   constructor(private json: string, public name: string) {
