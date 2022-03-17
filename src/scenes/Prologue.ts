@@ -12,7 +12,7 @@ export class Prologue extends Scene {
   private isDialogEnd: boolean = true;
 
   constructor() {
-    super({key: sceneKeys.prologue});
+    super({ key: sceneKeys.prologue });
   }
 
   preload() {

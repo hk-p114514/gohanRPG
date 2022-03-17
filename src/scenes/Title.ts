@@ -8,7 +8,7 @@ export class Title extends Scene {
   private backgroundColor: string = '#336';
 
   constructor() {
-    super({key: sceneKeys.title});
+    super({ key: sceneKeys.title });
   }
 
   preload() {

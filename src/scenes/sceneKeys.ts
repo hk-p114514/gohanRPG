@@ -7,6 +7,7 @@ export const sceneKeys = {
   ui: 'ui',
   prologue: 'prologue', 
   title: 'title',
+  gameover: 'gameover',
 };
 
 export type SceneKeys = keyof typeof sceneKeys;
