@@ -22,7 +22,7 @@ export class System {
 
   public preload() {}
 
-  public startMap(from: Scene, to: SceneKeys): number {
+  public startMap(from: Scene, to: string): number {
     if (from.scene.key === to) {
       return 1;
     }
@@ -32,7 +32,7 @@ export class System {
     return 0;
   }
 
-  public switchMap(from: Scene, to: SceneKeys): number {
+  public switchMap(from: Scene, to: string): number {
     if (from.scene.key === to) {
       return 1;
     }
