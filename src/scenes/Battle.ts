@@ -64,7 +64,8 @@ export class Battle extends Scene {
         // 使う技をプレイヤーに選択させる
         // プレイヤーが技を選択するまで待つ
         // this.scene.pause();
-        // system.setActor(actor);
+        system.setActor(actor);
+        system.setSkill(this.playerFunction);
         this.actorAction(actor);
       } else {
         system.battling = undefined;
@@ -97,6 +98,11 @@ export class Battle extends Scene {
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
+      if (this.party.includes(actor)) {
+        this.party = this.party.filter((a) => a !== actor);
+      } else {
+        this.enemies = this.enemies.filter((a) => a !== actor);
+      }
       console.log(`${actor.name}は死んでしまった`);
     }
 
