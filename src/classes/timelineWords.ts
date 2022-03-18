@@ -92,3 +92,22 @@ export const beforeAteBattle: Timelines = {
     { type: 'endTimeline' }, 
   ]
 }
+
+export const afterAteBattle: Timelines = {
+  start: [
+    { type: 'dialog', text: 'ぐっ…こんな、所で…', actorName: 'エーテ' }, 
+    { type: 'dialog', text: '俺は、四天王なんだ…こんな所で、倒れる訳にはいかないんだ…！', actorName: 'エーテ' }, 
+    { type: 'dialog', text: '俺を生み出しし母、OBCの為に…！', actorName: 'エーテ' }, 
+    { type: 'dialog', text: 'OBC？なんだそれ？', actorName: 'マルク' }, 
+    { type: 'dialog', text: 'ふん、覚えておくといい…いずれ貴様を滅ぼす、偉大なる魔王の名だ…', actorName: 'エーテ' }, 
+    { type: 'dialog', text: 'バタッ', actorName: 'エーテ' }, 
+    { type: 'dialog', text: '…死に際に色々吐いてくれる系四天王だったな…', actorName: 'マルク'}, 
+    { type: 'dialog', text: 'エーテはもう倒れたか…', actorName: 'OBC' },
+    { type: 'dialog', text: 'ふん、奴は四天王の中でも最弱…', actorName: 'メルシン' }, 
+    { type: 'dialog', text: 'OBC、次は私に行かせてください', actorName: 'ビーテ' }, 
+    { type: 'dialog', text: '兄の責任は私の責任でもあります', actorName: 'ビーテ' }, 
+    { type: 'dialog', text: '良かろう、次は貴様に任せる', actorName: 'OBC'}, 
+    { type: 'dialog', text: '必ずや、止めてみせます故…'}, 
+    { type: 'endTimeline' },
+  ]
+}
