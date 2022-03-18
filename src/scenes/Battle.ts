@@ -19,10 +19,6 @@ export class Battle extends Scene {
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
-  private playerFunction: SkillFunction = (
-    attacker: BattleActor,
-    targets: BattleActor[],
-  ) => {};
   private index: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
