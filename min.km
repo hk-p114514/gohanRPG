@@ -1,0 +1,435 @@
+{
+    "root": {
+        "data": {
+            "id": "chgbnegnbq80",
+            "created": 1643272964961,
+            "text": "最小構成"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "chgbnqohvjk0",
+                    "created": 1643272991557,
+                    "text": "主人公（移動）できる",
+                    "layout_mind_offset": {
+                        "x": -59,
+                        "y": -46
+                    },
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbo5larkw0",
+                            "created": 1643273024015,
+                            "text": "座標を持つ"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgbo9zhjko0",
+                            "created": 1643273033580,
+                            "text": "キー入力をうけられる"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgboixjkvc0",
+                            "created": 1643273053054,
+                            "text": "マップが存在する"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chqp3nfn15s0",
+                                    "created": 1644326512313,
+                                    "text": "マップ一つに付き\n一つのScene継承クラス"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "chqp4abxr9s0",
+                                            "created": 1644326562155,
+                                            "text": "共通処理"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chqp4ce4vvk0",
+                                                    "created": 1644326566642,
+                                                    "text": "画像ファイルと\nJSONファイル\nの読み込み"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp4r995uo0",
+                                                    "created": 1644326598998,
+                                                    "text": "キー入力受け取りの準備"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp5ytbg4o0",
+                                                    "created": 1644326693813,
+                                                    "text": "JSONからレイヤーを作成、\n衝突判定の設定"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp773pd5s0",
+                                                    "created": 1644326790219,
+                                                    "text": "objectsレイヤーのspawnPointを\n探し出し、プレイヤーの初期位置を設定"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqp8w2wup40",
+                                                    "created": 1644326922955,
+                                                    "text": "プレイヤースプライトの作成"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqpq6ovqe00",
+                                                    "created": 1644328278242,
+                                                    "text": "カメラの設定\n描画限界、\nプレイヤー追従"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "chqpqogammg0",
+                                                    "created": 1644328316905,
+                                                    "text": "プレイヤー作成"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "chqpquyvap40",
+                                                            "created": 1644328331089,
+                                                            "text": "グリッド移動設定、\nグリッド物理設定"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "chqq5akn6vk0",
+                                            "created": 1644329462156,
+                                            "text": "変化する点"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "chqq5d4vgtk0",
+                                                    "created": 1644329467732,
+                                                    "text": "読み込むJSONファイル"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chgbowrmhz40",
+                    "created": 1643273083172,
+                    "text": "バトルができる",
+                    "layout_mind_offset": {
+                        "x": -62,
+                        "y": -7
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbp0i1rds0",
+                            "created": 1643273091299,
+                            "text": "敵が存在する"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "chgbp8jaa600",
+                            "created": 1643273108788,
+                            "text": "バトルシステム",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbpax9i1c0",
+                                    "created": 1643273113987,
+                                    "text": "スピード（ステータス）でソートした順に行動",
+                                    "layout_right_offset": {
+                                        "x": -21,
+                                        "y": -6
+                                    }
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqwgf37rs0",
+                                    "created": 1646667469716,
+                                    "text": "技はとりあえず攻撃力分の物理攻撃のみで進める"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "chgbru0znv40",
+                    "created": 1643273312299,
+                    "text": "クリアがある"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "chgbrxf41i80",
+                            "created": 1643273319683,
+                            "text": "ボスがいる"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbs3dg2p40",
+                                    "created": 1643273332643,
+                                    "text": "倒した時点で例外処理"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cidqxat4o3c0",
+                                    "created": 1646667535869,
+                                    "text": "　ユニークイベント"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cidqxjej6wo0",
+                                            "created": 1646667554577,
+                                            "text": "イベントシーンを作る"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "chgbs0hkods0",
+                            "created": 1643273326363,
+                            "text": "クリア画面がある"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "chgbscimfe80",
+                                    "created": 1643273352547,
+                                    "text": "スタート画面がある"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "cib5gxtjjxs0",
+                    "created": 1646403890548,
+                    "text": "イベントを発生できる"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cib5h4zcgkg0",
+                            "created": 1646403906136,
+                            "text": "特定のタイル（座標）\nに乗った時にイベントを発火"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cib5iao9how0",
+                                    "created": 1646403996891,
+                                    "text": "とりあえず場所は固定で動作"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cib5j8gm4gw0",
+                                    "created": 1646404070439,
+                                    "text": "イベント",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cib65rlav5s0",
+                                            "created": 1646405836093,
+                                            "text": "固定イベント"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib66ileijk0",
+                                                    "created": 1646405894872,
+                                                    "text": "マップのオブジェクトレイヤーから"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib65x05neo0",
+                                                    "created": 1646405847875,
+                                                    "text": "ただの会話"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib65zzb7mg0",
+                                                    "created": 1646405854354,
+                                                    "text": "ボス戦等"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib65urpi0w0",
+                                            "created": 1646405843010,
+                                            "text": "ランダムイベント"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib66wbwyug0",
+                                                    "created": 1646405924773,
+                                                    "text": "プログラムから"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib663a6kww0",
+                                                    "created": 1646405861542,
+                                                    "text": "通常敵遭遇"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib6687nak00",
+                                                    "created": 1646405872272,
+                                                    "text": "その他トラップ等"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib6g80qns00",
+                                            "created": 1646406655496,
+                                            "text": "メンバ"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib6gi3muh40",
+                                                    "created": 1646406677439,
+                                                    "text": "実行する座標"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "cib6gl9b83s0",
+                                            "created": 1646406684313,
+                                            "text": "メソッド"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib6gmge0gg0",
+                                                    "created": 1646406686917,
+                                                    "text": "実行内容"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "cib5jk49sj40",
+                                    "created": 1646404095814,
+                                    "text": "一度切り or 座標に乗るたび\nイベントそのものかタイルにフラグを持たせる"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "cib5kpa5syg0",
+                                            "created": 1646404185418,
+                                            "text": "イベントをタイルに"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "cib5ktatxcw0",
+                                                    "created": 1646404194166,
+                                                    "text": "乗っている間"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "cib5kzp7pt40",
+                                                    "created": 1646404208096,
+                                                    "text": "乗った瞬間に一回",
+                                                    "progress": 9
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "snow",
+    "version": "1.4.43"
+}

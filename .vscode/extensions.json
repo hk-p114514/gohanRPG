@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "Souche.vscode-mindmap",
+    "Tyriar.luna-paint",
+    "hediet.vscode-drawio",
+    "wix.vscode-import-cost",
+    "oderwat.indent-rainbow",
+    "gamunu.vscode-yarn",
+    "jeremyrajan.webpack",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "Gruntfuggly.todo-tree"
+  ]
+}

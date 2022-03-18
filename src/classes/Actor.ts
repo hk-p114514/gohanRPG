@@ -1,119 +1,142 @@
-import { characterSize } from 'index';
-import { GameObjects, Scene, Tilemaps, Types } from 'phaser';
-export type LimitValue = {
-  current: number;
-  max: number;
-};
+import { GameObjects } from 'phaser';
+import { playerAnims } from 'playerAnims';
+import { tileSize } from 'scenes/Map.tpl';
+import { Direction } from './Direction';
 
-export type Level = {
-  current: number;
-  exp: number;
-  max: number;
-};
-
-export type Point = {
-  x: number;
-  y: number;
-};
-
-export type originActor = {
-  name: string;
-  hp: LimitValue;
-  mp: LimitValue;
-  level: Level;
-  atk: number;
-  def: number;
-};
+type Vector2 = Phaser.Math.Vector2;
 
 export type AnimState = 'front' | 'back' | 'left' | 'right' | '';
-
+export let stand = new Map();
+stand.set('left', 4);
+stand.set('right', 7);
+stand.set('up', 10);
+stand.set('down', 1);
 export type SpriteAnims = {
   key: string;
   start: number;
   end: number;
 };
-
 export class Actor {
-  public name: string;
-  private p: Point;
-  private hp: LimitValue;
-  private mp: LimitValue;
-  private level: Level = { current: 1, exp: 0, max: 100 };
-  private atk: number;
-  private def: number;
-  private diameter;
-  private sprite?: GameObjects.Sprite;
-  private animState: AnimState = 'front';
-  private anims: SpriteAnims[] = [
-    // 画像データは"ぴぽや"のキャラクターシートを使っているため、順番は固定
-    { key: 'front', start: 0, end: 2 },
-    { key: 'back', start: 3, end: 5 },
-    { key: 'left', start: 6, end: 8 },
-    { key: 'right', start: 9, end: 11 },
-  ];
+  public offsetX: number = tileSize / 2;
+  public offsetY: number = tileSize;
+  public dir: string = 'down';
   constructor(
-    spData: GameObjects.Sprite,
-    name: string,
-    hp: LimitValue,
-    mp: LimitValue,
-    level: Level,
-    atk: number,
-    def: number,
-    diameter: number,
+    public name: string,
+    public sprite: GameObjects.Sprite,
+    public tilePos: Vector2,
   ) {
-    const { x, y } = spData;
-    this.name = name;
-    this.p = { x, y };
-    this.hp = hp;
-    this.mp = mp;
-    this.level = level;
-    this.atk = atk;
-    this.def = def;
-    this.diameter = diameter;
+    this.sprite.setOrigin(0.5, 1);
+    this.sprite.setPosition(
+      tilePos.x * tileSize + this.offsetX,
+      tilePos.y * tileSize + this.offsetY,
+    );
+    this.sprite.setFrame(1);
+    this.createPlayerAnimation(
+      name,
+      Direction.UP,
+      playerAnims[0].frameStart,
+      playerAnims[0].frameEnd,
+    );
+    this.createPlayerAnimation(
+      name,
+      Direction.LEFT,
+      playerAnims[1].frameStart,
+      playerAnims[1].frameEnd,
+    );
+    this.createPlayerAnimation(
+      name,
+      Direction.RIGHT,
+      playerAnims[2].frameStart,
+      playerAnims[2].frameEnd,
+    );
+    this.createPlayerAnimation(
+      name,
+      Direction.DOWN,
+      playerAnims[3].frameStart,
+      playerAnims[3].frameEnd,
+    );
   }
-
-  public getActor(): originActor {
-    const { name, hp, mp, level, atk, def } = this;
-    return { name, hp, mp, level, atk, def };
-  }
-
-  public preload = (scene: Scene, name: string, src: string): void => {
-    scene.load.spritesheet(name, src, {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    });
-  };
-
-  public create = (scene: Scene, mapGroundLayer: Tilemaps.TilemapLayer): void => {
-    // 現在の座標からマップ上にスプライトを配置する
-    const { x, y } = this.p;
-    const p: Phaser.Math.Vector2 = mapGroundLayer.tileToWorldXY(x, y);
-    this.sprite = scene.add.sprite(p.x, p.y, this.name, 0);
-    this.sprite.setOrigin(0);
-    this.sprite.setDisplaySize(this.diameter, this.diameter);
-  };
-
-  public setAnim = (scene: Scene) => {
-    for (const anim of this.anims) {
-      if (scene.anims.create(this.spriteAnimConfig(anim, scene)) === false) {
-        continue;
-      }
-    }
-    this.sprite?.anims.play(this.animState);
-  };
-
-  public spriteAnimConfig = (
-    config: SpriteAnims,
-    scene: Scene,
-  ): Types.Animations.Animation => {
-    return {
-      key: config.key,
-      frames: scene.anims.generateFrameNames(this.name, {
-        start: config.start,
-        end: config.end,
+  createPlayerAnimation(
+    name: string,
+    key: string,
+    startFrame: number,
+    endFrame: number = startFrame,
+  ) {
+    this.sprite.anims.create({
+      key: key,
+      frames: this.sprite.anims.generateFrameNumbers(name, {
+        start: startFrame,
+        end: endFrame,
       }),
-      frameRate: 8,
+      frameRate: 10,
       repeat: -1,
-    };
-  };
+      yoyo: true,
+    });
+  }
+  getPosition(): Vector2 {
+    return this.sprite.getBottomCenter();
+  }
+
+  setPosition(position: Vector2): void {
+    this.sprite.setPosition(position.x, position.y);
+  }
+
+  stopAnimation(direction: Direction) {
+    const animationManager = this.sprite.anims.animationManager;
+    //const standingFrame = animationManager.get(direction).frames[1].frame.name;
+    this.sprite.anims.stop();
+    this.sprite.setFrame(stand.get(direction));
+    this.dir = direction;
+  }
+
+  startAnimation(direction: Direction) {
+    this.sprite.anims.play(direction);
+    this.dir = direction;
+  }
+
+  getTilePos(): Vector2 {
+    return this.tilePos.clone();
+  }
+
+  // method overloading
+  setTilePos(tilePosition: Vector2): void;
+  setTilePos(x: number, y: number): void;
+  setTilePos(...values: any[]): void {
+    if (values.length === 1) {
+      this.tilePos = values[0].clone();
+    } else {
+      this.sprite.setPosition(
+        values[0] * tileSize + this.offsetX,
+        values[1] * tileSize + this.offsetY,
+      );
+    }
+  }
+  moveTilePos(x: number, y: number): void {
+    this.sprite.setPosition(x * tileSize + this.offsetX, y * tileSize + this.offsetY);
+    this.tilePos = new Phaser.Math.Vector2(x, y);
+  }
+  getSprite(): GameObjects.Sprite {
+    return this.sprite;
+  }
+
+  getdir(): string {
+    return this.dir;
+  }
+  getredir(): string {
+    switch (this.dir) {
+      case 'up':
+        return 'down';
+      case 'down':
+        return 'up';
+      case 'left':
+        return 'right';
+      case 'right':
+        return 'left';
+    }
+    return 'up';
+  }
+  changedir(dir: string): void {
+    this.sprite.setFrame(stand.get(dir));
+    this.dir = dir;
+  }
 }
