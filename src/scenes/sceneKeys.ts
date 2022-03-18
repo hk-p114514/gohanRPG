@@ -8,6 +8,7 @@ export const sceneKeys = {
   prologue: 'prologue', 
   title: 'title',
   gameover: 'gameover',
+  timelinePlayer: 'timelinePlayer',
 };
 
 export type SceneKeys = keyof typeof sceneKeys;

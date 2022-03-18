@@ -14,10 +14,11 @@ import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from 'classes/BattleActor';
+import { TimelinePlayer } from 'classes/TimelinePlayer';
 import { skills } from 'skills';
 
 // 使用するシーンをまとめる
-const scenes = [Title, Prologue, Preload, Map1, Map2, Battle, GameOver, UI];
+const scenes = [Prologue, Title, Preload, Map1, Map2, Battle, GameOver, UI, TimelinePlayer];
 // const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map1, [
