@@ -1,7 +1,9 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
-import { system } from 'index';
+import { Timelines } from 'classes/Timelines';
+import { Words, Took } from 'classes/timelineWords';
+//import { system } from 'index';
 
 export class Map1 extends Map {
   constructor() {
@@ -14,12 +16,13 @@ export class Map1 extends Map {
     // });
     // super.makeNPC(1, 10, 10, ['naaaa', '!!']);
     // super.makeNPC(1, 8, 8, ['shaaa', '!!']);
+    super.setnpcimage(['hito'], 0);
   }
   create() {
     super.create();
-    super.setevent('event', ['nya?', 'nyanya!', 'nya~'], () => {
-      console.error('出来た');
-    });
+    super.setevent('event', Words);
+    super.sethint('kanban', Took);
+    super.makeNPC('hito', Took);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {

@@ -7,35 +7,11 @@ type Vector2 = Phaser.Math.Vector2;
 export class NPC extends Actor {
   public object: string = 'npc';
   constructor(
-    public nn: number,
+    public nn: string,
     public sprite: GameObjects.Sprite,
     public tilePos: Vector2,
-    public took: Array<string>,
-    public event?: Function,
   ) {
-    super(sprite, tilePos);
-    this.createPlayerAnimation('NUP', playerAnims[0].frameStart);
-    this.createPlayerAnimation('NLEFT', playerAnims[1].frameStart);
-    this.createPlayerAnimation('NRIGHT', playerAnims[2].frameStart);
-    this.createPlayerAnimation('NDOWN', playerAnims[3].frameStart);
-  }
-  setText(took: Array<string>): void {
-    this.took = took.concat();
-  }
-  setevent(eve: Function): void {
-    this.event = eve;
-  }
-  createPlayerAnimation(name: string, startFrame: number) {
-    this.sprite.anims.create({
-      key: name,
-      frames: this.sprite.anims.generateFrameNumbers(system.map + ',' + 'npc' + this.nn, {
-        start: startFrame,
-        end: startFrame,
-      }),
-      frameRate: 10,
-      repeat: -1,
-      yoyo: true,
-    });
+    super(nn, sprite, tilePos);
   }
 }
 
@@ -44,7 +20,7 @@ map.set('left', new Phaser.Math.Vector2(-1, 0));
 map.set('right', new Phaser.Math.Vector2(1, 0));
 map.set('up', new Phaser.Math.Vector2(0, -1));
 map.set('down', new Phaser.Math.Vector2(0, 1));
-
+export let npcs = new Map(); /*
 export class mono extends Actor {
   public object: string = 'box';
   constructor(
@@ -74,6 +50,8 @@ export class mono extends Actor {
       yoyo: true,
     });
   }
-}
+}*/
 export let events = new Map();
 export let hints = new Map();
+export let funcs = new Map();
+export let names = new Map();

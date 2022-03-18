@@ -6,7 +6,9 @@ import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
 import { SceneTimelines, Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
-
+import { npcs, funcs } from './exam';
+import { Map } from 'scenes/Map.tpl';
+import { keys } from 'lodash';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -117,11 +119,8 @@ export class TimelinePlayer extends Scene {
         this.setChoiceButtons(timelineEvent.choices);
         break;
       case 'event': // イベント追加
-      /*if(timelineEvent.event == イベント指定){
-
-        }else if(){
-
-        }*/
+        this.startevent(timelineEvent.event);
+        break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
         this.timelineIndex = -1;
@@ -129,11 +128,23 @@ export class TimelinePlayer extends Scene {
         this.anotherScene.scene.resume();
         // timelinePlayerシーンを止める
         this.scene.stop();
+        break;
       default:
         break;
     }
   }
-
+  private startevent(key: string) {
+    // switch (key) {
+    //   case 'cd':
+    //     //this.anotherScene?.
+    //     //output();
+    //     break;
+    //   default:
+    // }
+    if (funcs.has(key)) {
+      funcs.get(key)();
+    }
+  }
   // ダイアログの作成
   private createDialogBox(x: number, y: number, width: number, height: number) {
     // ダイアログボックスの設定

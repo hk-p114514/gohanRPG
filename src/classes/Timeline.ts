@@ -1,3 +1,4 @@
+import { Vector } from 'matter';
 import { Choice } from './Choice';
 
 // ダイアログ表示イベント
@@ -63,6 +64,7 @@ type EndTimeline = {
 type MotionEvent = {
   type: 'event';
   event: string;
+  many: Array<any>;
 };
 
 // Timelineはイベントの配列
