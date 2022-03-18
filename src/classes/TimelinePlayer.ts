@@ -6,7 +6,9 @@ import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
 import { SceneTimelines, Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
-
+import { npcs, funcs } from './exam';
+import { Map } from 'scenes/Map.tpl';
+import { keys } from 'lodash';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -89,8 +91,8 @@ export class TimelinePlayer extends Scene {
         this.isTextShow = false;
         break;
 
-      case 'setBackground': // 背景設定イベント
-        this.setBackground(timelineEvent.x, timelineEvent.y, timelineEvent.key);
+      case 'setBackgroundImage': // 背景設定イベント
+        this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
         break;
 
       case 'addForeground': // 前景追加イベント
@@ -116,12 +118,12 @@ export class TimelinePlayer extends Scene {
       case 'choice': // 選択肢イベント
         this.setChoiceButtons(timelineEvent.choices);
         break;
+      case 'setBackgroundColor':
+        this.setBackgroundColor(timelineEvent.color);
+        break;
       case 'event': // イベント追加
-      /*if(timelineEvent.event == イベント指定){
-
-        }else if(){
-
-        }*/
+        this.startevent(timelineEvent.event);
+        break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
         this.timelineIndex = -1;
@@ -129,11 +131,23 @@ export class TimelinePlayer extends Scene {
         this.anotherScene.scene.resume();
         // timelinePlayerシーンを止める
         this.scene.stop();
+        break;
       default:
         break;
     }
   }
-
+  private startevent(key: string) {
+    // switch (key) {
+    //   case 'cd':
+    //     //this.anotherScene?.
+    //     //output();
+    //     break;
+    //   default:
+    // }
+    if (funcs.has(key)) {
+      funcs.get(key)();
+    }
+  }
   // ダイアログの作成
   private createDialogBox(x: number, y: number, width: number, height: number) {
     // ダイアログボックスの設定
@@ -175,7 +189,7 @@ export class TimelinePlayer extends Scene {
   }
 
   // 背景画像をセット
-  private setBackground(x: number, y: number, texture: string) {
+  private setBackgroundImage(x: number, y: number, texture: string) {
     if (!this.backgroundLayer) return;
     // 背景レイヤーの子を全て削除
     this.backgroundLayer.removeAll();
@@ -183,6 +197,13 @@ export class TimelinePlayer extends Scene {
     const backgroundImage = new Phaser.GameObjects.Image(this, x, y, texture);
     // 背景レイヤーに画像オブジェクトを配置
     this.backgroundLayer.add(backgroundImage);
+  }
+
+  private setBackgroundColor(color:string){
+    if(!this.backgroundLayer) return;
+    // 背景レイヤーの子を全て削除
+    this.backgroundLayer.removeAll();
+    this.cameras.main.setBackgroundColor(color);
   }
 
   // 前景画像を追加

@@ -3,21 +3,20 @@ import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
 // classes
-import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 
-import { Cameras, Scene, Tilemaps } from 'phaser';
+import { Scene, Tilemaps } from 'phaser';
 import { timelineData } from 'classes/timelineWords';
 
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { Timelines } from 'classes/Timelines';
 
 import { system } from 'index';
 import { Types } from 'phaser';
-import { playerAnims } from 'playerAnims';
 import { charas } from 'classes/Characters';
-import { NPC, map, events } from 'classes/exam';
+import { NPC, map, events, hints, npcs, funcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
 // values
 export const tileSize: number = 40;
@@ -33,6 +32,8 @@ export class Map extends Scene {
   public player?: Player;
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
+  private hintPoints?: Types.Tilemaps.TiledObject[];
+  private npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
@@ -53,40 +54,73 @@ export class Map extends Scene {
       frameHeight: characterSize,
     });
   }
-  public npcs = new Array();
-  public cn: number = 0;
-  public makeNPC(
-    char: number,
-    x: number,
-    y: number,
-    took: Array<string>,
-    eve?: Function,
-  ) {
-    this.load.spritesheet(system.map + ',' + 'npc' + this.cn, charas[char], {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    });
-    this.npcs.push([x, y, took.concat(), eve === undefined ? () => {} : eve]);
-    ++this.cn;
+  public setnpcimage(s: Array<string>, n: number) {
+    for (let i = 0; i < s.length; ++i) {
+      this.load.spritesheet(s[i], charas[n], {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      }); //console.log(system.map);
+    }
   }
-  public setevent(name: string, took: Array<string>, eve: Function = () => {}) {
+  public makeNPC(name: string, took: Timelines) {
+    for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
+      let e = this.npcPoints[i];
+      if (name === e.name && !!e.x && !!e.y) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        hints.set(system.map + ',' + x + ',' + y, took);
+        let l = this.add.sprite(0, 0, name, 1);
+        let hito = new NPC(name, l, new Phaser.Math.Vector2(x, y));
+        npcs.set(system.map + ',' + x + ',' + y, hito);
+        names.set(name, hito);
+        console.log(system.map + ',' + x + ',' + y);
+      }
+    }
+  }
+  public setevent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
-        events.set(system.map + ',' + x + ',' + y, [took.concat(), eve]);
+        events.set(system.map + ',' + x + ',' + y, took);
       }
     }
   }
+  public sethint(name: string, took: Timelines) {
+    for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
+      let e = this.hintPoints[i];
+      if (name === e.name && !!e.x && !!e.y) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        hints.set(system.map + ',' + x + ',' + y, took);
+      }
+    }
+  }
+
   public create() {
-    const space = this.input.keyboard.addKey('SPACE');
-    space.on('down', () => {
+    const space = this.input.keyboard.addKey('SPACE').on('down', () => {
       console.log(this.player);
+      if (this.gridPhysics?.isMoving()) return;
+      if (!!this.player) {
+        let xy = this.player.getTilePos();
+        let z = this.player.getdir();
+        xy.x += map.get(z).x;
+        xy.y += map.get(z).y;
+        if (!!hints.has(system.map + ',' + xy.x + ',' + xy.y)) {
+          let n = hints.get(system.map + ',' + xy.x + ',' + xy.y);
+          this.scene.launch(sceneKeys.timelinePlayer, {
+            anotherScene: this,
+            timelinedata: n,
+          });
+        } else {
+          console.log('?');
+        }
+        console.log(system.map + ',' + xy.x + ',' + xy.y);
+      }
     });
-    const B = this.input.keyboard.addKey('B');
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
-    B.on('down', () => {
+    const B = this.input.keyboard.addKey('B').on('down', () => {
       this.moveBattle();
     });
 
@@ -110,7 +144,16 @@ export class Map extends Scene {
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'event';
     });
-
+    console.log(this.eventPoints);
+    this.hintPoints = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.type === 'hint';
+    });
+    console.log(this.hintPoints);
+    this.npcPoints = this.tileMap.filterObjects('objects', (obj) => {
+      return obj.type === 'npc';
+    });
+    console.log(this.npcPoints);
+    this.createevents();
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -138,71 +181,7 @@ export class Map extends Scene {
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
     this.createAnim();
-    const shift = this.input.keyboard.addKey('SHIFT');
-    shift.on('down', () => {
-      if (!!this.player) {
-        let xy = this.player.getTilePos();
-        let z = this.player.getdir();
-        xy.x += map.get(z).x;
-        xy.y += map.get(z).y;
-        if (this.flag != -1) {
-          let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
-          if (n.took.length <= this.flag) {
-            this.flag = -1;
-            n.event();
-          } else {
-            console.log(n.took[this.flag]);
-            ++this.flag;
-          }
-        } else if (!!map.has(system.map + ',' + xy.x + ',' + xy.y)) {
-          let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
-          if (n.object == 'npc') {
-            switch (z) {
-              case 'up':
-                n.changedir('NDOWN');
-                break;
-              case 'down':
-                n.changedir('NUP');
-                break;
-              case 'left':
-                n.changedir('NRIGHT');
-                break;
-              case 'right':
-                n.changedir('NLEFT');
-                break;
-            }
-          } else if (n.object == 'box') {
-          }
-          console.log(n.took[0]);
-          this.flag = 1;
-        } else {
-          console.log('?');
-        }
-        console.log(system.map + ',' + xy.x + ',' + xy.y);
-      }
-    });
-    for (let i = 0; i < this.cn; ++i) {
-      //console.log(system.map);
-      let l = this.add.sprite(0, 0, system.map + ',' + 'npc' + i);
-      map.set(
-        system.map + ',' + this.npcs[i][0] + ',' + this.npcs[i][1],
-        new NPC(
-          i,
-          l,
-          new Phaser.Math.Vector2(this.npcs[i][0], this.npcs[i][1]),
-          this.npcs[i][2],
-          this.npcs[i][3],
-        ),
-      );
-      this.tileMap.putTileAt(
-        this.tileMap.getTileAt(0, 0, false, 'worldLayer'),
-        this.npcs[i][0],
-        this.npcs[i][1],
-        false,
-        'worldLayer',
-      );
-      console.log(system.map + ',' + this.npcs[i][0] + ',' + this.npcs[i][1]);
-    }
+    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {});
 
     // Debug graphics
     this.enableDebugMode();
@@ -218,36 +197,52 @@ export class Map extends Scene {
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
-    this.gridControls?.update();
-    this.gridPhysics?.update(delta);
-    if (!!this.player) {
-      let nxy = this.player.getTilePos();
-      //   if (this.flag != -1) {
-      //     let n = map.get(system.map + ',' + xy.x + ',' + xy.y);
-      //     if (n.took.length <= this.flag) {
-      //       this.flag = -1;
-      //       n.event();
-      //     } else {
-      //       console.log(n.took[this.flag]);
-      //       ++this.flag;
-      //     }
-      //   } else
-      if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
-        this.xy = this.player.getTilePos();
-        if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
-          let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
-          for (let i = 0; i < n[0].length; ++i) {
-            console.log(n[0][i]);
+    if (!this.gridPhysics?.isMoving()) {
+      if (!!this.player) {
+        let nxy = this.player.getTilePos();
+        if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
+          this.xy = this.player.getTilePos();
+          if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
+            let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
+            this.scene.launch(sceneKeys.timelinePlayer, {
+              anotherScene: this,
+              timelinedata: n,
+            });
+          } else if (this.tileMap?.hasTileAt(this.xy.x, this.xy.y, 'www')) {
+            console.log('?');
           }
-          n[1]();
         } else {
-          //console.log('?');
+          this.gridControls?.update();
+          //console.log(this.player.getSprite());
         }
+        //console.log(system.map + ',' + xy.x + ',' + xy.y);
       }
-      //console.log(system.map + ',' + xy.x + ',' + xy.y);
+      //console.log(this.player?.getTilePos());
     }
+    this.gridPhysics?.update(delta);
   }
-
+  public createevents() {
+    funcs.set('talk', () => {
+      if (!!this.player) {
+        let xy = this.player.getTilePos();
+        let z = this.player.getdir();
+        xy.x += map.get(z).x;
+        xy.y += map.get(z).y;
+        if (!!npcs.has(system.map + ',' + xy.x + ',' + xy.y)) {
+          let n = npcs.get(system.map + ',' + xy.x + ',' + xy.y);
+          n.changedir(this.player.getredir());
+        } else {
+          console.log('?');
+        }
+        console.log(system.map + ',' + xy.x + ',' + xy.y);
+      }
+      console.log('dekitawa');
+    });
+    funcs.set('chdir', () => {});
+    funcs.set('move', () => {});
+    funcs.set('log', () => {});
+    funcs.set('warp', () => {});
+  }
   moveBattle() {
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
@@ -258,7 +253,6 @@ export class Map extends Scene {
       this.scene.switch(sceneKeys.battle);
     });
   }
-
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
     this.anims.create({
       key: name,
@@ -272,29 +266,7 @@ export class Map extends Scene {
     });
   }
 
-  public createAnim() {
-    // プレイヤーのアニメーション
-    this.createPlayerAnimation(
-      Direction.UP,
-      playerAnims[0].frameStart,
-      playerAnims[0].frameEnd,
-    );
-    this.createPlayerAnimation(
-      Direction.LEFT,
-      playerAnims[1].frameStart,
-      playerAnims[1].frameEnd,
-    );
-    this.createPlayerAnimation(
-      Direction.RIGHT,
-      playerAnims[2].frameStart,
-      playerAnims[2].frameEnd,
-    );
-    this.createPlayerAnimation(
-      Direction.DOWN,
-      playerAnims[3].frameStart,
-      playerAnims[3].frameEnd,
-    );
-  }
+  public createAnim() {}
 
   public enableDebugMode() {
     this.input.keyboard.once('keydown-D', () => {

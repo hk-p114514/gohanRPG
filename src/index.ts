@@ -7,6 +7,9 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Map1 } from 'scenes/Map1';
 import { Map2 } from 'scenes/Map2';
 import { Preload } from './scenes/Preload';
+import { Prologue } from 'scenes/Prologue';
+import { Title } from 'scenes/Title';
+import { GameOver } from 'scenes/GameOver';
 import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
@@ -15,7 +18,17 @@ import { TimelinePlayer } from 'classes/TimelinePlayer';
 import { skills } from 'skills';
 
 // 使用するシーンをまとめる
-const scenes = [Preload, Map1, Map2, Battle, UI, TimelinePlayer];
+const scenes = [
+  Prologue,
+  Title,
+  Preload,
+  Map1,
+  Map2,
+  Battle,
+  GameOver,
+  UI,
+  TimelinePlayer,
+];
 // const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map1, [

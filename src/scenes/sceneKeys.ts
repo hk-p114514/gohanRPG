@@ -5,6 +5,9 @@ export const sceneKeys = {
   map2: 'map2',
   battle: 'battle',
   ui: 'ui',
+  prologue: 'prologue', 
+  title: 'title',
+  gameover: 'gameover',
   timelinePlayer: 'timelinePlayer',
 };
 

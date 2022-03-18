@@ -2,7 +2,8 @@ import { Direction } from './Direction';
 import { Player } from './Player';
 import * as Phaser from 'phaser';
 import { tileSize } from 'scenes/Map.tpl';
-
+import { npcs } from './exam';
+import { system } from 'index';
 const Vector2 = Phaser.Math.Vector2;
 type Vector2 = Phaser.Math.Vector2;
 
@@ -44,7 +45,7 @@ export class GridPhysics {
     this.lastMovementIntent = Direction.NONE;
   }
 
-  private isMoving(): boolean {
+  public isMoving(): boolean {
     return this.movementDirection != Direction.NONE;
   }
 
@@ -125,6 +126,7 @@ export class GridPhysics {
 
   private hasBlockingTile(pos: Vector2): boolean {
     if (this.hasNoTile(pos)) return true;
+    if (npcs.has(system.map + ',' + pos.x + ',' + pos.y)) return true;
     return this.tileMap.layers.some((layer) => {
       const tile = this.tileMap.getTileAt(pos.x, pos.y, false, layer.name);
       return tile && tile.properties.collides;
