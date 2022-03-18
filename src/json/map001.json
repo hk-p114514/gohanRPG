@@ -44,16 +44,16 @@
                  "y":880
                 }, 
                 {
-                 "gid":2,
+                 "gid":1,
                  "height":40,
-                 "id":50,
+                 "id":51,
                  "name":"event",
-                 "rotation":0,
-                 "type":"",
+                 "rotation":90,
+                 "type":"event",
                  "visible":true,
                  "width":40,
-                 "x":520,
-                 "y":760
+                 "x":480,
+                 "y":880
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -62,7 +62,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":51,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

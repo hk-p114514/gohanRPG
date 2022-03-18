@@ -59,6 +59,12 @@ type EndTimeline = {
 };
 /*=================================================== */
 
+// 関数等を追加したい時のイベント
+type MotionEvent = {
+  type: 'event';
+  event: string;
+};
+
 // Timelineはイベントの配列
 export type Timeline = (
   | DialogEvent
@@ -70,6 +76,7 @@ export type Timeline = (
   | ChoiceEvent
   | StartTimeline
   | EndTimeline
+  | MotionEvent
 )[];
 
 export type dialogButton = {
