@@ -9,10 +9,6 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 
 import { Cameras, Scene, Tilemaps } from 'phaser';
-import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
-import { W, H } from 'functions/DOM/windowInfo';
-import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { Timeline } from 'classes/Timeline';
 import { timelineData } from 'classes/timelineWords';
 
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
@@ -44,9 +40,6 @@ export class Map extends Scene {
   private npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private dialogBox?: DialogBox;
-  private timelinePlayer?: TimelinePlayer;
-  private timeline?: Timeline;
   public flag: number = -1;
   private mapName: string;
 
@@ -196,10 +189,15 @@ export class Map extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
-    // //Dialog==================================================================
-    // const push = this.input.keyboard.addKey('SHIFT');
-    // push.on('down', () => {});
-    // //Dialog==================================================================
+    //Dialog==================================================================
+    const push = this.input.keyboard.addKey('SHIFT');
+    push.on('down', () => {
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: timelineData,
+      });
+    });
+    //Dialog==================================================================
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
