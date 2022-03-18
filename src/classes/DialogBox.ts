@@ -19,6 +19,12 @@ export class DialogBox extends Phaser.GameObjects.Container {
   private actorNameText: Phaser.GameObjects.Text;
 
   private padding: number;
+  private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
+
+  private eventCounter: number = 0;
+  private dialogTextOne: Array<string> = [];
+  private timedEvent?: Phaser.Time.TimerEvent;
+  private dialogSpeed: number = 4;
 
   constructor(
     public scene: Phaser.Scene,
@@ -39,6 +45,7 @@ export class DialogBox extends Phaser.GameObjects.Container {
 
     this.width = width;
     this.height = height;
+    this.textStyle = textStyle;
 
     // 白枠付きの黒いRectangleを作成
     this.box = new Phaser.GameObjects.Rectangle(
@@ -96,8 +103,40 @@ export class DialogBox extends Phaser.GameObjects.Container {
   }
 
   // 会話テキストのセット
-  public setText(text: string) {
-    this.text.setText(text);
+  public setText(text: string, animate: boolean) {
+    this.eventCounter = 0;
+    this.dialogTextOne = text.split('');
+    if (this.timedEvent) this.timedEvent.remove();
+    const tempText = animate ? '' : text;
+    this._setText(tempText);
+    if (animate) {
+      this.timedEvent = this.scene.time.addEvent({
+        delay: 150 - this.dialogSpeed * 30,
+        callback: this._animateText,
+        callbackScope: this,
+        loop: true,
+      });
+    }
+  }
+  private _setText(text: string) {
+    // Reset the dialog
+    if (this.text) this.text.destroy();
+    const x = this.x - this.width / 2;
+    const y = this.y - this.height / 2;
+    this.text = this.scene.make.text({
+      x,
+      y,
+      text,
+      style: this.textStyle,
+    });
+  }
+  private _animateText() {
+    this.eventCounter++;
+    this.text.setText(this.text.text + this.dialogTextOne[this.eventCounter - 1]);
+    if (!this.timedEvent) return;
+    if (this.eventCounter === this.dialogTextOne.length) {
+      this.timedEvent.remove();
+    }
   }
 
   // 名前テキストのセット

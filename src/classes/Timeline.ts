@@ -1,3 +1,4 @@
+import { Vector } from 'matter';
 import { Choice } from './Choice';
 
 // ダイアログ表示イベント
@@ -9,7 +10,7 @@ type DialogEvent = {
 
 // 背景設定イベント
 type SetBackgroundEvent = {
-  type: 'setBackground';
+  type: 'setBackgroundImage';
   x: number;
   y: number;
   key: string;
@@ -47,6 +48,11 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
+type setBackgroundColor = {
+  type: 'setBackgroundColor';
+  color:string;
+}
+
 /*======タイムラインIDの最初と最後に必ず付ける！====== */
 // ダイアログが始まる時のイベント
 type StartTimeline = {
@@ -59,6 +65,13 @@ type EndTimeline = {
 };
 /*=================================================== */
 
+// 関数等を追加したい時のイベント
+type MotionEvent = {
+  type: 'event';
+  event: string;
+  many: Array<any>;
+};
+
 // Timelineはイベントの配列
 export type Timeline = (
   | DialogEvent
@@ -68,8 +81,10 @@ export type Timeline = (
   | TimelineTransitionEvent
   | SceneTransitionEvent
   | ChoiceEvent
+  | setBackgroundColor
   | StartTimeline
   | EndTimeline
+  | MotionEvent
 )[];
 
 export type dialogButton = {

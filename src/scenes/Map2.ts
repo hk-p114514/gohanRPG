@@ -6,6 +6,12 @@ export class Map2 extends Map {
   constructor() {
     super(json[1], sceneKeys.map2);
   }
+  preload() {
+    super.preload();
+    // super.makeNPC(0, 11, 11, ['nyaa', '!']);
+    // super.makeNPC(0, 10, 10, ['naaa', '!']);
+    // super.makeNPC(0, 8, 8, ['shaa', '!']);
+  }
 
   create() {
     // enterキーでシーンを切り替える

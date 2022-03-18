@@ -19,10 +19,6 @@ export class Battle extends Scene {
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
-  private playerFunction: SkillFunction = (
-    attacker: BattleActor,
-    targets: BattleActor[],
-  ) => {};
   private index: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
@@ -42,7 +38,10 @@ export class Battle extends Scene {
 
   create() {
     // UIシーンを起動
-    this.scene.launch(sceneKeys.ui, [this.party, this.enemies]);
+    this.scene.launch(sceneKeys.ui, {
+      actors: [this.party, this.enemies],
+      battleScene: this,
+    });
 
     // バトル開始
     this.nextTurn();
@@ -63,7 +62,7 @@ export class Battle extends Scene {
         // 該当のキャラクターがプレイヤー側なら、
         // 使う技をプレイヤーに選択させる
         // プレイヤーが技を選択するまで待つ
-        // this.scene.pause();
+        this.scene.pause();
         system.setActor(actor);
         this.actorAction(actor);
       } else {
@@ -97,6 +96,11 @@ export class Battle extends Scene {
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
+      if (this.party.includes(actor)) {
+        this.party = this.party.filter((a) => a !== actor);
+      } else {
+        this.enemies = this.enemies.filter((a) => a !== actor);
+      }
       console.log(`${actor.name}は死んでしまった`);
     }
 
