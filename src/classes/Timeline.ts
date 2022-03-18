@@ -9,7 +9,7 @@ type DialogEvent = {
 
 // 背景設定イベント
 type SetBackgroundEvent = {
-  type: 'setBackground';
+  type: 'setBackgroundImage';
   x: number;
   y: number;
   key: string;
@@ -47,6 +47,11 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
+type setBackgroundColor = {
+  type: 'setBackgroundColor';
+  color:string;
+}
+
 /*======タイムラインIDの最初と最後に必ず付ける！====== */
 // ダイアログが始まる時のイベント
 type StartTimeline = {
@@ -74,6 +79,7 @@ export type Timeline = (
   | TimelineTransitionEvent
   | SceneTransitionEvent
   | ChoiceEvent
+  | setBackgroundColor
   | StartTimeline
   | EndTimeline
   | MotionEvent

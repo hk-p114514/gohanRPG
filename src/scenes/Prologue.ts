@@ -24,17 +24,14 @@ export class Prologue extends Scene {
 
     this.add.image(H() / 2, W() / 3, 'newsPaper');
 
-    this.timelinePlayer = new TimelinePlayer(this, prologue);
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelinedata: prologue,
+    });
     this.isDialogDisplay = true;
   }
 
   update() {
-    if (this.isDialogDisplay) {
-      if (!this.timelinePlayer) return;
-      this.isDialogDisplay = this.timelinePlayer.updateTimeline();
-      if (!this.isDialogDisplay) {
-        this.scene.start(sceneKeys.title);
-      }
-    } 
+    this.scene.start(sceneKeys.title);
   }
 }

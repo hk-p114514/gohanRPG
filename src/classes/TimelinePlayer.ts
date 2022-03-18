@@ -89,8 +89,8 @@ export class TimelinePlayer extends Scene {
         this.isTextShow = false;
         break;
 
-      case 'setBackground': // 背景設定イベント
-        this.setBackground(timelineEvent.x, timelineEvent.y, timelineEvent.key);
+      case 'setBackgroundImage': // 背景設定イベント
+        this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
         break;
 
       case 'addForeground': // 前景追加イベント
@@ -115,6 +115,9 @@ export class TimelinePlayer extends Scene {
 
       case 'choice': // 選択肢イベント
         this.setChoiceButtons(timelineEvent.choices);
+        break;
+      case 'setBackgroundColor':
+        this.setBackgroundColor(timelineEvent.color);
         break;
       case 'event': // イベント追加
       /*if(timelineEvent.event == イベント指定){
@@ -175,7 +178,7 @@ export class TimelinePlayer extends Scene {
   }
 
   // 背景画像をセット
-  private setBackground(x: number, y: number, texture: string) {
+  private setBackgroundImage(x: number, y: number, texture: string) {
     if (!this.backgroundLayer) return;
     // 背景レイヤーの子を全て削除
     this.backgroundLayer.removeAll();
@@ -183,6 +186,13 @@ export class TimelinePlayer extends Scene {
     const backgroundImage = new Phaser.GameObjects.Image(this, x, y, texture);
     // 背景レイヤーに画像オブジェクトを配置
     this.backgroundLayer.add(backgroundImage);
+  }
+
+  private setBackgroundColor(color:string){
+    if(!this.backgroundLayer) return;
+    // 背景レイヤーの子を全て削除
+    this.backgroundLayer.removeAll();
+    this.cameras.main.setBackgroundColor(color);
   }
 
   // 前景画像を追加
