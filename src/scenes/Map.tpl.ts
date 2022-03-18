@@ -3,16 +3,11 @@ import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
 // classes
-import { Direction } from 'classes/Direction';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 
-import { Cameras, Scene, Tilemaps } from 'phaser';
-import { DialogBox, DialogBoxConfig } from 'classes/DialogBox';
-import { W, H } from 'functions/DOM/windowInfo';
-import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { Timeline } from 'classes/Timeline';
+import { Scene, Tilemaps } from 'phaser';
 import { timelineData } from 'classes/timelineWords';
 
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
@@ -20,12 +15,9 @@ import { Timelines } from 'classes/Timelines';
 
 import { system } from 'index';
 import { Types } from 'phaser';
-import { playerAnims } from 'playerAnims';
 import { charas } from 'classes/Characters';
 import { NPC, map, events, hints, npcs, funcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
-import { Vector } from 'matter';
-import { Map1 } from './Map1';
 // values
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -44,9 +36,6 @@ export class Map extends Scene {
   private npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
-  private dialogBox?: DialogBox;
-  private timelinePlayer?: TimelinePlayer;
-  private timeline?: Timeline;
   public flag: number = -1;
   private mapName: string;
 
@@ -108,7 +97,7 @@ export class Map extends Scene {
       }
     }
   }
-  //public nowscene?: Scene;
+
   public create() {
     const space = this.input.keyboard.addKey('SPACE').on('down', () => {
       console.log(this.player);
@@ -196,10 +185,15 @@ export class Map extends Scene {
 
     // Debug graphics
     this.enableDebugMode();
-    // //Dialog==================================================================
-    // const push = this.input.keyboard.addKey('SHIFT');
-    // push.on('down', () => {});
-    // //Dialog==================================================================
+    //Dialog==================================================================
+    const push = this.input.keyboard.addKey('SHIFT');
+    push.on('down', () => {
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: timelineData,
+      });
+    });
+    //Dialog==================================================================
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
