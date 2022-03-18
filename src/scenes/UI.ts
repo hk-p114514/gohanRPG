@@ -39,6 +39,7 @@ export class UI extends Scene {
   }
 
   init(data: BattleActor[][]) {
+    this.playerTexts = [];
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
     // UIシーンでは配列に何もしなくても変更後の配列を操作できる
@@ -59,6 +60,8 @@ export class UI extends Scene {
   }
 
   preload() {
+    console.log('START UI SCENE');
+
     // 敵キャラクターのスプライト画像を読み込む(enemies[n].spriteSrc)
     this.enemies.forEach((enemy) => {
       this.load.image(enemy.name, enemy.spriteSrc);
@@ -96,10 +99,10 @@ export class UI extends Scene {
 
   update(time: number, delta: number) {
     this.redrawActor();
-    // 左のボックスに操作対象のキャラクターのデータを表示する
-    this.drawPlayerData();
     const actor = system.battling?.actor;
     if (!actor) return;
+    // 左のボックスに操作対象のキャラクターのデータを表示する
+    this.drawPlayerData();
   }
 
   drawBox(
