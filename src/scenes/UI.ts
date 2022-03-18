@@ -1,6 +1,6 @@
 import { system } from 'index';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { GameObjects, Scene, Types } from 'phaser';
+import { GameObjects, Scene } from 'phaser';
 import { BattleActor } from 'classes/BattleActor';
 
 type EnemySprite = {
@@ -15,6 +15,8 @@ type Unit = {
 
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
+  private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
+  private playerTexts: GameObjects.Text[] = [];
   private party: BattleActor[] = [];
   private enemies: BattleActor[] = [];
   private units: Unit[] = [];
@@ -37,6 +39,7 @@ export class UI extends Scene {
   }
 
   init(data: BattleActor[][]) {
+    this.playerTexts = [];
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
     // UIシーンでは配列に何もしなくても変更後の配列を操作できる
@@ -57,6 +60,8 @@ export class UI extends Scene {
   }
 
   preload() {
+    console.log('START UI SCENE');
+
     // 敵キャラクターのスプライト画像を読み込む(enemies[n].spriteSrc)
     this.enemies.forEach((enemy) => {
       this.load.image(enemy.name, enemy.spriteSrc);
@@ -81,14 +86,23 @@ export class UI extends Scene {
 
     // 敵キャラクターを表示
     this.drawActors(boxHeight);
+
+    // プレイヤーキャラクターのデータを表示するテキストを作成する
+    let { x, y } = this.menuUI;
+    const margin = this.boxMargin;
+    this.playerData.forEach((data) => {
+      const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
+      this.playerTexts.push(text);
+      y += margin;
+    });
   }
 
   update(time: number, delta: number) {
     this.redrawActor();
-    // 左のボックスに操作対象のキャラクターのデータを表示する
-    this.drawPlayerData();
     const actor = system.battling?.actor;
     if (!actor) return;
+    // 左のボックスに操作対象のキャラクターのデータを表示する
+    this.drawPlayerData();
   }
 
   drawBox(
@@ -156,10 +170,8 @@ export class UI extends Scene {
     // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
     const actor = system.battling?.actor;
     if (actor) {
-      let { x, y } = this.menuUI;
       const { current, max } = actor.hp;
       const { current: mp, max: mpMax } = actor.mp;
-      const margin = this.boxMargin;
       const data: string[] = [
         `${actor.name}`,
         `HP_: ${current}/${max}`,
@@ -169,9 +181,9 @@ export class UI extends Scene {
         `SPD: ${actor.speed}`,
       ];
 
-      data.forEach((text) => {
-        this.add.text(x + margin, y + margin, text, this.fontStyle);
-        y += margin;
+      // playerTextsの中身を更新する
+      this.playerTexts.forEach((text, i) => {
+        text.setText(data[i]);
       });
     }
   }
