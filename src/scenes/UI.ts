@@ -17,6 +17,8 @@ export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
   private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
   private playerTexts: GameObjects.Text[] = [];
+  private playerSkills: GameObjects.Text[] = [];
+  private battleScene?: Scene;
   private party: BattleActor[] = [];
   private enemies: BattleActor[] = [];
   private units: Unit[] = [];
@@ -38,12 +40,14 @@ export class UI extends Scene {
     super({ key: sceneKeys.ui });
   }
 
-  init(data: BattleActor[][]) {
+  init(data: { actors: BattleActor[][]; battleScene: Scene }) {
+    this.playerTexts = [];
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
     // UIシーンでは配列に何もしなくても変更後の配列を操作できる
-    this.party = data[0];
-    this.enemies = data[1];
+    this.party = data.actors[0];
+    this.enemies = data.actors[1];
+    this.battleScene = data.battleScene;
 
     const { height, width } = this.sys.canvas;
     const boxCount = 3;
@@ -92,12 +96,18 @@ export class UI extends Scene {
       this.playerTexts.push(text);
       y += margin;
     });
+    const enter = this.input.keyboard.addKey('ENTER');
+    enter.on('down', () => {
+      console.log('A');
+      this.battleScene?.scene.resume();
+    });
   }
 
   update(time: number, delta: number) {
     this.redrawActor();
     // 左のボックスに操作対象のキャラクターのデータを表示する
     this.drawPlayerData();
+    this.playerSkillsDraw();
     const actor = system.battling?.actor;
     if (!actor) return;
   }
@@ -181,6 +191,51 @@ export class UI extends Scene {
       // playerTextsの中身を更新する
       this.playerTexts.forEach((text, i) => {
         text.setText(data[i]);
+      });
+    }
+  }
+
+  playerSkillsDraw() {
+    this.playerSkills = [];
+    const actor = system.battling?.actor;
+    let { x, y } = this.menuUI;
+    const margin = this.boxMargin;
+    const boxWidth = this.menuUI.width;
+    const boxHeight = this.menuUI.height;
+    if (actor && this.party.includes(actor)) {
+      actor.skills.forEach((skill) => {
+        const text = this.add
+          .text(x + margin + boxWidth * 1, y + margin, skill.getName(), this.fontStyle)
+          .setInteractive({
+            useHandCursor: true,
+          })
+          .setBackgroundColor('#99ff99')
+          .setPadding(10, 5, 10, 5);
+        text.on('pointerdown', () => {
+          if (!this.battleScene) return;
+          const { forAllTargets, forEnemy } = skill.getSkillInfo();
+          if (!forAllTargets) {
+            // 単体効果
+            if (forEnemy) {
+              // 現在のキャラクター主観で敵に使う技
+              // skill.exe(actor, [
+              //   this.battleScene.getEnemyGroup(actor, this.party, this.enemies),
+              // ]);
+            } else {
+              // 現在のキャラクター主観で味方に使う技
+              // skill.exe(actor, [this.getGroup(actor, [this.party, this.enemies])]);
+            }
+          } else {
+            // 全体効果
+            if (forEnemy) {
+              skill.exe(actor, this.enemies);
+            } else {
+              skill.exe(actor, this.party);
+            }
+          }
+        });
+        this.playerSkills.push(text);
+        y += margin;
       });
     }
   }
