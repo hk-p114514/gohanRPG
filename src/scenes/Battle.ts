@@ -38,7 +38,10 @@ export class Battle extends Scene {
 
   create() {
     // UIシーンを起動
-    this.scene.launch(sceneKeys.ui, [this.party, this.enemies]);
+    this.scene.launch(sceneKeys.ui, {
+      actors: [this.party, this.enemies],
+      battleScene: this,
+    });
 
     // バトル開始
     this.nextTurn();
@@ -59,7 +62,7 @@ export class Battle extends Scene {
         // 該当のキャラクターがプレイヤー側なら、
         // 使う技をプレイヤーに選択させる
         // プレイヤーが技を選択するまで待つ
-        // this.scene.pause();
+        this.scene.pause();
         system.setActor(actor);
         this.actorAction(actor);
       } else {
