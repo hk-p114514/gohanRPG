@@ -51,7 +51,6 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
     if (!actor.isDead()) {
       console.log('####################');
       console.log(`${this.index}番目の${actor.name}のターン`);
@@ -64,7 +63,6 @@ export class Battle extends Scene {
         // プレイヤーが技を選択するまで待つ
         this.scene.pause();
         system.setActor(actor);
-        this.actorAction(actor);
       } else {
         system.battling = undefined;
         // 該当のキャラクターが敵側なら、
@@ -93,6 +91,8 @@ export class Battle extends Scene {
         });
         this.backToMap();
       }
+
+      this.index++;
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
@@ -103,8 +103,7 @@ export class Battle extends Scene {
       }
       console.log(`${actor.name}は死んでしまった`);
     }
-
-    this.index = (this.index + 1) % this.sorted.length;
+    this.index = this.index % this.sorted.length;
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 
@@ -208,8 +207,18 @@ export class Battle extends Scene {
    *          両方死んでいる: 3
    */
   isEndBattle(actors1: BattleActor[], actors2: BattleActor[]): number {
+    const existNum1: number = actors1.length;
+    const existNum2: number = actors2.length;
     const hp1: number = this.getSumHp(actors1);
     const hp2: number = this.getSumHp(actors2);
+
+    if (existNum1 <= 0 && existNum2 <= 0) {
+      return 3;
+    } else if (existNum1 <= 0 && existNum2 > 0) {
+      return 2;
+    } else if (existNum1 > 0 && existNum2 <= 0) {
+      return 1;
+    }
 
     if (hp1 <= 0 && hp2 <= 0) {
       return 3;
