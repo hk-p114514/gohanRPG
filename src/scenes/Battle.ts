@@ -1,3 +1,4 @@
+import { dialogEnemyInfo } from './../classes/timelineWords';
 import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
@@ -106,6 +107,8 @@ export class Battle extends Scene {
     const skill = actor.getRandSkill();
     const { forAllTargets, forEnemy } = skill.getSkillInfo();
     console.log(`${actor.name}の${skill.getName()}!!`);
+    // ダイアログで敵の攻撃の情報を写す
+    dialogEnemyInfo(this, actor.name, skill.getName());
     if (!forAllTargets) {
       // 単体効果
       if (forEnemy) {

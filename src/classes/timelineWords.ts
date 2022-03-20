@@ -1,3 +1,5 @@
+import { Scene } from 'phaser';
+import { sceneKeys } from 'scenes/sceneKeys';
 import { Timelines } from './Timelines';
 
 export const timelineData: Timelines = {
@@ -486,4 +488,20 @@ export const afterMelcineBattle: Timelines = {
     },
     { type: 'endTimeline' },
   ],
+};
+
+export const dialogEnemyInfo = (scene: Scene, name: string, skillName: string) => {
+  const enemyInfo: Timelines = {
+    start: [
+      {
+        type: 'dialog',
+        text: `${name}の${skillName}!!!`,
+      },
+      { type: 'endTimeline' },
+    ],
+  };
+  scene.scene.launch(sceneKeys.timelinePlayer, {
+    anotherScene: scene,
+    timelinedata: enemyInfo,
+  });
 };
