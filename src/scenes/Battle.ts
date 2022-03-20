@@ -51,7 +51,6 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
     if (!actor.isDead()) {
       console.log('####################');
       console.log(`${this.index}番目の${actor.name}のターン`);
@@ -64,7 +63,6 @@ export class Battle extends Scene {
         // プレイヤーが技を選択するまで待つ
         this.scene.pause();
         system.setActor(actor);
-        this.actorAction(actor);
       } else {
         system.battling = undefined;
         // 該当のキャラクターが敵側なら、
@@ -93,18 +91,14 @@ export class Battle extends Scene {
         });
         this.backToMap();
       }
+
+      this.index++;
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
-      if (this.party.includes(actor)) {
-        this.party = this.party.filter((a) => a !== actor);
-      } else {
-        this.enemies = this.enemies.filter((a) => a !== actor);
-      }
       console.log(`${actor.name}は死んでしまった`);
     }
-
-    this.index = (this.index + 1) % this.sorted.length;
+    this.index = this.index % this.sorted.length;
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 
