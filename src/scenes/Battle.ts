@@ -110,10 +110,14 @@ export class Battle extends Scene {
       // 単体効果
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
-        skill.exe(actor, [randArr(this.getEnemyGroup(actor, this.party, this.enemies))]);
+        skill.exe(actor, [
+          randArr(this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies))),
+        ]);
       } else {
         // 現在のキャラクター主観で味方に使う技
-        skill.exe(actor, [randArr(this.getGroup(actor, [this.party, this.enemies]))]);
+        skill.exe(actor, [
+          randArr(this.getSurvivors(this.getGroup(actor, [this.party, this.enemies]))),
+        ]);
       }
     } else {
       // 全体効果
@@ -188,6 +192,18 @@ export class Battle extends Scene {
     }
 
     return [];
+  }
+
+  /**
+   * @brief キャラクターの配列から、現在生きている（バトル可能な）
+   *        キャラクターのみを集め、新たな配列として返す
+   *
+   * @param BattleActor[]   生存者を探索する元データ
+   *
+   * @returns BattleActor[] 生存者のみを集めた配列
+   */
+  getSurvivors(actors: BattleActor[]): BattleActor[] {
+    return actors.filter((actor) => !actor.isDead());
   }
 
   /**
