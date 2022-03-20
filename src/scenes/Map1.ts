@@ -10,12 +10,12 @@ export class Map1 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage(['hito'], 0);
+    super.setNpcImage(['hito'], 0);
   }
   create() {
     super.create();
-    super.setevent('event', Took);
-    super.sethint('kanban', Took);
+    super.setEvent('event', Took);
+    super.setHint('kanban', Took);
     super.makeNPC('hito', Took);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
