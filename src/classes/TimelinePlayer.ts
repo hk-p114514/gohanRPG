@@ -181,6 +181,8 @@ export class TimelinePlayer extends Scene {
     if (!(timelineID in this.timelineData)) {
       console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
       // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
+      this.anotherScene?.scene.resume();
+      this.scene.stop();
       return;
     }
     // タイムラインの指定
@@ -199,8 +201,8 @@ export class TimelinePlayer extends Scene {
     this.backgroundLayer.add(backgroundImage);
   }
 
-  private setBackgroundColor(color:string){
-    if(!this.backgroundLayer) return;
+  private setBackgroundColor(color: string) {
+    if (!this.backgroundLayer) return;
     // 背景レイヤーの子を全て削除
     this.backgroundLayer.removeAll();
     this.cameras.main.setBackgroundColor(color);
