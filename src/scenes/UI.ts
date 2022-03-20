@@ -204,7 +204,7 @@ export class UI extends Scene {
 
   drawPlayerAttack() {
     const actor = system.battling?.actor;
-    let { x, y } = this.menuUI;
+    const { x, y } = this.menuUI;
     const margin = this.boxMargin;
     const boxWidth = this.menuUI.width;
     const boxHeight = this.menuUI.height;
