@@ -19,7 +19,8 @@ export class UI extends Scene {
   private playerTexts: GameObjects.Text[] = [];
   private playerSkills: GameObjects.Text[] = [];
   private targetActors: Phaser.GameObjects.Text[] = [];
-  private skillShow?: BattleActor;
+  private playerSkillShow?: BattleActor = system.battling?.actor;
+  private isTurnActor: boolean = true;
   private battleScene?: Scene;
   private party: BattleActor[] = [];
   private enemies: BattleActor[] = [];
@@ -46,6 +47,7 @@ export class UI extends Scene {
     this.playerTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
+    this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
     // UIシーンでは配列に何もしなくても変更後の配列を操作できる
@@ -207,7 +209,10 @@ export class UI extends Scene {
     const boxWidth = this.menuUI.width;
     const boxHeight = this.menuUI.height;
     const textPadding = { left: 20, top: 5, right: 20, bottom: 5 };
-    if (actor && this.skillShow !== actor) {
+    if (this.playerSkillShow !== actor) {
+      this.isTurnActor = true;
+    }
+    if (actor && this.isTurnActor) {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
       actor.skills.forEach((skill) => {
@@ -234,6 +239,8 @@ export class UI extends Scene {
               targetGroup = this.party;
             }
             targetGroup.forEach((member) => {
+              // 味方の場合はhpが0でも回復可能、敵の場合はhpが0だと攻撃不可能
+              if (!this.party.includes(member) && member.hp.current === 0) return;
               const targetText = this.add
                 .text(targetActorX, targetActorY, member.name, this.fontStyle)
                 .setInteractive({
@@ -286,7 +293,8 @@ export class UI extends Scene {
         this.playerSkills.push(skillText);
         playerSkillY += margin;
       });
-      this.skillShow = actor;
+      this.playerSkillShow = actor;
+      this.isTurnActor = false;
     }
   }
 }

@@ -96,11 +96,6 @@ export class Battle extends Scene {
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
-      if (this.party.includes(actor)) {
-        this.party = this.party.filter((a) => a !== actor);
-      } else {
-        this.enemies = this.enemies.filter((a) => a !== actor);
-      }
       console.log(`${actor.name}は死んでしまった`);
     }
     this.index = this.index % this.sorted.length;
@@ -207,18 +202,8 @@ export class Battle extends Scene {
    *          両方死んでいる: 3
    */
   isEndBattle(actors1: BattleActor[], actors2: BattleActor[]): number {
-    const existNum1: number = actors1.length;
-    const existNum2: number = actors2.length;
     const hp1: number = this.getSumHp(actors1);
     const hp2: number = this.getSumHp(actors2);
-
-    if (existNum1 <= 0 && existNum2 <= 0) {
-      return 3;
-    } else if (existNum1 <= 0 && existNum2 > 0) {
-      return 2;
-    } else if (existNum1 > 0 && existNum2 <= 0) {
-      return 1;
-    }
 
     if (hp1 <= 0 && hp2 <= 0) {
       return 3;
