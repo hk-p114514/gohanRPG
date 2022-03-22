@@ -9,6 +9,7 @@ import { sceneKeys } from 'scenes/sceneKeys';
 import { npcs, funcs } from './exam';
 import { Map } from 'scenes/Map.tpl';
 import { keys } from 'lodash';
+import { Vector } from 'matter';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -122,7 +123,7 @@ export class TimelinePlayer extends Scene {
         this.setBackgroundColor(timelineEvent.color);
         break;
       case 'event': // イベント追加
-        this.startevent(timelineEvent.event);
+        this.startevent(timelineEvent.event, timelineEvent.many);
         break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
@@ -136,7 +137,7 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-  private startevent(key: string) {
+  private startevent(key: string, many: any[]) {
     // switch (key) {
     //   case 'cd':
     //     //this.anotherScene?.
@@ -145,7 +146,7 @@ export class TimelinePlayer extends Scene {
     //   default:
     // }
     if (funcs.has(key)) {
-      funcs.get(key)();
+      funcs.get(key)(many);
     }
   }
   // ダイアログの作成
@@ -199,8 +200,8 @@ export class TimelinePlayer extends Scene {
     this.backgroundLayer.add(backgroundImage);
   }
 
-  private setBackgroundColor(color:string){
-    if(!this.backgroundLayer) return;
+  private setBackgroundColor(color: string) {
+    if (!this.backgroundLayer) return;
     // 背景レイヤーの子を全て削除
     this.backgroundLayer.removeAll();
     this.cameras.main.setBackgroundColor(color);

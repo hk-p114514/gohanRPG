@@ -139,4 +139,7 @@ export class Actor {
     this.sprite.setFrame(stand.get(dir));
     this.dir = dir;
   }
+  destroy() {
+    this.sprite.destroy();
+  }
 }

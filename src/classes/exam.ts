@@ -4,16 +4,16 @@ import { charas } from './Characters';
 import { playerAnims } from 'playerAnims';
 import { system } from 'index';
 type Vector2 = Phaser.Math.Vector2;
-export class NPC extends Actor {
-  public object: string = 'npc';
-  constructor(
-    public nn: string,
-    public sprite: GameObjects.Sprite,
-    public tilePos: Vector2,
-  ) {
-    super(nn, sprite, tilePos);
-  }
-}
+// export class NPC extends Actor {
+//   public object: string = 'npc';
+//   constructor(
+//     public nn: string,
+//     public sprite: GameObjects.Sprite,
+//     public tilePos: Vector2,
+//   ) {
+//     super(nn, sprite, tilePos);
+//   }
+// }
 
 export let map = new Map();
 map.set('left', new Phaser.Math.Vector2(-1, 0));
