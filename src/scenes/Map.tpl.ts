@@ -10,19 +10,19 @@ import log4 from '@/assets/items/mugon.png';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
-
-import { Scene, Tilemaps } from 'phaser';
-import { timelineData } from 'classes/timelineWords';
-
-import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 
+// values
+import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
-import { Types } from 'phaser';
 import { charas } from 'classes/Characters';
 import { map, events, hints, npcs, funcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
-// values
+
+// functions
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
+
 export const tileSize: number = 40;
 export const characterSize: number = 32;
 export const assetKeys = {
@@ -91,7 +91,7 @@ export class Map extends Scene {
   }
   //各MapClassのcreateで使うふむタイプのイベントを配置する関数
   //name=eventName,took=イベント内容(timelineWords参照)
-  public setevent(name: string, took: Timelines) {
+  public setEvent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
@@ -172,8 +172,8 @@ export class Map extends Scene {
       return obj.type === 'npc';
     });
     console.log(this.npcPoints);
-    //イベント作成
-    this.createevents();
+    // イベントを作成する
+    this.createEvents();
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -239,8 +239,8 @@ export class Map extends Scene {
     this.gridPhysics?.update(delta);
   }
   public log?: Phaser.GameObjects.Sprite;
-  public createevents() {
     //話しかけた奴が振り向くイベント
+  public createEvents() {
     funcs.set('talk', () => {
       if (!!this.player) {
         let xy = this.player.getTilePos();
@@ -317,6 +317,7 @@ export class Map extends Scene {
       this.player?.moveTilePos(s[0], s[1]);
     });
   }
+
   moveBattle() {
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);

@@ -16,8 +16,8 @@ export class Map1 extends Map {
   }
   create() {
     super.create();
-    super.setevent('event', Took);
-    super.sethint('kanban', Took);
+    super.setEvent('event', Took);
+    super.setHint('kanban', Took);
     super.makeNPC('hito', Took);
     super.makeNPC('hito2', Took);
     // enterキーでシーンを切り替える

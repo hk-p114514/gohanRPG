@@ -51,7 +51,6 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
     if (!actor.isDead()) {
       console.log('####################');
       console.log(`${this.index}番目の${actor.name}のターン`);
@@ -64,7 +63,6 @@ export class Battle extends Scene {
         // プレイヤーが技を選択するまで待つ
         this.scene.pause();
         system.setActor(actor);
-        this.actorAction(actor);
       } else {
         system.battling = undefined;
         // 該当のキャラクターが敵側なら、
@@ -93,18 +91,14 @@ export class Battle extends Scene {
         });
         this.backToMap();
       }
+
+      this.index++;
     } else {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
-      if (this.party.includes(actor)) {
-        this.party = this.party.filter((a) => a !== actor);
-      } else {
-        this.enemies = this.enemies.filter((a) => a !== actor);
-      }
       console.log(`${actor.name}は死んでしまった`);
     }
-
-    this.index = (this.index + 1) % this.sorted.length;
+    this.index = this.index % this.sorted.length;
     this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
   }
 
@@ -116,10 +110,14 @@ export class Battle extends Scene {
       // 単体効果
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
-        skill.exe(actor, [randArr(this.getEnemyGroup(actor, this.party, this.enemies))]);
+        skill.exe(actor, [
+          randArr(this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies))),
+        ]);
       } else {
         // 現在のキャラクター主観で味方に使う技
-        skill.exe(actor, [randArr(this.getGroup(actor, [this.party, this.enemies]))]);
+        skill.exe(actor, [
+          randArr(this.getSurvivors(this.getGroup(actor, [this.party, this.enemies]))),
+        ]);
       }
     } else {
       // 全体効果
@@ -194,6 +192,18 @@ export class Battle extends Scene {
     }
 
     return [];
+  }
+
+  /**
+   * @brief キャラクターの配列から、現在生きている（バトル可能な）
+   *        キャラクターのみを集め、新たな配列として返す
+   *
+   * @param BattleActor[]   生存者を探索する元データ
+   *
+   * @returns BattleActor[] 生存者のみを集めた配列
+   */
+  getSurvivors(actors: BattleActor[]): BattleActor[] {
+    return actors.filter((actor) => !actor.isDead());
   }
 
   /**
