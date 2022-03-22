@@ -7850,7 +7850,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="spawnPoint">
+ <objectgroup id="3" name="objects">
   <object id="51" name="spawnPoint" gid="1" x="160" y="40" width="40" height="40"/>
  </objectgroup>
 </map>
