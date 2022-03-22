@@ -1,10 +1,13 @@
-import { json } from 'index';
+import { json, system } from 'index';
 import { Map } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
 
 export class Map2 extends Map {
   constructor() {
     super(json[1], sceneKeys.map2);
+  }
+  preload() {
+    super.preload();
   }
 
   create() {
@@ -13,6 +16,8 @@ export class Map2 extends Map {
     enter.on('down', () => {
       // this.scene.switch(sceneKeys.map1);
       this.startMap(sceneKeys.map1);
+      // this.switchMap(sceneKeys.map1);
+      system.switchMap(this, sceneKeys.map1);
     });
     super.create();
   }

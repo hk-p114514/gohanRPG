@@ -1,5 +1,14 @@
-import { oneShotAttack, SkillFunction } from 'skills';
+import {
+  initAtk,
+  initDef,
+  initHp,
+  initMp,
+  initSpeed,
+  level1,
+} from 'functions/generalPurpose/allInitStatus';
+import { SkillFunction, skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
+import { Skill } from './Skill';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -16,6 +25,27 @@ export type LimitValue = {
   max: number;
 };
 
+class SkillMenu {
+  private target: BattleActor;
+  private skills: Skill[];
+  private select: Skill;
+  private index: number;
+  constructor(target: BattleActor) {
+    this.target = target;
+    this.skills = this.target.skills;
+    this.select = this.skills[0];
+    this.index = 0;
+  }
+
+  selectPrevious() {
+    if (this.index <= 0) {
+      this.index = 0;
+      return;
+    } else if (this.index > this.skills.length - 1) {
+    }
+  }
+}
+
 export class BattleActor {
   name: string = '';
   level: Level = { current: 1, exp: 0, toNext: 1, max: 1 };
@@ -25,16 +55,19 @@ export class BattleActor {
   def: number;
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
-  skills: SkillFunction[] = [oneShotAttack];
-  constructor(
-    name: string,
-    level: Level,
-    hp: LimitValue,
-    mp: LimitValue,
-    atk: number,
-    def: number,
-    speed: number,
-  ) {
+  skills: Skill[];
+  constructor({
+    name = 'unknown',
+    spriteSrc = '',
+    level = level1,
+    hp = { ...initHp() },
+    mp = { ...initMp() },
+    atk = initAtk,
+    def = initDef,
+    speed = initSpeed,
+    startLevel = 1,
+    initSkills = [skills[0]],
+  }) {
     this.name = name;
     this.level = level;
     this.hp = hp;
@@ -42,6 +75,8 @@ export class BattleActor {
     this.atk = atk;
     this.def = def;
     this.speed = speed;
+    this.setLevel(startLevel);
+    this.skills = initSkills;
   }
 
   addExp(exp: number) {
@@ -91,7 +126,7 @@ export class BattleActor {
     }
   }
 
-  getRandSkill(): SkillFunction {
+  getRandSkill(): Skill {
     return this.skills[randI(this.skills.length)];
   }
 
