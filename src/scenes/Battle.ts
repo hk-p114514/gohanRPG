@@ -16,6 +16,7 @@ import { randArr } from 'functions/generalPurpose/rand';
  * */
 
 export class Battle extends Scene {
+  public static readonly availableSkillCount: number = 4;
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
@@ -51,7 +52,12 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    if (!actor.isDead()) {
+    if (actor.isDead()) {
+      // sortedの中で、actorが死んでいる場合は、それを除く
+      this.sorted = this.sorted.filter((a) => a !== actor);
+      console.log(`${actor.name}は死んでしまった`);
+      this.resultDialog(false, actor.name);
+    } else {
       console.log('####################');
       console.log(`${this.index}番目の${actor.name}のターン`);
       console.log('####################');
@@ -95,12 +101,8 @@ export class Battle extends Scene {
       }
 
       this.index++;
-    } else {
-      // sortedの中で、actorが死んでいる場合は、それを除く
-      this.sorted = this.sorted.filter((a) => a !== actor);
-      console.log(`${actor.name}は死んでしまった`);
-      this.resultDialog(false, actor.name);
     }
+
     this.index = this.index % this.sorted.length;
     this.time.addEvent({ delay: 1000, callback: this.nextTurn, callbackScope: this });
   }
