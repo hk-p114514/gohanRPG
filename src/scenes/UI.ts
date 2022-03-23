@@ -2,6 +2,9 @@ import { system } from 'index';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { GameObjects, Scene } from 'phaser';
 import { BattleActor } from 'classes/BattleActor';
+import { Skill } from 'classes/Skill';
+import { Battle } from './Battle';
+import { randArr } from 'functions/generalPurpose/rand';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;
@@ -215,6 +218,19 @@ export class UI extends Scene {
     if (actor && this.isTurnActor) {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
+      const skills = new Set<Skill>();
+      if (Battle.availableSkillCount < actor.skills.length) {
+        // 技の候補が沢山ありすぎる -> 抽選
+        while (skills.size < Battle.availableSkillCount) {
+          skills.add(randArr(actor.skills));
+        }
+      } else {
+        // 候補がそんなにない -> 全部出す
+        actor.skills.forEach((skill) => {
+          skills.add(skill);
+        });
+      }
+
       actor.skills.forEach((skill) => {
         const skillText = this.add
           .text(playerSkillX, playerSkillY, skill.getName(), this.fontStyle)
