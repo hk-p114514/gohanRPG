@@ -283,16 +283,4 @@ export class Map extends Scene {
       });
     });
   }
-
-  startMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.start(to);
-  }
-
-  switchMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.switch(to);
-  }
 }
