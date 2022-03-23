@@ -22,7 +22,7 @@ export class Prologue extends Scene {
   create() {
     this.cameras.main.setBackgroundColor(this.backgroundColor);
 
-    this.add.image(H() / 2, W() / 3, 'newsPaper');
+    this.add.image(W() / 2, H() / 3, 'newsPaper').setOrigin(0.5);
 
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
