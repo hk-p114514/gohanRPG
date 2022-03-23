@@ -241,7 +241,8 @@ export class Map extends Scene {
   public log?: Phaser.GameObjects.Sprite;
   public createevents() {
     //話しかけた奴が振り向くイベント
-    funcs.set('talk', () => {
+    funcs.set(this.name + ',talk', () => {
+      console.log(this);
       if (!!this.player) {
         let xy = this.player.getTilePos();
         let z = this.player.getdir();
@@ -258,7 +259,7 @@ export class Map extends Scene {
       console.log('dekitawa');
     });
     //誰かが振り向くイベント
-    funcs.set('chdir', (s: any[]) => {
+    funcs.set(this.name + ',chdir', (s: any[]) => {
       if (names.has(s[0])) {
         let a = names.get(s[0]);
         let b = npcs.get(a);
@@ -268,7 +269,7 @@ export class Map extends Scene {
       }
     });
     //誰かを配置するイベント
-    funcs.set('set', (s: any[]) => {
+    funcs.set(this.name + ',set', (s: any[]) => {
       hints.set(system.map + ',' + s[1] + ',' + s[2], s[3]);
       let l = this.add.sprite(0, 0, s[0], 1);
       let hito = new Player(l, new Phaser.Math.Vector2(s[1], s[2]), s[0]);
@@ -277,7 +278,7 @@ export class Map extends Scene {
       console.log(system.map + ',' + s[1] + ',' + s[2]);
     });
     //誰かを消し去るイベント
-    funcs.set('reset', (s: any[]) => {
+    funcs.set(this.name + ',reset', (s: any[]) => {
       if (names.has(s[0])) {
         let a = names.get(s[0]);
         let b = npcs.get(a);
@@ -287,11 +288,11 @@ export class Map extends Scene {
       }
     });
     //プレイヤーを一マス動かすイベント
-    funcs.set('move', (s: any[]) => {
+    funcs.set(this.name + ',move', (s: any[]) => {
       this.gridPhysics?.movePlayer(s[0]);
     });
     //誰かが呟くイベント
-    funcs.set('log', (s: any[]) => {
+    funcs.set(this.name + ',log', (s: any[]) => {
       if (names.has(s[0])) {
         let a = names.get(s[0]);
         let b = npcs.get(a);
@@ -309,11 +310,11 @@ export class Map extends Scene {
       }
     });
     //誰かの呟きを消し去るイベント
-    funcs.set('relog', (s: any[]) => {
+    funcs.set(this.name + ',relog', (s: any[]) => {
       this.log?.destroy();
     });
     //プレイヤーをどこかに飛ばすイベント
-    funcs.set('warp', (s: any[]) => {
+    funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
     });
   }

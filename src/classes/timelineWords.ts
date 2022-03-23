@@ -85,6 +85,8 @@ export const Took: Timelines = {
     { type: 'dialog', text: 'OK▼' },
     { type: 'event', event: 'reset', many: ['hito3'] },
     { type: 'dialog', text: 'OK▼' },
+    { type: 'switch', scene: 'map2' },
+    { type: 'dialog', text: 'OK▼' },
     { type: 'endTimeline' },
   ],
 };
