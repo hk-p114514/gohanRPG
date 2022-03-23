@@ -1,8 +1,8 @@
 import { UI } from './scenes/UI';
 import { Battle } from './scenes/Battle';
 import { AUTO, Game, Types } from 'phaser';
-import mapJson1 from '@/json/map003.json';
-import mapJson2 from '@/json/map004.json';
+import mapJson1 from '@/json/map001.json';
+import mapJson2 from '@/json/map002.json';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Map1 } from 'scenes/Map1';
 import { Map2 } from 'scenes/Map2';
