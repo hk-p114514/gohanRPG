@@ -6,7 +6,7 @@ import { Direction } from './Direction';
 type Vector2 = Phaser.Math.Vector2;
 
 export type AnimState = 'front' | 'back' | 'left' | 'right' | '';
-export let stand = new Map();
+export const stand = new Map();
 stand.set('left', 4);
 stand.set('right', 7);
 stand.set('up', 10);
