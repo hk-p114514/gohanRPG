@@ -248,14 +248,11 @@ export class UI extends Scene {
             let targetActorX = x + margin + boxWidth * 2 - textPadding.left;
             let targetActorY = y + margin - textPadding.top;
             let targetGroup: BattleActor[];
-            let isDamage: boolean;
             // 対象のグループを格納
             if (forEnemy) {
               targetGroup = this.enemies;
-              isDamage = true;
             } else {
               targetGroup = this.party;
-              isDamage = false;
             }
             targetGroup.forEach((member) => {
               // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
@@ -282,7 +279,8 @@ export class UI extends Scene {
                 battleScene.drawSkillDamageMessage(
                   actor.name,
                   skill.getName(),
-                  isDamage,
+                  forAllTargets,
+                  forEnemy,
                   member.name,
                   Math.abs(beforeHp - afterHp),
                 );
@@ -302,11 +300,15 @@ export class UI extends Scene {
             // 全体効果
             if (forEnemy) {
               skill.exe(actor, this.enemies);
-              battleScene.drawSkillDamageMessage(actor.name, skill.getName(), true);
             } else {
               skill.exe(actor, this.party);
-              battleScene.drawSkillDamageMessage(actor.name, skill.getName(), false);
             }
+            battleScene.drawSkillDamageMessage(
+              actor.name,
+              skill.getName(),
+              forAllTargets,
+              forEnemy,
+            );
             // スキルのテキストの削除
             this.playerSkills.forEach((text) => {
               text.destroy();
