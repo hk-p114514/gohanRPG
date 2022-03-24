@@ -51,6 +51,7 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
+    actor.state.stateProcess(this)
     const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
     if (!actor.isDead()) {
       console.log('####################');
