@@ -32,57 +32,9 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":3,
+                 "gid":1,
                  "height":40,
-                 "id":52,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":40,
-                 "x":145,
-                 "y":41
-                }, 
-                {
-                 "gid":3,
-                 "height":40,
-                 "id":53,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":40,
-                 "x":160,
-                 "y":40
-                }, 
-                {
-                 "gid":3,
-                 "height":40,
-                 "id":54,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":40,
-                 "x":160,
-                 "y":80
-                }, 
-                {
-                 "gid":3,
-                 "height":40,
-                 "id":55,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":40,
-                 "x":160,
-                 "y":40
-                }, 
-                {
-                 "gid":3,
-                 "height":40,
-                 "id":56,
+                 "id":51,
                  "name":"spawnPoint",
                  "rotation":0,
                  "type":"",
@@ -108,14 +60,12 @@
                  "height":40,
                  "id":54,
                  "name":"woopboss",
-
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":40,
                  "x":400,
                  "y":240
-
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -125,10 +75,9 @@
         }],
  "nextlayerid":6,
  "nextobjectid":55,
-
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":40,
  "tilesets":[
         {
@@ -18291,6 +18240,6 @@
         }],
  "tilewidth":40,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":60
 }
