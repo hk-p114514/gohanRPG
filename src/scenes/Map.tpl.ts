@@ -6,19 +6,19 @@ import { BattleActor } from 'classes/BattleActor';
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
-
-import { Scene, Tilemaps } from 'phaser';
-import { timelineData } from 'classes/timelineWords';
-
-import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 
+// values
+import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
-import { Types } from 'phaser';
 import { charas } from 'classes/Characters';
 import { NPC, map, events, hints, npcs, funcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
-// values
+
+// functions
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
+
 export const tileSize: number = 40;
 export const characterSize: number = 32;
 export const assetKeys = {
@@ -54,7 +54,7 @@ export class Map extends Scene {
       frameHeight: characterSize,
     });
   }
-  public setnpcimage(s: Array<string>, n: number) {
+  public setNpcImage(s: Array<string>, n: number) {
     for (let i = 0; i < s.length; ++i) {
       this.load.spritesheet(s[i], charas[n], {
         frameWidth: characterSize,
@@ -77,7 +77,7 @@ export class Map extends Scene {
       }
     }
   }
-  public setevent(name: string, took: Timelines) {
+  public setEvent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
@@ -87,7 +87,7 @@ export class Map extends Scene {
       }
     }
   }
-  public sethint(name: string, took: Timelines) {
+  public setHint(name: string, took: Timelines) {
     for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
       let e = this.hintPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
@@ -153,7 +153,8 @@ export class Map extends Scene {
       return obj.type === 'npc';
     });
     console.log(this.npcPoints);
-    this.createevents();
+    // イベントを作成する
+    this.createEvents();
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -180,7 +181,6 @@ export class Map extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-    this.createAnim();
     const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {});
 
     // Debug graphics
@@ -221,7 +221,8 @@ export class Map extends Scene {
     }
     this.gridPhysics?.update(delta);
   }
-  public createevents() {
+
+  public createEvents() {
     funcs.set('talk', () => {
       if (!!this.player) {
         let xy = this.player.getTilePos();
@@ -243,6 +244,7 @@ export class Map extends Scene {
     funcs.set('log', () => {});
     funcs.set('warp', () => {});
   }
+
   moveBattle() {
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
@@ -253,6 +255,7 @@ export class Map extends Scene {
       this.scene.switch(sceneKeys.battle);
     });
   }
+
   public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
     this.anims.create({
       key: name,
@@ -265,8 +268,6 @@ export class Map extends Scene {
       yoyo: true,
     });
   }
-
-  public createAnim() {}
 
   public enableDebugMode() {
     this.input.keyboard.once('keydown-D', () => {
@@ -281,17 +282,5 @@ export class Map extends Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
-  }
-
-  startMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.start(to);
-  }
-
-  switchMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.switch(to);
   }
 }

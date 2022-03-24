@@ -16,6 +16,7 @@ import { randArr } from 'functions/generalPurpose/rand';
  * */
 
 export class Battle extends Scene {
+  public static readonly availableSkillCount: number = 4;
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
@@ -51,9 +52,13 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    actor.state.stateProcess(this)
-    const enemies = this.getEnemyGroup(actor, this.party, this.enemies);
-    if (!actor.isDead()) {
+    actor.state.stateProcess(this);
+    if (actor.isDead()) {
+      // sortedの中で、actorが死んでいる場合は、それを除く
+      this.sorted = this.sorted.filter((a) => a !== actor);
+      console.log(`${actor.name}は死んでしまった`);
+      this.resultDialog(false, actor.name);
+    } else {
       console.log('####################');
       console.log(`${this.index}番目の${actor.name}のターン`);
       console.log('####################');
@@ -65,7 +70,6 @@ export class Battle extends Scene {
         // プレイヤーが技を選択するまで待つ
         this.scene.pause();
         system.setActor(actor);
-        this.actorAction(actor);
       } else {
         system.battling = undefined;
         // 該当のキャラクターが敵側なら、
@@ -80,10 +84,12 @@ export class Battle extends Scene {
         switch (endBattle) {
           case 1:
             console.log('プレイヤーの勝利');
+            this.resultDialog(true);
             break;
           case 2:
           case 3:
             console.log('敵の勝利');
+            this.resultDialog(false);
             break;
         }
         // HPが0になった味方はマップに戻るときにHP1にする
@@ -94,19 +100,12 @@ export class Battle extends Scene {
         });
         this.backToMap();
       }
-    } else {
-      // sortedの中で、actorが死んでいる場合は、それを除く
-      this.sorted = this.sorted.filter((a) => a !== actor);
-      if (this.party.includes(actor)) {
-        this.party = this.party.filter((a) => a !== actor);
-      } else {
-        this.enemies = this.enemies.filter((a) => a !== actor);
-      }
-      console.log(`${actor.name}は死んでしまった`);
+
+      this.index++;
     }
 
-    this.index = (this.index + 1) % this.sorted.length;
-    this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
+    this.index = this.index % this.sorted.length;
+    this.time.addEvent({ delay: 1000, callback: this.nextTurn, callbackScope: this });
   }
 
   actorAction(actor: BattleActor): void {
@@ -115,20 +114,41 @@ export class Battle extends Scene {
     console.log(`${actor.name}の${skill.getName()}!!`);
     if (!forAllTargets) {
       // 単体効果
+      let targetEnemy: BattleActor;
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
-        skill.exe(actor, [randArr(this.getEnemyGroup(actor, this.party, this.enemies))]);
+        targetEnemy = randArr(
+          this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies)),
+        );
       } else {
         // 現在のキャラクター主観で味方に使う技
-        skill.exe(actor, [randArr(this.getGroup(actor, [this.party, this.enemies]))]);
+        targetEnemy = randArr(
+          this.getSurvivors(this.getGroup(actor, [this.party, this.enemies])),
+        );
       }
+      const beforeHp = targetEnemy.hp.current;
+      // スキル実行
+      skill.exe(actor, [targetEnemy]);
+      const afterHp = targetEnemy.hp.current;
+      // ダイアログ表示
+      this.drawSkillDamageMessage(
+        actor.name,
+        skill.getName(),
+        true,
+        targetEnemy.name,
+        Math.abs(beforeHp - afterHp),
+      );
     } else {
       // 全体効果
+      let targetGroup: BattleActor[] = [];
       if (forEnemy) {
-        skill.exe(actor, this.getEnemyGroup(actor, this.party, this.enemies));
+        targetGroup = this.getEnemyGroup(actor, this.party, this.enemies);
       } else {
-        skill.exe(actor, this.getGroup(actor, [this.party, this.enemies]));
+        targetGroup = this.getGroup(actor, [this.party, this.enemies]);
       }
+      skill.exe(actor, targetGroup);
+      // ダイアログ表示
+      this.drawSkillDamageMessage(actor.name, skill.getName(), false);
     }
   }
 
@@ -198,6 +218,18 @@ export class Battle extends Scene {
   }
 
   /**
+   * @brief キャラクターの配列から、現在生きている（バトル可能な）
+   *        キャラクターのみを集め、新たな配列として返す
+   *
+   * @param BattleActor[]   生存者を探索する元データ
+   *
+   * @returns BattleActor[] 生存者のみを集めた配列
+   */
+  getSurvivors(actors: BattleActor[]): BattleActor[] {
+    return actors.filter((actor) => !actor.isDead());
+  }
+
+  /**
    * @brief バトルが終了したかどうかを判定する
    *
    * @param BattleActor[]   バトルをしているキャラクターの配列
@@ -232,5 +264,80 @@ export class Battle extends Scene {
     return actors
       .map((actor) => actor.hp.current)
       .reduce((sum, current) => sum + current);
+  }
+
+  // actorNameが指定されている場合、その者が死んだということ
+  resultDialog(alive: boolean, actorName?: string) {
+    let text: string;
+    if (alive) {
+      text = `勝利ーーﾂ！！`;
+    } else {
+      if (actorName) {
+        text = `${actorName}は死んでしまったぁ.....`;
+      } else {
+        text = `敗北...........（笑）`;
+      }
+    }
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelinedata: {
+        start: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
+      },
+    });
+  }
+
+  // 「〜(攻撃者)のー(技)！」、「〜(被害者)にーダメージ(回復)！」
+  // 攻撃(回復)対象が全員だったら、targetとdamageは指定しない
+  drawSkillDamageMessage(
+    attacker: string,
+    skill: string,
+    isDamage: boolean,
+    target?: string,
+    damage?: number,
+  ) {
+    let forTarget: string;
+    if (isDamage) {
+      // 敵への攻撃
+      if (target) {
+        forTarget = 'forEnemy';
+      } else {
+        forTarget = 'forEnemies';
+      }
+    } else {
+      // 味方への回復
+      if (target) {
+        forTarget = 'forPartyMember';
+      } else {
+        forTarget = 'forParty';
+      }
+    }
+
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelinedata: {
+        start: [{ type: 'dialog', text: `....` }, { type: 'endTimeline' }],
+        forEnemy: [
+          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `${target}に ${damage} ダメージ！` },
+          { type: 'endTimeline' },
+        ],
+        forPartyMember: [
+          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `${target}を ${damage} 回復！` },
+          { type: 'endTimeline' },
+        ],
+        forEnemies: [
+          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `敵全員を攻撃！` },
+          { type: 'endTimeline' },
+        ],
+        forParty: [
+          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `仲間全員を回復！` },
+          { type: 'endTimeline' },
+        ],
+      },
+      specID: forTarget,
+    });
   }
 }
