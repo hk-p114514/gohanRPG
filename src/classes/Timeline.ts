@@ -50,8 +50,8 @@ type ChoiceEvent = {
 
 type setBackgroundColor = {
   type: 'setBackgroundColor';
-  color:string;
-}
+  color: string;
+};
 
 /*======タイムラインIDの最初と最後に必ず付ける！====== */
 // ダイアログが始まる時のイベント
@@ -72,6 +72,10 @@ type MotionEvent = {
   many: Array<any>;
 };
 
+type Switch = {
+  type: 'switch';
+  scene: string;
+};
 // Timelineはイベントの配列
 export type Timeline = (
   | DialogEvent
@@ -85,6 +89,7 @@ export type Timeline = (
   | StartTimeline
   | EndTimeline
   | MotionEvent
+  | Switch
 )[];
 
 export type dialogButton = {

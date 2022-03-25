@@ -7,8 +7,10 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { npcs, funcs } from './exam';
+import { system } from 'index';
 import { Map } from 'scenes/Map.tpl';
 import { keys } from 'lodash';
+import { Vector } from 'matter';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -93,7 +95,8 @@ export class TimelinePlayer extends Scene {
     }
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
     const timelineEvent = this.timeline[this.timelineIndex++];
-
+    console.log(this.anotherScene);
+    console.log(timelineEvent);
     switch (timelineEvent.type) {
       case 'dialog': // ダイアログイベント
         if (timelineEvent.actorName) {
@@ -129,8 +132,8 @@ export class TimelinePlayer extends Scene {
         this.dialogBox.clearDialogBox();
         this.timelineIndex = -1;
         this.anotherScene.scene.switch(timelineEvent.key);
+        this.scene.stop();
         break;
-
       case 'choice': // 選択肢イベント
         this.setChoiceButtons(timelineEvent.choices);
         break;
@@ -138,7 +141,17 @@ export class TimelinePlayer extends Scene {
         this.setBackgroundColor(timelineEvent.color);
         break;
       case 'event': // イベント追加
-        this.startevent(timelineEvent.event);
+        this.startevent(timelineEvent.event, timelineEvent.many);
+        break;
+      case 'switch':
+        this.dialogBox.clearDialogBox();
+        this.timelineIndex = -1;
+        // マップシーンのキー操作を受け付けるようにする
+        this.anotherScene.scene.resume();
+        system.map = timelineEvent.scene;
+        console.log(system.map);
+        this.anotherScene.scene.switch(timelineEvent.scene);
+        this.scene.stop();
         break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
@@ -152,16 +165,9 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-  private startevent(key: string) {
-    // switch (key) {
-    //   case 'cd':
-    //     //this.anotherScene?.
-    //     //output();
-    //     break;
-    //   default:
-    // }
-    if (funcs.has(key)) {
-      funcs.get(key)();
+  private startevent(key: string, many: any[]) {
+    if (funcs.has(system.map + ',' + key)) {
+      funcs.get(system.map + ',' + key)(many);
     }
   }
   // ダイアログの作成

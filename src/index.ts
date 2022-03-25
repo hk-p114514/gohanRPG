@@ -19,8 +19,8 @@ import { skills } from 'skills';
 
 // 使用するシーンをまとめる
 const scenes = [
-  Prologue,
-  Title,
+  // Prologue,
+  // Title,
   Preload,
   Map1,
   Map2,
