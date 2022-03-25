@@ -72,10 +72,10 @@ export class Battle extends Scene {
           case 2:
           case 3:
             console.log('敵の勝利');
+            this.resultDialog('lose');
             this.scene.stop(sceneKeys.ui);
             // start --> shutdown this.scene & start scene of key
             this.scene.start(sceneKeys.gameover);
-            this.resultDialog('lose');
             break;
         }
         // HPが0になった味方はマップに戻るときにHP1にする
@@ -279,13 +279,13 @@ export class Battle extends Scene {
       if (this.party.includes(actor)) {
         text = `${actor.name}は死んでしまった...`;
       } else {
-        text = `${actor.name}を倒した...！`;
+        text = `${actor.name}は倒れた！`;
       }
     }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
       timelinedata: {
-        win: [{ type: 'dialog', text: `敵に勝利した！` }, { type: 'endTimeline' }],
+        win: [{ type: 'dialog', text: `敵の殲滅に成功！` }, { type: 'endTimeline' }],
         lose: [{ type: 'dialog', text: `仲間が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
       },
