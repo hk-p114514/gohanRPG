@@ -1,12 +1,12 @@
-import { Scene } from "phaser";
-import { BattleActor } from "./BattleActor";
-import { randI } from "functions/generalPurpose/rand";
-import { thisTypeAnnotation } from "@babel/types";
+import { Scene } from 'phaser';
+import { BattleActor } from './BattleActor';
+import { randI } from 'functions/generalPurpose/rand';
+import { thisTypeAnnotation } from '@babel/types';
 
 export class State {
   private actor: BattleActor;
 
-  private states: {[key: string]: StateInfo};
+  private states: { [key: string]: StateInfo };
 
   private isProvocation: boolean;
 
@@ -24,14 +24,14 @@ export class State {
 
     this.states = {};
 
-    // ターンごとにHP減少 
-    this.states['poison'] = { 
+    // ターンごとにHP減少
+    this.states['poison'] = {
       name: 'poison',
       remain: 0,
       progress: () => {
         this.damageBuff -= this.poisonDamage;
-      }
-    }
+      },
+    };
 
     // ターンごとにHP増加
     this.states['heal'] = {
@@ -39,8 +39,8 @@ export class State {
       remain: 0,
       progress: () => {
         this.damageBuff += this.healDamage;
-      }
-    }
+      },
+    };
 
     // 毎ターン50%の確率で行動不能
     this.states['paralysis'] = {
@@ -50,8 +50,8 @@ export class State {
         if (!randI(1, 0)) {
           this.isPossible = false;
         }
-      }
-    }
+      },
+    };
 
     // 一定ターン行動不能
     this.states['sleep'] = {
@@ -59,17 +59,17 @@ export class State {
       remain: 0,
       progress: () => {
         this.isPossible = false;
-      }
-    }
+      },
+    };
 
     // 使える技の数-1
-    this.states['arghralgia'] = {
-      name: 'arghralgia',
+    this.states['arthralgia'] = {
+      name: 'arthralgia',
       remain: 0,
       progress: () => {
         this.skillBuff -= 1;
-      }
-    }
+      },
+    };
 
     // 使える技の数+1
     this.states['glucosamine'] = {
@@ -77,8 +77,8 @@ export class State {
       remain: 0,
       progress: () => {
         this.skillBuff += 1;
-      }
-    }
+      },
+    };
 
     // 敵の攻撃引き寄せ
     this.states['provocation'] = {
@@ -86,8 +86,8 @@ export class State {
       remain: 0,
       progress: () => {
         this.isProvocation = true;
-      }
-    }
+      },
+    };
 
     this.isProvocation = false;
 
@@ -123,13 +123,11 @@ export class State {
     }
   }
 
-
   public activeState(name: string, time: number): void {
     if (time > this.states[name].remain) {
       this.states[name].remain = time;
     }
   }
-
 
   public passiveState(name: string): void {
     this.states[name].remain = 0;
@@ -152,7 +150,7 @@ export class State {
   }
 
   public getProvocationActors(party: BattleActor[]): BattleActor[] {
-    return party.filter(actor => actor.state.getProvocation());
+    return party.filter((actor) => actor.state.getProvocation());
   }
 
   public getProvocation(): boolean {
