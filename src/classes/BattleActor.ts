@@ -9,6 +9,7 @@ import {
 import { SkillFunction, skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
+import { State } from './State';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -25,27 +26,6 @@ export type LimitValue = {
   max: number;
 };
 
-class SkillMenu {
-  private target: BattleActor;
-  private skills: Skill[];
-  private select: Skill;
-  private index: number;
-  constructor(target: BattleActor) {
-    this.target = target;
-    this.skills = this.target.skills;
-    this.select = this.skills[0];
-    this.index = 0;
-  }
-
-  selectPrevious() {
-    if (this.index <= 0) {
-      this.index = 0;
-      return;
-    } else if (this.index > this.skills.length - 1) {
-    }
-  }
-}
-
 export class BattleActor {
   name: string = '';
   spriteSrc: string = '';
@@ -57,6 +37,7 @@ export class BattleActor {
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
   skills: Skill[];
+  state: State;
   constructor({
     name = 'unknown',
     spriteSrc = '',
@@ -79,6 +60,7 @@ export class BattleActor {
     this.speed = speed;
     this.setLevel(startLevel);
     this.skills = initSkills;
+    this.state = new State(this);
   }
 
   addExp(exp: number) {
@@ -131,7 +113,7 @@ export class BattleActor {
   }
 
   getRandSkill(): Skill {
-    return this.skills[randI(this.skills.length)];
+    return this.skills[randI(this.skills.length - 1)];
   }
 
   isDead(): boolean {

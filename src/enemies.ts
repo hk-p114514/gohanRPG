@@ -20,7 +20,7 @@ const e = {
 };
 
 export const mapEnemies = new Map<string, BattleActor[]>([
-  [sceneKeys.map1, [e.slime, e.slimea]],
+  [sceneKeys.map1, [e.slime, e.slimea, e.mage, e.magea, e.mageb]],
   [sceneKeys.map2, [e.slimeb, e.mage, e.magea]],
 ]);
 

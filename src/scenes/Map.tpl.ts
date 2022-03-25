@@ -2,23 +2,27 @@
 import player from '@/assets/characters/dynamic/player.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
+import log1 from '@/assets/items/hatena.png';
+import log2 from '@/assets/items/ikari.png';
+import log3 from '@/assets/items/kantanhu.png';
+import log4 from '@/assets/items/mugon.png';
 // classes
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
-
-import { Scene, Tilemaps } from 'phaser';
-import { timelineData } from 'classes/timelineWords';
-
-import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 
-import { system } from 'index';
-import { Types } from 'phaser';
-import { charas } from 'classes/Characters';
-import { NPC, map, events, hints, npcs, funcs, names } from 'classes/exam';
-import { sceneKeys } from './sceneKeys';
 // values
+import { timelineData } from 'classes/timelineWords';
+import { system } from 'index';
+import { charas } from 'classes/Characters';
+import { map, events, hints, npcs, funcs, names } from 'classes/exam';
+import { sceneKeys } from './sceneKeys';
+
+// functions
+import { getEnemies } from 'functions/generalPurpose/getEnemies';
+
 export const tileSize: number = 40;
 export const characterSize: number = 32;
 export const assetKeys = {
@@ -53,15 +57,23 @@ export class Map extends Scene {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
+    this.load.image('log1', log1);
+    this.load.image('log2', log2);
+    this.load.image('log3', log3);
+    this.load.image('log4', log4);
   }
-  public setnpcimage(s: Array<string>, n: number) {
-    for (let i = 0; i < s.length; ++i) {
-      this.load.spritesheet(s[i], charas[n], {
+  //各MapClassのloadで使うnpcの姿を決める関数
+  //name=npcName,n=npcImage(Charas参照)
+  public setnpcimage(name: Array<string>, n: number) {
+    for (let i = 0; i < name.length; ++i) {
+      this.load.spritesheet(name[i], charas[n], {
         frameWidth: characterSize,
         frameHeight: characterSize,
       }); //console.log(system.map);
     }
   }
+  //各MapClassのcreateで使うnpcを配置する関数
+  //name=npcName,took=npcとの会話イベント(timelineWords参照)
   public makeNPC(name: string, took: Timelines) {
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
@@ -70,14 +82,16 @@ export class Map extends Scene {
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
         let l = this.add.sprite(0, 0, name, 1);
-        let hito = new NPC(name, l, new Phaser.Math.Vector2(x, y));
+        let hito = new Player(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
-        names.set(name, hito);
+        names.set(name, system.map + ',' + x + ',' + y);
         console.log(system.map + ',' + x + ',' + y);
       }
     }
   }
-  public setevent(name: string, took: Timelines) {
+  //各MapClassのcreateで使うふむタイプのイベントを配置する関数
+  //name=eventName,took=イベント内容(timelineWords参照)
+  public setEvent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
@@ -87,7 +101,9 @@ export class Map extends Scene {
       }
     }
   }
-  public sethint(name: string, took: Timelines) {
+  //各MapClassのcreateで使う調べるタイプのイベントを配置する関数
+  //name=eventName,took=イベント内容(timelineWords参照)
+  public setHint(name: string, took: Timelines) {
     for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
       let e = this.hintPoints[i];
       if (name === e.name && !!e.x && !!e.y) {
@@ -99,6 +115,7 @@ export class Map extends Scene {
   }
 
   public create() {
+    //話しかけるor調べるkey
     const space = this.input.keyboard.addKey('SPACE').on('down', () => {
       console.log(this.player);
       if (this.gridPhysics?.isMoving()) return;
@@ -140,20 +157,23 @@ export class Map extends Scene {
       return obj.name === 'spawnPoint';
     });
 
-    // イベントの位置を取得
+    // 踏むイベントの位置を取得
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'event';
     });
     console.log(this.eventPoints);
+    // 調べるイベントの位置を取得
     this.hintPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'hint';
     });
     console.log(this.hintPoints);
+    // npcの位置を取得
     this.npcPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'npc';
     });
     console.log(this.npcPoints);
-    this.createevents();
+    // イベントを作成する
+    this.createEvents();
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -180,14 +200,10 @@ export class Map extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-    this.createAnim();
-    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {});
-
     // Debug graphics
     this.enableDebugMode();
     //Dialog==================================================================
-    const push = this.input.keyboard.addKey('SHIFT');
-    push.on('down', () => {
+    const push = this.input.keyboard.addKey('SHIFT').on('down', () => {
       this.scene.launch(sceneKeys.timelinePlayer, {
         anotherScene: this,
         timelinedata: timelineData,
@@ -202,6 +218,7 @@ export class Map extends Scene {
         let nxy = this.player.getTilePos();
         if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
           this.xy = this.player.getTilePos();
+          //踏むイベントの確認
           if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
             let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
             this.scene.launch(sceneKeys.timelinePlayer, {
@@ -221,8 +238,10 @@ export class Map extends Scene {
     }
     this.gridPhysics?.update(delta);
   }
-  public createevents() {
-    funcs.set('talk', () => {
+  public log?: Phaser.GameObjects.Sprite;
+  //話しかけた奴が振り向くイベント
+  public createEvents() {
+    funcs.set(this.name + ',talk', () => {
       if (!!this.player) {
         let xy = this.player.getTilePos();
         let z = this.player.getdir();
@@ -238,11 +257,67 @@ export class Map extends Scene {
       }
       console.log('dekitawa');
     });
-    funcs.set('chdir', () => {});
-    funcs.set('move', () => {});
-    funcs.set('log', () => {});
-    funcs.set('warp', () => {});
+    //誰かが振り向くイベント
+    funcs.set(this.name + ',chdir', (s: any[]) => {
+      if (names.has(s[0])) {
+        let a = names.get(s[0]);
+        let b = npcs.get(a);
+        b.changedir(s[1]);
+      } else if (s[0] === 'player') {
+        this.player?.changedir(s[1]);
+      }
+    });
+    //誰かを配置するイベント
+    funcs.set(this.name + ',set', (s: any[]) => {
+      hints.set(system.map + ',' + s[1] + ',' + s[2], s[3]);
+      let l = this.add.sprite(0, 0, s[0], 1);
+      let hito = new Player(l, new Phaser.Math.Vector2(s[1], s[2]), s[0]);
+      npcs.set(system.map + ',' + s[1] + ',' + s[2], hito);
+      names.set(s[0], system.map + ',' + s[1] + ',' + s[2]);
+      console.log(system.map + ',' + s[1] + ',' + s[2]);
+    });
+    //誰かを消し去るイベント
+    funcs.set(this.name + ',reset', (s: any[]) => {
+      if (names.has(s[0])) {
+        let a = names.get(s[0]);
+        let b = npcs.get(a);
+        b.destroy();
+        npcs.delete(a);
+        names.delete(s[0]);
+      }
+    });
+    //プレイヤーを一マス動かすイベント
+    funcs.set(this.name + ',move', (s: any[]) => {
+      this.gridPhysics?.movePlayer(s[0]);
+    });
+    //誰かが呟くイベント
+    funcs.set(this.name + ',log', (s: any[]) => {
+      if (names.has(s[0])) {
+        let a = names.get(s[0]);
+        let b = npcs.get(a);
+        let c = b.getPosition();
+        c.y -= tileSize;
+        this.log?.destroy();
+        this.log = this.add.sprite(c.x, c.y, 'log' + s[1]);
+      } else if (s[0] === 'player') {
+        if (this.player) {
+          let c = this.player.getPosition();
+          c.y -= tileSize;
+          this.log?.destroy();
+          this.log = this.add.sprite(c.x, c.y, 'log' + s[1]);
+        }
+      }
+    });
+    //誰かの呟きを消し去るイベント
+    funcs.set(this.name + ',relog', (s: any[]) => {
+      this.log?.destroy();
+    });
+    //プレイヤーをどこかに飛ばすイベント
+    funcs.set(this.name + ',warp', (s: any[]) => {
+      this.player?.moveTilePos(s[0], s[1]);
+    });
   }
+
   moveBattle() {
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
@@ -253,20 +328,6 @@ export class Map extends Scene {
       this.scene.switch(sceneKeys.battle);
     });
   }
-  public createPlayerAnimation(name: string, startFrame: number, endFrame: number) {
-    this.anims.create({
-      key: name,
-      frames: this.anims.generateFrameNumbers('player', {
-        start: startFrame,
-        end: endFrame,
-      }),
-      frameRate: 10,
-      repeat: -1,
-      yoyo: true,
-    });
-  }
-
-  public createAnim() {}
 
   public enableDebugMode() {
     this.input.keyboard.once('keydown-D', () => {
@@ -281,17 +342,5 @@ export class Map extends Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
-  }
-
-  startMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.start(to);
-  }
-
-  switchMap(to: string): void {
-    system.map = to;
-    console.log(system.map);
-    this.scene.switch(to);
   }
 }
