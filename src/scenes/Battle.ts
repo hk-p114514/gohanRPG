@@ -5,7 +5,7 @@ import { Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
-import { randArr } from 'functions/generalPurpose/rand';
+import { randArr, randI } from 'functions/generalPurpose/rand';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -17,6 +17,7 @@ import { randArr } from 'functions/generalPurpose/rand';
 
 export class Battle extends Scene {
   public static readonly availableSkillCount: number = 4;
+  public static readonly maxEnemiesAppearance: number = 3;
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
@@ -30,6 +31,15 @@ export class Battle extends Scene {
   preload() {
     const clone = cloneDeep(getEnemies(system.map));
     this.enemies = clone;
+    // 現在のマップに出て来る可能性のある敵キャラの数
+    const len = this.enemies.length;
+    const appear = randI(Battle.availableSkillCount - 1);
+    const diff = len - appear;
+    for (let i = 0; i < diff; i++) {
+      const n = randI(len - 1, 0);
+      this.enemies.splice(n, 1);
+    }
+
     this.sorted = [...this.party, ...this.enemies].sort((a, b) => {
       return b.speed - a.speed;
     });

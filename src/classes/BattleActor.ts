@@ -110,7 +110,7 @@ export class BattleActor {
   }
 
   getRandSkill(): Skill {
-    return this.skills[randI(this.skills.length)];
+    return this.skills[randI(this.skills.length - 1)];
   }
 
   isDead(): boolean {
