@@ -462,7 +462,7 @@ export const beforeMelcineBattle: Timelines = {
     {
       type: 'dialog',
       actorName: 'メルシン',
-      text: 'やつらは四天王の面汚しに済みません…',
+      text: 'やつらは四天王の面汚しに過ぎません…',
     },
     {
       type: 'dialog',
@@ -505,3 +505,99 @@ export const afterMelcineBattle: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
+export const addMough: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'マルク', text: 'なぁ…なんか、着いてきてね？' },
+    { type: 'dialog', actorName: 'シデン', text: 'なんか、ではない' },
+    { type: 'dialog', actorName: 'シデン', text: '逆にこんな大男が着いてきていてなぜ今まで気付かなかった' },
+    { type: 'dialog', actorName: 'シデン', text: 'なんの用だ、大男' },
+    { type: 'dialog', actorName: 'マウ', text: '…おで？' },
+    { type: 'dialog', actorName: 'シデン', text: '貴様以外に誰がいる' },
+    { type: 'dialog', actorName: 'マウ', text: 'お前ら、食堂、行く' },
+    { type: 'dialog', actorName: 'マルク', text: 'そうだな' },
+    { type: 'dialog', actorName: 'マウ', text: '食堂、魔王、居る' },
+    { type: 'dialog', actorName: 'パウラ', text: 'そうですね' },
+    { type: 'dialog', actorName: 'マウ', text: '魔王、強い' },
+    { type: 'dialog', actorName: 'シデン', text: 'その通りだ' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウも、強い' },
+    { type: 'dialog', actorName: 'シデン', text: 'それは知らん' },
+    { type: 'dialog', actorName: 'マウ', text: '腕試し、する' },
+    { type: 'dialog', actorName: 'マルク', text: '…それで着いてきてるのか' },
+    { type: 'dialog', actorName: 'マルク', text: 'まぁ、力強そうだし' },
+    { type: 'dialog', actorName: 'マルク', text: 'いいんじゃない？' },
+    { type: 'dialog', actorName: 'シデン', text: 'いいな' },
+    { type: 'dialog', actorName: 'パウラ', text: 'いいんですか！？' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウ、強い、守る' },
+    { type: 'dialog', actorName: 'パウラ', text: '確かに頼もしくはありますけど…' },
+    { type: 'endTimeline' },
+  ]
+}
+
+export const beforeElecaBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'マルク', text: 'どうせここの四天王も、威勢だけなんだろうなぁ' },
+    { type: 'dialog', actorName: 'マウ', text: '待て' },
+    { type: 'dialog', actorName: 'パウラ', text: 'どうしたんですか？マウさん' },
+    { type: 'dialog', actorName: 'マウ', text: 'こいつ、強い…' },
+    { type: 'dialog', actorName: 'エレカ', text: 'あら、なかなか見る目がある仲間を連れてるじゃない' },
+    { type: 'dialog', actorName: 'シデン', text: 'なんだこいつ…今までのとは気迫が違う…' },
+    { type: 'dialog', actorName: 'マルク', text: '…あれ？もしかしてピンと来てないの俺だけ？' },
+    { type: 'dialog', actorName: 'エレカ', text: 'あの3人と同じだと思ってかかると痛い目に合うわよ' },
+    { type: 'dialog', actorName: 'エレカ', text: 'ま、ここに足を踏み入れた時点で命は無いと思うことね' },
+    { type: 'dialog', actorName: 'マルク', text: '言ってくれるじゃねぇか、こっちは4人だぜ' },
+    { type: 'dialog', actorName: 'エレカ', text: '何人いたって関係ないわ、全員まとめて叩き潰す' },
+    { type: 'endTimeline' },
+  ]
+}
+
+export const afterElecaBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'エレカ', text: 'うぐっ…おかあ…さま…' },
+    { type: 'dialog', actorName: 'マルク', text: 'はぁ…はぁ…流石に歯応えあったな…' },
+    { type: 'dialog', actorName: 'エレカ', text: '…お母様は、私の比にならない強さよ、\nせいぜい…覚悟…しておきなさい…' },
+    { type: 'dialog', actorName: 'エレカ', text: 'バタッ' },
+    { type: 'dialog', actorName: 'パウラ', text: '皆さん、お怪我は大丈夫ですか…？' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウ、丈夫、マウ、平気' },
+    { type: 'dialog', actorName: 'パウラ', text: '良かったです…' },
+    { type: 'dialog', actorName: 'シデン', text: 'あいつの話によれば、OBCはこれの比にならない強さらしいな' },
+    { type: 'dialog', actorName: 'マルク', text: 'ああ、折角ここまで来たんだ\nもっと強くなって、魔王ぶっとばしてやろうぜ！' },
+    { type: 'endTimeline' },
+  ]
+}
+
+export const castleAnnounce: Timelines = {
+  start: [
+    { type: 'dialog', actorName: '？？？', text: 'あの世行き前半のグループ、あの世行き前半のグループ' },
+    { type: 'dialog', actorName: '？？？', text: 'マルク、シデン、パウラ、マウ、' },
+    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい' },
+    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように' },
+    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね' },
+    { type: 'endTimeline' },
+  ]
+}
+
+export const beforeObcBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'OBC', text: 'おや…まさか本当に来るとはね' },
+    { type: 'dialog', actorName: 'シデン', text: 'おい、貴様がOBCだな' },
+    { type: 'dialog', actorName: 'OBC', text: 'いかにも\n私OBC、すなわち"おばちゃん"の略さ…' },
+    { type: 'dialog', actorName: 'パウラ', text: 'そんな…食堂の乗っ取り騒ぎも何もかも、自作自演だったって言うんですか！？' },
+    { type: 'dialog', actorName: 'OBC', text: 'その通りだよ…適当な所で切り上げて全部元通りにしてしまえば、食堂の復活を祝う客が沢山訪れる' },
+    { type: 'dialog', actorName: 'OBC', text: 'お前たちが来なければ、いずれ霧も晴らしてやったというのに…' },
+    { type: 'dialog', actorName: 'OBC', text: '正体を知られたからには仕方がない、ここで死んでもらおうか' },
+    { type: 'dialog', actorName: 'マウ', text: '腕試し、できる、ウオオ！' },
+    { type: 'dialog', actorName: 'パウラ', text: 'マウさん、話聞いてますか…' },
+    { type: 'dialog', actorName: 'パウラ', text: '…というか、霧によって味付けを濃くしたのも、あなたの仕業なんですか' },
+    { type: 'dialog', actorName: 'OBC', text: 'そうだよ、それも私さ' },
+    { type: 'dialog', actorName: 'パウラ', text: 'どうして…どうしてそんなことをするんですか！' },
+    { type: 'dialog', actorName: 'パウラ', text: 'そんなことしたら、健康寿命が縮んでしまうじゃないですか！' },
+    { type: 'dialog', actorName: 'OBC', text: 'その方がおいしいし、パワーが出るだろう？' },
+    { type: 'dialog', actorName: 'シデン', text: 'ふざけるな…ふざけるなぁ！！' },
+    { type: 'dialog', actorName: 'シデン', text: '俺はな、薄味が好みなんだぁぁ！！' },
+    { type: 'dialog', actorName: 'OBC', text: 'ならば、濃い味に慣れさせるまでよ！！' },
+    { type: 'dialog', actorName: 'OBC', text: 'ここまできたら後にも引けないからね\nこの世界まるごと、私の味で染め上げてくれる！！' },
+    { type: 'dialog', actorName: 'シデン', text: 'そんなこと、させてたまるかぁぁ！！' },
+    { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？'}
+  ]
+}
