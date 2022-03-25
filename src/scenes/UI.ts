@@ -277,11 +277,11 @@ export class UI extends Scene {
                 skill.exe(actor, [member]);
                 const afterHp: number = member.hp.current;
                 battleScene.drawSkillDamageMessage(
-                  actor.name,
+                  actor,
                   skill.getName(),
                   forAllTargets,
                   forEnemy,
-                  member.name,
+                  member,
                   Math.abs(beforeHp - afterHp),
                 );
                 // バトルシーンを再開させる
@@ -304,7 +304,7 @@ export class UI extends Scene {
               skill.exe(actor, this.party);
             }
             battleScene.drawSkillDamageMessage(
-              actor.name,
+              actor,
               skill.getName(),
               forAllTargets,
               forEnemy,

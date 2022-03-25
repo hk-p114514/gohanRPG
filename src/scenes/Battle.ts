@@ -72,8 +72,8 @@ export class Battle extends Scene {
           case 2:
           case 3:
             console.log('敵の勝利');
-            this.scene.stop(sceneKeys.battle);
             this.scene.stop(sceneKeys.ui);
+            // start --> shutdown this.scene & start scene of key
             this.scene.start(sceneKeys.gameover);
             this.resultDialog('lose');
             break;
@@ -136,11 +136,11 @@ export class Battle extends Scene {
       const afterHp = targetEnemy.hp.current;
       // ダイアログ表示
       this.drawSkillDamageMessage(
-        actor.name,
+        actor,
         skill.getName(),
         forAllTargets,
         forEnemy,
-        targetEnemy.name,
+        targetEnemy,
         Math.abs(beforeHp - afterHp),
       );
     } else {
@@ -153,7 +153,7 @@ export class Battle extends Scene {
       }
       skill.exe(actor, targetGroup);
       // ダイアログ表示
-      this.drawSkillDamageMessage(actor.name, skill.getName(), forAllTargets, forEnemy);
+      this.drawSkillDamageMessage(actor, skill.getName(), forAllTargets, forEnemy);
     }
   }
 
@@ -277,15 +277,15 @@ export class Battle extends Scene {
     if (situation === 'dead') {
       if (!actor) return;
       if (this.party.includes(actor)) {
-        text = `${actor.name}は死んでしまった...（泣）`;
+        text = `${actor.name}は死んでしまった...`;
       } else {
-        text = `${actor.name}を倒した....雑魚ww！`;
+        text = `${actor.name}を倒した...！`;
       }
     }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
       timelinedata: {
-        win: [{ type: 'dialog', text: `敵に勝利した！！` }, { type: 'endTimeline' }],
+        win: [{ type: 'dialog', text: `敵に勝利した！` }, { type: 'endTimeline' }],
         lose: [{ type: 'dialog', text: `仲間が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
       },
@@ -296,11 +296,11 @@ export class Battle extends Scene {
   // 「〜(攻撃者)のー(技)！」、「〜(被害者)にーダメージ(回復)！」
   // 攻撃(回復)対象が全員だったら、targetとdamageは指定しない
   drawSkillDamageMessage(
-    attacker: string,
+    attacker: BattleActor,
     skill: string,
     forAllTargets: boolean,
     forEnemy: boolean,
-    target?: string,
+    target?: BattleActor,
     damage?: number,
   ) {
     let forTarget: string;
@@ -322,32 +322,32 @@ export class Battle extends Scene {
         }
       }
     }
-
+    if (!target) return;
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
       timelinedata: {
         forEnemy: [
-          { type: 'dialog', text: `${attacker}の${skill}！` },
-          { type: 'dialog', text: `${target}は ${damage} ダメージ喰らった！` },
+          { type: 'dialog', text: `${attacker.name}の${skill}！` },
+          { type: 'dialog', text: `${target.name}は ${damage} ダメージ喰らった！` },
           { type: 'endTimeline' },
         ],
         forFriend: [
-          { type: 'dialog', text: `${attacker}の${skill}！` },
-          { type: 'dialog', text: `${target}は ${damage} 回復した！` },
+          { type: 'dialog', text: `${attacker.name}の${skill}！` },
+          { type: 'dialog', text: `${target.name}は ${damage} 回復した！` },
           { type: 'endTimeline' },
         ],
         forFriendHpMax: [
-          { type: 'dialog', text: `${attacker}の${skill}！` },
-          { type: 'dialog', text: `${target}のHPは満タンだった...` },
+          { type: 'dialog', text: `${attacker.name}の${skill}！` },
+          { type: 'dialog', text: `${target.name}のHPは満タンだった...` },
           { type: 'endTimeline' },
         ],
         forEnemies: [
-          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `${attacker.name}の${skill}！` },
           { type: 'dialog', text: `敵全員を攻撃！` },
           { type: 'endTimeline' },
         ],
         forFriends: [
-          { type: 'dialog', text: `${attacker}の${skill}！` },
+          { type: 'dialog', text: `${attacker.name}の${skill}！` },
           { type: 'dialog', text: `仲間全員を回復！` },
           { type: 'endTimeline' },
         ],
