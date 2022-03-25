@@ -7,5 +7,5 @@ export const randF = (min: number, max: number): number => {
 };
 
 export const randArr = <T>(arr: T[]): T => {
-  return arr[randI(arr.length)];
+  return arr[randI(arr.length - 1)];
 };
