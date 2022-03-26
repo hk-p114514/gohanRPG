@@ -16,6 +16,7 @@ import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from 'classes/BattleActor';
 import { TimelinePlayer } from 'classes/TimelinePlayer';
 import { skills } from 'skills';
+import { marc, mough, pouler, shiden } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
@@ -31,13 +32,7 @@ const scenes = [
 ];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map1, [
-  new BattleActor({ name: 'ゆーしゃ', initSkills: [skills[0]] }),
-  new BattleActor({
-    name: 'なかま1',
-    initSkills: [skills[0], skills[1]],
-  }),
-]);
+export const system = new System(sceneKeys.map1, [marc, shiden, pouler, mough]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [mapJson1, mapJson2];
