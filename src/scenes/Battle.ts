@@ -333,7 +333,11 @@ export class Battle extends Scene {
         }
       }
     }
-    if (!target) return;
+    if (!target) {
+      // 全体攻撃の場合、targetは渡されない、かつ、使われないので
+      // 空のキャラクターを仮に渡す
+      target = new BattleActor({});
+    }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
       timelinedata: {
