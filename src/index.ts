@@ -15,7 +15,6 @@ import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from 'classes/BattleActor';
 import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { skills } from 'skills';
 import { marc, mough, pouler, shiden } from 'friends';
 
 // 使用するシーンをまとめる
