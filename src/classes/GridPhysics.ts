@@ -26,10 +26,6 @@ export class GridPhysics {
 
   constructor(private player: Player, private tileMap: Phaser.Tilemaps.Tilemap) {}
 
-  chcon(char: Player) {
-    this.player = char;
-  }
-
   movePlayer(direction: Direction): void {
     this.lastMovementIntent = direction;
     if (this.isMoving()) return;

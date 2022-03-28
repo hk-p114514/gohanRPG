@@ -27,6 +27,27 @@ export type LimitValue = {
   max: number;
 };
 
+class SkillMenu {
+  private target: BattleActor;
+  private skills: Skill[];
+  private select: Skill;
+  private index: number;
+  constructor(target: BattleActor) {
+    this.target = target;
+    this.skills = this.target.skills;
+    this.select = this.skills[0];
+    this.index = 0;
+  }
+
+  selectPrevious() {
+    if (this.index <= 0) {
+      this.index = 0;
+      return;
+    } else if (this.index > this.skills.length - 1) {
+    }
+  }
+}
+
 export class BattleActor {
   name: string = '';
   spriteSrc: string = '';
@@ -133,7 +154,7 @@ export class BattleActor {
   }
 
   getRandSkill(): Skill {
-    return this.skills[randI(this.skills.length - 1)];
+    return this.skills[randI(this.skills.length)];
   }
 
   isDead(): boolean {
