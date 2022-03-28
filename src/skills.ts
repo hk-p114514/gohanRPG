@@ -5,7 +5,7 @@ export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => v
 
 const attackForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
-    target.beInjured(attacker.atk);
+    target.beInjured(attacker.buff.getAtk());
   });
 };
 
@@ -22,7 +22,7 @@ const healForAll = (
   });
 };
 
-const hightHealForAll = (attacker: BattleActor, targets: BattleActor[]) => {
+const highHealForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   healForAll(attacker, targets, 1);
 };
 
