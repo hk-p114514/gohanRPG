@@ -217,9 +217,11 @@ export class UI extends Scene {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
       const skills = new Set<Skill>();
-      if (Battle.availableSkillCount < actor.skills.length) {
+      const available = Battle.availableSkillCount;
+
+      if (available < actor.skills.length) {
         // 技の候補が沢山ありすぎる -> 抽選
-        while (skills.size < Battle.availableSkillCount) {
+        while (skills.size < available - 1) {
           skills.add(randArr(actor.skills));
         }
       } else {
@@ -229,7 +231,7 @@ export class UI extends Scene {
         });
       }
 
-      actor.skills.forEach((skill) => {
+      skills.forEach((skill) => {
         const skillText = this.add
           .text(playerSkillX, playerSkillY, skill.getName(), this.fontStyle)
           .setInteractive({

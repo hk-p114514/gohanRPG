@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"map001.json"
+        }
+    },
  "height":40,
  "infinite":false,
  "layers":[
@@ -36,12 +44,144 @@
                  "height":40,
                  "id":1,
                  "name":"spawnPoint",
-                 "rotation":0,
+                 "rotation":90,
                  "type":"",
                  "visible":true,
                  "width":40,
                  "x":320,
+                 "y":840
+                }, 
+                {
+                 "gid":1,
+                 "height":40,
+                 "id":56,
+                 "name":"hito2",
+                 "rotation":90,
+                 "type":"npc",
+                 "visible":true,
+                 "width":40,
+                 "x":1176,
+                 "y":685.333333333333
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":2,
+                 "name":"goStage3",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":120,
+                 "y":480
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":10,
+                 "name":"goStage3",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":120,
+                 "y":520
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":3,
+                 "name":"goStage2",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":2240,
                  "y":880
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":9,
+                 "name":"goStage2",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":2240,
+                 "y":920
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":4,
+                 "name":"goStage4",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":2240,
+                 "y":480
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":8,
+                 "name":"goStage4",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":2240,
+                 "y":520
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":5,
+                 "name":"goStage5",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":1160,
+                 "y":280
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":7,
+                 "name":"goStage5",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":1200,
+                 "y":280
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":6,
+                 "name":"goStage1",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":120,
+                 "y":880
+                }, 
+                {
+                 "gid":2,
+                 "height":40,
+                 "id":11,
+                 "name":"goStage1",
+                 "rotation":90,
+                 "type":"event",
+                 "visible":true,
+                 "width":40,
+                 "x":120,
+                 "y":920
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -50,7 +190,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":2,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

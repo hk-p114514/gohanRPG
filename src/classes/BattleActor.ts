@@ -9,6 +9,8 @@ import {
 import { SkillFunction, skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
+import { State } from './State';
+import { Buff } from './Buff';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -25,27 +27,6 @@ export type LimitValue = {
   max: number;
 };
 
-class SkillMenu {
-  private target: BattleActor;
-  private skills: Skill[];
-  private select: Skill;
-  private index: number;
-  constructor(target: BattleActor) {
-    this.target = target;
-    this.skills = this.target.skills;
-    this.select = this.skills[0];
-    this.index = 0;
-  }
-
-  selectPrevious() {
-    if (this.index <= 0) {
-      this.index = 0;
-      return;
-    } else if (this.index > this.skills.length - 1) {
-    }
-  }
-}
-
 export class BattleActor {
   name: string = '';
   spriteSrc: string = '';
@@ -57,10 +38,11 @@ export class BattleActor {
   speed: number;
   // 引数にskillArgを持つ関数の配列を持つ
   skills: Skill[];
+  state: State;
+  buff: Buff;
   constructor({
     name = 'unknown',
     spriteSrc = '',
-    level = level1,
     hp = { ...initHp() },
     mp = { ...initMp() },
     atk = initAtk,
@@ -71,23 +53,42 @@ export class BattleActor {
   }) {
     this.name = name;
     this.spriteSrc = spriteSrc;
-    this.level = level;
     this.hp = hp;
     this.mp = mp;
     this.atk = atk;
     this.def = def;
     this.speed = speed;
+    this.level = {
+      current: 1,
+      exp: 0,
+      toNext: 5,
+      max: 100,
+    };
     this.setLevel(startLevel);
     this.skills = initSkills;
+    this.state = new State(this);
+    this.buff = new Buff(this);
   }
 
-  addExp(exp: number) {
+  /**
+   * @brief キャラクターの持つ経験値を加算する
+   *
+   * @param number exp 加算分の経験値
+   *
+   * @returns 経験値を得た結果キャラクターがレベルアップした: true
+   *         経験値を得た結果キャラクターがレベルアップしなかった: false
+   */
+  addExp(exp: number): boolean {
+    let isLevelUp = false;
     this.level.exp += exp;
-    if (this.level.exp >= this.level.toNext) {
+    while (this.level.exp >= this.level.toNext) {
       this.levelUp();
       this.level.exp -= this.level.toNext;
       this.level.toNext = Math.floor(this.level.toNext * 1.5);
+      isLevelUp = true;
     }
+
+    return isLevelUp;
   }
 
   levelUp() {
@@ -107,6 +108,7 @@ export class BattleActor {
 
     for (let i = 0; Math.abs(current - this.level.current); i++) {
       this.levelUp();
+      this.level.toNext = Math.floor(this.level.toNext * 1.5);
     }
 
     return 0;
@@ -115,7 +117,7 @@ export class BattleActor {
   // 被ダメ
   beInjured(damage: number): void {
     const before = this.hp.current;
-    this.hp.current -= Math.floor(damage - damage / this.def);
+    this.hp.current -= Math.floor(damage - damage / this.buff.getDef());
     if (this.hp.current < 0) {
       this.hp.current = 0;
     }
@@ -131,7 +133,7 @@ export class BattleActor {
   }
 
   getRandSkill(): Skill {
-    return this.skills[randI(this.skills.length)];
+    return this.skills[randI(this.skills.length - 1)];
   }
 
   isDead(): boolean {

@@ -1,3 +1,4 @@
+import { Timelines } from 'classes/Timelines';
 import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
@@ -5,7 +6,7 @@ import { Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
-import { randArr } from 'functions/generalPurpose/rand';
+import { randArr, randI } from 'functions/generalPurpose/rand';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -17,10 +18,12 @@ import { randArr } from 'functions/generalPurpose/rand';
 
 export class Battle extends Scene {
   public static readonly availableSkillCount: number = 4;
+  public static readonly maxEnemiesAppearance: number = 3;
   private party: BattleActor[] = [...system.party];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
   private index: number = 0;
+  private exp: number = 0;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
   constructor() {
@@ -30,9 +33,25 @@ export class Battle extends Scene {
   preload() {
     const clone = cloneDeep(getEnemies(system.map));
     this.enemies = clone;
+    // 現在のマップに出て来る可能性のある敵キャラの数
+    const len = this.enemies.length;
+    const appear = randI(Battle.availableSkillCount - 1);
+    const diff = len - appear;
+    for (let i = 0; i < diff; i++) {
+      const n = randI(len - 1, 0);
+      this.enemies.splice(n, 1);
+    }
+
     this.sorted = [...this.party, ...this.enemies].sort((a, b) => {
       return b.speed - a.speed;
     });
+
+    // バトル勝利時にプレイヤー達が獲得する経験値を計算
+    const enemyCount = this.enemies.length;
+    const enemyLevelAbs = Math.floor(
+      this.enemies.reduce((a, b) => a + b.level.current, 0) / enemyCount,
+    );
+    this.exp = enemyLevelAbs * enemyCount;
 
     system.isBattle = true;
   }
@@ -52,6 +71,8 @@ export class Battle extends Scene {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
+    actor.state.stateProcess();
+    actor.buff.buffProcess();
     if (actor.isDead()) {
       // sortedの中で、actorが死んでいる場合は、それを除く
       this.sorted = this.sorted.filter((a) => a !== actor);
@@ -67,6 +88,8 @@ export class Battle extends Scene {
           case 1:
             console.log('プレイヤーの勝利');
             this.resultDialog('win');
+            const levelUps = this.giveExpPlayers();
+            this.levelUpDialog(levelUps);
             this.backToMap();
             break;
           case 2:
@@ -92,17 +115,19 @@ export class Battle extends Scene {
 
       // actor.getRandSkill()(actor, enemies);
       // actorの攻撃
-      if (this.party.includes(actor)) {
-        // 該当のキャラクターがプレイヤー側なら、
-        // 使う技をプレイヤーに選択させる
-        // プレイヤーが技を選択するまで待つ
-        this.scene.pause();
-        system.setActor(actor);
-      } else {
-        system.battling = undefined;
-        // 該当のキャラクターが敵側なら、
-        // ランダムに技を選択する
-        this.actorAction(actor);
+      if (actor.state.getPossible()) {
+        if (this.party.includes(actor)) {
+          // 該当のキャラクターがプレイヤー側なら、
+          // 使う技をプレイヤーに選択させる
+          // プレイヤーが技を選択するまで待つ
+          this.scene.pause();
+          system.setActor(actor);
+        } else {
+          system.battling = undefined;
+          // 該当のキャラクターが敵側なら、
+          // ランダムに技を選択する
+          this.actorAction(actor);
+        }
       }
 
       this.index++;
@@ -121,9 +146,17 @@ export class Battle extends Scene {
       let targetEnemy: BattleActor;
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
-        targetEnemy = randArr(
-          this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies)),
+        // 挑発しているキャラクターがいたら、対象を変更する
+        const provocations = actor.state.getProvocationActors(
+          this.getSurvivors(this.party),
         );
+        if (provocations.length > 0) {
+          targetEnemy = randArr(provocations);
+        } else {
+          targetEnemy = randArr(
+            this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies)),
+          );
+        }
       } else {
         // 現在のキャラクター主観で味方に使う技
         targetEnemy = randArr(
@@ -322,7 +355,11 @@ export class Battle extends Scene {
         }
       }
     }
-    if (!target) return;
+    if (!target) {
+      // 全体攻撃の場合、targetは渡されない、かつ、使われないので
+      // 空のキャラクターを仮に渡す
+      target = new BattleActor({});
+    }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
       timelinedata: {
@@ -353,6 +390,32 @@ export class Battle extends Scene {
         ],
       },
       specID: forTarget,
+    });
+  }
+
+  /**
+   * @brief プレイヤーがバトルに勝利したとき、
+   *        プレイヤーパーティー全員に経験値を加算する
+   *
+   * @returns レベルアップしたキャラクター
+   */
+  giveExpPlayers(): BattleActor[] {
+    return this.party.filter((actor) => actor.addExp(this.exp));
+  }
+
+  levelUpDialog(actors: BattleActor[]): void {
+    const timeLines = actors.map((actor) => {
+      return {
+        type: 'dialog',
+        text: `${actor.name}はレベル${actor.level.current}になった！\n次のレベルまでに必要な経験値→${actor.level.toNext}`,
+      };
+    });
+
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelinedata: {
+        start: [...timeLines, { type: 'endTimeline' }],
+      },
     });
   }
 }

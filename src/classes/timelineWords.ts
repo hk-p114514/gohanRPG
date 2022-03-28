@@ -1,3 +1,4 @@
+import { events } from './exam';
 import { Timelines } from './Timelines';
 
 export const timelineData: Timelines = {
@@ -63,16 +64,275 @@ export const timelineData: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const Took: Timelines = {
   start: [
     // { type: 'startTimeline' },
     { type: 'event', event: 'talk', many: [] },
     { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'chdir', many: ['hito2', 'left'] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'warp', many: [12, 12] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'chdir', many: ['player', 'right'] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'set', many: ['hito3', 13, 12, undefined] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'log', many: ['hito3', 3] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'event', event: 'reset', many: ['hito3'] },
+    { type: 'dialog', text: 'OK▼' },
+    { type: 'switch', scene: 'map2' },
+    { type: 'dialog', text: 'OK▼' },
     { type: 'endTimeline' },
   ],
 };
+//共通
+export const select: Timelines = {
+  start: [
+    {
+      type: 'choice',
+      choices: [
+        { text: 'stage0', timelineID: 'choice01_a00' },
+        { text: 'stage1', timelineID: 'choice01_a01' },
+        { text: 'stage2', timelineID: 'choice01_a02' },
+        { text: 'stage3', timelineID: 'choice01_a03' },
+        // { text: 'stage4', timelineID: 'choice01_a04' },
+        // { text: 'stage5', timelineID: 'choice01_a05' },
+      ],
+    },
+  ],
+  choice01_a00: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
+  choice01_a01: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
+  choice01_a02: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
+  choice01_a03: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
+  choice01_a04: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
+  choice01_a05: [{ type: 'switch', scene: 'map6' }, { type: 'endTimeline' }],
+};
+export const noComment: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    {
+      type: 'dialog',
+      text: 'ハハッ!\nハハハッ!\nハハハハッ!\n',
+      actorName: 'マウスカーソル',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const dummy: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    {
+      type: 'dialog',
+      text: 'ハハッ!\nこの先はまだ未完成なんだ。\nごめんね!',
+      actorName: 'マウスカーソル',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+//Home
+export const warp0: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'switch', scene: 'map1' },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp1: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'dialog', text: 'Do you go stage1?', actorName: 'ワープタイル' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'choice01_a01' },
+        { text: 'いいえ', timelineID: 'choice01_a02' },
+        { text: 'タイル風情が話しかけるな', timelineID: 'choice01_a03' },
+      ],
+    },
+  ],
+  choice01_a01: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
+  choice01_a02: [
+    { type: 'dialog', text: 'さようですか', actorName: 'ワープタイル' },
+    { type: 'endTimeline' },
+  ],
+  choice01_a03: [
+    { type: 'dialog', text: '・・・・・・ ▼', actorName: 'ワープタイル' },
+    {
+      type: 'dialog',
+      text: 'この後俺は謎の組織に捕まりモブ化されてしまうのだった・・・ ▼',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp2: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'dialog', text: 'Do you go stage2?', actorName: 'ワープタイル' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'choice01_a01' },
+        { text: 'いいえ', timelineID: 'choice01_a02' },
+        { text: 'タイル風情が話しかけるな', timelineID: 'choice01_a03' },
+      ],
+    },
+  ],
+  choice01_a01: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
+  choice01_a02: [
+    { type: 'dialog', text: 'チッ', actorName: 'ワープタイル' },
+    { type: 'endTimeline' },
+  ],
+  choice01_a03: [
+    { type: 'dialog', text: '・・・・・・ ▼', actorName: 'ワープタイル' },
+    {
+      type: 'dialog',
+      text: 'この後俺は謎の組織に捕まりモブ化されてしまうのだった・・・ ▼',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp3: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'dialog', text: 'Do you go stage3?', actorName: 'ワープタイル' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'choice01_a01' },
+        { text: 'いいえ', timelineID: 'choice01_a02' },
+        { text: 'タイル風情が話しかけるな', timelineID: 'choice01_a03' },
+      ],
+    },
+  ],
+  choice01_a01: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
+  choice01_a02: [
+    { type: 'dialog', text: 'な〜んだ', actorName: 'ワープタイル' },
+    { type: 'endTimeline' },
+  ],
+  choice01_a03: [
+    { type: 'dialog', text: '・・・・・・ ▼', actorName: 'ワープタイル' },
+    {
+      type: 'dialog',
+      text: 'この後俺は謎の組織に捕まりモブ化されてしまうのだった・・・ ▼',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp4: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'dialog', text: 'Do you go stage2?', actorName: 'ワープタイル' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'choice01_a01' },
+        { text: 'いいえ', timelineID: 'choice01_a02' },
+        { text: 'タイル風情が話しかけるな', timelineID: 'choice01_a03' },
+      ],
+    },
+  ],
+  choice01_a01: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
+  choice01_a02: [
+    { type: 'dialog', text: '嘘だ！！！', actorName: 'ワープタイル' },
+    { type: 'endTimeline' },
+  ],
+  choice01_a03: [
+    { type: 'dialog', text: '・・・・・・ ▼', actorName: 'ワープタイル' },
+    {
+      type: 'dialog',
+      text: 'この後俺は謎の組織に捕まりモブ化されてしまうのだった・・・ ▼',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp5: Timelines = {
+  start: [
+    // { type: 'startTimeline' },
+    { type: 'dialog', text: 'Do you go stage3?', actorName: 'ワープタイル' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'choice01_a01' },
+        { text: 'いいえ', timelineID: 'choice01_a02' },
+        { text: 'タイル風情が話しかけるな', timelineID: 'choice01_a03' },
+      ],
+    },
+  ],
+  choice01_a01: [{ type: 'switch', scene: 'map6' }, { type: 'endTimeline' }],
+  choice01_a02: [
+    { type: 'dialog', text: 'じゃあ踏みつけるんじゃあねえよ', actorName: 'ワープタイル' },
+    { type: 'endTimeline' },
+  ],
+  choice01_a03: [
+    { type: 'dialog', text: '・・・・・・ ▼', actorName: 'ワープタイル' },
+    {
+      type: 'dialog',
+      text: 'この後俺は謎の組織に捕まりモブ化されてしまうのだった・・・ ▼',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+//Stage1
+export const warpA: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [11, 5] }, { type: 'endTimeline' }],
+};
+export const backA: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [29, 11] }, { type: 'endTimeline' }],
+};
+export const goAte: Timelines = {
+  start: [
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'warp', many: [13, 5] },
+    { type: 'endTimeline' },
+  ],
+};
+//Stage3
+export const restart0: Timelines = {
+  start: [
+    { type: 'dialog', text: 'よし！', actorName: 'ねこ' },
+    { type: 'event', event: 'warp', many: [2, 2] },
+    { type: 'endTimeline' },
+  ],
+};
+export const restart1: Timelines = {
+  start: [
+    { type: 'dialog', text: 'よし！', actorName: 'ねこ' },
+    { type: 'event', event: 'warp', many: [57, 3] },
+    { type: 'endTimeline' },
+  ],
+};
+export const restart2: Timelines = {
+  start: [
+    { type: 'dialog', text: 'よし！', actorName: 'ねこ' },
+    { type: 'event', event: 'warp', many: [25, 37] },
+    { type: 'endTimeline' },
+  ],
+};
+export const warp4_1: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [59, 3] }, { type: 'endTimeline' }],
+};
+export const warp4_2: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [26, 39] }, { type: 'endTimeline' }],
+};
+export const warp4_3: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [31, 30] }, { type: 'endTimeline' }],
+};
+export const warp4_4: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [11, 34] }, { type: 'endTimeline' }],
+};
+export const warp4_5: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [53, 8] }, { type: 'endTimeline' }],
+};
+export const warp4_6: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [24, 15] }, { type: 'endTimeline' }],
+};
 
+//Events
 export const prologue: Timelines = {
   start: [
     {
@@ -93,7 +353,17 @@ export const prologue: Timelines = {
 
 export const beforeAteBattle: Timelines = {
   start: [
+    { type: 'judge', scene: 'beforeAte', timelineID: 'Ate' },
+    { type: 'endTimeline' },
+  ],
+  Ate: [
+    //{ type: 'event', event: 'flash', many: [] },
+    //{ type: 'event', event: 'open', many: [] },
+    { type: 'event', event: 'chdir', many: ['player', 'right'] },
+    { type: 'event', event: 'log', many: ['player', 2] },
+
     { type: 'dialog', actorName: 'マルク', text: 'おい！食堂への鍵を寄越せ！' },
+    { type: 'event', event: 'relog', many: [] },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -104,11 +374,15 @@ export const beforeAteBattle: Timelines = {
       actorName: 'エーテ',
       text: 'この私が、魔王直属の四天王の一人、エーテ様と知っての言葉ではあるまいな！',
     },
+    { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', actorName: 'マルク', text: 'うん、知らんかった' },
+    { type: 'event', event: 'relog', many: [] },
     { type: 'dialog', actorName: 'エーテ', text: 'あ、そう' },
+    { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: '……' },
     { type: 'dialog', actorName: 'エーテ', text: '……' },
     { type: 'dialog', actorName: 'マルク', text: 'なんか、ごめん' },
+    { type: 'event', event: 'relog', many: [] },
     { type: 'dialog', actorName: 'エーテ', text: 'いいよ、俺もちょっと調子乗ってたし' },
     { type: 'dialog', actorName: 'エーテ', text: '…雰囲気戻していい？' },
     { type: 'dialog', actorName: 'マルク', text: 'お願いします' },
@@ -128,6 +402,10 @@ export const beforeAteBattle: Timelines = {
 
 export const afterAteBattle: Timelines = {
   start: [
+    { type: 'judge', scene: 'afterAte', timelineID: 'Ate' },
+    { type: 'endTimeline' },
+  ],
+  Ate: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…' },
     {
       type: 'dialog',
@@ -135,18 +413,23 @@ export const afterAteBattle: Timelines = {
       text: '俺は、四天王なんだ…こんな所で、倒れる訳にはいかないんだ…！',
     },
     { type: 'dialog', actorName: 'エーテ', text: '俺を生み出しし母、OBCの為に…！' },
+    { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', actorName: 'マルク', text: 'OBC？なんだそれ？' },
+    { type: 'event', event: 'relog', many: [] },
     {
       type: 'dialog',
       actorName: 'エーテ',
       text: 'ふん、覚えておくといい…いずれ貴様を滅ぼす、偉大なる魔王の名だ…',
     },
+    { type: 'event', event: 'log', many: ['player', 3] },
     { type: 'dialog', actorName: 'エーテ', text: 'バタッ' },
+    { type: 'event', event: 'log', many: ['player', 4] },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: '…死に際に色々吐いてくれる系四天王だったな…',
     },
+    { type: 'event', event: 'relog', many: [] },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'エーテはもう倒れたか…' },
     { type: 'dialog', actorName: 'メルシン', text: 'ふん、奴は四天王の中でも最弱…' },
@@ -154,6 +437,8 @@ export const afterAteBattle: Timelines = {
     { type: 'dialog', actorName: 'ビーテ', text: '兄の責任は私の責任でもあります' },
     { type: 'dialog', actorName: 'OBC', text: '良かろう、次は貴様に任せる' },
     { type: 'dialog', actorName: 'ビーテ', text: '必ずや、止めてみせます故…' },
+    { type: 'event', event: 'delete', many: ['beforeAte'] },
+    { type: 'event', event: 'delete', many: ['afterAte'] },
     { type: 'endTimeline' },
   ],
 };
@@ -203,7 +488,7 @@ export const meetShiden: Timelines = {
       text: 'なるほどな…そんで、お前魔法使えんの？',
     },
     { type: 'dialog', actorName: 'シデン', text: '使えると言えば連れて行かれるのか' },
-    { type: 'dialog', actorName: 'マルク', text: '連れて行くって行ったらどうする？' },
+    { type: 'dialog', actorName: 'マルク', text: '連れて行くって言ったらどうする？' },
     { type: 'dialog', actorName: 'シデン', text: '断る' },
     { type: 'dialog', actorName: 'マルク', text: 'じゃあ連れてかない' },
     { type: 'dialog', actorName: 'シデン', text: 'じゃあ魔法使える' },
@@ -444,7 +729,7 @@ export const beforeMelcineBattle: Timelines = {
     {
       type: 'dialog',
       actorName: 'メルシン',
-      text: 'やつらは四天王の面汚しに済みません…',
+      text: 'やつらは四天王の面汚しに過ぎません…',
     },
     {
       type: 'dialog',
@@ -485,5 +770,189 @@ export const afterMelcineBattle: Timelines = {
       text: '分かっているわ\nお母様の元へは、虫けら1匹通しはしない…',
     },
     { type: 'endTimeline' },
+  ],
+};
+
+export const addMough: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'マルク', text: 'なぁ…なんか、着いてきてね？' },
+    { type: 'dialog', actorName: 'シデン', text: 'なんか、ではない' },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: '逆にこんな大男が着いてきていてなぜ今まで気付かなかった',
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'なんの用だ、大男' },
+    { type: 'dialog', actorName: 'マウ', text: '…おで？' },
+    { type: 'dialog', actorName: 'シデン', text: '貴様以外に誰がいる' },
+    { type: 'dialog', actorName: 'マウ', text: 'お前ら、食堂、行く' },
+    { type: 'dialog', actorName: 'マルク', text: 'そうだな' },
+    { type: 'dialog', actorName: 'マウ', text: '食堂、魔王、居る' },
+    { type: 'dialog', actorName: 'パウラ', text: 'そうですね' },
+    { type: 'dialog', actorName: 'マウ', text: '魔王、強い' },
+    { type: 'dialog', actorName: 'シデン', text: 'その通りだ' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウも、強い' },
+    { type: 'dialog', actorName: 'シデン', text: 'それは知らん' },
+    { type: 'dialog', actorName: 'マウ', text: '腕試し、する' },
+    { type: 'dialog', actorName: 'マルク', text: '…それで着いてきてるのか' },
+    { type: 'dialog', actorName: 'マルク', text: 'まぁ、力強そうだし' },
+    { type: 'dialog', actorName: 'マルク', text: 'いいんじゃない？' },
+    { type: 'dialog', actorName: 'シデン', text: 'いいな' },
+    { type: 'dialog', actorName: 'パウラ', text: 'いいんですか！？' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウ、強い、守る' },
+    { type: 'dialog', actorName: 'パウラ', text: '確かに頼もしくはありますけど…' },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const beforeElecaBattle: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'どうせここの四天王も、威勢だけなんだろうなぁ',
+    },
+    { type: 'dialog', actorName: 'マウ', text: '待て' },
+    { type: 'dialog', actorName: 'パウラ', text: 'どうしたんですか？マウさん' },
+    { type: 'dialog', actorName: 'マウ', text: 'こいつ、強い…' },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'あら、なかなか見る目がある仲間を連れてるじゃない',
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'なんだこいつ…今までのとは気迫が違う…' },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: '…あれ？もしかしてピンと来てないの俺だけ？',
+    },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'あの3人と同じだと思ってかかると痛い目に合うわよ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'ま、ここに足を踏み入れた時点で命は無いと思うことね',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: '言ってくれるじゃねぇか、こっちは4人だぜ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: '何人いたって関係ないわ、全員まとめて叩き潰す',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const afterElecaBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'エレカ', text: 'うぐっ…おかあ…さま…' },
+    { type: 'dialog', actorName: 'マルク', text: 'はぁ…はぁ…流石に歯応えあったな…' },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: '…お母様は、私の比にならない強さよ、\nせいぜい…覚悟…しておきなさい…',
+    },
+    { type: 'dialog', actorName: 'エレカ', text: 'バタッ' },
+    { type: 'dialog', actorName: 'パウラ', text: '皆さん、お怪我は大丈夫ですか…？' },
+    { type: 'dialog', actorName: 'マウ', text: 'マウ、丈夫、マウ、平気' },
+    { type: 'dialog', actorName: 'パウラ', text: '良かったです…' },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'あいつの話によれば、OBCはこれの比にならない強さらしいな',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'ああ、折角ここまで来たんだ\nもっと強くなって、魔王ぶっとばしてやろうぜ！',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const castleAnnounce: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: '？？？',
+      text: 'あの世行き前半のグループ、あの世行き前半のグループ',
+    },
+    { type: 'dialog', actorName: '？？？', text: 'マルク、シデン、パウラ、マウ、' },
+    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい' },
+    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように' },
+    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね' },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const beforeObcBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'OBC', text: 'おや…まさか本当に来るとはね' },
+    { type: 'dialog', actorName: 'シデン', text: 'おい、貴様がOBCだな' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'いかにも\n私OBC、すなわち"おばちゃん"の略さ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: 'そんな…食堂の乗っ取り騒ぎも何もかも、自作自演だったって言うんですか！？',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'その通りだよ…適当な所で切り上げて全部元通りにしてしまえば、食堂の復活を祝う客が沢山訪れる',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'お前たちが来なければ、いずれ霧も晴らしてやったというのに…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: '正体を知られたからには仕方がない、ここで死んでもらおうか',
+    },
+    { type: 'dialog', actorName: 'マウ', text: '腕試し、できる、ウオオ！' },
+    { type: 'dialog', actorName: 'パウラ', text: 'マウさん、話聞いてますか…' },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: '…というか、霧によって味付けを濃くしたのも、あなたの仕業なんですか',
+    },
+    { type: 'dialog', actorName: 'OBC', text: 'そうだよ、それも私さ' },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: 'どうして…どうしてそんなことをするんですか！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: 'そんなことしたら、健康寿命が縮んでしまうじゃないですか！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'その方がおいしいし、パワーが出るだろう？',
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'ふざけるな…ふざけるなぁ！！' },
+    { type: 'dialog', actorName: 'シデン', text: '俺はな、薄味が好みなんだぁぁ！！' },
+    { type: 'dialog', actorName: 'OBC', text: 'ならば、濃い味に慣れさせるまでよ！！' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'ここまできたら後にも引けないからね\nこの世界まるごと、私の味で染め上げてくれる！！',
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'そんなこと、させてたまるかぁぁ！！' },
+    { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
   ],
 };
