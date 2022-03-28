@@ -243,7 +243,7 @@ export class UI extends Scene {
             text.destroy();
           });
           const { forAllTargets, forEnemy } = skill.getSkillInfo();
-          // バトルシーンの関数を使うため↓
+          // バトルシーンのシーンを取得
           const battleScene = this.scene.get(sceneKeys.battle) as Battle;
           if (!forAllTargets) {
             // 単体効果
@@ -258,7 +258,7 @@ export class UI extends Scene {
             }
             targetGroup.forEach((member) => {
               // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
-              if (/*skill.getSkillEffect() !== 'RESURRECT' &&*/ member.hp.current === 0) {
+              if (member.hp.current === 0) {
                 return;
               }
               const targetText = this.add
@@ -276,18 +276,8 @@ export class UI extends Scene {
                 this.playerSkills.forEach((text) => {
                   text.destroy();
                 });
-                // const beforeHp: number = member.hp.current;
                 // スキルの実行
                 skill.exe(battleScene, actor, [member]);
-                // const afterHp: number = member.hp.current;
-                // battleScene.drawSkillDamageMessage(
-                //   actor,
-                //   skill,
-                //   forAllTargets,
-                //   forEnemy,
-                //   member,
-                //   Math.abs(beforeHp - afterHp),
-                // );
                 // バトルシーンを再開させる
                 this.battleScene?.scene.resume();
               });
@@ -307,7 +297,6 @@ export class UI extends Scene {
             } else {
               skill.exe(battleScene, actor, this.party);
             }
-            // battleScene.drawSkillDamageMessage(actor, skill, forAllTargets, forEnemy);
             // スキルのテキストの削除
             this.playerSkills.forEach((text) => {
               text.destroy();
