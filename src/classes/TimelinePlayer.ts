@@ -7,6 +7,7 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { npcs, funcs } from './exam';
+import { system } from 'index';
 import { Map } from 'scenes/Map.tpl';
 import { keys } from 'lodash';
 export class TimelinePlayer extends Scene {
@@ -139,6 +140,16 @@ export class TimelinePlayer extends Scene {
         break;
       case 'event': // イベント追加
         this.startevent(timelineEvent.event);
+        break;
+      case 'switch':
+        this.dialogBox.clearDialogBox();
+        this.timelineIndex = -1;
+        // マップシーンのキー操作を受け付けるようにする
+        this.anotherScene.scene.resume();
+        system.map = timelineEvent.scene;
+        console.log(system.map);
+        this.anotherScene.scene.switch(timelineEvent.scene);
+        this.scene.stop();
         break;
       case 'endTimeline':
         this.dialogBox.clearDialogBox();
