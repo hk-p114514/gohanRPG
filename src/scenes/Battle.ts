@@ -338,17 +338,24 @@ export class Battle extends Scene {
   ) {
     let forTarget: string;
     if (forAllTargets) {
+      // 全体攻撃
       if (forEnemy) {
+        // 敵たち（全体攻撃）
         forTarget = 'forEnemies';
       } else {
+        // 味方たち（全体回復）
         forTarget = 'forFriends';
       }
     } else {
+      // 単体攻撃
       if (!target || damage === undefined) return;
       if (forEnemy) {
+        // 敵（攻撃）
         forTarget = 'forEnemy';
       } else {
+        // 味方（回復）
         if (damage === 0) {
+          // 回復意味なし
           forTarget = 'forFriendHpMax';
         } else {
           forTarget = 'forFriend';
