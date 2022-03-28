@@ -1,5 +1,5 @@
 // assets
-import player from '@/assets/characters/dynamic/player.png';
+// import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
 // classes
@@ -8,7 +8,7 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
-
+import { select } from 'classes/timelineWords';
 // values
 import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
@@ -18,6 +18,7 @@ import { sceneKeys } from './sceneKeys';
 
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { marc } from 'friends';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -49,7 +50,7 @@ export class Map extends Scene {
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
 
-    this.load.spritesheet('player', player, {
+    this.load.spritesheet('player', marc.spriteSrc, {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
@@ -65,14 +66,14 @@ export class Map extends Scene {
   public makeNPC(name: string, took: Timelines) {
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
         let l = this.add.sprite(0, 0, name, 1);
         let hito = new NPC(name, l, new Phaser.Math.Vector2(x, y));
         npcs.set(system.map + ',' + x + ',' + y, hito);
-        names.set(name, hito);
+        names.set(system.map + name, system.map + ',' + x + ',' + y);
         console.log(system.map + ',' + x + ',' + y);
       }
     }
@@ -80,9 +81,10 @@ export class Map extends Scene {
   public setEvent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
+        names.set(system.map + name, system.map + ',' + x + ',' + y);
         events.set(system.map + ',' + x + ',' + y, took);
       }
     }
@@ -90,7 +92,7 @@ export class Map extends Scene {
   public setHint(name: string, took: Timelines) {
     for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
       let e = this.hintPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
@@ -118,6 +120,13 @@ export class Map extends Scene {
         }
         console.log(system.map + ',' + xy.x + ',' + xy.y);
       }
+    });
+
+    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: select,
+      });
     });
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     const B = this.input.keyboard.addKey('B').on('down', () => {
@@ -169,7 +178,7 @@ export class Map extends Scene {
     );
 
     const { x, y } = spawnPoint;
-    if (x && y) {
+    if (x !== undefined && y !== undefined) {
       // タイルの位置を取得
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
@@ -181,19 +190,17 @@ export class Map extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {});
 
     // Debug graphics
     this.enableDebugMode();
-    //Dialog==================================================================
-    const push = this.input.keyboard.addKey('SHIFT');
-    push.on('down', () => {
-      this.scene.launch(sceneKeys.timelinePlayer, {
-        anotherScene: this,
-        timelinedata: timelineData,
-      });
-    });
-    //Dialog==================================================================
+    // //Dialog==================================================================
+    // const push = this.input.keyboard.addKey('SHIFT').on('down', () => {
+    //   this.scene.launch(sceneKeys.timelinePlayer, {
+    //     anotherScene: this,
+    //     timelinedata: timelineData,
+    //   });
+    // });
+    // //Dialog==================================================================
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
@@ -221,9 +228,28 @@ export class Map extends Scene {
     }
     this.gridPhysics?.update(delta);
   }
-
+  public log?: Phaser.GameObjects.Sprite;
+  // 話しかけた奴が振り向くイベント
   public createEvents() {
-    funcs.set('talk', () => {
+    // funcs.set(this.name + ',flash', (s: any[]) => {
+    //   this.cameras.main.fadeIn(10);
+    //   //this.cameras.main.fadeOut();
+    // });
+    // funcs.set(this.name + ',open', (s: any[]) => {});
+    // funcs.set(this.name + ',delete', (s: any[]) => {
+    //   system.bossflag.set(s[0], false);
+    // });
+    funcs.set(this.name + ',delete', (s: any[]) => {
+      if (names.has(this.name + s[0])) {
+        events.delete(names.get(this.name + s[0]));
+        names.delete(this.name + s[0]);
+      }
+    });
+    funcs.set(this.name + ',event', (s: any[]) => {
+      events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+      names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+    });
+    funcs.set(this.name + ',talk', () => {
       if (!!this.player) {
         let xy = this.player.getTilePos();
         let z = this.player.getdir();
@@ -239,10 +265,65 @@ export class Map extends Scene {
       }
       console.log('dekitawa');
     });
-    funcs.set('chdir', () => {});
-    funcs.set('move', () => {});
-    funcs.set('log', () => {});
-    funcs.set('warp', () => {});
+    //誰かが振り向くイベント
+    funcs.set(this.name + ',chdir', (s: any[]) => {
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
+        let b = npcs.get(a);
+        b.changedir(s[1]);
+      } else if (s[0] === 'player') {
+        this.player?.changedir(s[1]);
+      }
+    });
+    //誰かを配置するイベント
+    funcs.set(this.name + ',set', (s: any[]) => {
+      hints.set(system.map + ',' + s[1] + ',' + s[2], s[3]);
+      let l = this.add.sprite(0, 0, s[0], 1);
+      let hito = new Player(l, new Phaser.Math.Vector2(s[1], s[2]));
+      npcs.set(system.map + ',' + s[1] + ',' + s[2], hito);
+      names.set(s[0], system.map + ',' + s[1] + ',' + s[2]);
+      console.log(system.map + ',' + s[1] + ',' + s[2]);
+    });
+    //誰かを消し去るイベント
+    funcs.set(this.name + ',reset', (s: any[]) => {
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
+        let b = npcs.get(a);
+        b.destroy();
+        npcs.delete(a);
+        names.delete(system.map + s[0]);
+      }
+    });
+    //プレイヤーを一マス動かすイベント
+    funcs.set(this.name + ',move', (s: any[]) => {
+      this.gridPhysics?.movePlayer(s[0]);
+    });
+    //誰かが呟くイベント
+    funcs.set(this.name + ',log', (s: any[]) => {
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
+        let b = npcs.get(a);
+        let c = b.getPosition();
+        c.y -= tileSize;
+        this.log?.destroy();
+        this.log = this.add.sprite(c.x, c.y, 'log' + s[1]);
+      } else if (s[0] === 'player') {
+        if (this.player) {
+          let c = this.player.getPosition();
+          c.y -= tileSize;
+          this.log?.destroy();
+          this.log = this.add.sprite(c.x, c.y, 'log' + s[1]);
+        }
+      }
+    });
+    //誰かの呟きを消し去るイベント
+    funcs.set(this.name + ',relog', (s: any[]) => {
+      this.log?.destroy();
+    });
+    //プレイヤーをどこかに飛ばすイベント
+    funcs.set(this.name + ',warp', (s: any[]) => {
+      this.player?.moveTilePos(s[0], s[1]);
+    });
   }
 
   moveBattle() {

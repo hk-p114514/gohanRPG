@@ -5,13 +5,17 @@ export type SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => v
 
 const attackForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
-    target.beInjured(attacker.atk);
+    target.beInjured(attacker.buff.getAtk());
   });
 };
 
-const healForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+const healForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+  rate: number = 0.4,
+) => {
   targets.forEach((target) => {
-    target.beHealed(target.hp.max * 0.4);
+    target.beHealed(target.hp.max * rate);
   });
 };
 
@@ -84,9 +88,15 @@ const defBuffForAll: SkillFunction = (attacker: BattleActor, targets: BattleActo
   });
 };
 
+const highHealForAll = (attacker: BattleActor, targets: BattleActor[]) => {
+  healForAll(attacker, targets);
+};
+
 export const skills: Skill[] = [
   new Skill('裏拳', attackForAll, false, true),
   new Skill('ヒール', healForAll, false, false),
+  new Skill('温泉旅行', healForAll, true, false), // 全体回復
+  new Skill('伊勢回転性', healForAll, true, false), // 復活(予定)
 ];
 
 export const stateSkills: Skill[] = [
