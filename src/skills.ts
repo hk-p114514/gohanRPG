@@ -31,6 +31,6 @@ export const skills: Skill[] = [
   new Skill('☆Die魔法・バックフィスト☆', attackForAll, false, true),
   new Skill('日大災害誤射タックル', attackForAll, true, true),
   new Skill('ヒール', healForAll, false, false),
-  new Skill('日帰り旅行', healForAll, true, false), // 全体回復
+  new Skill('温泉旅行', healForAll, true, false), // 全体回復
   new Skill('伊勢回転性', healForAll, true, false), // 復活(予定)
 ];
