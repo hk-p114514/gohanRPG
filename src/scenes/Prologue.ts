@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
-import newsPaper from 'images/newsPaper.jpg' ;
-import { TimelinePlayer } from 'classes/TimelinePlayer' ;
+import newsPaper from 'images/newsPaper.jpg';
+import { TimelinePlayer } from 'classes/TimelinePlayer';
 import { prologue } from 'classes/timelineWords';
 import { sceneKeys } from 'scenes/sceneKeys';
 

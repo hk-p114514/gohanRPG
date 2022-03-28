@@ -1,5 +1,7 @@
-import { randI } from "functions/generalPurpose/rand";
-import { BattleActor } from "./BattleActor";
+import { Scene } from 'phaser';
+import { BattleActor } from './BattleActor';
+import { randI } from 'functions/generalPurpose/rand';
+import { thisTypeAnnotation } from '@babel/types';
 
 export class State {
   private actor: BattleActor;
@@ -58,7 +60,7 @@ export class State {
     this.states.set('provocation', {
       name: 'provocation', 
       remain: 0,
-    })
+    })¥
   }
 
   public stateProcess(): void {
@@ -110,7 +112,7 @@ export class State {
         break;
     } 
   }
-
+  
   public activeState(name: string, time: number): void {
     const state = this.states.get(name);
     if (!!state) {
