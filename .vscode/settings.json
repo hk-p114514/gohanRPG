@@ -57,5 +57,6 @@
     "yoyo"
   ],
   // javascriptデバッグ設定
-  "debug.allowBreakpointsEverywhere": true
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.formatOnSave": true,
 }

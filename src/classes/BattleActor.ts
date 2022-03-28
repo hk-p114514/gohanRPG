@@ -10,6 +10,7 @@ import { SkillFunction, skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';
+import { Buff } from './Buff';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -38,6 +39,7 @@ export class BattleActor {
   // 引数にskillArgを持つ関数の配列を持つ
   skills: Skill[];
   state: State;
+  buff: Buff;
   constructor({
     name = 'unknown',
     spriteSrc = '',
@@ -61,6 +63,7 @@ export class BattleActor {
     this.setLevel(startLevel);
     this.skills = initSkills;
     this.state = new State(this);
+    this.buff = new Buff(this);
   }
 
   addExp(exp: number) {
