@@ -1,8 +1,8 @@
 import { BattleActor } from 'classes/BattleActor';
 import marcSprite from '@/assets/characters/dynamic/marc.png';
-import shidenSprite from '@/assets/characters/dynamic/shiden(kari).png';
-import poulerSprite from '@/assets/characters/dynamic/pouler(kari).png';
-import moughSprite from '@/assets/characters/dynamic/mough(kari).png';
+import shidenSprite from '@/assets/characters/dynamic/shiden.png';
+import poulerSprite from '@/assets/characters/dynamic/pouler.png';
+import moughSprite from '@/assets/characters/dynamic/mough.png';
 import { skills } from 'skills';
 
 // 綴の参照
