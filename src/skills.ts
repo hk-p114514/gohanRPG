@@ -29,6 +29,75 @@ const healForAll = (
   });
 };
 
+const poisonForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.state.activeState('poison', 3);
+  });
+};
+
+const healContinueForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  targets.forEach((target) => {
+    target.state.activeState('heal', 3);
+  });
+};
+
+const paralysisForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  targets.forEach((target) => {
+    target.state.activeState('paralysis', 3);
+  });
+};
+
+const sleepForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.state.activeState('sleep', 3);
+  });
+};
+
+const arthralgiaForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  targets.forEach((target) => {
+    target.state.activeState('arthralgia', 3);
+  });
+};
+
+const glucosamineForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  targets.forEach((target) => {
+    target.state.activeState('glucosamine', 3);
+  });
+};
+
+const provocationForAll: SkillFunction = (
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  targets.forEach((target) => {
+    target.state.activeState('provocation', 3);
+  });
+};
+
+const atkBuffForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.buff.setBuff(100, 0, 3);
+  });
+};
+
+const defBuffForAll: SkillFunction = (attacker: BattleActor, targets: BattleActor[]) => {
+  targets.forEach((target) => {
+    target.buff.setBuff(0, 100, 3);
+  });
+};
+
 const highHealForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   healForAll(attacker, targets, 1);
 };
@@ -196,3 +265,18 @@ const skillDialog = (scene: Scene, timelineData: Timelines) => {
     timelinedata: timelineData,
   });
 };
+
+export const stateSkills: Skill[] = [
+  new Skill('どく', poisonForAll, false, true),
+  new Skill('ブレスケア', healContinueForAll, false, false),
+  new Skill('シャーシンプラグイン', paralysisForAll, false, true),
+  new Skill('ハードぎ', sleepForAll, false, true),
+  new Skill('ヒザカックン', arthralgiaForAll, false, true),
+  new Skill('せたがやそだち', glucosamineForAll, false, false),
+  new Skill('wmail from k-kenta', provocationForAll, false, true),
+];
+
+export const buffSkills: Skill[] = [
+  new Skill('アタックドーピング', atkBuffForAll, false, false),
+  new Skill('ディフェンス注射', defBuffForAll, false, false),
+];
