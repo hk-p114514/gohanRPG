@@ -11,7 +11,6 @@ export const allInitStatus = (name: string, spriteSrp: string = ''): BattleActor
   new BattleActor({
     name: name,
     spriteSrc: spriteSrp,
-    level: level1,
     hp: initHp(),
     mp: initMp(),
     atk: initAtk,

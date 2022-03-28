@@ -4,7 +4,7 @@ import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Scene } from 'phaser';
 import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
-import { SceneTimelines, Timelines } from './Timelines';
+import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { npcs, funcs } from './exam';
 import { system } from 'index';
@@ -17,6 +17,7 @@ export class TimelinePlayer extends Scene {
   private backgroundLayer?: Phaser.GameObjects.Container;
   private foregroundLayer?: Phaser.GameObjects.Container;
   private uiLayer?: Phaser.GameObjects.Container;
+  private hitArea?: Phaser.GameObjects.Zone;
   private timeline?: Timeline;
   private timelineIndex = 0;
   private isTextShow: boolean = true;
@@ -27,17 +28,18 @@ export class TimelinePlayer extends Scene {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init({ anotherScene, timelinedata, specID }: SceneTimelines) {
-    if (!anotherScene || !timelinedata) {
+  init(data: { anotherScene: Map; timelinedata: Timelines; specID?: string }) {
+    if (!data.anotherScene || !data.timelinedata) {
       this.scene.stop();
       return;
     }
     // マップシーンのキー操作を止めるため
-    anotherScene.scene.pause();
+    data.anotherScene.scene.pause();
 
-    this.anotherScene = anotherScene;
-    this.timelineData = timelinedata;
-    this.specID = specID;
+    this.anotherScene = data.anotherScene;
+    this.timelineData = data.timelinedata;
+    this.specID = data.specID;
+
     // 背景レイヤー・前景レイヤー・UIレイヤーをコンテナを使って表現
     this.backgroundLayer = this.add.container(0, 0);
     this.foregroundLayer = this.add.container(0, 0);
@@ -50,6 +52,21 @@ export class TimelinePlayer extends Scene {
     enter.on('down', () => {
       this.isTextShow = true;
     });
+
+    const { width, height } = this.game.canvas;
+    this.hitArea = new Phaser.GameObjects.Zone(
+      this,
+      width / 2,
+      height / 2,
+      width,
+      height,
+    );
+    this.hitArea.setInteractive();
+
+    this.hitArea.on('pointerdown', () => {
+      this.isTextShow = true;
+    });
+    this.uiLayer?.add(this.hitArea);
 
     this.createDialogBox(
       this.cameras.main.scrollX + W() / 2,
@@ -190,6 +207,8 @@ export class TimelinePlayer extends Scene {
     if (!(timelineID in this.timelineData)) {
       console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
       // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
+      this.anotherScene?.scene.resume();
+      this.scene.stop();
       return;
     }
     // タイムラインの指定
@@ -238,6 +257,9 @@ export class TimelinePlayer extends Scene {
     }
     if (!this.dialogBox) return;
 
+    // hitAreaのクリックを無効化
+    this.hitArea?.disableInteractive();
+
     // ボタンを中央に配置するようにボタングループのY原点を計算
     const buttonHeight = 40;
     const buttonWidth = 400;
@@ -284,6 +306,8 @@ export class TimelinePlayer extends Scene {
 
       // ボタンクリックで、指定のタイムラインを実行する
       choiceButton[index].range.on('pointerdown', () => {
+        // hitAreaのクリックを有効化
+        this.hitArea?.setInteractive();
         // 選択ボタンをクリアする
         clearButton(choiceButton);
         this.specTimeline({ timelineID: choice.timelineID });

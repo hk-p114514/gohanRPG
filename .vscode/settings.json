@@ -11,6 +11,7 @@
     "gameover",
     "getdir",
     "getredir",
+    "glucosamine",
     "gohan",
     "halign",
     "hitbox",
@@ -24,6 +25,7 @@
     "Melcine",
     "misa",
     "monospace",
+    "mough",
     "nextlayerid",
     "nextobjectid",
     "npcs",
@@ -55,5 +57,6 @@
     "yoyo"
   ],
   // javascriptデバッグ設定
-  "debug.allowBreakpointsEverywhere": true
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.formatOnSave": true,
 }
