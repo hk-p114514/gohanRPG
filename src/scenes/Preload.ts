@@ -1,6 +1,6 @@
 import { GameObjects, Scene, Types } from 'phaser';
 import { characterSize } from './Map.tpl';
-import player from '@/assets/characters/dynamic/player.png';
+import player from '@/assets/characters/dynamic/marc.png';
 import gohanBG from '@/images/gohan.jpg';
 import curryBG from '@/images/curry.jpg';
 import eatBG from '@/images/eat.jpg';
