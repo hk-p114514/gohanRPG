@@ -1,5 +1,5 @@
 // assets
-import player from '@/assets/characters/dynamic/player.png';
+// import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
 import log1 from '@/assets/items/hatena.png';
@@ -22,6 +22,7 @@ import { sceneKeys } from './sceneKeys';
 
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { marc } from 'friends';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -53,7 +54,7 @@ export class Map extends Scene {
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
 
-    this.load.spritesheet('player', player, {
+    this.load.spritesheet('player', marc.spriteSrc, {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
