@@ -12,7 +12,7 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Player } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
-
+import { select } from 'classes/timelineWords';
 // values
 import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
@@ -78,14 +78,14 @@ export class Map extends Scene {
   public makeNPC(name: string, took: Timelines) {
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
         let l = this.add.sprite(0, 0, name, 1);
         let hito = new Player(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
-        names.set(name, system.map + ',' + x + ',' + y);
+        names.set(system.map + name, system.map + ',' + x + ',' + y);
         console.log(system.map + ',' + x + ',' + y);
       }
     }
@@ -95,9 +95,10 @@ export class Map extends Scene {
   public setEvent(name: string, took: Timelines) {
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
+        names.set(system.map + name, system.map + ',' + x + ',' + y);
         events.set(system.map + ',' + x + ',' + y, took);
       }
     }
@@ -107,7 +108,7 @@ export class Map extends Scene {
   public setHint(name: string, took: Timelines) {
     for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
       let e = this.hintPoints[i];
-      if (name === e.name && !!e.x && !!e.y) {
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
@@ -136,6 +137,13 @@ export class Map extends Scene {
         }
         console.log(system.map + ',' + xy.x + ',' + xy.y);
       }
+    });
+
+    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelinedata: select,
+      });
     });
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     const B = this.input.keyboard.addKey('B').on('down', () => {
@@ -189,7 +197,7 @@ export class Map extends Scene {
     );
 
     const { x, y } = spawnPoint;
-    if (x && y) {
+    if (x !== undefined && y !== undefined) {
       // タイルの位置を取得
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
@@ -203,14 +211,14 @@ export class Map extends Scene {
     }
     // Debug graphics
     this.enableDebugMode();
-    //Dialog==================================================================
-    const push = this.input.keyboard.addKey('SHIFT').on('down', () => {
-      this.scene.launch(sceneKeys.timelinePlayer, {
-        anotherScene: this,
-        timelinedata: timelineData,
-      });
-    });
-    //Dialog==================================================================
+    // //Dialog==================================================================
+    // const push = this.input.keyboard.addKey('SHIFT').on('down', () => {
+    //   this.scene.launch(sceneKeys.timelinePlayer, {
+    //     anotherScene: this,
+    //     timelinedata: timelineData,
+    //   });
+    // });
+    // //Dialog==================================================================
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
@@ -242,6 +250,24 @@ export class Map extends Scene {
   public log?: Phaser.GameObjects.Sprite;
   //話しかけた奴が振り向くイベント
   public createEvents() {
+    // funcs.set(this.name + ',flash', (s: any[]) => {
+    //   this.cameras.main.fadeIn(10);
+    //   //this.cameras.main.fadeOut();
+    // });
+    // funcs.set(this.name + ',open', (s: any[]) => {});
+    // funcs.set(this.name + ',delete', (s: any[]) => {
+    //   system.bossflag.set(s[0], false);
+    // });
+    funcs.set(this.name + ',delete', (s: any[]) => {
+      if (names.has(this.name + s[0])) {
+        events.delete(names.get(this.name + s[0]));
+        names.delete(this.name + s[0]);
+      }
+    });
+    funcs.set(this.name + ',event', (s: any[]) => {
+      events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+      names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+    });
     funcs.set(this.name + ',talk', () => {
       if (!!this.player) {
         let xy = this.player.getTilePos();
@@ -260,8 +286,8 @@ export class Map extends Scene {
     });
     //誰かが振り向くイベント
     funcs.set(this.name + ',chdir', (s: any[]) => {
-      if (names.has(s[0])) {
-        let a = names.get(s[0]);
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
         let b = npcs.get(a);
         b.changedir(s[1]);
       } else if (s[0] === 'player') {
@@ -279,12 +305,12 @@ export class Map extends Scene {
     });
     //誰かを消し去るイベント
     funcs.set(this.name + ',reset', (s: any[]) => {
-      if (names.has(s[0])) {
-        let a = names.get(s[0]);
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
         let b = npcs.get(a);
         b.destroy();
         npcs.delete(a);
-        names.delete(s[0]);
+        names.delete(system.map + s[0]);
       }
     });
     //プレイヤーを一マス動かすイベント
@@ -293,8 +319,8 @@ export class Map extends Scene {
     });
     //誰かが呟くイベント
     funcs.set(this.name + ',log', (s: any[]) => {
-      if (names.has(s[0])) {
-        let a = names.get(s[0]);
+      if (names.has(system.map + s[0])) {
+        let a = names.get(system.map + s[0]);
         let b = npcs.get(a);
         let c = b.getPosition();
         c.y -= tileSize;
