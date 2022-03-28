@@ -217,9 +217,11 @@ export class UI extends Scene {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
       const skills = new Set<Skill>();
-      if (Battle.availableSkillCount < actor.skills.length) {
+      const available = Battle.availableSkillCount;
+
+      if (available < actor.skills.length) {
         // 技の候補が沢山ありすぎる -> 抽選
-        while (skills.size < Battle.availableSkillCount) {
+        while (skills.size < available - 1) {
           skills.add(randArr(actor.skills));
         }
       } else {
@@ -229,7 +231,7 @@ export class UI extends Scene {
         });
       }
 
-      actor.skills.forEach((skill) => {
+      skills.forEach((skill) => {
         const skillText = this.add
           .text(playerSkillX, playerSkillY, skill.getName(), this.fontStyle)
           .setInteractive({
@@ -248,14 +250,11 @@ export class UI extends Scene {
             let targetActorX = x + margin + boxWidth * 2 - textPadding.left;
             let targetActorY = y + margin - textPadding.top;
             let targetGroup: BattleActor[];
-            let isDamage: boolean;
             // 対象のグループを格納
             if (forEnemy) {
               targetGroup = this.enemies;
-              isDamage = true;
             } else {
               targetGroup = this.party;
-              isDamage = false;
             }
             targetGroup.forEach((member) => {
               // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
@@ -280,10 +279,11 @@ export class UI extends Scene {
                 skill.exe(actor, [member]);
                 const afterHp: number = member.hp.current;
                 battleScene.drawSkillDamageMessage(
-                  actor.name,
+                  actor,
                   skill.getName(),
-                  isDamage,
-                  member.name,
+                  forAllTargets,
+                  forEnemy,
+                  member,
                   Math.abs(beforeHp - afterHp),
                 );
                 // バトルシーンを再開させる
@@ -302,11 +302,15 @@ export class UI extends Scene {
             // 全体効果
             if (forEnemy) {
               skill.exe(actor, this.enemies);
-              battleScene.drawSkillDamageMessage(actor.name, skill.getName(), true);
             } else {
               skill.exe(actor, this.party);
-              battleScene.drawSkillDamageMessage(actor.name, skill.getName(), false);
             }
+            battleScene.drawSkillDamageMessage(
+              actor,
+              skill.getName(),
+              forAllTargets,
+              forEnemy,
+            );
             // スキルのテキストの削除
             this.playerSkills.forEach((text) => {
               text.destroy();

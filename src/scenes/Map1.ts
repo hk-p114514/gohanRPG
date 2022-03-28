@@ -10,14 +10,14 @@ export class Map1 extends Map {
   }
   preload() {
     super.preload();
-    super.setNpcImage(['mob1'], 0);
-    super.setNpcImage(['mob2'], 0);
-    super.setNpcImage(['mob3'], 0);
-    super.setNpcImage(['mob4'], 0);
-    super.setNpcImage(['mob5'], 0);
-    super.setNpcImage(['mob6'], 0);
-    super.setNpcImage(['mob7'], 0);
-    super.setNpcImage(['mob8'], 0);
+    super.setnpcimage(['mob1'], 0);
+    super.setnpcimage(['mob2'], 0);
+    super.setnpcimage(['mob3'], 0);
+    super.setnpcimage(['mob4'], 0);
+    super.setnpcimage(['mob5'], 0);
+    super.setnpcimage(['mob6'], 0);
+    super.setnpcimage(['mob7'], 0);
+    super.setnpcimage(['mob8'], 0);
   }
   create() {
     super.create();

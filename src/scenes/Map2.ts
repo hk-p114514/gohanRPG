@@ -38,8 +38,9 @@ export class Map2 extends Map {
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
       // this.switchMap(sceneKeys.map1);
+      system.map = sceneKeys.map1;
+
       system.switchMap(this, sceneKeys.map1);
     });
-    super.create();
   }
 }
