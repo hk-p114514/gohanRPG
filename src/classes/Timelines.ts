@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { Map } from 'scenes/Map.tpl';
 import { Timeline } from './Timeline';
 
 export type Timelines = {
@@ -6,7 +7,7 @@ export type Timelines = {
 };
 
 export type SceneTimelines = {
-  anotherScene: Scene;
+  anotherScene: Map;
   timelinedata: Timelines;
   specID?: string;
 };

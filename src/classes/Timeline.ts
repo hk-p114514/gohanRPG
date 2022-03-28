@@ -48,6 +48,12 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
+type Judge = {
+  type: 'judge';
+  scene: string;
+  timelineID: string;
+};
+
 type setBackgroundColor = {
   type: 'setBackgroundColor';
   color: string;
@@ -90,6 +96,7 @@ export type Timeline = (
   | EndTimeline
   | MotionEvent
   | Switch
+  | Judge
 )[];
 
 export type dialogButton = {

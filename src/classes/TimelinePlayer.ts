@@ -20,7 +20,7 @@ export class TimelinePlayer extends Scene {
   private timeline?: Timeline;
   private timelineIndex = 0;
   private isTextShow: boolean = true;
-  private anotherScene?: Scene;
+  private anotherScene?: Map;
   private timelineData?: Timelines;
   private specID?: string;
   constructor() {
@@ -38,7 +38,6 @@ export class TimelinePlayer extends Scene {
     this.anotherScene = anotherScene;
     this.timelineData = timelinedata;
     this.specID = specID;
-
     // 背景レイヤー・前景レイヤー・UIレイヤーをコンテナを使って表現
     this.backgroundLayer = this.add.container(0, 0);
     this.foregroundLayer = this.add.container(0, 0);
@@ -144,6 +143,10 @@ export class TimelinePlayer extends Scene {
         this.anotherScene.scene.resume();
         // timelinePlayerシーンを止める
         this.scene.stop();
+        break;
+      case 'judge':
+        if (system.bossflag.get(timelineEvent.scene))
+          this.specTimeline({ timelineID: timelineEvent.timelineID });
         break;
       default:
         break;
