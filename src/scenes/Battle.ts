@@ -144,9 +144,17 @@ export class Battle extends Scene {
       let targetEnemy: BattleActor;
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
-        targetEnemy = randArr(
-          this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies)),
+        // 挑発しているキャラクターがいたら、対象を変更する
+        const provocations = actor.state.getProvocationActors(
+          this.getSurvivors(this.party),
         );
+        if (provocations.length > 0) {
+          targetEnemy = randArr(provocations);
+        } else {
+          targetEnemy = randArr(
+            this.getSurvivors(this.getEnemyGroup(actor, this.party, this.enemies)),
+          );
+        }
       } else {
         // 現在のキャラクター主観で味方に使う技
         targetEnemy = randArr(
