@@ -19,6 +19,7 @@ export class State {
   private glucosamineBuff: number;
 
   private states: Map<string, StateInfo> = new Map<string, StateInfo>();
+  private statesName: Map<string, string> = new Map<string, string>();
 
   constructor(actor: BattleActor) {
     this.actor = actor;
@@ -62,6 +63,14 @@ export class State {
       name: 'provocation',
       remain: 0,
     });
+
+    this.statesName.set('poison', '毒');
+    this.statesName.set('heal', '継続回復');
+    this.statesName.set('paralysis', '麻痺');
+    this.statesName.set('sleep', '眠り');
+    this.statesName.set('arthralgia', '関節痛');
+    this.statesName.set('glucosamine', 'グルコサミン');
+    this.statesName.set('provocation', '挑発');
   }
 
   /**
@@ -81,6 +90,12 @@ export class State {
       if (state.remain > 0) {
         this.stateProgress(scene, state.name);
         state.remain--;
+        if (state.remain <= 0) {
+          this.onePhrase(
+            scene,
+            `${this.actor.name}の${this.statesName.get(state.name)}状態が解除された！`,
+          );
+        }
       }
     });
 
