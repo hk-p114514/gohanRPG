@@ -54,9 +54,10 @@
     "timelinedata",
     "topdown",
     "Tweens",
+    "wmail",
     "yoyo"
   ],
   // javascriptデバッグ設定
   "debug.allowBreakpointsEverywhere": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
