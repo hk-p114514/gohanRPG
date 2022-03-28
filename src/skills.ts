@@ -114,7 +114,7 @@ const heal = (
   console.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, {
     start: [
-      { type: 'dialog', text: `${attacker.name}のヒールaaaa！` },
+      { type: 'dialog', text: `${attacker.name}のヒール！` },
       { type: 'dialog', text: text },
       { type: 'endTimeline' },
     ],

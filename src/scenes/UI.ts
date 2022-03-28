@@ -258,7 +258,7 @@ export class UI extends Scene {
             }
             targetGroup.forEach((member) => {
               // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
-              if (member.hp.current === 0) {
+              if (!skill.getResurrect() && member.hp.current === 0) {
                 return;
               }
               const targetText = this.add
