@@ -115,17 +115,19 @@ export class Battle extends Scene {
 
       // actor.getRandSkill()(actor, enemies);
       // actorの攻撃
-      if (this.party.includes(actor)) {
-        // 該当のキャラクターがプレイヤー側なら、
-        // 使う技をプレイヤーに選択させる
-        // プレイヤーが技を選択するまで待つ
-        this.scene.pause();
-        system.setActor(actor);
-      } else {
-        system.battling = undefined;
-        // 該当のキャラクターが敵側なら、
-        // ランダムに技を選択する
-        this.actorAction(actor);
+      if (actor.state.getPossible()) {
+        if (this.party.includes(actor)) {
+          // 該当のキャラクターがプレイヤー側なら、
+          // 使う技をプレイヤーに選択させる
+          // プレイヤーが技を選択するまで待つ
+          this.scene.pause();
+          system.setActor(actor);
+        } else {
+          system.battling = undefined;
+          // 該当のキャラクターが敵側なら、
+          // ランダムに技を選択する
+          this.actorAction(actor);
+        }
       }
 
       this.index++;
