@@ -14,7 +14,7 @@ export class State {
   private poisonDamage: number;
   private healDamage: number;
   private paralysisProbability: number;
-  private arghralgiaBuff: number;
+  private arthralgiaBuff: number;
   private glucosamineBuff: number;
 
   private states: Map<string, StateInfo> = new Map<string, StateInfo>();
@@ -30,7 +30,7 @@ export class State {
     this.poisonDamage = 1;
     this.healDamage = 1;
     this.paralysisProbability = 2;
-    this.arghralgiaBuff = 1;
+    this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
 
     this.states.set('poison', {
@@ -46,21 +46,21 @@ export class State {
       remain: 0,
     });
     this.states.set('sleep', {
-      name: 'sleep', 
+      name: 'sleep',
       remain: 0,
     });
-    this.states.set('arghralgia', {
-      name: 'arghralgiaBuff',
+    this.states.set('arthralgia', {
+      name: 'arthralgiaBuff',
       remain: 0,
     });
     this.states.set('glucosamine', {
-      name: 'glucosamine', 
+      name: 'glucosamine',
       remain: 0,
     });
     this.states.set('provocation', {
-      name: 'provocation', 
+      name: 'provocation',
       remain: 0,
-    })¥
+    });
   }
 
   public stateProcess(): void {
@@ -86,14 +86,14 @@ export class State {
   }
 
   private stateProgress(name: string): void {
-    switch(name) {
+    switch (name) {
       case 'poison':
         this.damageBuff -= this.poisonDamage;
         break;
       case 'heal':
         this.damageBuff += this.healDamage;
         break;
-      case 'paralysis': 
+      case 'paralysis':
         if (!randI(this.paralysisProbability - 1, 0)) {
           this.isPossible = false;
         }
@@ -101,8 +101,8 @@ export class State {
       case 'sleep':
         this.isPossible = false;
         break;
-      case 'arghralgia':
-        this.skillBuff -= this.arghralgiaBuff;
+      case 'arthralgia':
+        this.skillBuff -= this.arthralgiaBuff;
         break;
       case 'glucosamine':
         this.skillBuff += this.glucosamineBuff;
@@ -110,9 +110,9 @@ export class State {
       case 'provocation':
         this.isProvocation = true;
         break;
-    } 
+    }
   }
-  
+
   public activeState(name: string, time: number): void {
     const state = this.states.get(name);
     if (!!state) {
@@ -140,7 +140,7 @@ export class State {
   public getProvocationActors(party: BattleActor[]): BattleActor[] {
     return party.filter((actor: BattleActor) => actor.state.isProvocation);
   }
- }
+}
 
 class StateInfo {
   public name: string;
