@@ -1,7 +1,8 @@
-import { randI } from 'functions/generalPurpose/rand';
 import { Display, Scene } from 'phaser';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from './BattleActor';
+import { randI } from 'functions/generalPurpose/rand';
+import { thisTypeAnnotation } from '@babel/types';
 
 export class State {
   private actor: BattleActor;
@@ -14,7 +15,7 @@ export class State {
   private poisonDamage: number;
   private healDamage: number;
   private paralysisProbability: number;
-  private arghralgiaBuff: number;
+  private arthralgiaBuff: number;
   private glucosamineBuff: number;
 
   private states: Map<string, StateInfo> = new Map<string, StateInfo>();
@@ -30,7 +31,7 @@ export class State {
     this.poisonDamage = 1;
     this.healDamage = 1;
     this.paralysisProbability = 2;
-    this.arghralgiaBuff = 1;
+    this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
 
     this.states.set('poison', {
@@ -49,8 +50,8 @@ export class State {
       name: 'sleep',
       remain: 0,
     });
-    this.states.set('arghralgia', {
-      name: 'arghralgiaBuff',
+    this.states.set('arthralgia', {
+      name: 'arthralgiaBuff',
       remain: 0,
     });
     this.states.set('glucosamine', {
@@ -114,7 +115,7 @@ export class State {
         break;
       case 'arghralgia':
         this.onePhrase(scene, `${this.actor.name}は膝が痛くて技が上手く選べない！`);
-        this.skillBuff -= this.arghralgiaBuff;
+        this.skillBuff -= this.arthralgiaBuff;
         break;
       case 'glucosamine':
         this.onePhrase(scene, `${this.actor.name}は膝がグルグルして選べる技が増えた！`);
