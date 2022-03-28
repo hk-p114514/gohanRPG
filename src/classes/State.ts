@@ -113,7 +113,7 @@ export class State {
         this.onePhrase(scene, `${this.actor.name}は眠っている！`);
         this.isPossible = false;
         break;
-      case 'arghralgia':
+      case 'arthralgia':
         this.onePhrase(scene, `${this.actor.name}は膝が痛くて技が上手く選べない！`);
         this.skillBuff -= this.arthralgiaBuff;
         break;

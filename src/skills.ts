@@ -37,12 +37,12 @@ const healContinueForAll: SkillFunction = (
   });
 };
 
-const pharalysisForAll: SkillFunction = (
+const paralysisForAll: SkillFunction = (
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
   targets.forEach((target) => {
-    target.state.activeState('pharalysis', 3);
+    target.state.activeState('paralysis', 3);
   });
 };
 
@@ -107,7 +107,7 @@ export const skills: Skill[] = [
 export const stateSkills: Skill[] = [
   new Skill('どく', poisonForAll, false, true),
   new Skill('ブレスケア', healContinueForAll, false, false),
-  new Skill('シャーシンプラグイン', pharalysisForAll, false, true),
+  new Skill('シャーシンプラグイン', paralysisForAll, false, true),
   new Skill('ハードぎ', sleepForAll, false, true),
   new Skill('ヒザカックン', arthralgiaForAll, false, true),
   new Skill('せたがやそだち', glucosamineForAll, false, false),
