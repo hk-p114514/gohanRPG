@@ -1,5 +1,3 @@
-import { Timelines } from 'classes/Timelines';
-import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { system } from 'index';
 import { Scene, Time } from 'phaser';
@@ -95,7 +93,7 @@ export class Battle extends Scene {
         switch (endBattle) {
           case 1:
             console.log('プレイヤーの勝利');
-            this.resultDialog('win');
+            // this.resultDialog('win');
             const levelUps = this.giveExpPlayers();
             this.levelUpDialog(levelUps);
             this.backToMap();
@@ -171,19 +169,8 @@ export class Battle extends Scene {
           this.getSurvivors(this.getGroup(actor, [this.party, this.enemies])),
         );
       }
-      const beforeHp = targetEnemy.hp.current;
-      // スキル実行
-      skill.exe(actor, [targetEnemy]);
-      const afterHp = targetEnemy.hp.current;
-      // ダイアログ表示
-      this.drawSkillDamageMessage(
-        actor,
-        skill.getName(),
-        forAllTargets,
-        forEnemy,
-        targetEnemy,
-        Math.abs(beforeHp - afterHp),
-      );
+      // スキル実行 & ダイアログ表示
+      skill.exe(this, actor, [targetEnemy]);
     } else {
       // 全体効果
       let targetGroup: BattleActor[] = [];
@@ -192,9 +179,8 @@ export class Battle extends Scene {
       } else {
         targetGroup = this.getGroup(actor, [this.party, this.enemies]);
       }
-      skill.exe(actor, targetGroup);
-      // ダイアログ表示
-      this.drawSkillDamageMessage(actor, skill.getName(), forAllTargets, forEnemy);
+      // スキル実行 & ダイアログ表示
+      skill.exe(this, actor, targetGroup);
     }
   }
 
@@ -331,73 +317,6 @@ export class Battle extends Scene {
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
       },
       specID: situation,
-    });
-  }
-
-  // 「〜(攻撃者)のー(技)！」、「〜(被害者)にーダメージ(回復)！」
-  // 攻撃(回復)対象が全員だったら、targetとdamageは指定しない
-  drawSkillDamageMessage(
-    attacker: BattleActor,
-    skill: string,
-    forAllTargets: boolean,
-    forEnemy: boolean,
-    target?: BattleActor,
-    damage?: number,
-  ) {
-    let forTarget: string;
-    if (forAllTargets) {
-      if (forEnemy) {
-        forTarget = 'forEnemies';
-      } else {
-        forTarget = 'forFriends';
-      }
-    } else {
-      if (!target || damage === undefined) return;
-      if (forEnemy) {
-        forTarget = 'forEnemy';
-      } else {
-        if (damage === 0) {
-          forTarget = 'forFriendHpMax';
-        } else {
-          forTarget = 'forFriend';
-        }
-      }
-    }
-    if (!target) {
-      // 全体攻撃の場合、targetは渡されない、かつ、使われないので
-      // 空のキャラクターを仮に渡す
-      target = new BattleActor({});
-    }
-    this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: this,
-      timelinedata: {
-        forEnemy: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}は ${damage} ダメージ喰らった！` },
-          { type: 'endTimeline' },
-        ],
-        forFriend: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}は ${damage} 回復した！` },
-          { type: 'endTimeline' },
-        ],
-        forFriendHpMax: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}のHPは満タンだった...` },
-          { type: 'endTimeline' },
-        ],
-        forEnemies: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `敵全員を攻撃！` },
-          { type: 'endTimeline' },
-        ],
-        forFriends: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `仲間全員を回復！` },
-          { type: 'endTimeline' },
-        ],
-      },
-      specID: forTarget,
     });
   }
 
