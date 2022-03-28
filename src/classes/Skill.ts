@@ -1,3 +1,4 @@
+import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { BattleActor } from './BattleActor';
 
@@ -22,8 +23,8 @@ export class Skill {
     return this.name;
   }
 
-  exe(attacker: BattleActor, targets: BattleActor[]): void {
-    this.skill(attacker, targets);
+  exe(scene: Scene, attacker: BattleActor, targets: BattleActor[]): void {
+    this.skill(scene, attacker, targets);
   }
 
   getSkill() {

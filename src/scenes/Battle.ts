@@ -87,7 +87,7 @@ export class Battle extends Scene {
         switch (endBattle) {
           case 1:
             console.log('プレイヤーの勝利');
-            this.resultDialog('win');
+            // this.resultDialog('win');
             const levelUps = this.giveExpPlayers();
             this.levelUpDialog(levelUps);
             this.backToMap();
@@ -165,17 +165,17 @@ export class Battle extends Scene {
       }
       const beforeHp = targetEnemy.hp.current;
       // スキル実行
-      skill.exe(actor, [targetEnemy]);
+      skill.exe(this, actor, [targetEnemy]);
       const afterHp = targetEnemy.hp.current;
       // ダイアログ表示
-      this.drawSkillDamageMessage(
-        actor,
-        skill.getName(),
-        forAllTargets,
-        forEnemy,
-        targetEnemy,
-        Math.abs(beforeHp - afterHp),
-      );
+      // this.drawSkillDamageMessage(
+      //   actor,
+      //   skill,
+      //   forAllTargets,
+      //   forEnemy,
+      //   targetEnemy,
+      //   Math.abs(beforeHp - afterHp),
+      // );
     } else {
       // 全体効果
       let targetGroup: BattleActor[] = [];
@@ -184,9 +184,9 @@ export class Battle extends Scene {
       } else {
         targetGroup = this.getGroup(actor, [this.party, this.enemies]);
       }
-      skill.exe(actor, targetGroup);
+      skill.exe(this, actor, targetGroup);
       // ダイアログ表示
-      this.drawSkillDamageMessage(actor, skill.getName(), forAllTargets, forEnemy);
+      // this.drawSkillDamageMessage(actor, skill, forAllTargets, forEnemy);
     }
   }
 
@@ -328,77 +328,127 @@ export class Battle extends Scene {
 
   // 「〜(攻撃者)のー(技)！」、「〜(被害者)にーダメージ(回復)！」
   // 攻撃(回復)対象が全員だったら、targetとdamageは指定しない
-  drawSkillDamageMessage(
-    attacker: BattleActor,
-    skill: string,
-    forAllTargets: boolean,
-    forEnemy: boolean,
-    target?: BattleActor,
-    damage?: number,
-  ) {
-    let forTarget: string;
-    if (forAllTargets) {
-      // 全体攻撃
-      if (forEnemy) {
-        // 敵たち（全体攻撃）
-        forTarget = 'forEnemies';
-      } else {
-        // 味方たち（全体回復）
-        forTarget = 'forFriends';
-      }
-    } else {
-      // 単体攻撃
-      if (!target || damage === undefined) return;
-      if (forEnemy) {
-        // 敵（攻撃）
-        forTarget = 'forEnemy';
-      } else {
-        // 味方（回復）
-        if (damage === 0) {
-          // 回復意味なし
-          forTarget = 'forFriendHpMax';
-        } else {
-          forTarget = 'forFriend';
-        }
-      }
-    }
-    if (!target) {
-      // 全体攻撃の場合、targetは渡されない、かつ、使われないので
-      // 空のキャラクターを仮に渡す
-      target = new BattleActor({});
-    }
-    this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: this,
-      timelinedata: {
-        forEnemy: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}は ${damage} ダメージ喰らった！` },
-          { type: 'endTimeline' },
-        ],
-        forFriend: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}は ${damage} 回復した！` },
-          { type: 'endTimeline' },
-        ],
-        forFriendHpMax: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `${target.name}のHPは満タンだった...` },
-          { type: 'endTimeline' },
-        ],
-        forEnemies: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `敵全員を攻撃！` },
-          { type: 'endTimeline' },
-        ],
-        forFriends: [
-          { type: 'dialog', text: `${attacker.name}の${skill}！` },
-          { type: 'dialog', text: `仲間全員を回復！` },
-          { type: 'endTimeline' },
-        ],
-      },
-      specID: forTarget,
-    });
-  }
+  // -は〜状態になった。（攻撃）力が上がった。
+  // 全体：単体、敵：味方、攻撃：状態異常：バフ、
+  // drawSkillDamageMessage(
+  //   attacker: BattleActor,
+  //   skill: Skill,
+  //   forAllTargets: boolean,
+  //   forEnemy: boolean,
+  //   target?: BattleActor,
+  //   damage?: number,
+  // ) {
+  //   let forTarget: string;
+  //   if (forAllTargets) {
+  //     // 全体攻撃
+  //     if (forEnemy) {
+  //       // 敵たち（全体攻撃）
+  //       forTarget = 'forEnemies';
+  //     } else {
+  //       // 味方たち（全体回復）
+  //       forTarget = 'forFriends';
+  //     }
+  //   } else {
+  //     // 単体攻撃
+  //     if (!target || damage === undefined) return;
+  //     if (forEnemy) {
+  //       // 敵（攻撃）
+  //       forTarget = 'forEnemy';
+  //     } else {
+  //       // 味方（回復）
+  //       if (damage === 0) {
+  //         // 回復意味なし
+  //         forTarget = 'forFriendHpMax';
+  //       } else {
+  //         forTarget = 'forFriend';
+  //       }
+  //     }
+  //   }
+  //   // どんな効果のスキルか
+  //   forTarget += skill.getSkillEffect();
+
+  //   if (!target) {
+  //     // 全体攻撃の場合、targetは渡されない、かつ、使われないので
+  //     // 空のキャラクターを仮に渡す
+  //     target = new BattleActor({});
+  //   }
+  //   this.scene.launch(sceneKeys.timelinePlayer, {
+  //     anotherScene: this,
+  //     timelinedata: {
+  //       // １人の敵に攻撃
+  //       forEnemyATTACK: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'dialog', text: `${target.name}は ${damage} ダメージ喰らった！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の敵にデバフ
+  //       forEnemyBUFF: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の敵に状態異常
+  //       forEnemySTATE: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の味方に回復
+  //       forFriendATTACK: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'dialog', text: `${target.name}は ${damage} 回復した！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の味方にバフ
+  //       forFriendBUFF: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の味方に回復
+  //       forFriendSTATE: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // １人の味方のHPがMAX
+  //       forFriendHpMaxATTACK: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'dialog', text: `${target.name}のHPは満タンだった...` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 敵全員を攻撃
+  //       forEnemiesATTACK: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'dialog', text: `敵全員を攻撃！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 敵全員にデバフ
+  //       forEnemiesBUFF: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 敵全員に状態異常
+  //       forEnemiesSTATE: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 味方全員を攻撃
+  //       forFriendsATTACK: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'dialog', text: `仲間全員を回復！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 味方全員にバフ
+  //       forFriendsBUFF: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //       // 味方全員に状態異常
+  //       forFriendsSTATE: [
+  //         { type: 'dialog', text: `${attacker.name}の${skill.getName()}！` },
+  //         { type: 'endTimeline' },
+  //       ],
+  //     },
+  //     specID: forTarget,
+  //   });
+  // }
 
   /**
    * @brief プレイヤーがバトルに勝利したとき、
