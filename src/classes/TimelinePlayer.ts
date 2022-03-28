@@ -21,14 +21,14 @@ export class TimelinePlayer extends Scene {
   private timeline?: Timeline;
   private timelineIndex = 0;
   private isTextShow: boolean = true;
-  private anotherScene?: Scene;
+  private anotherScene?: Map;
   private timelineData?: Timelines;
   private specID?: string;
   constructor() {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init(data: { anotherScene: Scene; timelinedata: Timelines; specID?: string }) {
+  init(data: { anotherScene: Map; timelinedata: Timelines; specID?: string }) {
     if (!data.anotherScene || !data.timelinedata) {
       this.scene.stop();
       return;
@@ -160,6 +160,10 @@ export class TimelinePlayer extends Scene {
         this.anotherScene.scene.resume();
         // timelinePlayerシーンを止める
         this.scene.stop();
+        break;
+      case 'judge':
+        if (system.bossflag.get(timelineEvent.scene))
+          this.specTimeline({ timelineID: timelineEvent.timelineID });
         break;
       default:
         break;
