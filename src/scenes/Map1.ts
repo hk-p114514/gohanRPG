@@ -1,54 +1,55 @@
-import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
-import { select, warp1, warp2, warp3, dummy, noComment } from 'classes/timelineWords';
-//import { system } from 'index';
+import { sceneKeys } from './sceneKeys';
+import Ate from '@/assets/characters/static/boss/ate.png';
+import {
+  warp0,
+  warpA,
+  backA,
+  dummy,
+  noComment,
+  beforeAteBattle,
+  afterAteBattle,
+  goAte,
+  stone1,
+  stone2,
+  stone3,
+  stone4,
+  hint1,
+  explanation1,
+} from 'classes/timelineWords';
 
 export class Map1 extends Map {
   constructor() {
-    super(json[0], sceneKeys.map1);
+    super(json[1], sceneKeys.map1);
   }
   preload() {
     super.preload();
-    super.setnpcimage(['mob1'], 0);
-    super.setnpcimage(['mob2'], 0);
-    super.setnpcimage(['mob3'], 0);
-    super.setnpcimage(['mob4'], 0);
-    super.setnpcimage(['mob5'], 0);
-    super.setnpcimage(['mob6'], 0);
-    super.setnpcimage(['mob7'], 0);
-    super.setnpcimage(['mob8'], 0);
+    this.loadBossimage('Ate', Ate);
   }
+
   create() {
     super.create();
-    super.setEvent('goStage1', warp1);
-    super.setEvent('goStage2', warp2);
-    super.setEvent('goStage3', warp3);
-    super.setEvent('goStage4', dummy);
-    super.setEvent('goStage5', dummy);
-    super.setHint('first', select);
-    super.makeNPC('mob1', noComment);
-    super.makeNPC('mob2', noComment);
-    super.makeNPC('mob3', noComment);
-    super.makeNPC('mob4', noComment);
-    super.makeNPC('mob5', noComment);
-    super.makeNPC('mob6', noComment);
-    super.makeNPC('mob7', noComment);
-    super.makeNPC('mob8', noComment);
+    this.setBoss(13, 3, 'Ate');
+    super.setEvent('goHome', warp0);
+    super.setEvent('woop', warpA);
+    super.setEvent('goAte', goAte);
+    super.setEvent('woopboss', backA);
+    super.setEvent('beforeAte', beforeAteBattle);
+    super.setEvent('afterAte', afterAteBattle);
+    super.setHint('stage1hint', hint1);
+    super.setHint('explanation1', explanation1);
+    super.setHint('stone1', stone1);
+    super.setHint('stone2', stone2);
+    super.setHint('stone3', stone3);
+    super.setHint('stone4', stone4);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      system.map = sceneKeys.map4;
+      // this.switchMap(sceneKeys.map1);
+      system.map = sceneKeys.map1;
 
-      // this.switchMap(sceneKeys.map2);
-      system.switchMap(this, sceneKeys.map4);
+      system.switchMap(this, sceneKeys.map1);
     });
-
-    // イベントの位置を取得
-    // const events = this.tileMap?.filterTiles((tile) => {});
-  }
-
-  public update(_time: number, delta: number): void {
-    super.update(_time, delta);
   }
 }

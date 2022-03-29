@@ -1,8 +1,7 @@
-import { Display, Scene } from 'phaser';
+import { Scene } from 'phaser';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { BattleActor } from './BattleActor';
 import { randI } from 'functions/generalPurpose/rand';
-import { thisTypeAnnotation } from '@babel/types';
 
 export class State {
   private actor: BattleActor;
@@ -87,6 +86,7 @@ export class State {
    * @return void
    */
   public stateProcess(scene: Scene): void {
+    if (this.actor.hp.current <= 0) return;
     this.damageBuff = 0;
     this.isPossible = true;
     this.skillBuff = 0;
@@ -94,13 +94,14 @@ export class State {
 
     this.states.forEach((state: StateInfo) => {
       if (state.remain > 0) {
-        this.stateProgress(scene, state.name);
         state.remain--;
         if (state.remain <= 0) {
           this.onePhrase(
             scene,
             `${this.actor.name}の${this.statesName.get(state.name)}状態が解除された！`,
           );
+        } else {
+          this.stateProgress(scene, state.name);
         }
       }
     });

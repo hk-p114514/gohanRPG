@@ -9,7 +9,7 @@ import abTree from '@/assets/characters/static/tree.png';
 import hangedBear from '@/assets/characters/static/tree.png';
 import showerHead from '@/assets/characters/static/axotla.png';
 import sabagiza from '@/assets/characters/static/magea.png';
-import tsuchinoko from '@assets/characters/static/snakea.png';
+import tsuchinoko from '@/assets/characters/static/snakea.png';
 import bloodScorpion from '@/assets/characters/static/scorpiona.png';
 import formerBoss from '@/assets/characters/static/dragon2.png';
 import fishEgg from '@/assets/characters/static/egga.png';
@@ -63,6 +63,7 @@ const enemy = {
 };
 
 export const mapEnemies = new Map<string, BattleActor[]>([
+  [sceneKeys.map0, []],
   [
     sceneKeys.map1,
     [enemy.slime, enemy.tb1a, enemy.batman, enemy.abTree, enemy.hangedBear],

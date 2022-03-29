@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="5">
  <tileset firstgid="1" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
   <image source="../src/assets/maps/map001.png" width="1920" height="1080"/>
   <tile id="0">
@@ -7868,6 +7868,11 @@
 </data>
  </layer>
  <objectgroup id="3" name="objects">
-  <object id="1" name="spawnPoint" gid="201" x="320" y="880" width="40" height="40"/>
+  <object id="1" name="spawnPoint" gid="201" x="320" y="840" width="40" height="40"/>
+  <object id="56" name="hito2" type="npc" gid="1" x="1200" y="640" width="40" height="40" rotation="90"/>
+  <object id="2" name="goStage3" type="event" gid="2" x="120" y="480" width="40" height="40" rotation="90"/>
+  <object id="10" name="goStage3" type="event" gid="2" x="120" y="520" width="40" height="40" rotation="90"/>
+  <object id="3" name="goStage2" type="event" gid="2" x="2240" y="880" width="40" height="40" rotation="90"/>
+  <object id="3" name="vimmer" type="npc" gid="101" x="720" y="880" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>

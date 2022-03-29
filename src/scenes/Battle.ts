@@ -22,6 +22,7 @@ export class Battle extends Scene {
   private sorted: BattleActor[] = [];
   private index: number = 0;
   private exp: number = 0;
+  private isTurnAttack: boolean = true;
   timerOneShot?: Time.TimerEvent;
   elapsedTime: number = 0;
   constructor() {
@@ -68,6 +69,8 @@ export class Battle extends Scene {
   }
 
   create() {
+    this.isTurnAttack = true;
+
     // UIシーンを起動
     this.scene.launch(sceneKeys.ui, {
       actors: [this.party, this.enemies],
@@ -78,74 +81,81 @@ export class Battle extends Scene {
     this.nextTurn();
   }
 
+  // 2往復で1ターン：1往復目->攻撃、回復等 例：「〜の〜攻撃」「〜に〜ダメージ」
+  //               ：2往復目-> 状態異常 例：「どくで〜ダメージ」
   nextTurn() {
     this.logAllActorHP();
     console.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
-    actor.state.stateProcess(this);
-    actor.buff.buffProcess();
-    if (actor.isDead()) {
-      // sortedの中で、actorが死んでいる場合は、それを除く
-      this.sorted = this.sorted.filter((a) => a !== actor);
-      console.log(`${actor.name}は死んでしまった`);
-      this.resultDialog('dead', actor);
+    if (!this.isTurnAttack) {
+      actor.state.stateProcess(this);
+      actor.buff.buffProcess();
+      this.isTurnAttack = true;
     } else {
-      // バトルが終わっていないか確認
-      const endBattle = this.isEndBattle(this.party, this.enemies);
-      // endBattleが0でない場合は、ターン終了
-      if (endBattle !== 0) {
-        system.isBattle = false;
-        switch (endBattle) {
-          case 1:
-            console.log('プレイヤーの勝利');
-            // this.resultDialog('win');
-            const levelUps = this.giveExpPlayers();
-            this.levelUpDialog(levelUps);
-            this.backToMap();
-            break;
-          case 2:
-          case 3:
-            console.log('敵の勝利');
-            this.resultDialog('lose');
-            this.scene.stop(sceneKeys.ui);
-            // start --> shutdown this.scene & start scene of key
-            this.scene.start(sceneKeys.gameover);
-            break;
-        }
-        // HPが0になった味方はマップに戻るときにHP1にする
-        this.party.forEach((actor) => {
-          if (actor.isDead()) {
-            actor.beHealed(1);
+      if (actor.isDead()) {
+        // sortedの中で、actorが死んでいる場合は、それを除く
+        this.sorted = this.sorted.filter((a) => a !== actor);
+        console.log(`${actor.name}は死んでしまった`);
+        this.resultDialog('dead', actor);
+      } else {
+        // バトルが終わっていないか確認
+        const endBattle = this.isEndBattle(this.party, this.enemies);
+        // endBattleが0でない場合は、ターン終了
+        if (endBattle !== 0) {
+          system.isBattle = false;
+          switch (endBattle) {
+            case 1:
+              console.log('プレイヤーの勝利');
+              // this.resultDialog('win');
+              const levelUps = this.giveExpPlayers();
+              this.levelUpDialog(levelUps);
+              this.backToMap();
+              break;
+            case 2:
+            case 3:
+              console.log('敵の勝利');
+              this.resultDialog('lose');
+              this.scene.stop(sceneKeys.ui);
+              // start --> shutdown this.scene & start scene of key
+              this.scene.start(sceneKeys.gameover);
+              break;
           }
-        });
-        return;
-      }
-      console.log('####################');
-      console.log(`${this.index}番目の${actor.name}のターン`);
-      console.log('####################');
-
-      // actor.getRandSkill()(actor, enemies);
-      // actorの攻撃
-      if (actor.state.getPossible()) {
-        if (this.party.includes(actor)) {
-          // 該当のキャラクターがプレイヤー側なら、
-          // 使う技をプレイヤーに選択させる
-          // プレイヤーが技を選択するまで待つ
-          this.scene.pause();
-          system.setActor(actor);
-        } else {
-          system.battling = undefined;
-          // 該当のキャラクターが敵側なら、
-          // ランダムに技を選択する
-          this.actorAction(actor);
+          // HPが0になった味方はマップに戻るときにHP1にする
+          this.party.forEach((actor) => {
+            if (actor.isDead()) {
+              actor.beHealed(1);
+            }
+          });
+          return;
         }
-      }
+        console.log('####################');
+        console.log(`${this.index}番目の${actor.name}のターン`);
+        console.log('####################');
 
-      this.index++;
+        // actor.getRandSkill()(actor, enemies);
+        // actorの攻撃
+        if (actor.state.getPossible()) {
+          if (this.party.includes(actor)) {
+            // 該当のキャラクターがプレイヤー側なら、
+            // 使う技をプレイヤーに選択させる
+            // プレイヤーが技を選択するまで待つ
+            this.scene.pause();
+            system.setActor(actor);
+          } else {
+            system.battling = undefined;
+            // 該当のキャラクターが敵側なら、
+            // ランダムに技を選択する
+            this.actorAction(actor);
+          }
+        }
+
+        this.index++;
+      }
+      this.isTurnAttack = false;
     }
 
     this.index = this.index % this.sorted.length;
-    this.time.addEvent({ delay: 1000, callback: this.nextTurn, callbackScope: this });
+    this.time.addEvent({ delay: 800, callback: this.nextTurn, callbackScope: this });
   }
 
   actorAction(actor: BattleActor): void {
