@@ -51,7 +51,7 @@ import {
   beforeBteBattle,
   afterBteBattle,
 } from 'classes/timelineWords';
-export class Map3 extends Map {
+export class Map2 extends Map {
   public stars: Array<string> = [
     'Aries',
     'Taurus',

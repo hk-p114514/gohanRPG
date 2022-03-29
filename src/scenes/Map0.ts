@@ -4,7 +4,7 @@ import { Map } from './Map.tpl';
 import { select, warp1, warp2, warp3, dummy, noComment } from 'classes/timelineWords';
 //import { system } from 'index';
 
-export class Map1 extends Map {
+export class Map0 extends Map {
   constructor() {
     super(json[0], sceneKeys.map0);
   }

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="52">
- <editorsettings>
-  <export target="../src/json/map0006." format="json"/>
- </editorsettings>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="72">
  <tileset firstgid="1" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
   <image source="../src/assets/maps/map001.png" width="1920" height="1080"/>
   <tile id="0">
@@ -7828,7 +7825,7 @@
  </layer>
  <layer id="2" name="worldLayer" width="60" height="40">
   <data encoding="csv">
-53,53,0,0,0,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
+53,53,0,0,149,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
 53,53,0,0,0,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
 53,53,0,0,0,53,53,53,53,53,0,102,149,53,53,0,102,149,53,53,0,102,149,53,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,
 53,53,0,0,0,53,53,53,53,53,0,0,0,53,53,0,0,0,53,53,0,0,0,53,53,53,149,102,0,53,53,0,102,149,53,53,53,149,102,0,53,53,53,149,102,0,0,0,0,0,0,0,53,53,53,0,102,149,53,53,
@@ -7840,12 +7837,12 @@
 53,53,0,0,0,53,53,53,53,53,0,0,0,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,
 53,53,0,0,0,53,53,53,53,53,0,0,0,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,53,53,
-53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,53,149,102,0,53,53,0,102,149,53,53,53,149,102,0,53,53,53,0,102,149,53,53,53,0,102,149,53,53,53,0,102,149,53,53,
+53,53,0,0,0,0,0,102,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,53,149,102,0,53,53,0,102,149,53,53,53,149,102,0,53,53,53,0,102,149,53,53,53,0,102,149,53,53,53,0,102,149,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,53,53,
 53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
 53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,53,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,
-53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,102,0,53,53,53,0,0,0,0,0,102,149,53,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,149,102,0,53,53,
+53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,102,149,53,53,53,0,0,0,0,0,102,149,53,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,149,102,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,53,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,53,53,53,53,53,53,53,53,53,53,0,0,0,53,53,53,53,53,53,53,53,53,53,53,53,53,53,0,0,0,0,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,53,53,53,53,53,53,53,53,53,53,0,0,0,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,0,0,0,0,53,53,
@@ -7854,7 +7851,7 @@
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,53,53,53,53,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,0,0,0,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,0,0,0,0,0,53,53,
 53,53,0,0,0,0,0,102,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,53,53,53,53,53,53,149,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,
-53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,102,0,53,53,53,0,0,0,0,0,102,149,53,53,53,53,53,53,102,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,149,102,0,53,53,
+53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,102,149,53,53,53,0,0,0,0,0,102,149,53,53,53,53,53,53,102,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,149,102,0,53,53,
 53,53,0,0,0,0,0,0,0,0,0,0,0,53,53,53,0,0,0,53,53,53,0,0,0,0,0,0,0,53,53,53,53,53,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,53,
 53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
 53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
@@ -7871,32 +7868,32 @@
 </data>
  </layer>
  <objectgroup id="3" name="objects">
-  <object id="1" name="spawnPoint" gid="202" x="120" y="40" width="40" height="40"/>
+  <object id="1" name="spawnPoint" gid="202" x="120" y="0" width="40" height="40" rotation="90"/>
   <object id="2" name="Cancerwarp" type="hint" gid="202" x="440" y="80" width="40" height="40" rotation="90"/>
-  <object id="3" name="Leowarp" type="hint" gid="202" x="1640" y="280" width="40" height="40" rotation="90"/>
+  <object id="3" name="reLeowarp" type="hint" gid="202" x="1640" y="280" width="40" height="40" rotation="90"/>
   <object id="4" name="Arieswarp" type="hint" gid="202" x="840" y="80" width="40" height="40" rotation="90"/>
-  <object id="5" name="Librawarp" type="hint" gid="202" x="1080" y="120" width="40" height="40" rotation="90"/>
+  <object id="5" name="reLibrawarp" type="hint" gid="202" x="1080" y="120" width="40" height="40" rotation="90"/>
   <object id="6" name="Scorpiowarp" type="hint" gid="202" x="1280" y="120" width="40" height="40" rotation="90"/>
-  <object id="7" name="Arieswarp" type="hint" gid="202" x="1080" y="480" width="40" height="40" rotation="90"/>
+  <object id="7" name="reArieswarp" type="hint" gid="202" x="1080" y="480" width="40" height="40" rotation="90"/>
   <object id="8" name="Tauruswarp" type="hint" gid="202" x="1280" y="480" width="40" height="40" rotation="90"/>
   <object id="9" name="Virgo" type="hint" gid="202" x="1520" y="120" width="40" height="40" rotation="90"/>
-  <object id="10" name="Capricornwarp" type="hint" gid="202" x="1520" y="480" width="40" height="40" rotation="90"/>
+  <object id="10" name="reCapricornwarp" type="hint" gid="202" x="1520" y="480" width="40" height="40" rotation="90"/>
   <object id="11" name="Aquariuswarp" type="hint" gid="202" x="1760" y="480" width="40" height="40" rotation="90"/>
-  <object id="12" name="Tauruswarp" type="hint" gid="202" x="1760" y="120" width="40" height="40" rotation="90"/>
-  <object id="13" name="Sagittariuswarp" type="hint" gid="202" x="2240" y="120" width="40" height="40" rotation="90"/>
+  <object id="12" name="reTauruswarp" type="hint" gid="202" x="1760" y="120" width="40" height="40" rotation="90"/>
+  <object id="13" name="reSagittariuswarp" type="hint" gid="202" x="2240" y="120" width="40" height="40" rotation="90"/>
   <object id="14" name="Geminiwarp" type="hint" gid="202" x="2000" y="480" width="40" height="40" rotation="90"/>
   <object id="15" name="Capricornwarp" type="hint" gid="202" x="2240" y="480" width="40" height="40" rotation="90"/>
   <object id="16" name="Pisceswarp" type="hint" gid="202" x="2000" y="880" width="40" height="40" rotation="90"/>
   <object id="17" name="Librawarp" type="hint" gid="202" x="2240" y="680" width="40" height="40" rotation="90"/>
-  <object id="18" name="Virgowarp" type="hint" gid="202" x="2240" y="1040" width="40" height="40" rotation="90"/>
-  <object id="19" name="Aquariuswarp" type="hint" gid="202" x="1400" y="1040" width="40" height="40" rotation="90"/>
-  <object id="20" name="Cancerwarp" type="hint" gid="202" x="1160" y="840" width="40" height="40" rotation="90"/>
-  <object id="21" name="Scorpiowarp" type="hint" gid="202" x="1080" y="680" width="40" height="40" rotation="90"/>
+  <object id="18" name="reVirgowarp" type="hint" gid="202" x="2240" y="1040" width="40" height="40" rotation="90"/>
+  <object id="19" name="reAquariuswarp" type="hint" gid="202" x="1400" y="1040" width="40" height="40" rotation="90"/>
+  <object id="20" name="reCancerwarp" type="hint" gid="202" x="1160" y="840" width="40" height="40" rotation="90"/>
+  <object id="21" name="reScorpiowarp" type="hint" gid="202" x="1080" y="680" width="40" height="40" rotation="90"/>
   <object id="22" name="Leowarp" type="hint" gid="202" x="920" y="880" width="40" height="40" rotation="90"/>
   <object id="23" name="Sagittariuswarp" type="hint" gid="202" x="1080" y="1040" width="40" height="40" rotation="90"/>
-  <object id="24" name="Ophiuchuswarp" type="event" gid="202" x="680" y="680" width="40" height="40" rotation="90"/>
-  <object id="25" name="Pisceswarp" type="hint" gid="202" x="680" y="1040" width="40" height="40" rotation="90"/>
-  <object id="26" name="Ophiuchuswarp" type="hint" gid="202" x="280" y="1000" width="40" height="40" rotation="90"/>
+  <object id="24" name="Ophiuchuswarp" type="hint" gid="202" x="680" y="680" width="40" height="40" rotation="90"/>
+  <object id="25" name="rePisceswarp" type="hint" gid="202" x="680" y="1040" width="40" height="40" rotation="90"/>
+  <object id="26" name="reOphiuchuswarp" type="hint" gid="202" x="280" y="1000" width="40" height="40" rotation="90"/>
   <object id="27" name="Cancer" type="hint" gid="149" x="480" y="80" width="40" height="40" rotation="90"/>
   <object id="28" name="Leo" type="hint" gid="149" x="1680" y="280" width="40" height="40" rotation="90"/>
   <object id="29" name="Aries" type="hint" gid="149" x="880" y="80" width="40" height="40" rotation="90"/>
@@ -7919,7 +7916,20 @@
   <object id="47" name="Scorpio" type="hint" gid="149" x="1120" y="680" width="40" height="40" rotation="90"/>
   <object id="48" name="Leo" type="hint" gid="149" x="960" y="880" width="40" height="40" rotation="90"/>
   <object id="49" name="Sagittarius" type="hint" gid="149" x="1120" y="1040" width="40" height="40" rotation="90"/>
-  <object id="50" name="Geminiwarp" type="hint" gid="202" x="640" y="80" width="40" height="40" rotation="90"/>
+  <object id="50" name="reGeminiwarp" type="hint" gid="202" x="640" y="80" width="40" height="40" rotation="90"/>
   <object id="51" name="Gemini" type="hint" gid="149" x="680" y="80" width="40" height="40" rotation="90"/>
+  <object id="52" name="Ophiuchus" type="hint" gid="149" x="720" y="680" width="40" height="40" rotation="90"/>
+  <object id="53" name="Pisces" type="hint" gid="149" x="720" y="1040" width="40" height="40" rotation="90"/>
+  <object id="55" name="beforeBte" type="event" gid="53" x="320" y="920" width="40" height="40" rotation="90"/>
+  <object id="56" name="goBte" type="event" gid="97" x="320" y="1000" width="40" height="40" rotation="90"/>
+  <object id="59" name="goBte" type="event" gid="97" x="280" y="960" width="40" height="40" rotation="90"/>
+  <object id="60" name="goBte" type="event" gid="97" x="240" y="1000" width="40" height="40" rotation="90"/>
+  <object id="61" name="goBte" type="event" gid="97" x="280" y="1040" width="40" height="40" rotation="90"/>
+  <object id="62" name="afterBte" type="event" gid="97" x="320" y="880" width="40" height="40" rotation="90"/>
+  <object id="66" name="meet2" type="event" gid="52" x="80" y="40" width="40" height="40" rotation="90"/>
+  <object id="67" name="meet2" type="event" gid="52" x="120" y="40" width="40" height="40" rotation="90"/>
+  <object id="68" name="meet2" type="event" gid="52" x="160" y="40" width="40" height="40" rotation="90"/>
+  <object id="69" name="explanation2" type="hint" gid="52" x="160" y="0" width="40" height="40" rotation="90"/>
+  <object id="70" name="Shiden" type="npc" gid="51" x="120" y="400" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>
