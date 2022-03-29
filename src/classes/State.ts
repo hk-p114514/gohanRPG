@@ -217,7 +217,7 @@ export class State {
    *
    * @returns 挑発状態のキャラクター群
    */
-  public getProvocationActors(party: BattleActor[]): BattleActor[] {
+  public static getProvocationActors(party: BattleActor[]): BattleActor[] {
     return party.filter((actor: BattleActor) => actor.state.isProvocation);
   }
 }

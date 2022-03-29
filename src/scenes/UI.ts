@@ -5,6 +5,7 @@ import { BattleActor } from 'classes/BattleActor';
 import { Battle } from './Battle';
 import { Skill } from 'classes/Skill';
 import { randArr } from 'functions/generalPurpose/rand';
+import { State } from 'classes/State';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;
@@ -254,6 +255,10 @@ export class UI extends Scene {
             // 対象のグループを格納
             if (forEnemy) {
               targetGroup = this.enemies;
+              const provocations = State.getProvocationActors(targetGroup);
+              if (provocations.length > 0) {
+                targetGroup = provocations;
+              }
             } else {
               targetGroup = this.party;
             }
