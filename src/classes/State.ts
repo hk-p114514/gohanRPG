@@ -51,7 +51,7 @@ export class State {
       remain: 0,
     });
     this.states.set('arthralgia', {
-      name: 'arthralgiaBuff',
+      name: 'arthralgia',
       remain: 0,
     });
     this.states.set('glucosamine', {
