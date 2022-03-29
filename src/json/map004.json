@@ -1,12 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"map004.json"
-        }
-    },
  "height":40,
  "infinite":false,
  "layers":[
@@ -2736,8 +2728,8 @@
                  "type":"event",
                  "visible":true,
                  "width":40,
-                 "x":1999.75,
-                 "y":360.25
+                 "x":2000,
+                 "y":360
                 }, 
                 {
                  "gid":392,
@@ -4449,7 +4441,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
+ "nextlayerid":5,
  "nextobjectid":683,
  "orientation":"orthogonal",
  "renderorder":"right-down",
