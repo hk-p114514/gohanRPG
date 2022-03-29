@@ -24,9 +24,20 @@ import yakitori from '@/assets/characters/static/griffona.png';
 import enken from '@/assets/characters/static/kerberos.png';
 import ghost from '@/assets/characters/static/flyGhost.png';
 import { map } from 'lodash';
+import { skills } from 'skills';
 
 const enemy = {
-  slime: new BattleActor({ name: 'スライム', spriteSrc: slime }),
+  slime: new BattleActor({
+    name: 'スライム',
+    spriteSrc: slime,
+    hp: { current: 1, max: 1 },
+    mp: { current: 1, max: 1 },
+    atk: 1,
+    def: 1,
+    speed: 1,
+    startLevel: 1,
+    initSkills: [skills[0]],
+  }),
   tb1a: new BattleActor({ name: 'TB1-a', spriteSrc: tb1a }),
   batman: new BattleActor({ name: 'バットマン', spriteSrc: batman }),
   abTree: new BattleActor({ name: '外見二分木', spriteSrc: abTree }),
