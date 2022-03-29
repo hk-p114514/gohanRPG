@@ -381,6 +381,7 @@ export class Map extends Scene {
   }
 
   moveBattle() {
+    if (!getEnemies(system.map).length) return;
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
     this.cameras.main.flash(effectsTime);

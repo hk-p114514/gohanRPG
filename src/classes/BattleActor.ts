@@ -117,7 +117,7 @@ export class BattleActor {
   // 被ダメ
   beInjured(damage: number): void {
     const before = this.hp.current;
-    this.hp.current -= Math.floor(damage - damage / this.buff.getDef());
+    this.hp.current -= Math.floor(damage - damage / (this.buff.getDef() + randI(2, 1)));
     if (this.hp.current < 0) {
       this.hp.current = 0;
     }
