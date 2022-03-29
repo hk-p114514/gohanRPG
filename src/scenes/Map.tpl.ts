@@ -6,6 +6,7 @@ import log1 from '@/assets/items/hatena.png';
 import log2 from '@/assets/items/ikari.png';
 import log3 from '@/assets/items/kantanhu.png';
 import log4 from '@/assets/items/mugon.png';
+import log5 from '@/assets/items/onpu.png';
 // classes
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
@@ -38,7 +39,7 @@ export class Map extends Scene {
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  private npcPoints?: Types.Tilemaps.TiledObject[];
+  public npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
@@ -62,16 +63,18 @@ export class Map extends Scene {
     this.load.image('log2', log2);
     this.load.image('log3', log3);
     this.load.image('log4', log4);
+    this.load.image('log5', log5);
+  }
+  public loadBossimage(name: string, tex: string) {
+    this.load.image(name, tex);
   }
   //各MapClassのloadで使うnpcの姿を決める関数
   //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: Array<string>, n: number) {
-    for (let i = 0; i < name.length; ++i) {
-      this.load.spritesheet(name[i], charas[n], {
-        frameWidth: characterSize,
-        frameHeight: characterSize,
-      }); //console.log(system.map);
-    }
+  public setnpcimage(name: string, n: number) {
+    this.load.spritesheet(name, charas[n], {
+      frameWidth: characterSize,
+      frameHeight: characterSize,
+    }); //console.log(system.map);
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
@@ -240,6 +243,12 @@ export class Map extends Scene {
     this.gridPhysics?.update(delta);
   }
   public log?: Phaser.GameObjects.Sprite;
+  public boss?: Phaser.GameObjects.Sprite;
+  public setBoss(x: number, y: number, boss: string, scale = 0.5) {
+    this.boss = this.add
+      .sprite(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, boss)
+      .setScale(scale);
+  }
   //話しかけた奴が振り向くイベント
   public createEvents() {
     // funcs.set(this.name + ',flash', (s: any[]) => {
@@ -250,6 +259,11 @@ export class Map extends Scene {
     // funcs.set(this.name + ',delete', (s: any[]) => {
     //   system.bossflag.set(s[0], false);
     // });
+    funcs.set(this.name + ',kill', (s: any[]) => {
+      for (let i = 0; i < s.length; ++i) {
+        events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
+      }
+    });
     funcs.set(this.name + ',delete', (s: any[]) => {
       if (names.has(this.name + s[0])) {
         events.delete(names.get(this.name + s[0]));
@@ -284,6 +298,8 @@ export class Map extends Scene {
         b.changedir(s[1]);
       } else if (s[0] === 'player') {
         this.player?.changedir(s[1]);
+      } else {
+        console.log('not found');
       }
     });
     //誰かを配置するイベント
@@ -292,7 +308,7 @@ export class Map extends Scene {
       let l = this.add.sprite(0, 0, s[0], 1);
       let hito = new Player(l, new Phaser.Math.Vector2(s[1], s[2]), s[0]);
       npcs.set(system.map + ',' + s[1] + ',' + s[2], hito);
-      names.set(s[0], system.map + ',' + s[1] + ',' + s[2]);
+      names.set(system.map + s[0], system.map + ',' + s[1] + ',' + s[2]);
       console.log(system.map + ',' + s[1] + ',' + s[2]);
     });
     //誰かを消し去るイベント
@@ -303,7 +319,13 @@ export class Map extends Scene {
         b.destroy();
         npcs.delete(a);
         names.delete(system.map + s[0]);
+      } else {
+        console.log('not found');
       }
+    });
+    //bossを消し去るイベント
+    funcs.set(this.name + ',break', (s: any[]) => {
+      this.boss?.destroy();
     });
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
@@ -325,6 +347,19 @@ export class Map extends Scene {
           this.log?.destroy();
           this.log = this.add.sprite(c.x, c.y, 'log' + s[1]);
         }
+      } else {
+        console.log('not found');
+      }
+    });
+    funcs.set(this.name + ',bosslog', (s: any[]) => {
+      let x = this.boss?.x;
+      let y = this.boss?.y;
+      if (x !== undefined && y !== undefined) {
+        y -= tileSize;
+        this.log?.destroy();
+        this.log = this.add.sprite(x, y, 'log' + s[0]);
+      } else {
+        console.log('humei');
       }
     });
     //誰かの呟きを消し去るイベント
@@ -338,6 +373,7 @@ export class Map extends Scene {
   }
 
   moveBattle() {
+    if (!getEnemies(system.map).length) return;
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
     this.cameras.main.flash(effectsTime);
