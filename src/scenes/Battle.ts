@@ -5,6 +5,7 @@ import { sceneKeys } from './sceneKeys';
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
 import { randArr, randI } from 'functions/generalPurpose/rand';
+import { State } from 'classes/State';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -163,9 +164,7 @@ export class Battle extends Scene {
       if (forEnemy) {
         // 現在のキャラクター主観で敵に使う技
         // 挑発しているキャラクターがいたら、対象を変更する
-        const provocations = actor.state.getProvocationActors(
-          this.getSurvivors(this.party),
-        );
+        const provocations = State.getProvocationActors(this.getSurvivors(this.party));
         if (provocations.length > 0) {
           targetEnemy = randArr(provocations);
         } else {
