@@ -1,16 +1,23 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
+import Mel from '@/assets/characters/static/boss/melcine.png';
 import {
   restart0,
   restart1,
   restart2,
-  warp4_1,
-  warp4_2,
-  warp4_3,
-  warp4_4,
-  warp4_5,
-  warp4_6,
+  II,
+  III,
+  IV,
+  reI,
+  reII,
+  reIII,
+  warpstart,
+  explanation3,
+  addPouler,
+  goMelcine,
+  beforeMelcineBattle,
+  afterMelcineBattle,
 } from 'classes/timelineWords';
 
 export class Map4 extends Map {
@@ -19,18 +26,28 @@ export class Map4 extends Map {
   }
   preload() {
     super.preload();
+    super.setnpcimage('Shiden', 1);
+    super.setnpcimage('Pouler', 1);
+    this.loadBossimage('Mel', Mel);
   }
   create() {
     super.create();
+    this.setBoss(51, 24, 'Mel', 0.25);
+    super.setHint('explanation2', explanation3);
+    super.setEvent('add3', addPouler);
+    super.setEvent('goMelcine', goMelcine);
+    super.setEvent('beforeMelcine', beforeMelcineBattle);
+    super.setEvent('afterMelcine', afterMelcineBattle);
     super.setEvent('restart', restart0);
     super.setEvent('restart1', restart1);
     super.setEvent('restart2', restart2);
-    super.setEvent('woop', restart0);
-    super.setEvent('woop1', restart1);
-    super.setEvent('woop2', restart2);
-    super.setEvent('wooptoboss', restart0);
-    super.setEvent('woop1to2', restart1);
-    super.setEvent('woopto1', restart2);
+    super.setHint('woop', II);
+    super.setHint('woop1', III);
+    super.setHint('woop2', IV);
+    super.setHint('woopto1', reI);
+    super.setHint('woop1to2', reII);
+    super.setHint('wooptoboss', reIII);
+    super.setHint('woopstart', warpstart);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {

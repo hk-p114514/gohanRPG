@@ -1,6 +1,7 @@
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
+import Ate from '@/assets/characters/static/boss/ate.png';
 import {
   warp0,
   warpA,
@@ -10,6 +11,12 @@ import {
   beforeAteBattle,
   afterAteBattle,
   goAte,
+  stone1,
+  stone2,
+  stone3,
+  stone4,
+  hint1,
+  explanation1,
 } from 'classes/timelineWords';
 
 export class Map2 extends Map {
@@ -18,22 +25,24 @@ export class Map2 extends Map {
   }
   preload() {
     super.preload();
+    this.loadBossimage('Ate', Ate);
   }
 
   create() {
     super.create();
+    this.setBoss(13, 3, 'Ate');
     super.setEvent('goHome', warp0);
     super.setEvent('woop', warpA);
     super.setEvent('goAte', goAte);
     super.setEvent('woopboss', backA);
-    super.setEvent('battleA', beforeAteBattle);
-    super.setEvent('endA', afterAteBattle);
-    super.setHint('explanation1', noComment);
-    super.setHint('stone1', noComment);
-    super.setHint('stone2', noComment);
-    super.setHint('stone3', noComment);
-    super.setHint('stone4', noComment);
-    super.setHint('battleA', noComment);
+    super.setEvent('beforeAte', beforeAteBattle);
+    super.setEvent('afterAte', afterAteBattle);
+    super.setHint('stage1hint', hint1);
+    super.setHint('explanation1', explanation1);
+    super.setHint('stone1', stone1);
+    super.setHint('stone2', stone2);
+    super.setHint('stone3', stone3);
+    super.setHint('stone4', stone4);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
