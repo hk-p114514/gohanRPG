@@ -1,28 +1,44 @@
-import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map } from './Map.tpl';
-import { select, warp1, warp2, warp3, dummy, noComment } from 'classes/timelineWords';
-//import { system } from 'index';
+import { sceneKeys } from './sceneKeys';
+import Ate from '@/assets/characters/static/boss/ate.png';
+import {
+  warp0,
+  warpA,
+  backA,
+  dummy,
+  noComment,
+  beforeAteBattle,
+  afterAteBattle,
+  goAte,
+  stone1,
+  stone2,
+  stone3,
+  stone4,
+  hint1,
+  explanation1,
+} from 'classes/timelineWords';
 
 export class Map1 extends Map {
   private npcNames = ['vimmer'];
   constructor() {
-    super(json[0], sceneKeys.map1);
+    super(json[1], sceneKeys.map1);
   }
   preload() {
     super.preload();
     this.npcNames.forEach((name) => {
-      super.setnpcimage([name], 0);
+      super.setnpcimage(name, 0);
     });
-    super.setnpcimage(['mob1'], 0);
-    super.setnpcimage(['mob2'], 0);
-    super.setnpcimage(['mob3'], 0);
-    super.setnpcimage(['mob4'], 0);
-    super.setnpcimage(['mob5'], 0);
-    super.setnpcimage(['mob6'], 0);
-    super.setnpcimage(['mob7'], 0);
-    super.setnpcimage(['mob8'], 0);
+    super.setnpcimage('mob1', 0);
+    super.setnpcimage('mob2', 0);
+    super.setnpcimage('mob3', 0);
+    super.setnpcimage('mob4', 0);
+    super.setnpcimage('mob5', 0);
+    super.setnpcimage('mob6', 0);
+    super.setnpcimage('mob7', 0);
+    super.setnpcimage('mob8', 0);
   }
+
   create() {
     super.create();
     super.setEvent('goStage1', warp1);
@@ -60,17 +76,9 @@ export class Map1 extends Map {
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
-      system.map = sceneKeys.map4;
+      system.map = sceneKeys.map1;
 
-      // this.switchMap(sceneKeys.map2);
-      system.switchMap(this, sceneKeys.map4);
+      system.switchMap(this, sceneKeys.map1);
     });
-
-    // イベントの位置を取得
-    // const events = this.tileMap?.filterTiles((tile) => {});
-  }
-
-  public update(_time: number, delta: number): void {
-    super.update(_time, delta);
   }
 }
