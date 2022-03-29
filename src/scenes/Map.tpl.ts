@@ -1,5 +1,5 @@
 // assets
-import player from '@/assets/characters/dynamic/player.png';
+// import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
 import { BattleActor } from 'classes/BattleActor';
 import log1 from '@/assets/items/hatena.png';
@@ -23,6 +23,7 @@ import { sceneKeys } from './sceneKeys';
 
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
+import { marc } from 'friends';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -38,7 +39,7 @@ export class Map extends Scene {
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  private npcPoints?: Types.Tilemaps.TiledObject[];
+  public npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
@@ -54,7 +55,7 @@ export class Map extends Scene {
     this.load.tilemapTiledJSON(this.name, this.json);
     this.load.image('mapTiles', mapImg);
 
-    this.load.spritesheet('player', player, {
+    this.load.spritesheet('player', marc.spriteSrc, {
       frameWidth: characterSize,
       frameHeight: characterSize,
     });
@@ -380,6 +381,7 @@ export class Map extends Scene {
   }
 
   moveBattle() {
+    if (!getEnemies(system.map).length) return;
     const effectsTime = 500;
     this.cameras.main.shake(effectsTime);
     this.cameras.main.flash(effectsTime);
