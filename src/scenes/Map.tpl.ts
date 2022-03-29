@@ -211,14 +211,6 @@ export class Map extends Scene {
     }
     // Debug graphics
     this.enableDebugMode();
-    // //Dialog==================================================================
-    // const push = this.input.keyboard.addKey('SHIFT').on('down', () => {
-    //   this.scene.launch(sceneKeys.timelinePlayer, {
-    //     anotherScene: this,
-    //     timelinedata: timelineData,
-    //   });
-    // });
-    // //Dialog==================================================================
   }
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
