@@ -179,7 +179,7 @@ export const nichidaiTacle = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の日大災害誤射タックル！` },
-    { type: 'dialog', text: `敵は平均 ${sum} ダメージ喰らった！` },
+    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -233,7 +233,7 @@ export const onsenryoko = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の温泉旅行！` },
-    { type: 'dialog', text: `仲間は平均 ${sum} 回復した！` },
+    { type: 'dialog', text: `平均 ${sum} 回復した！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -261,7 +261,7 @@ export const isekaitense = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の伊勢回転性！` },
-    { type: 'dialog', text: `仲間は平均 ${sum} 回復した！` },
+    { type: 'dialog', text: `平均 ${sum} 回復した！` },
     { type: 'endTimeline' },
   ]);
 };
