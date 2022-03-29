@@ -73,6 +73,12 @@ export class State {
     this.statesName.set('provocation', '挑発');
   }
 
+  public initState(): void {
+    this.states.forEach((state: StateInfo) => {
+      this.passiveState(state.name);
+    });
+  }
+
   /**
    * @brief 毎ターン開始時の状態異常処理
    *
