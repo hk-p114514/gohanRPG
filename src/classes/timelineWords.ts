@@ -1854,6 +1854,83 @@ export const beforeObcBattle: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
   ],
 };
+export const afterObcBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…' },
+    { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…' },
+    { type: 'dialog', actorName: 'マルク', text: 'おい、お前' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'なんだい…私はもうすぐ力尽きる、文句があるなら今いいな…',
+    },
+    { type: 'dialog', actorName: 'マルク', text: '大盛りご飯' },
+    { type: 'dialog', actorName: 'OBC', text: '…は？' },
+    { type: 'dialog', actorName: 'マルク', text: '魔王倒したら大盛りご飯無料なんだろ？' },
+    { type: 'dialog', actorName: 'マルク', text: '早く出せよ' },
+    { type: 'dialog', actorName: 'OBC', text: 'ふん、バカだねぇ…' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'そんな広告、自作自演に決まってるじゃないか…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'はぁ！？じゃあ、食べれねぇってことかよ！？',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'まさかとは思うが、そのために来たのかい…？',
+    },
+    { type: 'dialog', actorName: 'OBC', text: '…ふふふ…ハハハハハハ！！' },
+    { type: 'dialog', actorName: 'マルク', text: 'おい！何笑ってんだよ！' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'まさか、私がこんな理由で倒されるなんてね…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: '死ぬ前に、とんだ大馬鹿見せてもらって、私は満足だよ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'おい！もう死ぬみたいないこと言うんじゃねぇ！！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'まだ…まだ死ぬなよぉ…' },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'dialog', actorName: 'マルク', text: '腹…減ってんだよ…' },
+    { type: 'dialog', actorName: '？？？', text: '…きなさい！起きなさい！' },
+    { type: 'dialog', actorName: '？？？', text: '起きなさい！マルク！' },
+    { type: 'dialog', actorName: 'マルク', text: '…うーん？' },
+    {
+      type: 'dialog',
+      actorName: '？？？',
+      text: 'もう！38にもなって1人で起きれないなんて！情けなくないの！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'えぇ〜ママちゃまっち〜' },
+    { type: 'dialog', actorName: 'マルク', text: 'まだ起きたくないでござるよ〜' },
+    {
+      type: 'dialog',
+      actorName: 'ママちゃまっち',
+      text: '定職にも就いてないんだから！生活リズムくらい整えなさい！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'も〜、ママちゃまっちがそこまで言うならしょうがないでござるな〜',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'さて、新聞でも呼んで、3チャンでヤトウ叩きでもするでござるか〜',
+    },
+  ],
+};
 //Events
 export const prologue: Timelines = {
   start: [
