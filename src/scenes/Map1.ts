@@ -5,11 +5,15 @@ import { select, warp1, warp2, warp3, dummy, noComment } from 'classes/timelineW
 //import { system } from 'index';
 
 export class Map1 extends Map {
+  private npcNames = ['vimmer'];
   constructor() {
     super(json[0], sceneKeys.map1);
   }
   preload() {
     super.preload();
+    this.npcNames.forEach((name) => {
+      super.setnpcimage([name], 0);
+    });
     super.setnpcimage(['mob1'], 0);
     super.setnpcimage(['mob2'], 0);
     super.setnpcimage(['mob3'], 0);
@@ -27,6 +31,24 @@ export class Map1 extends Map {
     super.setEvent('goStage4', dummy);
     super.setEvent('goStage5', dummy);
     super.setHint('first', select);
+    super.makeNPC(this.npcNames[0], {
+      start: [
+        { type: 'dialog', text: 'やあ!そこの君!', actorName: 'vimmer' },
+        { type: 'dialog', text: 'vimって知っているかい?', actorName: 'vimmer' },
+        { type: 'dialog', text: 'vimは素晴らしいエディタだよ!', actorName: 'vimmer' },
+        {
+          type: 'dialog',
+          text: '君もvscodeなんて捨ててはやくvimに乗り換えよう!',
+          actorName: 'vimmer',
+        },
+        {
+          type: 'dialog',
+          text: '今からならNeovimとcoc.nvimのセットがおすすめだよ!',
+          actorName: 'vimmer',
+        },
+        { type: 'endTimeline' },
+      ],
+    });
     super.makeNPC('mob1', noComment);
     super.makeNPC('mob2', noComment);
     super.makeNPC('mob3', noComment);

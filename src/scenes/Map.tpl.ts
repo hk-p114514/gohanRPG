@@ -38,7 +38,7 @@ export class Map extends Scene {
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  private npcPoints?: Types.Tilemaps.TiledObject[];
+  public npcPoints?: Types.Tilemaps.TiledObject[];
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
