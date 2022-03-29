@@ -76,13 +76,13 @@ class Preload extends Scene {
 
     // クリックした時
     button.on('pointerdown', () => {
-      this.scene.start(sceneKeys.map1);
+      this.scene.start(sceneKeys.map0);
     });
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
       button.setTexture('button_onhover');
       setTimeout(() => {
-        this.scene.start(sceneKeys.map1);
+        this.scene.start(sceneKeys.map0);
       }, 100);
     });
   }

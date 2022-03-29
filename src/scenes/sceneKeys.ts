@@ -1,6 +1,7 @@
 export const sceneKeys = {
   preload: 'preload',
   system: 'system',
+  map0: 'map0',
   map1: 'map1',
   map2: 'map2',
   map3: 'map3',

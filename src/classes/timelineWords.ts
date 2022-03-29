@@ -105,12 +105,12 @@ export const select: Timelines = {
       ],
     },
   ],
-  choice01_a00: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
-  choice01_a01: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
-  choice01_a02: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
-  choice01_a03: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
-  choice01_a04: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
-  choice01_a05: [{ type: 'switch', scene: 'map6' }, { type: 'endTimeline' }],
+  choice01_a00: [{ type: 'switch', scene: 'map0' }, { type: 'endTimeline' }],
+  choice01_a01: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
+  choice01_a02: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
+  choice01_a03: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
+  choice01_a04: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
+  choice01_a05: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
 export const noComment: Timelines = {
   start: [
@@ -327,15 +327,17 @@ export const stone1: Timelines = {
     { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', text: '額 looks？\n', actorName: 'マルク' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
   ],
 };
-export const stone2: Timelines = {
+export const stone4: Timelines = {
   start: [
     { type: 'dialog', text: 'この石碑はイマイを祀りしもの' },
     { type: 'dialog', text: '主は...丸...眠る...' },
     { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', text: '誰だよ今井って？', actorName: 'マルク' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
   ],
 };
 export const stone3: Timelines = {
@@ -345,15 +347,17 @@ export const stone3: Timelines = {
     { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', text: '銀座みてーな名前だな。', actorName: 'マルク' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
   ],
 };
-export const stone4: Timelines = {
+export const stone2: Timelines = {
   start: [
     { type: 'dialog', text: 'この石碑はアクルックスを祀りしもの' },
     { type: 'dialog', text: 'ギナンに...近い...進んだ...' },
     { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', text: '悪 looks？', actorName: 'マルク' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
   ],
 };
 export const warpA: Timelines = {
@@ -455,13 +459,15 @@ export const afterAteBattle: Timelines = {
       type: 'event',
       event: 'kill',
       many: [
-        [12, 2],
-        [12, 3],
-        [12, 4],
-        [12, 5],
-        [12, 6],
-        [12, 7],
+        [9, 8],
+        [10, 8],
+        [11, 8],
         [12, 8],
+        [13, 8],
+        [14, 8],
+        [15, 8],
+        [16, 8],
+        [17, 8],
       ],
     },
     { type: 'endTimeline' },
@@ -1366,6 +1372,7 @@ export const addPouler: Timelines = {
     { type: 'event', event: 'relog', many: [] },
     { type: 'event', event: 'reset', many: ['Shiden'] },
     { type: 'event', event: 'reset', many: ['Pouler'] },
+    { type: 'event', event: 'delete', many: ['add3'] },
     { type: 'endTimeline' },
   ],
 };
