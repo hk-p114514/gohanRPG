@@ -37,8 +37,14 @@ export class Title extends Scene {
     this.time.addEvent({
       delay: 3000,
       callback: () => {
-        this.add.rectangle(0, height - height / 8, width * 10, height / 7, 0x000);
-        this.button = this.add.image(width / 1.5, height - height / 8, 'button');
+        // this.add.rectangle(0, height - height / 2, width * 10, height, 0x000);
+        this.add.rectangle(0, height, width * 2, 150, 0x000);
+        // 座標の中心を指定
+        this.button = this.add.image(0, 0, 'button');
+        this.button.setPosition(
+          width - this.button.width,
+          height - this.button.height / 2,
+        );
         this.button?.setInteractive();
         // ボタンにカーソルが乗った時
         this.button?.on('pointerover', () => {
