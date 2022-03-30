@@ -80,6 +80,12 @@ import {
   voidRice,
   weedGrudge,
 } from 'skillsFunction/bossSkillsFunction';
+import {
+  drivethough,
+  inganoOguruma,
+  mushouzan,
+  sogigiri,
+} from 'skillsFunction/partySkillsFunction';
 
 export type SkillFunction = (
   scene: Scene,
@@ -185,4 +191,11 @@ export const elecaSkills: Skill[] = [
   new Skill('ベリカラカリー', veryHotCurry, false, false),
   new Skill('フクピクマウンテン', hukuPickMountain, false, false),
   new Skill('キーマガトリング', keemaGatling, false, true),
+];
+
+export const marcSkills: Skill[] = [
+  new Skill('そぎ切り', sogigiri, false, true), // そぎ切り（中攻撃）
+  new Skill('夢翔斬', mushouzan, false, true), // 夢翔斬（超強攻撃、自分に眠り）
+  new Skill('因果の小車', inganoOguruma, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
+  new Skill('ドライブスルー', drivethough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
 ];
