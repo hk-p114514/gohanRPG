@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="5">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="34">
+ <editorsettings>
+  <export target="../src/json/map001.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
   <image source="../src/assets/maps/map001.png" width="1920" height="1080"/>
   <tile id="0">
@@ -7868,11 +7871,34 @@
 </data>
  </layer>
  <objectgroup id="3" name="objects">
-  <object id="1" name="spawnPoint" gid="201" x="320" y="840" width="40" height="40"/>
+  <object id="1" name="spawnPoint" gid="201" x="320" y="840" width="40" height="40" rotation="90"/>
   <object id="56" name="hito2" type="npc" gid="1" x="1200" y="640" width="40" height="40" rotation="90"/>
   <object id="2" name="goStage3" type="event" gid="2" x="120" y="480" width="40" height="40" rotation="90"/>
   <object id="10" name="goStage3" type="event" gid="2" x="120" y="520" width="40" height="40" rotation="90"/>
+  <object id="9" name="goStage1" type="event" gid="2" x="120" y="880" width="40" height="40" rotation="90"/>
+  <object id="10" name="goStage1" type="event" gid="2" x="120" y="920" width="40" height="40" rotation="90"/>
+  <object id="11" name="goStage4" type="event" gid="2" x="2240" y="480" width="40" height="40" rotation="90"/>
+  <object id="12" name="goStage4" type="event" gid="2" x="2240" y="520" width="40" height="40" rotation="90"/>
   <object id="3" name="goStage2" type="event" gid="2" x="2240" y="880" width="40" height="40" rotation="90"/>
+  <object id="8" name="goStage2" type="event" gid="2" x="2240" y="920" width="40" height="40" rotation="90"/>
   <object id="3" name="vimmer" type="npc" gid="101" x="720" y="880" width="40" height="40" rotation="90"/>
+  <object id="5" name="notMob" type="npc" gid="53" x="1240" y="320" width="40" height="40" rotation="90"/>
+  <object id="6" name="startMob" type="event" gid="150" x="1160" y="320" width="40" height="40" rotation="90"/>
+  <object id="7" name="startMob" type="event" gid="150" x="1200" y="320" width="40" height="40" rotation="90"/>
+  <object id="13" name="stopru" type="event" gid="102" x="160" y="480" width="40" height="40" rotation="90"/>
+  <object id="15" name="stoprd" type="event" gid="102" x="160" y="520" width="40" height="40" rotation="90"/>
+  <object id="16" name="stopld" type="event" gid="102" x="2200" y="920" width="40" height="40" rotation="90"/>
+  <object id="21" name="stoplu" type="event" gid="102" x="2200" y="480" width="40" height="40" rotation="90"/>
+  <object id="22" name="stopld" type="event" gid="102" x="2200" y="520" width="40" height="40" rotation="90"/>
+  <object id="23" name="stoplu" type="event" gid="102" x="2200" y="880" width="40" height="40" rotation="90"/>
+  <object id="24" name="first" type="hint" gid="149" x="1240" y="1120" width="40" height="40" rotation="90"/>
+  <object id="25" name="stoper1" type="npc" gid="51" x="280" y="880" width="40" height="40" rotation="90"/>
+  <object id="26" name="stoper6" type="npc" gid="51" x="280" y="520" width="40" height="40" rotation="90"/>
+  <object id="27" name="stoper5" type="npc" gid="51" x="280" y="480" width="40" height="40" rotation="90"/>
+  <object id="28" name="stoper4" type="npc" gid="51" x="2080" y="920" width="40" height="40" rotation="90"/>
+  <object id="29" name="stoper8" type="npc" gid="51" x="2080" y="520" width="40" height="40" rotation="90"/>
+  <object id="33" name="stoper7" type="npc" gid="51" x="2080" y="480" width="40" height="40" rotation="90"/>
+  <object id="30" name="stoper2" type="npc" gid="51" x="280" y="920" width="40" height="40" rotation="90"/>
+  <object id="31" name="stoper3" type="npc" gid="51" x="2080" y="880" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>

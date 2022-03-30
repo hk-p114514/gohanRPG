@@ -3,6 +3,8 @@ import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { Timeline } from 'classes/Timeline';
+import { Skill } from 'classes/Skill';
+import { Battle } from 'scenes/Battle';
 
 // ダイアログ表示関数
 //引数の書き方： (scene, [{type:'--', text:'~~'}, {}, {}])
@@ -586,11 +588,11 @@ export const firebress = (
     const beforeHp = target.hp.current;
     if (beforeHp) {
       target.beInjured(attacker.buff.getAtk());
-
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
   });
+
   sum = Math.floor(sum / targets.length);
 
   skillDialog(scene, [
