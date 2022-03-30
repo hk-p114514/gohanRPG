@@ -475,7 +475,7 @@ export const throatThirst: SkillFunction = (
   target.buff.setBuff(0, -target.buff.getDef() * 0.2, 3);
   const afterDef = target.buff.getDef();
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のパーサローフ！` },
+    { type: 'dialog', text: `${attacker.name}のスロートサースト！` },
     {
       type: 'dialog',
       text: `${target.name}の防御力が ${Math.abs(beforeDef - afterDef)} 下がった！`,
@@ -625,4 +625,122 @@ export const weedGrudge: SkillFunction = (
     { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
     { type: 'endTimeline' },
   ]);
+};
+
+// エレカ専用技
+// ボイドライス
+export const voidRice: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk() * 1.3);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のボイドライス！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エレカ専用技
+// ミートボールフォール
+export const meatballFall: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk());
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のミートボールフォール！` },
+    { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エレカ専用技
+// ベリカラカリー
+export const veryHotCurry: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beHealed(Math.abs(target.hp.max * 0.5));
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のベリカラカリー！` },
+    { type: 'dialog', text: `${target.name}は${Math.abs(beforeHp - afterHp)}回復した！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エレカ専用技
+// フクピクマウンテン
+export const hukuPickMountain: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  target.buff.setBuff(0, 1000000, 1);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のフクピクマウンテン！` },
+    { type: 'dialog', text: `${attacker.name}の守備力が1ターン大幅アップ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エレカ専用技
+// キーマガトリング
+export const keemaGatling: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  attacker.buff.setBuff(1000000, 0, 1);
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: 'エレカのキーマガトリング！' },
+    { type: 'dialog', text: `ルーのつぶつぶが${target.name}を襲う！` },
+    {
+      type: 'dialog',
+      text: `${target.name}に${Math.abs(beforeHp - afterHp)}のダメージ！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// スピルリクイッド
+export const spillLiquid: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
 };

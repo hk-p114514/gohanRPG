@@ -26,7 +26,16 @@ import burn from '@/assets/characters/static/skeletonb.png';
 import yakitori from '@/assets/characters/static/griffona.png';
 import enken from '@/assets/characters/static/kerberos.png';
 
-import { skills, stateSkills, buffSkills } from 'skills';
+import {
+  skills,
+  stateSkills,
+  buffSkills,
+  ateSkills,
+  bteSkills,
+  melcineSkills,
+  elecaSkills,
+} from 'skills';
+import { Battle } from 'scenes/Battle';
 
 const enemy = {
   slime: new BattleActor({
@@ -254,6 +263,51 @@ const enemy = {
     speed: 9,
     startLevel: 12,
     initSkills: [skills[2], skills[4], skills[5], buffSkills[1]],
+  }),
+
+  // ==================================================
+  ate: new BattleActor({
+    name: 'エーテ',
+    hp: { current: 25, max: 25 },
+    mp: { current: 50, max: 50 },
+    atk: 12,
+    def: 8,
+    speed: 4,
+    startLevel: 5,
+    initSkills: ateSkills,
+  }),
+
+  bte: new BattleActor({
+    name: 'ビーテ',
+    hp: { current: 30, max: 30 },
+    mp: { current: 50, max: 50 },
+    atk: 15,
+    def: 10,
+    speed: 3,
+    startLevel: 8,
+    initSkills: bteSkills,
+  }),
+
+  melcine: new BattleActor({
+    name: 'メルシン',
+    hp: { current: 25, max: 25 },
+    mp: { current: 50, max: 50 },
+    atk: 10,
+    def: 15,
+    speed: 7,
+    startLevel: 11,
+    initSkills: melcineSkills,
+  }),
+
+  eleca: new BattleActor({
+    name: 'エレカ',
+    hp: { current: 50, max: 50 },
+    mp: { current: 50, max: 50 },
+    atk: 20,
+    def: 20,
+    speed: 20,
+    startLevel: 20,
+    initSkills: elecaSkills,
   }),
 };
 

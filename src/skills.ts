@@ -3,20 +3,40 @@ import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 import {
   arthralgiaForAll,
+  artificialFillet,
   atkBuffForAll,
   defBuffForAll,
   diemaho,
+  freezeChin,
+  fruitsPhantom,
+  gingerRain,
   glucosamineForAll,
   heal,
   healContinueForAll,
+  hukuPickMountain,
   isekaitense,
+  keemaGatling,
+  meatballFall,
   nichidaiTacle,
+  noodleCluster,
   onsenryoko,
   paralysisForAll,
+  persaLoaf,
   poisonForAll,
   provocationForAll,
+  sabaleSplash,
+  sauceBigWave,
+  shrimpSwing,
   sleepForAll,
+  soupSpice,
+  swepasWhip,
+  throatThirst,
+  tripleDance,
   uraken,
+  vansPress,
+  veryHotCurry,
+  voidRice,
+  weedGrudge,
 } from 'skillsFunction';
 
 export type SkillFunction = (
@@ -47,4 +67,36 @@ export const stateSkills: Skill[] = [
 export const buffSkills: Skill[] = [
   new Skill('アタックドーピング', atkBuffForAll, false, false),
   new Skill('かたくなる', defBuffForAll, false, false),
+];
+
+export const ateSkills: Skill[] = [
+  new Skill('スイパスウィップ', swepasWhip, false, true),
+  new Skill('バンズプレス', vansPress, false, true),
+  new Skill('パーサローフ', persaLoaf, false, false),
+  new Skill('フルーツファントム', fruitsPhantom, false, true),
+  new Skill('サバレースプラッシュ', sabaleSplash, true, true),
+];
+
+export const bteSkills: Skill[] = [
+  new Skill('エビテンスイング', shrimpSwing, false, true),
+  new Skill('三色の舞', tripleDance, true, true),
+  new Skill('ジンジャーレイン', gingerRain, true, true),
+  new Skill('スロートサースト', throatThirst, false, true),
+  new Skill('ソースビッグウェーブ', sauceBigWave, true, true),
+];
+
+export const melcineSkills: Skill[] = [
+  new Skill('ヌードルクラスタ', noodleCluster, false, true),
+  new Skill('アーティフィカルチャーシュー', artificialFillet, false, true),
+  new Skill('ダーシースパイス', soupSpice, true, true),
+  new Skill('フリーズチャイン', freezeChin, false, true),
+  new Skill('ウィードグルージ', weedGrudge, true, true),
+];
+
+export const elecaSkills: Skill[] = [
+  new Skill('ボイドライス', voidRice, false, true),
+  new Skill('ミートボールフォール', meatballFall, true, true),
+  new Skill('ベリカラカリー', veryHotCurry, false, false),
+  new Skill('フクピクマウンテン', hukuPickMountain, false, false),
+  new Skill('キーマガトリング', keemaGatling, false, true),
 ];
