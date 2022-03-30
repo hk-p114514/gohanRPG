@@ -185,82 +185,202 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const mob1: Timelines = {
+export const beBijinesuman: Timelines = {//sample019.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '魔王の影響が僕のビジネスにまで及んできた...\n誰か倒してくれないかなぁ。',
+      actorName: 'ビジネスマン',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob2: Timelines = {
+export const beJK1: Timelines = {//sample018.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob3: Timelines = {
+export const beJK2: Timelines = {//sample017.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob4: Timelines = {
+export const beTyuubou: Timelines = {//sample015.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '魔王なんてオレのこの腕の力で...ブツブツ',
+      actorName: '中坊',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob5: Timelines = {
+export const beEruhu: Timelines = {//sample005.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
+      actorName: 'エルフ',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob6: Timelines = {
+export const beKisi: Timelines = {//sample003.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
+      actorName: '騎士',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob7: Timelines = {
+export const beMajo: Timelines = {//sample006.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
+      actorName: '怪しげな魔女',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob8: Timelines = {
+export const beSyoujo: Timelines = {//sample012.png
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
+      text: '私も魔法少女プリラみたいに大きくなったら悪い奴を退治するのー。',
+      actorName: '少女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beRoujin: Timelines = {//sample013.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'おぬしのその装備...さては魔王退治じゃな？\nほっほっほっ、頼もしい若者も居たもんじゃ。',
+      actorName: '老人',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afBijinesuman: Timelines = {//sample019.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王軍のやつらが減って僕のビジネスが好調だよ！ありがとう！',
+      actorName: 'ビジネスマン',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afJK1: Timelines = {//sample018.png
+  start: [
+    {
+      type: 'dialog',
+      text: '門限ちょっとは',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afJK2: Timelines = {//sample017.png
+  start: [
+    {
+      type: 'dialog',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afTyuubou: Timelines = {//sample015.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王なんてオレのこの腕の力で...ブツブツ',
+      actorName: '中坊',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afEruhu: Timelines = {//sample005.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
+      actorName: 'エルフ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afKisi: Timelines = {//sample003.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
+      actorName: '騎士',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afMajo: Timelines = {//sample006.png
+  start: [
+    {
+      type: 'dialog',
+      text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
+      actorName: '怪しげな魔女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afSyoujo: Timelines = {//sample012.png
+  start: [
+    {
+      type: 'dialog',
+      text: '私も魔法少女プリラみたいに大きくなったら悪い奴を退治するのー。',
+      actorName: '少女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afRoujin: Timelines = {//sample013.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'おぬしのその装備...さては魔王退治じゃな？\nほっほっほっ、頼もしい若者も居たもんじゃ。',
+      actorName: '老人',
     },
     { type: 'endTimeline' },
   ],
