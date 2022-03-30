@@ -104,24 +104,42 @@ export const provocationForAll: SkillFunction = (
   });
 };
 
-export const atkBuffForAll: SkillFunction = (
+// アタックドーピング
+export const attackdoping: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
-  targets.forEach((target) => {
-    target.buff.setBuff(100, 0, 3);
-  });
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.buff.setBuff(100, 0, 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のアタックドーピング！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 攻撃力が上がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
 };
 
-export const defBuffForAll: SkillFunction = (
+// かたくなる
+export const katakunaru: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
-  targets.forEach((target) => {
-    target.buff.setBuff(0, 100, 3);
-  });
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.buff.setBuff(0, 100, 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のかたくなる！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 防御力が上がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
 };
 
 export const highHealForAll = (attacker: BattleActor, targets: BattleActor[]) => {
@@ -268,9 +286,240 @@ export const isekaitense = (
   ]);
 };
 
-// エーテ用専用技
-// スイパスウィップ
-export const swepasWhip: SkillFunction = (
+// 毒胞子
+export const dokuhoushi: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('poison', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の毒胞子！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 毒状態になった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// パラライズ
+export const pararaizu: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('paralysis', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のパラライズ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は マヒ状態になった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// バットモビール
+export const batmobiru = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  let sum: number = 0;
+  targets.forEach((target) => {
+    const beforeHp = target.hp.current;
+    if (beforeHp) {
+      target.beInjured(attacker.buff.getAtk());
+
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  sum = Math.floor(sum / targets.length);
+
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のバットモビール！` },
+    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// インサート
+export const insert = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+  rate: number = 0.4,
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  let text: string;
+  const beforeHp = target.hp.current;
+  target.beHealed(target.hp.max * rate);
+  const afterHp = target.hp.current;
+  if (beforeHp - afterHp === 0) {
+    text = `${target.name}のHPは満タンだった...`;
+  } else {
+    text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
+  }
+  console.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のインサート！` },
+    { type: 'dialog', text: text },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ポップ
+export const pop = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のポップ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// 木漏れ日
+export const komorebi: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('sleep', 1);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の木漏れ日！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 眠り状態になった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ハニーハント
+export const hanihant = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  let sum: number = 0;
+  targets.forEach((target) => {
+    const beforeHp = target.hp.current;
+    if (beforeHp) {
+      target.beInjured(attacker.buff.getAtk());
+
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  sum = Math.floor(sum / targets.length);
+
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のハニーハント！` },
+    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// 羽交い締め
+export const hagaizime: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('arthralgia', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の羽交い締め！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 関節痛状態になった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ブレイクダンス
+export const breakdance: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('provocation', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のブレイクダンス！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 挑発し始めた！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ノリノリダンス
+export const norinoridance = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+  rate: number = 0.4,
+) => {
+  let sum: number = 0;
+  targets.forEach((target) => {
+    const beforeHp = target.hp.current;
+    if (beforeHp) {
+      target.beHealed(target.hp.max * rate);
+
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+    console.log(
+      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
+    );
+  });
+  sum = Math.floor(sum / targets.length);
+
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のノリノリダンス！` },
+    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// 咀嚼
+export const soshaku: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('poison', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の咀嚼！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 毒状態になった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// はさみこむ
+export const hasamikom = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -281,7 +530,7 @@ export const swepasWhip: SkillFunction = (
   target.beInjured(attacker.buff.getAtk());
   const afterHp = target.hp.current;
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のスイパスウィップ！` },
+    { type: 'dialog', text: `${attacker.name}のはさみこむ！` },
     {
       type: 'dialog',
       text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
@@ -290,95 +539,112 @@ export const swepasWhip: SkillFunction = (
   ]);
 };
 
-// エーテ専用技
-// バンズプレス
-export const vansPress: SkillFunction = (
+// 同情を誘う
+export const doujou: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.5);
-  const afterHp = target.hp.current;
+  target.state.activeState('poison', 3);
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のバンズプレス！` },
+    { type: 'dialog', text: `${attacker.name}の同情を誘う！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は 毒状態になった！`,
     },
     { type: 'endTimeline' },
   ]);
 };
 
-// エーテ専用技
-// パーサローフ
-export const persaLoaf: SkillFunction = (
+// 過呼吸
+export const kakokyu: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeAtk = target.buff.getAtk();
-  target.buff.setBuff(target.buff.getAtk() * 0.2, 0, 3);
-  const afterAtk = target.buff.getAtk();
+  target.state.activeState('sleep', 1);
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のパーサローフ！` },
+    { type: 'dialog', text: `${attacker.name}の過呼吸！` },
     {
       type: 'dialog',
-      text: `${target.name}の攻撃力が ${Math.abs(beforeAtk - afterAtk)} 上がった！`,
+      text: `${target.name}は 眠り状態になった！`,
     },
     { type: 'endTimeline' },
   ]);
 };
 
-// エーテ専用技
-// フルーツファントム
-export const fruitsPhantom: SkillFunction = (
-  scene: Scene,
-  attacker: BattleActor,
-  targets: BattleActor[],
-  rate: number = 0.2,
-) => {
-  if (!targets.length) return;
-  const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * rate);
-  const afterHp = target.hp.current;
-  skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のフルーツファントム！` },
-    {
-      type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
-    },
-  ]);
-};
-
-// エーテ専用技
-// サバレースプラッシュ
-export const sabaleSplash: SkillFunction = (
+// ファイヤーブレス
+export const firebress = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
-  if (!targets.length) return;
-  let sum = 0,
-    num = 0;
-  targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 2);
+  let sum: number = 0;
+  targets.forEach((target) => {
+    const beforeHp = target.hp.current;
+    if (beforeHp) {
+      target.beInjured(attacker.buff.getAtk());
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
   });
+
+  sum = Math.floor(sum / targets.length);
+
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のサバレースプラッシュ！` },
-    { type: 'dialog', text: `眼球にレモンの汁が襲い来る！` },
-    { type: 'dialog', text: `平均${sum / num}のダメージ！` },
+    { type: 'dialog', text: `${attacker.name}のファイヤーブレス！` },
+    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// プレゼントボーナス
+export const presentbonus = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+  rate: number = 0.4,
+) => {
+  let sum: number = 0;
+  targets.forEach((target) => {
+    const beforeHp = target.hp.current;
+
+    target.beHealed(target.hp.max * rate);
+
+    const afterHp = target.hp.current;
+    sum += Math.abs(beforeHp - afterHp);
+    console.log(
+      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
+    );
+  });
+  sum = Math.floor(sum / targets.length);
+
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のプレゼントボーナス！` },
+    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ブレスケア
+export const bresscare: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  target.state.activeState('heal', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のブレスケア！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は 温かい気持ちになった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
