@@ -16,6 +16,7 @@ export class System {
   public isBattle: boolean = false;
   public battling?: Battling;
   public bossflag: Map<string, boolean> = new Map();
+  public collidesFlag = false;
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
