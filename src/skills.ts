@@ -31,7 +31,7 @@ export const skills: Skill[] = [
   new Skill('日大災害誤射タックル', nichidaiTacle, true, true),
   new Skill('ヒール', heal, false, false),
   new Skill('温泉旅行', onsenryoko, true, false), // 全体回復
-  new Skill('伊勢回転性', isekaitense, true, false), // 復活(予定)
+  new Skill('伊勢回転性', isekaitense, true, false, true), // 復活(予定)
 ];
 
 export const stateSkills: Skill[] = [
@@ -41,10 +41,10 @@ export const stateSkills: Skill[] = [
   new Skill('ハードぎ', sleepForAll, false, true),
   new Skill('ヒザカックン', arthralgiaForAll, false, true),
   new Skill('せたがやそだち', glucosamineForAll, false, false),
-  new Skill('wmail from k-kenta', provocationForAll, false, true),
+  new Skill('wmail from k-kenta', provocationForAll, false, false),
 ];
 
 export const buffSkills: Skill[] = [
   new Skill('アタックドーピング', atkBuffForAll, false, false),
-  new Skill('ディフェンス注射', defBuffForAll, false, false),
+  new Skill('かたくなる', defBuffForAll, false, false),
 ];
