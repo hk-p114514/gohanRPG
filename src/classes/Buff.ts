@@ -12,6 +12,10 @@ export class Buff {
     this.rmBuffsIndex = [];
   }
 
+  public initBuff(): void {
+    this.buffs = [];
+  }
+
   public buffProcess(): void {
     this.rmBuffsIndex.splice(0, this.rmBuffsIndex.length);
     this.buffs.forEach((buff: BuffInfo) => {
@@ -42,7 +46,7 @@ export class Buff {
     if (atk <= 0) {
       atk = 1;
     }
-    return atk;
+    return Math.floor(atk);
   }
 
   public getDef(): number {
@@ -53,7 +57,7 @@ export class Buff {
     if (def <= 0) {
       def = 1;
     }
-    return def;
+    return Math.floor(def);
   }
 }
 

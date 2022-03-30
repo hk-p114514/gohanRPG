@@ -15,7 +15,6 @@ import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 import { select } from 'classes/timelineWords';
 // values
-import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
 import { charas } from 'classes/Characters';
 import { map, events, hints, npcs, funcs, names } from 'classes/exam';
@@ -24,6 +23,7 @@ import { sceneKeys } from './sceneKeys';
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { marc } from 'friends';
+import { randI } from 'functions/generalPurpose/rand';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -43,6 +43,7 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
+  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
 
   constructor(private json: string, public name: string) {
@@ -153,6 +154,9 @@ export class Map extends Scene {
       this.moveBattle();
     });
 
+    const G = this.input.keyboard.addKey('G').on('down', () => {
+      system.collidesFlag = !system.collidesFlag;
+    });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -204,6 +208,7 @@ export class Map extends Scene {
       // タイルの位置を取得
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
+      this.xy = new Phaser.Math.Vector2(tileX, tileY);
       this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
     }
 
@@ -215,32 +220,37 @@ export class Map extends Scene {
     // Debug graphics
     this.enableDebugMode();
   }
-  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
+
+  public battleflag: boolean = true;
   public update(_time: number, delta: number) {
-    if (!this.gridPhysics?.isMoving()) {
-      if (!!this.player) {
-        let nxy = this.player.getTilePos();
-        if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
-          this.xy = this.player.getTilePos();
-          //踏むイベントの確認
-          if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
-            let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
-            this.scene.launch(sceneKeys.timelinePlayer, {
-              anotherScene: this,
-              timelinedata: n,
-            });
-          } else if (this.tileMap?.hasTileAt(this.xy.x, this.xy.y, 'www')) {
-            console.log('?');
+    if (this.battleflag) {
+      if (!this.gridPhysics?.isMoving()) {
+        if (!!this.player) {
+          let nxy = this.player.getTilePos();
+          const { x, y } = this.xy;
+          if (x === undefined || y === undefined) return;
+          if (x !== nxy.x || y !== nxy.y) {
+            this.xy = this.player.getTilePos();
+            //踏むイベントの確認
+            if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
+              let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
+              this.scene.launch(sceneKeys.timelinePlayer, {
+                anotherScene: this,
+                timelinedata: n,
+              });
+            } else if (!randI(20)) {
+              this.moveBattle();
+            }
+          } else {
+            this.gridControls?.update();
+            //console.log(this.player.getSprite());
           }
-        } else {
-          this.gridControls?.update();
-          //console.log(this.player.getSprite());
+          //console.log(system.map + ',' + xy.x + ',' + xy.y);
         }
-        //console.log(system.map + ',' + xy.x + ',' + xy.y);
+        //console.log(this.player?.getTilePos());
       }
-      //console.log(this.player?.getTilePos());
+      this.gridPhysics?.update(delta);
     }
-    this.gridPhysics?.update(delta);
   }
   public log?: Phaser.GameObjects.Sprite;
   public boss?: Phaser.GameObjects.Sprite;
@@ -251,14 +261,10 @@ export class Map extends Scene {
   }
   //話しかけた奴が振り向くイベント
   public createEvents() {
-    // funcs.set(this.name + ',flash', (s: any[]) => {
-    //   this.cameras.main.fadeIn(10);
-    //   //this.cameras.main.fadeOut();
-    // });
-    // funcs.set(this.name + ',open', (s: any[]) => {});
-    // funcs.set(this.name + ',delete', (s: any[]) => {
-    //   system.bossflag.set(s[0], false);
-    // });
+    funcs.set(this.name + ',judge', (s: any[]) => {
+      return system.bossflag.get(s[0]);
+    });
+    funcs.set(this.name + ',open', (s: any[]) => {});
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
@@ -271,8 +277,13 @@ export class Map extends Scene {
       }
     });
     funcs.set(this.name + ',event', (s: any[]) => {
-      events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
-      names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+      if (s[4] === undefined) {
+        events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+        names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+      } else {
+        events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
+        names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+      }
     });
     funcs.set(this.name + ',talk', () => {
       if (!!this.player) {
@@ -326,6 +337,7 @@ export class Map extends Scene {
     //bossを消し去るイベント
     funcs.set(this.name + ',break', (s: any[]) => {
       this.boss?.destroy();
+      system.bossflag.set(s[0], true);
     });
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
@@ -374,14 +386,15 @@ export class Map extends Scene {
 
   moveBattle() {
     if (!getEnemies(system.map).length) return;
+    this.battleflag = false;
     const effectsTime = 500;
-    this.cameras.main.shake(effectsTime);
-    this.cameras.main.flash(effectsTime);
+    // this.cameras.main.shake(effectsTime);
+    // this.cameras.main.flash(effectsTime);
     // カメラのシェイクを終了するまで待つ
-    this.time.delayedCall(effectsTime, () => {
-      // switch -> sleep + start
-      this.scene.switch(sceneKeys.battle);
-    });
+    // this.time.delayedCall(effectsTime, () => {});
+    // switch -> sleep + start
+    this.scene.switch(sceneKeys.battle);
+    this.battleflag = true;
   }
 
   public enableDebugMode() {

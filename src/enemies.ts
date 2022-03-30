@@ -26,7 +26,16 @@ import burn from '@/assets/characters/static/skeletonb.png';
 import yakitori from '@/assets/characters/static/griffona.png';
 import enken from '@/assets/characters/static/kerberos.png';
 
-import { skills, stateSkills, buffSkills } from 'skills';
+import {
+  skills,
+  stateSkills,
+  buffSkills,
+  ateSkills,
+  bteSkills,
+  melcineSkills,
+  elecaSkills,
+} from 'skills';
+import { Battle } from 'scenes/Battle';
 
 const enemy = {
   slime: new BattleActor({
@@ -49,7 +58,7 @@ const enemy = {
     def: 1,
     speed: 3,
     startLevel: 1,
-    initSkills: [stateSkills[2], buffSkills[1]],
+    initSkills: [stateSkills[0], buffSkills[1]],
   }),
   batman: new BattleActor({
     name: 'バットマン',
@@ -60,7 +69,7 @@ const enemy = {
     def: 4,
     speed: 1,
     startLevel: 2,
-    initSkills: [skills[2], skills[3], buffSkills[1]],
+    initSkills: [skills[1], skills[2], buffSkills[1]],
   }),
   abTree: new BattleActor({
     name: '外見二分木',
@@ -71,7 +80,7 @@ const enemy = {
     def: 1,
     speed: 5,
     startLevel: 3,
-    initSkills: [skills[1], stateSkills[2], skills[2], stateSkills[3]],
+    initSkills: [skills[3], skills[4], stateSkills[1], stateSkills[2]],
   }),
   hangedBear: new BattleActor({
     name: '†ハングドベア†',
@@ -82,7 +91,7 @@ const enemy = {
     def: 3,
     speed: 3,
     startLevel: 4,
-    initSkills: [skills[1], skills[3], stateSkills[4], stateSkills[6]],
+    initSkills: [skills[5], skills[6], stateSkills[3], stateSkills[4]],
   }),
 
   // ============================================-
@@ -95,7 +104,7 @@ const enemy = {
     def: 3,
     speed: 2,
     startLevel: 3,
-    initSkills: [skills[3]],
+    initSkills: [skills[0]],
   }),
   sabagiza: new BattleActor({
     name: 'サバギザ',
@@ -106,7 +115,7 @@ const enemy = {
     def: 2,
     speed: 5,
     startLevel: 4,
-    initSkills: [stateSkills[2], stateSkills[3]],
+    initSkills: [skills[7], stateSkills[1]],
   }),
   tsuchinoko: new BattleActor({
     name: 'その辺のツチノコ',
@@ -117,7 +126,7 @@ const enemy = {
     def: 2,
     speed: 8,
     startLevel: 4,
-    initSkills: [skills[0], skills[3], stateSkills[6]],
+    initSkills: [skills[0], skills[2], stateSkills[5]],
   }),
   bloodScorpion: new BattleActor({
     name: 'けっせんサソリ',
@@ -128,7 +137,7 @@ const enemy = {
     def: 9,
     speed: 2,
     startLevel: 4,
-    initSkills: [skills[1], stateSkills[0], stateSkills[1], buffSkills[1]],
+    initSkills: [skills[8], stateSkills[6], stateSkills[7], buffSkills[1]],
   }),
   formerBoss: new BattleActor({
     name: '元ボス',
@@ -139,7 +148,7 @@ const enemy = {
     def: 6,
     speed: 3,
     startLevel: 5,
-    initSkills: [skills[1], skills[2], stateSkills[1], buffSkills[0]],
+    initSkills: [skills[9], skills[10], stateSkills[8], buffSkills[0]],
   }),
 
   // ===========================================================
@@ -159,11 +168,11 @@ const enemy = {
     spriteSrc: konjacJelly,
     hp: { current: 4, max: 4 },
     mp: { current: 30, max: 30 },
-    atk: 4,
+    atk: 3,
     def: 4,
     speed: 5,
     startLevel: 4,
-    initSkills: [stateSkills[2], buffSkills[1]],
+    initSkills: [stateSkills[9], buffSkills[1]],
   }),
   arrestLock: new BattleActor({
     name: '軟禁錠',
@@ -171,32 +180,32 @@ const enemy = {
     hp: { current: 6, max: 6 },
     mp: { current: 30, max: 30 },
     atk: 4,
-    def: 5,
+    def: 6,
     speed: 3,
     startLevel: 5,
-    initSkills: [skills[0], skills[1], skills[3]],
+    initSkills: [skills[11], skills[12], skills[13]],
   }),
   entrance: new BattleActor({
     name: '入り口',
     spriteSrc: entrance,
     hp: { current: 8, max: 8 },
     mp: { current: 30, max: 30 },
-    atk: 5,
+    atk: 7,
     def: 4,
     speed: 5,
     startLevel: 6,
-    initSkills: [skills[3], skills[4], stateSkills[0], stateSkills[3]],
+    initSkills: [skills[14], skills[15], stateSkills[10], stateSkills[11]],
   }),
   riverDam: new BattleActor({
     name: '都田川ダム',
     spriteSrc: riverDam,
     hp: { current: 10, max: 10 },
     mp: { current: 30, max: 30 },
-    atk: 6,
-    def: 8,
+    atk: 5,
+    def: 9,
     speed: 2,
     startLevel: 8,
-    initSkills: [skills[2], skills[4], stateSkills[4], buffSkills[1]],
+    initSkills: [skills[16], skills[17], stateSkills[12], buffSkills[1]],
   }),
 
   // ==================================================
@@ -220,7 +229,7 @@ const enemy = {
     def: 5,
     speed: 7,
     startLevel: 8,
-    initSkills: [skills[0], stateSkills[0]],
+    initSkills: [skills[18], buffSkills[2]],
   }),
   burn: new BattleActor({
     name: 'おおやけど',
@@ -231,7 +240,7 @@ const enemy = {
     def: 8,
     speed: 3,
     startLevel: 9,
-    initSkills: [skills[4], stateSkills[4], buffSkills[1]],
+    initSkills: [skills[19], stateSkills[13], buffSkills[1]],
   }),
   yakitori: new BattleActor({
     name: 'Yakitori',
@@ -242,18 +251,63 @@ const enemy = {
     def: 2,
     speed: 10,
     startLevel: 9,
-    initSkills: [skills[1], skills[2], skills[3], buffSkills[0]],
+    initSkills: [skills[20], skills[21], skills[22], buffSkills[3]],
   }),
   enken: new BattleActor({
     name: 'えんけんさん',
     spriteSrc: enken,
-    hp: { current: 15, max: 15 },
+    hp: { current: 12, max: 12 },
     mp: { current: 40, max: 40 },
-    atk: 9,
-    def: 9,
-    speed: 9,
+    atk: 8,
+    def: 8,
+    speed: 8,
     startLevel: 12,
-    initSkills: [skills[2], skills[4], skills[5], buffSkills[1]],
+    initSkills: [skills[23], skills[24], skills[25], buffSkills[4]],
+  }),
+
+  // ==================================================
+  ate: new BattleActor({
+    name: 'エーテ',
+    hp: { current: 25, max: 25 },
+    mp: { current: 50, max: 50 },
+    atk: 12,
+    def: 8,
+    speed: 4,
+    startLevel: 5,
+    initSkills: ateSkills,
+  }),
+
+  bte: new BattleActor({
+    name: 'ビーテ',
+    hp: { current: 30, max: 30 },
+    mp: { current: 50, max: 50 },
+    atk: 15,
+    def: 10,
+    speed: 3,
+    startLevel: 8,
+    initSkills: bteSkills,
+  }),
+
+  melcine: new BattleActor({
+    name: 'メルシン',
+    hp: { current: 25, max: 25 },
+    mp: { current: 50, max: 50 },
+    atk: 10,
+    def: 15,
+    speed: 7,
+    startLevel: 11,
+    initSkills: melcineSkills,
+  }),
+
+  eleca: new BattleActor({
+    name: 'エレカ',
+    hp: { current: 50, max: 50 },
+    mp: { current: 50, max: 50 },
+    atk: 20,
+    def: 20,
+    speed: 20,
+    startLevel: 20,
+    initSkills: elecaSkills,
   }),
 };
 

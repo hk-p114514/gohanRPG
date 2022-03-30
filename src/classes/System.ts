@@ -16,15 +16,14 @@ export class System {
   public isBattle: boolean = false;
   public battling?: Battling;
   public bossflag: Map<string, boolean> = new Map();
+  public collidesFlag = false;
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
-    this.bossflag.set('beforeAte', true);
-    this.bossflag.set('afterAte', true);
-    this.bossflag.set('map3', true);
-    this.bossflag.set('map4', true);
-    this.bossflag.set('map5', true);
-    this.bossflag.set('map6', true);
+    this.bossflag.set('Ate', false);
+    this.bossflag.set('Bte', false);
+    this.bossflag.set('Melcine', false);
+    this.bossflag.set('Eleca', false);
   }
 
   public preload() {}

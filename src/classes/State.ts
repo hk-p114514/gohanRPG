@@ -28,8 +28,8 @@ export class State {
     this.skillBuff = 0;
     this.isProvocation = false;
 
-    this.poisonDamage = 1;
-    this.healDamage = 1;
+    this.poisonDamage = Math.floor(actor.hp.max * 0.1);
+    this.healDamage = Math.floor(actor.hp.max * 0.1);
     this.paralysisProbability = 2;
     this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
@@ -51,7 +51,7 @@ export class State {
       remain: 0,
     });
     this.states.set('arthralgia', {
-      name: 'arthralgiaBuff',
+      name: 'arthralgia',
       remain: 0,
     });
     this.states.set('glucosamine', {
@@ -70,6 +70,12 @@ export class State {
     this.statesName.set('arthralgia', '関節痛');
     this.statesName.set('glucosamine', 'グルコサミン');
     this.statesName.set('provocation', '挑発');
+  }
+
+  public initState(): void {
+    this.states.forEach((state: StateInfo) => {
+      this.passiveState(state.name);
+    });
   }
 
   /**

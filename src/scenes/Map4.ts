@@ -20,10 +20,11 @@ import {
   afterMelcineBattle,
   warp0,
 } from 'classes/timelineWords';
+import { funcs } from 'classes/exam';
 
-export class Map3 extends Map {
+export class Map4 extends Map {
   constructor() {
-    super(json[3], sceneKeys.map3);
+    super(json[4], sceneKeys.map4);
   }
   preload() {
     super.preload();
@@ -52,17 +53,30 @@ export class Map3 extends Map {
     super.setHint('woopstart', warpstart);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
+    funcs.set(this.name + ',zoomUp', (s: any[]) => {
+      this.zoomUp();
+    });
+    funcs.set(this.name + ',zoomOut', (s: any[]) => {
+      this.zoomDown();
+    });
     enter.on('down', () => {
       system.map = sceneKeys.map1;
 
       system.switchMap(this, sceneKeys.map1);
     });
-
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});
   }
 
   public update(_time: number, delta: number): void {
     super.update(_time, delta);
+  }
+
+  zoomUp() {
+    this.cameras.main.zoomTo(2, 1000);
+  }
+
+  zoomDown() {
+    this.cameras.main.zoomTo(1, 1000);
   }
 }
