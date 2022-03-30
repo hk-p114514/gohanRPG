@@ -1929,6 +1929,89 @@ export const afterObcBattle: Timelines = {
       actorName: 'マルク',
       text: 'さて、新聞でも呼んで、3チャンでヤトウ叩きでもするでござるか〜',
     },
+    { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
+    { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'endTimeline' },
+  ],
+};
+export const explanation = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'おい、そこの若者！' },
+    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'して若者よ、食堂に行くのになにか策はあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'サバ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'これもうそのまま行っちゃっていいかな…',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stop: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
+    { type: 'endTimeline' },
   ],
 };
 //Events
