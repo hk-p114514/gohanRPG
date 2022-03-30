@@ -156,7 +156,7 @@ export const tutorial1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: "主人公の移動は十字keyで行います。",
+      text: '主人公の移動は十字keyで行います。',
       actorName: '識者',
     },
     {
@@ -209,6 +209,86 @@ export const tutorial1: Timelines = {
       actorName: 'マルク',
     },
     //GameOverにする。
+    { type: 'endTimeline' },
+  ],
+};
+export const explanation = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'おい、そこの若者！' },
+    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'して若者よ、食堂に行くのになにか策はあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'サバ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'これもうそのまま行っちゃっていいかな…',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stop: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -328,10 +408,7 @@ export const mob8: Timelines = {
   ],
 };
 export const warp0: Timelines = {
-  start: [
-    { type: 'switch', scene: 'map0' },
-    { type: 'endTimeline' },
-  ],
+  start: [{ type: 'switch', scene: 'map0' }, { type: 'endTimeline' }],
 };
 export const warp1: Timelines = {
   start: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
@@ -362,7 +439,7 @@ export const warp5: Timelines = {
 export const hint1: Timelines = {
   start: [
     { type: 'dialog', text: '古びた看板がある。' },
-    { type: 'dialog', text: 'かすれた文字で何か書いてある！',},
+    { type: 'dialog', text: 'かすれた文字で何か書いてある！' },
     {
       type: 'dialog',
       text: 'ガイアミアイガミガアミイ',
@@ -390,7 +467,7 @@ export const explanation1: Timelines = {
 };
 export const stone1: Timelines = {
   start: [
-    { type: 'dialog', text: 'かすれた文字で何か書いてある！',},
+    { type: 'dialog', text: 'かすれた文字で何か書いてある！' },
     { type: 'dialog', text: 'この石碑はガクルックスを祀りしもの' },
     { type: 'dialog', text: '森の...から...上に...' },
     { type: 'event', event: 'log', many: ['player', 1] },
@@ -401,7 +478,7 @@ export const stone1: Timelines = {
 };
 export const stone2: Timelines = {
   start: [
-    { type: 'dialog', text: 'かすれた文字で何か書いてある！',},
+    { type: 'dialog', text: 'かすれた文字で何か書いてある！' },
     { type: 'dialog', text: 'この石碑はアクルックスを祀りしもの' },
     { type: 'dialog', text: 'ギナンに...近い...進んだ...' },
     { type: 'event', event: 'log', many: ['player', 1] },
@@ -412,7 +489,7 @@ export const stone2: Timelines = {
 };
 export const stone3: Timelines = {
   start: [
-    { type: 'dialog', text: 'かすれた文字で何か書いてある！',},
+    { type: 'dialog', text: 'かすれた文字で何か書いてある！' },
     { type: 'dialog', text: 'この石碑はミモザを祀りしもの' },
     { type: 'dialog', text: '最も...真っすぐ...地に...' },
     { type: 'event', event: 'log', many: ['player', 1] },
@@ -423,7 +500,7 @@ export const stone3: Timelines = {
 };
 export const stone4: Timelines = {
   start: [
-    { type: 'dialog', text: 'かすれた文字で何か書いてある！',},
+    { type: 'dialog', text: 'かすれた文字で何か書いてある！' },
     { type: 'dialog', text: 'この石碑はイマイを祀りしもの' },
     { type: 'dialog', text: '主は...丸...眠る...' },
     { type: 'event', event: 'log', many: ['player', 1] },
@@ -647,7 +724,11 @@ export const addShiden: Timelines = {
     { type: 'event', event: 'chdir', many: ['Shiden', 'up'] },
     { type: 'event', event: 'chdir', many: ['player', 'down'] },
     { type: 'event', event: 'log', many: ['player', 5] },
-    { type: 'dialog', actorName: 'マルク', text: 'そんじゃ、俺はこれで。\n世話になったな。' },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'そんじゃ、俺はこれで。\n世話になったな。',
+    },
     { type: 'event', event: 'relog', many: [] },
     { type: 'dialog', actorName: 'シデン', text: '…なぁ、俺も連れて行ってくれないか。' },
     { type: 'event', event: 'log', many: ['player', 3] },
@@ -1308,7 +1389,11 @@ export const afterBteBattle: Timelines = {
     { type: 'event', event: 'relog', many: [] },
     { type: 'event', event: 'chdir', many: ['player', 'left'] },
     { type: 'event', event: 'chdir', many: ['Shiden', 'right'] },
-    { type: 'dialog', actorName: 'マルク', text: '大口叩いてた割には、って感じだったな。' },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: '大口叩いてた割には、って感じだったな。',
+    },
     { type: 'dialog', actorName: 'シデン', text: '同感だ。' },
     { type: 'event', event: 'bosslog', many: [4] },
     { type: 'event', event: 'chdir', many: ['player', 'up'] },
@@ -1680,7 +1765,11 @@ export const beforeMelcineBattle: Timelines = {
 export const afterMelcineBattle: Timelines = {
   start: [
     { type: 'event', event: 'bosslog', many: [3] },
-    { type: 'dialog', actorName: 'メルシン', text: 'ぬぅ、このワタクシが、敗れるなど…。' },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'ぬぅ、このワタクシが、敗れるなど…。',
+    },
     { type: 'event', event: 'bosslog', many: [2] },
     {
       type: 'dialog',
@@ -1837,7 +1926,11 @@ export const beforeElecaBattle: Timelines = {
       text: 'あら、なかなか見る目がある仲間を連れてるじゃない。',
     },
     { type: 'event', event: 'log', many: ['Shiden', 3] },
-    { type: 'dialog', actorName: 'シデン', text: 'なんだこいつ…今までのとは気迫が違う…。' },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'なんだこいつ…今までのとは気迫が違う…。',
+    },
     { type: 'event', event: 'log', many: ['player', 1] },
     {
       type: 'dialog',
@@ -2220,5 +2313,7 @@ export const afterObcBattle: Timelines = {
       actorName: 'マルク',
       text: 'さて、新聞でも呼んで、3チャンでヤトウ叩きでもするでござるか〜。',
     },
+    { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
+    { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
   ],
 };

@@ -51,7 +51,7 @@ export class State {
       remain: 0,
     });
     this.states.set('arthralgia', {
-      name: 'arthralgiaBuff',
+      name: 'arthralgia',
       remain: 0,
     });
     this.states.set('glucosamine', {
@@ -70,6 +70,12 @@ export class State {
     this.statesName.set('arthralgia', '関節痛');
     this.statesName.set('glucosamine', 'グルコサミン');
     this.statesName.set('provocation', '挑発');
+  }
+
+  public initState(): void {
+    this.states.forEach((state: StateInfo) => {
+      this.passiveState(state.name);
+    });
   }
 
   /**
