@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
-import { skillDialog } from 'skillsFunction/skillsFunction';
+import { skillDialog } from 'skillsFunction/skillDialog';
 import { randI } from 'functions/generalPurpose/rand';
 
 // エーテ用専用技

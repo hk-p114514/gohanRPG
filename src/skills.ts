@@ -34,7 +34,7 @@ import {
   sleepForAll,
   soshaku,
   uraken,
-} from 'skillsFunction/skillsFunction';
+} from 'skillsFunction/enemySkillsFunction';
 import {
   artificialFillet,
   freezeChin,

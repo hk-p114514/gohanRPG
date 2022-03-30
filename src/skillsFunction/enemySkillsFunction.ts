@@ -1,20 +1,12 @@
 import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
+import { skillDialog } from './skillDialog';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { Timeline } from 'classes/Timeline';
 import { Skill } from 'classes/Skill';
 import { Battle } from 'scenes/Battle';
 import { randI } from 'functions/generalPurpose/rand';
-
-// ダイアログ表示関数
-//引数の書き方： (scene, [{type:'--', text:'~~'}, {}, {}])
-export const skillDialog = (scene: Scene, timelineData: Timeline) => {
-  scene.scene.launch(sceneKeys.timelinePlayer, {
-    anotherScene: scene,
-    timelinedata: { start: timelineData },
-  });
-};
 
 export const attackForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
