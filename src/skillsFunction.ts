@@ -472,7 +472,7 @@ export const throatThirst: SkillFunction = (
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   const beforeDef = target.buff.getDef();
-  target.buff.setBuff(-target.buff.getDef() * 0.2, 0, 3);
+  target.buff.setBuff(0, -target.buff.getDef() * 0.2, 3);
   const afterDef = target.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のパーサローフ！` },
@@ -506,6 +506,122 @@ export const sauceBigWave: SkillFunction = (
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のソースビッグウェーブ！` },
     { type: 'dialog', text: `大盛り1杯分のソースが全てを飲み込む！` },
+    { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// メルシン専用技
+// ヌードルクラスタ
+export const noodleCluster: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk() * 0.7);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のヌードルクラスタ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// メルシン専用技
+// アーティフィカルチャーシュー
+export const artificialFillet: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeAtk = target.buff.getAtk();
+  const beforeDef = target.buff.getDef();
+  target.buff.setBuff(-target.buff.getAtk() * 0.3, -target.buff.getDef() * 0.3, 5);
+  const afterAtk = target.buff.getAtk();
+  const afterDef = target.buff.getDef();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のアーティフィカルチャーシュー！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の攻撃力が ${Math.abs(beforeAtk - afterAtk)} 下がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${target.name}の防御力が ${Math.abs(beforeDef - afterDef)} 下がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// メルシン専用技
+// ダーシースパイス
+export const soupSpice: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      target.state.activeState('poison', 2);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のダーシースパイス！` },
+    { type: 'dialog', text: `仲間たちは毒状態になってしまった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// メルシン専用技
+// フリーズチャイン
+export const freezeChin: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  targets[0].state.activeState('arthralgia', 2);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のフリーズチャイン！` },
+    { type: 'dialog', text: `${target.name}は使える技が減った！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// メルシン専用技
+// ウィードグルージ
+export const weedGrudge: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk() * 2);
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+      target.state.activeState('sleep', randI(3, 1));
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のウィードグルージ！` },
+    { type: 'dialog', text: '食べ残されたワカメの怨念が襲い来る！' },
+    { type: 'dialog', text: '仲間たちは眠ってしまった！' },
     { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
     { type: 'endTimeline' },
   ]);
