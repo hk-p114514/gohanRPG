@@ -11,6 +11,8 @@ import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';
 import { Buff } from './Buff';
+import { max, propertyOf } from 'lodash';
+import { assertObjectTypeSpreadProperty } from '@babel/types';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -25,6 +27,13 @@ export type Level = {
 export type LimitValue = {
   current: number;
   max: number;
+};
+
+type AddStatus = {
+  maxHp: number;
+  atk: number;
+  def: number;
+  speed: number;
 };
 
 export class BattleActor {
@@ -91,14 +100,25 @@ export class BattleActor {
     return isLevelUp;
   }
 
+  changeStatus(status: AddStatus) {
+    this.hp.max = this.hp.current = Math.floor(status.maxHp);
+    this.atk = Math.floor(status.atk);
+    this.def = Math.floor(status.def);
+    this.speed = Math.floor(status.speed);
+  }
+
+  upStatus(rate: number) {
+    this.changeStatus({
+      atk: this.atk * rate,
+      def: this.def * rate,
+      maxHp: this.hp.max * rate,
+      speed: this.speed,
+    });
+  }
+
   levelUp() {
     this.level.current++;
-    [this.hp.max, this.mp.max, this.atk, this.def, this.speed].forEach(
-      (status: number) => {
-        // 各ステータスの最大値を無造作に上げる
-        status += Math.floor(status * randF(0.1, 0.8));
-      },
-    );
+    this.upStatus(randF(1.8, 1.1));
   }
 
   setLevel(current: number): number {
