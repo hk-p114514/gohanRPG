@@ -3,27 +3,42 @@ import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 import {
   arthralgiaForAll,
+  atrnoseibi,
   attackdoping,
   batmobiru,
+  blackbox,
   breakdance,
   bresscare,
   diemaho,
   dokuhoushi,
   doujou,
   firebress,
+  fuuka,
   glucosamineForAll,
   hagaizime,
+  hakidas,
+  hakusinGyoi,
   hanihant,
+  hanran,
   hasamikom,
   heal,
   healContinueForAll,
+  hishinoR,
   insert,
   isekaitense,
+  jikakkakun,
   kakokyu,
   katakunaru,
+  kekkai,
   komorebi,
+  morningCall,
   nichidaiTacle,
+  nidozuke,
+  nikunotoriwake,
+  niramitsukeru,
+  nomikomu,
   norinoridance,
+  oneplus,
   onsenryoko,
   paralysisForAll,
   pararaizu,
@@ -31,9 +46,17 @@ import {
   pop,
   presentbonus,
   provocationForAll,
+  puruntshokushu,
   sleepForAll,
   soshaku,
+  sudefureru,
+  suitsgurai,
+  sumibi,
+  susumoSE,
+  tsumayoji,
   uraken,
+  yudou,
+  zutsuki,
 } from 'skillsFunction/enemySkillsFunction';
 import {
   artificialFillet,
@@ -66,16 +89,31 @@ export type SkillFunction = (
 
 export const skills: Skill[] = [
   new Skill('裏拳', uraken, false, true),
-  new Skill('バットモビール', batmobiru, true, true),
-  new Skill('ヒール', heal, false, false),
-  new Skill('インサート', insert, false, false),
-  new Skill('ポップ', pop, false, true),
-  new Skill('ハニーハント', pop, false, true),
-  new Skill('☆Die魔法・バックフィスト☆', diemaho, false, true),
+  new Skill('バットモビール', batmobiru, true, true), // 全体攻撃
+  new Skill('ヒール', heal, false, false), // 単体回復
+  new Skill('インサート', insert, false, false), // 単体回復
+  new Skill('ポップ', pop, false, true), // 単体攻撃
+  new Skill('ハニーハント', hanihant, true, true), //全体攻撃
+  new Skill('☆Die魔法・バックフィスト☆', diemaho, false, true), // 単体攻撃
   new Skill('ノリノリダンス', norinoridance, true, false), // 全体回復
-  new Skill('はさみこむ', hasamikom, false, true),
-  new Skill('ファイヤーブレス', firebress, true, true),
-  new Skill('プレゼントボーナス', presentbonus, true, false, true), // 復活(予定)
+  new Skill('はさみこむ', hasamikom, false, true), // 単体攻撃
+  new Skill('ファイヤーブレス', firebress, true, true), // 全体攻撃
+  new Skill('プレゼントボーナス', presentbonus, true, false, true), // 全体蘇生回復
+  new Skill('必死の抵抗', hishinoR, false, true), //単体攻撃
+  new Skill('ブラックボックス', blackbox, true, true), // 全体攻撃
+  new Skill('進もう、すべてを栄養にして', susumoSE, true, false), // 全体回復
+  new Skill('アトラクションの整備不良', atrnoseibi, true, true), // 全体攻撃
+  new Skill('飲み込む', nomikomu, false, true), //単体攻撃
+  new Skill('決壊', kekkai, true, true), // 全体攻撃
+  new Skill('氾濫', hanran, true, true), // 全体攻撃
+  new Skill('爪楊枝', tsumayoji, false, true), //単体攻撃
+  new Skill('素手で触れる', sudefureru, false, true), //単体攻撃
+  new Skill('モーニングコール', morningCall, false, true), //単体攻撃
+  new Skill('肉の取り分け', nikunotoriwake, false, false), // 単体回復
+  new Skill('炭火', sumibi, false, true), //単体攻撃
+  new Skill('頭突き', zutsuki, false, true), //単体攻撃
+  new Skill('スイーツ喰らい', suitsgurai, true, false, true), // 全体蘇生回復
+  new Skill('迫真の演技...御意ﾂ', hakusinGyoi, true, true), // 全体攻撃
 
   new Skill('日大災害誤射タックル', nichidaiTacle, true, true),
   new Skill('温泉旅行', onsenryoko, true, false), // 全体回復
@@ -83,15 +121,20 @@ export const skills: Skill[] = [
 ];
 
 export const stateSkills: Skill[] = [
-  new Skill('毒胞子', dokuhoushi, false, true),
-  new Skill('パラライズ', pararaizu, false, true),
-  new Skill('木漏れ日', komorebi, false, true),
-  new Skill('羽交い締め', hagaizime, false, true),
-  new Skill('ブレイクダンス', breakdance, false, false),
-  new Skill('咀嚼', soshaku, false, true),
-  new Skill('同情を誘う', doujou, false, true),
-  new Skill('過呼吸', kakokyu, false, true),
-  new Skill('ブレスケア', bresscare, false, false),
+  new Skill('毒胞子', dokuhoushi, false, true), //単体攻撃（毒）
+  new Skill('パラライズ', pararaizu, false, true), // 単体攻撃（マヒ）
+  new Skill('木漏れ日', komorebi, false, true), // 単体攻撃（眠り）
+  new Skill('羽交い締め', hagaizime, false, true), // 単体攻撃（関節痛）
+  new Skill('ブレイクダンス', breakdance, false, false), // 単体攻撃（挑発）
+  new Skill('咀嚼', soshaku, false, true), // 単体攻撃（毒）
+  new Skill('同情を誘う', doujou, false, true), // 単体攻撃（毒）
+  new Skill('過呼吸', kakokyu, false, true), // 単体攻撃（眠り）
+  new Skill('ブレスケア', bresscare, false, false), // 単体攻撃（一定回復）
+  new Skill('プルんと触手', puruntshokushu, false, true), // 単体攻撃（マヒ）
+  new Skill('誘導', yudou, false, false), // 単体攻撃（挑発）
+  new Skill('吐き出す', hakidas, false, true), // 単体攻撃（関節痛）
+  new Skill('風化', fuuka, false, true), // 単体攻撃（関節痛）
+  new Skill('時価駆っくん', jikakkakun, false, true), // 単体攻撃（関節痛）
 
   new Skill('どく', poisonForAll, false, true),
   new Skill('ブレスケア', healContinueForAll, false, false),
@@ -105,8 +148,11 @@ export const stateSkills: Skill[] = [
 ];
 
 export const buffSkills: Skill[] = [
-  new Skill('アタックドーピング', attackdoping, false, false),
-  new Skill('かたくなる', katakunaru, false, false),
+  new Skill('アタックドーピング', attackdoping, false, false), // 攻撃力（増）
+  new Skill('かたくなる', katakunaru, false, false), // 防御力（増）
+  new Skill('1個増量', oneplus, false, false), // 攻撃力（増）
+  new Skill('弐怒漬け', nidozuke, false, false), // 攻撃力（増）
+  new Skill('睨みつける', niramitsukeru, false, false), // 攻撃力（減）
 ];
 
 export const ateSkills: Skill[] = [
