@@ -58,7 +58,7 @@ const enemy = {
     def: 1,
     speed: 3,
     startLevel: 1,
-    initSkills: [stateSkills[2], buffSkills[1]],
+    initSkills: [stateSkills[0], buffSkills[1]],
   }),
   batman: new BattleActor({
     name: 'バットマン',
@@ -69,7 +69,7 @@ const enemy = {
     def: 4,
     speed: 1,
     startLevel: 2,
-    initSkills: [skills[2], skills[3], buffSkills[1]],
+    initSkills: [skills[1], skills[2], buffSkills[1]],
   }),
   abTree: new BattleActor({
     name: '外見二分木',
@@ -80,7 +80,7 @@ const enemy = {
     def: 1,
     speed: 5,
     startLevel: 3,
-    initSkills: [skills[1], stateSkills[2], skills[2], stateSkills[3]],
+    initSkills: [skills[3], skills[4], stateSkills[1], stateSkills[2]],
   }),
   hangedBear: new BattleActor({
     name: '†ハングドベア†',
@@ -91,7 +91,7 @@ const enemy = {
     def: 3,
     speed: 3,
     startLevel: 4,
-    initSkills: [skills[1], skills[3], stateSkills[4], stateSkills[6]],
+    initSkills: [skills[5], skills[6], stateSkills[3], stateSkills[4]],
   }),
 
   // ============================================-
@@ -104,7 +104,7 @@ const enemy = {
     def: 3,
     speed: 2,
     startLevel: 3,
-    initSkills: [skills[3]],
+    initSkills: [skills[0]],
   }),
   sabagiza: new BattleActor({
     name: 'サバギザ',
@@ -115,7 +115,7 @@ const enemy = {
     def: 2,
     speed: 5,
     startLevel: 4,
-    initSkills: [stateSkills[2], stateSkills[3]],
+    initSkills: [skills[7], stateSkills[1]],
   }),
   tsuchinoko: new BattleActor({
     name: 'その辺のツチノコ',
@@ -126,7 +126,7 @@ const enemy = {
     def: 2,
     speed: 8,
     startLevel: 4,
-    initSkills: [skills[0], skills[3], stateSkills[6]],
+    initSkills: [skills[0], skills[2], stateSkills[5]],
   }),
   bloodScorpion: new BattleActor({
     name: 'けっせんサソリ',
@@ -137,7 +137,7 @@ const enemy = {
     def: 9,
     speed: 2,
     startLevel: 4,
-    initSkills: [skills[1], stateSkills[0], stateSkills[1], buffSkills[1]],
+    initSkills: [skills[8], stateSkills[6], stateSkills[7], buffSkills[1]],
   }),
   formerBoss: new BattleActor({
     name: '元ボス',
@@ -148,7 +148,7 @@ const enemy = {
     def: 6,
     speed: 3,
     startLevel: 5,
-    initSkills: [skills[1], skills[2], stateSkills[1], buffSkills[0]],
+    initSkills: [skills[9], skills[10], stateSkills[8], buffSkills[0]],
   }),
 
   // ===========================================================

@@ -18,6 +18,7 @@ import {
   goMelcine,
   beforeMelcineBattle,
   afterMelcineBattle,
+  warp0,
 } from 'classes/timelineWords';
 
 export class Map3 extends Map {
@@ -33,6 +34,7 @@ export class Map3 extends Map {
   create() {
     super.create();
     this.setBoss(51, 24, 'Mel', 0.25);
+    super.setEvent('exit', warp0);
     super.setHint('explanation2', explanation3);
     super.setEvent('add3', addPouler);
     super.setEvent('goMelcine', goMelcine);
