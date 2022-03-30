@@ -26,6 +26,12 @@ import burn from '@/assets/characters/static/skeletonb.png';
 import yakitori from '@/assets/characters/static/griffona.png';
 import enken from '@/assets/characters/static/kerberos.png';
 
+import ate from '@/assets/characters/static/boss/ate.png';
+import bte from '@/assets/characters/static/boss/bte.png';
+import melcine from '@/assets/characters/static/boss/melcine.png';
+import eleca from '@/assets/characters/static/boss/eleca.png';
+import obc from '@/assets/characters/static/boss/obc.png';
+
 import {
   skills,
   stateSkills,
@@ -269,6 +275,7 @@ const enemy = {
   // ==================================================
   ate: new BattleActor({
     name: 'エーテ',
+    spriteSrc: ate,
     hp: { current: 25, max: 25 },
     mp: { current: 50, max: 50 },
     atk: 12,
@@ -280,6 +287,7 @@ const enemy = {
 
   bte: new BattleActor({
     name: 'ビーテ',
+    spriteSrc: bte,
     hp: { current: 30, max: 30 },
     mp: { current: 50, max: 50 },
     atk: 15,
@@ -291,6 +299,7 @@ const enemy = {
 
   melcine: new BattleActor({
     name: 'メルシン',
+    spriteSrc: melcine,
     hp: { current: 25, max: 25 },
     mp: { current: 50, max: 50 },
     atk: 10,
@@ -302,6 +311,7 @@ const enemy = {
 
   eleca: new BattleActor({
     name: 'エレカ',
+    spriteSrc: eleca,
     hp: { current: 50, max: 50 },
     mp: { current: 50, max: 50 },
     atk: 20,
@@ -313,6 +323,7 @@ const enemy = {
 
   obc: new BattleActor({
     name: 'OBC',
+    spriteSrc: obc,
     hp: { current: 80, max: 80 },
     mp: { current: 50, max: 50 },
     atk: 25,
