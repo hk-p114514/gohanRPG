@@ -185,6 +185,73 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const desertGotsuji: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おお！帰ったか若者よ！\n街はお主の噂で持ち切りじゃぞ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'お主が旅をしていた間、ワシも指をくわえていた訳ではないぞい！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'あの、爺さん誰だっk' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '次の鍵のありかの噂を嗅ぎ回っていたんじゃ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'なんでも、ソースワデザートの青い魔物が怪しいらいいぞい！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'さぁ、ワシもこうしちゃいられん！次の噂の聞き込みじゃ！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん' },
+    { type: 'endTimeline' },
+  ],
+};
+export const oceanGotsuji: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: '待ちわびたぞ！若者！' },
+    { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…',
+    },
+    { type: 'dialog', actorName: 'ゴツジ', text: 'こんな年寄りに負けて悔しくないのか！' },
+    { type: 'dialog', actorName: 'マルク', text: '別に競ってはな' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '次の鍵は、ムギムギオーシャンの白い魔物が持っているそうじゃ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'さ、ワシは最後の鍵の噂を探しに行くぞ！善は急げじゃ！',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const volcanoGotsuji: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'さ！最後はキーマボルケーノじゃ！' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '分かったら休んどらんでさっさと行けい！じゃあな！',
+    },
+    { type: 'endTimeline' },
+  ],
+};
 export const mob1: Timelines = {
   start: [
     {
