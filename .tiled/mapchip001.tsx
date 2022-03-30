@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
+<tileset version="1.8" tiledversion="1.8.2" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
  <image source="../src/assets/maps/map001.png" width="1920" height="1080"/>
  <tile id="0">
   <properties>
@@ -1029,7 +1029,7 @@
  </tile>
  <tile id="171">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -1311,13 +1311,13 @@
  </tile>
  <tile id="218">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="219">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -1875,13 +1875,13 @@
  </tile>
  <tile id="312">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="313">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -2163,13 +2163,13 @@
  </tile>
  <tile id="360">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="361">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -2451,13 +2451,13 @@
  </tile>
  <tile id="408">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="409">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -2667,13 +2667,13 @@
  </tile>
  <tile id="444">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="445">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -2739,13 +2739,13 @@
  </tile>
  <tile id="456">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="457">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -2955,13 +2955,13 @@
  </tile>
  <tile id="492">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="493">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -3027,13 +3027,13 @@
  </tile>
  <tile id="504">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="505">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -3243,13 +3243,13 @@
  </tile>
  <tile id="540">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="541">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
@@ -3315,13 +3315,13 @@
  </tile>
  <tile id="552">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
  <tile id="553">
   <properties>
-   <property name="collides" type="bool" value="true"/>
+   <property name="collides" type="bool" value="false"/>
    <property name="event" value=""/>
   </properties>
  </tile>
