@@ -3,6 +3,8 @@ import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { Timeline } from 'classes/Timeline';
+import { Skill } from 'classes/Skill';
+import { Battle } from 'scenes/Battle';
 
 // ダイアログ表示関数
 //引数の書き方： (scene, [{type:'--', text:'~~'}, {}, {}])
@@ -262,6 +264,121 @@ export const isekaitense = (
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の伊勢回転性！` },
     { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エーテ用専用技
+// スイパスウィップ
+export const swepasWhip: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のスイパスウィップ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エーテ専用技
+// バンズプレス
+export const vansPress: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk() * 1.5);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のバンズプレス！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エーテ専用技
+// パーサローフ
+export const persaLoaf: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeAtk = target.buff.getAtk();
+  target.buff.setBuff(target.buff.getAtk() * 0.2, 0, 3);
+  const afterAtk = target.buff.getAtk();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のパーサローフ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の攻撃力が ${Math.abs(beforeAtk - afterAtk)} 上がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// エーテ専用技
+// フルーツファントム
+export const fruitsPhantom: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+  rate: number = 0.2,
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beHealed(target.hp.max * rate);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のフルーツファントム！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+    },
+  ]);
+};
+
+// エーテ専用技
+// サバレースプラッシュ
+export const sabaleSplash: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk() * 2);
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のサバレースプラッシュ！` },
+    { type: 'dialog', text: `眼球にレモンの汁が襲い来る！` },
+    { type: 'dialog', text: `平均${sum / num}のダメージ！` },
     { type: 'endTimeline' },
   ]);
 };
