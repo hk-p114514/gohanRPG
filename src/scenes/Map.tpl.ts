@@ -232,7 +232,7 @@ export class Map extends Scene {
                 anotherScene: this,
                 timelinedata: n,
               });
-            } else if (!randI(0)) {
+            } else if (!randI(20)) {
               this.moveBattle();
             }
           } else {
