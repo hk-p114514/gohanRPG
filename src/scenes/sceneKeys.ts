@@ -6,6 +6,7 @@ export const sceneKeys = {
   map2: 'map2',
   map3: 'map3',
   map4: 'map4',
+  map5: 'map5',
   battle: 'battle',
   ui: 'ui',
   prologue: 'prologue',

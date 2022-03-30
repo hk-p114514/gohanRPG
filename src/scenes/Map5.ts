@@ -20,9 +20,9 @@ import {
   afterMelcineBattle,
 } from 'classes/timelineWords';
 
-export class Map3 extends Map {
+export class Map5 extends Map {
   constructor() {
-    super(json[3], sceneKeys.map3);
+    super(json[5], sceneKeys.map5);
   }
   preload() {
     super.preload();

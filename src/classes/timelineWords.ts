@@ -387,81 +387,81 @@ export const explanation0: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const mob1: Timelines = {
+export const stoper1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
+      text: 'defined',
+      actorName: 'ハンバーガー',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper2: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'カッサンド',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper3: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob2: Timelines = {
+export const stoper4: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob3: Timelines = {
+export const stoper5: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob4: Timelines = {
+export const stoper6: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob5: Timelines = {
+export const stoper7: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
   ],
 };
-export const mob6: Timelines = {
+export const stoper8: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const mob7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const mob8: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '',
+      text: 'defined',
       actorName: '',
     },
     { type: 'endTimeline' },
