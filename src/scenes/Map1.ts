@@ -31,7 +31,7 @@ export class Map1 extends Map {
   create() {
     super.create();
     this.setBoss(13, 3, 'Ate');
-    super.setEvent('goHome', warp0);
+    super.setEvent('exit', warp0);
     super.setEvent('woop', warpA);
     super.setEvent('goAte', goAte);
     super.setEvent('woopboss', backA);

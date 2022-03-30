@@ -12,10 +12,8 @@ import {
   warp5,
   explanation0,
   explanation,
-  stoplu,
-  stopru,
-  stopld,
-  stoprd,
+  stopl,
+  stopr,
   stoper1,
   stoper2,
   stoper3,
@@ -63,10 +61,8 @@ export class Map0 extends Map {
     super.makeNPC('stoper7', stoper7);
     super.makeNPC('stoper8', stoper8);
     super.setEvent('startMob', explanation);
-    super.setEvent('stoplu', stoplu);
-    super.setEvent('stopru', stopru);
-    super.setEvent('stopld', stopld);
-    super.setEvent('stoprd', stoprd);
+    super.setEvent('stopl', stopl);
+    super.setEvent('stopr', stopr);
     // enterキーでシーンを切り替える
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {

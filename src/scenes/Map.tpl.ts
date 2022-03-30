@@ -43,6 +43,7 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
+  public xy?: Phaser.Math.Vector2;
   private mapName: string;
 
   constructor(private json: string, public name: string) {
@@ -207,6 +208,7 @@ export class Map extends Scene {
       // タイルの位置を取得
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
+      this.xy = new Phaser.Math.Vector2(tileX, tileY);
       this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
     }
 
@@ -218,10 +220,9 @@ export class Map extends Scene {
     // Debug graphics
     this.enableDebugMode();
   }
-  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public update(_time: number, delta: number) {
     if (!this.gridPhysics?.isMoving()) {
-      if (!!this.player) {
+      if (!!this.player && this.xy !== undefined) {
         let nxy = this.player.getTilePos();
         if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
           this.xy = this.player.getTilePos();
@@ -254,10 +255,9 @@ export class Map extends Scene {
   }
   //話しかけた奴が振り向くイベント
   public createEvents() {
-    // funcs.set(this.name + ',flash', (s: any[]) => {
-    //   this.cameras.main.fadeIn(10);
-    //   //this.cameras.main.fadeOut();
-    // });
+    funcs.set(this.name + ',judge', (s: any[]) => {
+      return system.bossflag.get(s[0]);
+    });
     funcs.set(this.name + ',open', (s: any[]) => {});
     // funcs.set(this.name + ',delete', (s: any[]) => {
     //   system.bossflag.set(s[0], false);
@@ -274,8 +274,13 @@ export class Map extends Scene {
       }
     });
     funcs.set(this.name + ',event', (s: any[]) => {
-      events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
-      names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+      if (s[4] === undefined) {
+        events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+        names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+      } else {
+        events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
+        names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+      }
     });
     funcs.set(this.name + ',talk', () => {
       if (!!this.player) {
@@ -329,6 +334,7 @@ export class Map extends Scene {
     //bossを消し去るイベント
     funcs.set(this.name + ',break', (s: any[]) => {
       this.boss?.destroy();
+      system.bossflag.set(s[0], true);
     });
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
