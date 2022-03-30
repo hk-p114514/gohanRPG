@@ -12,6 +12,10 @@ export class Buff {
     this.rmBuffsIndex = [];
   }
 
+  public initBuff(): void {
+    this.buffs = [];
+  }
+
   public buffProcess(): void {
     this.rmBuffsIndex.splice(0, this.rmBuffsIndex.length);
     this.buffs.forEach((buff: BuffInfo) => {
