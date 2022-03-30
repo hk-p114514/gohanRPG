@@ -472,8 +472,9 @@ export const norinoridance = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
+    if (!target.isDead()) {
+      const beforeHp = target.hp.current;
+
       target.beHealed(target.hp.max * rate);
 
       const afterHp = target.hp.current;
@@ -708,8 +709,9 @@ export const susumoSE = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
+    if (!target.isDead()) {
+      const beforeHp = target.hp.current;
+
       target.beHealed(target.hp.max * rate);
 
       const afterHp = target.hp.current;
