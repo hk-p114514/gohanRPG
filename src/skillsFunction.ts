@@ -5,6 +5,7 @@ import { sceneKeys } from 'scenes/sceneKeys';
 import { Timeline } from 'classes/Timeline';
 import { Skill } from 'classes/Skill';
 import { Battle } from 'scenes/Battle';
+import { randI } from 'functions/generalPurpose/rand';
 
 // ダイアログ表示関数
 //引数の書き方： (scene, [{type:'--', text:'~~'}, {}, {}])
@@ -379,6 +380,133 @@ export const sabaleSplash: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}のサバレースプラッシュ！` },
     { type: 'dialog', text: `眼球にレモンの汁が襲い来る！` },
     { type: 'dialog', text: `平均${sum / num}のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ビーテ専用技
+// エビテンスイング
+export const shrimpSwing: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のエビテンスイング！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ビーテ専用技
+// 三色の舞
+export const tripleDance: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let i: number, num: number[], beforeHp: number[], afterHp: number[];
+  num = [0, 0, 0];
+  beforeHp = [0, 0, 0];
+  afterHp = [0, 0, 0];
+  for (i = 0; i < 3; i++) {
+    do {
+      num[i] = randI(targets.length - 1, 0);
+    } while (targets[num[i]].hp.current <= 0);
+    beforeHp[i] = targets[num[i]].hp.current;
+    targets[num[i]].beInjured(attacker.buff.getAtk() * 0.5);
+    afterHp[i] = targets[num[i]].hp.current;
+  }
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の三色の舞！` },
+    {
+      type: 'dialog',
+      text: `${targets[num[0]]}は${Math.abs(beforeHp[0] - afterHp[0])}喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ビーテ専用技
+// ジンジャーレイン
+export const gingerRain: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk() * 1.2);
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のジンジャーレイン！` },
+    { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ビーテ専用技
+// スロートサースト
+export const throatThirst: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target: BattleActor = targets[0];
+  const beforeDef = target.buff.getDef();
+  target.buff.setBuff(-target.buff.getDef() * 0.2, 0, 3);
+  const afterDef = target.buff.getDef();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のパーサローフ！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の防御力が ${Math.abs(beforeDef - afterDef)} 下がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// ビーテ専用技
+// ソースビッグウェーブ
+export const sauceBigWave: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk() * 2);
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のソースビッグウェーブ！` },
+    { type: 'dialog', text: `大盛り1杯分のソースが全てを飲み込む！` },
+    { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
     { type: 'endTimeline' },
   ]);
 };
