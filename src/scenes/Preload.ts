@@ -1,6 +1,6 @@
 import { GameObjects, Scene, Types } from 'phaser';
 import { characterSize } from './Map.tpl';
-import player from '@/assets/characters/dynamic/player.png';
+import player from '@/assets/characters/dynamic/marc.png';
 import gohanBG from '@/images/gohan.jpg';
 import curryBG from '@/images/curry.jpg';
 import eatBG from '@/images/eat.jpg';
@@ -76,13 +76,13 @@ class Preload extends Scene {
 
     // クリックした時
     button.on('pointerdown', () => {
-      this.scene.start(sceneKeys.map1);
+      this.scene.start(sceneKeys.map0);
     });
     const enter = this.input.keyboard.addKey('ENTER');
     enter.on('down', () => {
       button.setTexture('button_onhover');
       setTimeout(() => {
-        this.scene.start(sceneKeys.map1);
+        this.scene.start(sceneKeys.map0);
       }, 100);
     });
   }

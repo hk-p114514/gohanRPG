@@ -2,9 +2,10 @@ import { system } from 'index';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { GameObjects, Scene } from 'phaser';
 import { BattleActor } from 'classes/BattleActor';
-import { Skill } from 'classes/Skill';
 import { Battle } from './Battle';
+import { Skill } from 'classes/Skill';
 import { randArr } from 'functions/generalPurpose/rand';
+import { State } from 'classes/State';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;
@@ -22,7 +23,7 @@ export class UI extends Scene {
   private playerTexts: GameObjects.Text[] = [];
   private playerSkills: GameObjects.Text[] = [];
   private targetActors: Phaser.GameObjects.Text[] = [];
-  private playerSkillShow?: BattleActor = system.battling?.actor;
+  private playerShowUi?: BattleActor = system.battling?.actor;
   private isTurnActor: boolean = true;
   private battleScene?: Scene;
   private party: BattleActor[] = [];
@@ -50,6 +51,7 @@ export class UI extends Scene {
     this.playerTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
+    this.playerShowUi = system.battling?.actor;
     this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
@@ -185,17 +187,15 @@ export class UI extends Scene {
 
   drawPlayerData(): void {
     // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
-    const actor = system.battling?.actor;
-    if (actor) {
-      const { current, max } = actor.hp;
-      const { current: mp, max: mpMax } = actor.mp;
+    if (this.playerShowUi) {
+      const { current, max } = this.playerShowUi.hp;
+      const { current: mp, max: mpMax } = this.playerShowUi.mp;
       const data: string[] = [
-        `${actor.name}`,
+        `${this.playerShowUi.name}`,
         `HP_: ${current}/${max}`,
         `MP_: ${mp}/${mpMax}`,
-        `ATK: ${actor.atk}`,
-        `DEF: ${actor.def}`,
-        `SPD: ${actor.speed}`,
+        `ATK: ${this.playerShowUi.atk}`,
+        `DEF: ${this.playerShowUi.def}`,
       ];
 
       // playerTextsの中身を更新する
@@ -212,7 +212,7 @@ export class UI extends Scene {
     const boxWidth = this.menuUI.width;
     const boxHeight = this.menuUI.height;
     const textPadding = { left: 20, top: 5, right: 20, bottom: 5 };
-    if (this.playerSkillShow !== actor) {
+    if (this.playerShowUi !== actor) {
       this.isTurnActor = true;
     }
     if (actor && this.isTurnActor) {
@@ -245,6 +245,8 @@ export class UI extends Scene {
             text.destroy();
           });
           const { forAllTargets, forEnemy } = skill.getSkillInfo();
+          // バトルシーンのシーンを取得
+          const battleScene = this.scene.get(sceneKeys.battle) as Battle;
           if (!forAllTargets) {
             // 単体効果
             let targetActorX = x + margin + boxWidth * 2 - textPadding.left;
@@ -253,12 +255,18 @@ export class UI extends Scene {
             // 対象のグループを格納
             if (forEnemy) {
               targetGroup = this.enemies;
+              const provocations = State.getProvocationActors(targetGroup);
+              if (provocations.length > 0) {
+                targetGroup = provocations;
+              }
             } else {
               targetGroup = this.party;
             }
             targetGroup.forEach((member) => {
-              // 味方の場合はhpが0でも回復可能、敵の場合はhpが0だと攻撃不可能
-              if (!this.party.includes(member) && member.hp.current === 0) return;
+              // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
+              if (!skill.getResurrect() && member.hp.current === 0) {
+                return;
+              }
               const targetText = this.add
                 .text(targetActorX, targetActorY, member.name, this.fontStyle)
                 .setInteractive({
@@ -274,9 +282,10 @@ export class UI extends Scene {
                 this.playerSkills.forEach((text) => {
                   text.destroy();
                 });
-                this.battleScene?.scene.resume();
                 // スキルの実行
-                skill.exe(actor, [member]);
+                skill.exe(battleScene, actor, [member]);
+                // バトルシーンを再開させる
+                this.battleScene?.scene.resume();
               });
               targetText.on('pointerover', () => {
                 targetText.setFill('#ff0000');
@@ -290,14 +299,15 @@ export class UI extends Scene {
           } else {
             // 全体効果
             if (forEnemy) {
-              skill.exe(actor, this.enemies);
+              skill.exe(battleScene, actor, this.enemies);
             } else {
-              skill.exe(actor, this.party);
+              skill.exe(battleScene, actor, this.party);
             }
             // スキルのテキストの削除
             this.playerSkills.forEach((text) => {
               text.destroy();
             });
+            // バトルシーンを再開させる
             this.battleScene?.scene.resume();
           }
         });
@@ -311,7 +321,7 @@ export class UI extends Scene {
         this.playerSkills.push(skillText);
         playerSkillY += margin;
       });
-      this.playerSkillShow = actor;
+      this.playerShowUi = actor;
       this.isTurnActor = false;
     }
   }

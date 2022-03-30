@@ -26,6 +26,10 @@ export class GridPhysics {
 
   constructor(private player: Player, private tileMap: Phaser.Tilemaps.Tilemap) {}
 
+  chcon(char: Player) {
+    this.player = char;
+  }
+
   movePlayer(direction: Direction): void {
     this.lastMovementIntent = direction;
     if (this.isMoving()) return;
@@ -131,6 +135,7 @@ export class GridPhysics {
       const tile = this.tileMap.getTileAt(pos.x, pos.y, false, layer.name);
       return tile && tile.properties.collides;
     });
+    return false;
   }
 
   private hasNoTile(pos: Vector2): boolean {

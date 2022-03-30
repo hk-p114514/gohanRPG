@@ -2,6 +2,7 @@ import { SceneKeys } from './../scenes/sceneKeys';
 import { Scene } from 'phaser';
 import { BattleActor } from './BattleActor';
 import { SkillFunction } from 'skills';
+//import { Map } from 'scenes/Map.tpl';
 
 type Battling = {
   actor: BattleActor;
@@ -14,10 +15,16 @@ export class System {
   public party: BattleActor[] = [];
   public isBattle: boolean = false;
   public battling?: Battling;
-
+  public bossflag: Map<string, boolean> = new Map();
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
+    this.bossflag.set('beforeAte', true);
+    this.bossflag.set('afterAte', true);
+    this.bossflag.set('map3', true);
+    this.bossflag.set('map4', true);
+    this.bossflag.set('map5', true);
+    this.bossflag.set('map6', true);
   }
 
   public preload() {}

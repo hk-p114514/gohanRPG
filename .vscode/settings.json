@@ -11,6 +11,7 @@
     "gameover",
     "getdir",
     "getredir",
+    "glucosamine",
     "gohan",
     "halign",
     "hitbox",
@@ -24,9 +25,12 @@
     "Melcine",
     "misa",
     "monospace",
+    "mough",
+    "Neovim",
     "nextlayerid",
     "nextobjectid",
     "npcs",
+    "nvim",
     "objectgroup",
     "onhover",
     "onigiri",
@@ -52,8 +56,11 @@
     "timelinedata",
     "topdown",
     "Tweens",
+    "vimmer",
+    "wmail",
     "yoyo"
   ],
   // javascriptデバッグ設定
-  "debug.allowBreakpointsEverywhere": true
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.formatOnSave": true
 }
