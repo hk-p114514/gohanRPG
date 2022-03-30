@@ -16,6 +16,14 @@ import {
   stopru,
   stopld,
   stoprd,
+  stoper1,
+  stoper2,
+  stoper3,
+  stoper4,
+  stoper5,
+  stoper6,
+  stoper7,
+  stoper8,
 } from 'classes/timelineWords';
 //import { system } from 'index';
 
@@ -27,12 +35,14 @@ export class Map0 extends Map {
     super.preload();
     super.setnpcimage('notMob', 0);
     super.setnpcimage('vimmer', 0);
-    super.setnpcimage('mob3', 0);
-    super.setnpcimage('mob4', 0);
-    super.setnpcimage('mob5', 0);
-    super.setnpcimage('mob6', 0);
-    super.setnpcimage('mob7', 0);
-    super.setnpcimage('mob8', 0);
+    super.setnpcimage('stoper1', 0);
+    super.setnpcimage('stoper2', 0);
+    super.setnpcimage('stoper3', 0);
+    super.setnpcimage('stoper4', 0);
+    super.setnpcimage('stoper5', 0);
+    super.setnpcimage('stoper6', 0);
+    super.setnpcimage('stoper7', 0);
+    super.setnpcimage('stoper8', 0);
   }
   create() {
     super.create();
@@ -44,6 +54,14 @@ export class Map0 extends Map {
     super.setHint('first', explanation0);
     super.makeNPC('notMob', noComment);
     super.makeNPC('vimmer', noComment);
+    super.makeNPC('stoper1', stoper1);
+    super.makeNPC('stoper2', stoper2);
+    super.makeNPC('stoper3', stoper3);
+    super.makeNPC('stoper4', stoper4);
+    super.makeNPC('stoper5', stoper5);
+    super.makeNPC('stoper6', stoper6);
+    super.makeNPC('stoper7', stoper7);
+    super.makeNPC('stoper8', stoper8);
     super.setEvent('startMob', explanation);
     super.setEvent('stoplu', stoplu);
     super.setEvent('stopru', stopru);

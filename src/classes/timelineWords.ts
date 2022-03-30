@@ -212,6 +212,86 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const stoper1: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'ハンバーガー',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper2: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'カッサンド',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper3: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'ギュウド',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper4: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'カツド',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper5: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'ヒャシチユウカ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper6: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'ウドン',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper7: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'チキンカ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper8: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'defined',
+      actorName: 'ギュウカ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
 export const explanation: Timelines = {
   start: [
     { type: 'event', event: 'chdir', many: ['notMob', 'left'] },
@@ -256,12 +336,13 @@ export const explanation: Timelines = {
       actorName: 'ゴツジ',
       text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
     },
-    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
     },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
@@ -273,7 +354,7 @@ export const explanation: Timelines = {
       actorName: 'マルク',
       text: 'サバ',
     },
-    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
@@ -297,6 +378,30 @@ export const explanation: Timelines = {
       text: 'これもうそのまま行っちゃっていいかな…',
     },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'reset', many: ['stoper1'] },
+    { type: 'event', event: 'set', many: ['stoper1', 23, 21, stoper1] },
+    { type: 'event', event: 'reset', many: ['stoper2'] },
+    { type: 'event', event: 'set', many: ['stoper2', 28, 23, stoper2] },
+    { type: 'event', event: 'reset', many: ['stoper3'] },
+    { type: 'event', event: 'set', many: ['stoper3', 44, 23, stoper3] },
+    { type: 'event', event: 'reset', many: ['stoper4'] },
+    { type: 'event', event: 'set', many: ['stoper4', 43, 23, stoper4] },
+    { type: 'event', event: 'reset', many: ['stoper5'] },
+    { type: 'event', event: 'set', many: ['stoper5', 7, 12, stoper5] },
+    { type: 'event', event: 'reset', many: ['stoper6'] },
+    { type: 'event', event: 'set', many: ['stoper6', 9, 12, stoper6] },
+    { type: 'event', event: 'reset', many: ['stoper7'] },
+    { type: 'event', event: 'set', many: ['stoper7', 36, 11, stoper7] },
+    { type: 'event', event: 'reset', many: ['stoper8'] },
+    { type: 'event', event: 'set', many: ['stoper8', 36, 13, stoper8] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [29, 8],
+        [30, 8],
+      ],
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -383,86 +488,6 @@ export const explanation0: Timelines = {
       type: 'dialog',
       text: '北に食堂。',
       actorName: '社松の看板',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ハンバーガー',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper2: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'カッサンド',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper3: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper4: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper5: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper6: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper8: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: '',
     },
     { type: 'endTimeline' },
   ],
@@ -728,12 +753,21 @@ export const meetShiden: Timelines = {
     },
     { type: 'event', event: 'log', many: ['player', 3] },
     { type: 'dialog', actorName: 'マルク', text: 'よくそこまで分かったな。' },
-    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'log', many: ['Shiden', 3] },
     {
       type: 'dialog',
       actorName: 'シデン',
       text: '杖も持ってないやつに魔法なんか使えるか。',
     },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: 'マルク', text: 'お前も杖持って無いじゃん！' },
+    { type: 'event', event: 'log', many: ['Shiden', 4] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: '能ある鷹は杖を隠すんだよ。',
+    },
+    { type: 'event', event: 'relog', many: [] },
     {
       type: 'dialog',
       actorName: 'シデン',
@@ -1884,7 +1918,7 @@ export const explanation4: Timelines = {
     },
     {
       type: 'dialog',
-      text: '何かヒント。',
+      text: '溶岩石で出来た自然の迷宮',
       actorName: '社松の看板',
     },
     { type: 'endTimeline' },
