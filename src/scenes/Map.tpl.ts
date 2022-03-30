@@ -24,6 +24,7 @@ import { sceneKeys } from './sceneKeys';
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { marc } from 'friends';
+import { randI } from 'functions/generalPurpose/rand';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -220,31 +221,36 @@ export class Map extends Scene {
     // Debug graphics
     this.enableDebugMode();
   }
+
+  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
+  public battleflag: boolean = true;
   public update(_time: number, delta: number) {
-    if (!this.gridPhysics?.isMoving()) {
-      if (!!this.player && this.xy !== undefined) {
-        let nxy = this.player.getTilePos();
-        if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
-          this.xy = this.player.getTilePos();
-          //踏むイベントの確認
-          if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
-            let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
-            this.scene.launch(sceneKeys.timelinePlayer, {
-              anotherScene: this,
-              timelinedata: n,
-            });
+    if (this.battleflag) {
+      if (!this.gridPhysics?.isMoving()) {
+        if (!!this.player) {
+          let nxy = this.player.getTilePos();
+          if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
+            this.xy = this.player.getTilePos();
+            //踏むイベントの確認
+            if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
+              let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
+              this.scene.launch(sceneKeys.timelinePlayer, {
+                anotherScene: this,
+                timelinedata: n,
+              });
+            } else if (!randI(20)) {
+              this.moveBattle();
+            }
           } else {
-            console.log('?');
+            this.gridControls?.update();
+            //console.log(this.player.getSprite());
           }
-        } else {
-          this.gridControls?.update();
-          //console.log(this.player.getSprite());
+          //console.log(system.map + ',' + xy.x + ',' + xy.y);
         }
-        //console.log(system.map + ',' + xy.x + ',' + xy.y);
+        //console.log(this.player?.getTilePos());
       }
-      //console.log(this.player?.getTilePos());
+      this.gridPhysics?.update(delta);
     }
-    this.gridPhysics?.update(delta);
   }
   public log?: Phaser.GameObjects.Sprite;
   public boss?: Phaser.GameObjects.Sprite;
@@ -383,14 +389,15 @@ export class Map extends Scene {
 
   moveBattle() {
     if (!getEnemies(system.map).length) return;
+    this.battleflag = false;
     const effectsTime = 500;
-    this.cameras.main.shake(effectsTime);
-    this.cameras.main.flash(effectsTime);
+    // this.cameras.main.shake(effectsTime);
+    // this.cameras.main.flash(effectsTime);
     // カメラのシェイクを終了するまで待つ
-    this.time.delayedCall(effectsTime, () => {
-      // switch -> sleep + start
-      this.scene.switch(sceneKeys.battle);
-    });
+    // this.time.delayedCall(effectsTime, () => {});
+    // switch -> sleep + start
+    this.scene.switch(sceneKeys.battle);
+    this.battleflag = true;
   }
 
   public enableDebugMode() {
