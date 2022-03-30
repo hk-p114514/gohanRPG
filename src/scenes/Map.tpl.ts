@@ -15,7 +15,6 @@ import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 import { select } from 'classes/timelineWords';
 // values
-import { timelineData } from 'classes/timelineWords';
 import { system } from 'index';
 import { charas } from 'classes/Characters';
 import { map, events, hints, npcs, funcs, names } from 'classes/exam';
@@ -44,7 +43,7 @@ export class Map extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
-  public xy?: Phaser.Math.Vector2;
+  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
 
   constructor(private json: string, public name: string) {
@@ -222,14 +221,15 @@ export class Map extends Scene {
     this.enableDebugMode();
   }
 
-  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   public battleflag: boolean = true;
   public update(_time: number, delta: number) {
     if (this.battleflag) {
       if (!this.gridPhysics?.isMoving()) {
         if (!!this.player) {
           let nxy = this.player.getTilePos();
-          if (this.xy.x !== nxy.x || this.xy.y !== nxy.y) {
+          const { x, y } = this.xy;
+          if (x === undefined || y === undefined) return;
+          if (x !== nxy.x || y !== nxy.y) {
             this.xy = this.player.getTilePos();
             //踏むイベントの確認
             if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
@@ -265,9 +265,6 @@ export class Map extends Scene {
       return system.bossflag.get(s[0]);
     });
     funcs.set(this.name + ',open', (s: any[]) => {});
-    // funcs.set(this.name + ',delete', (s: any[]) => {
-    //   system.bossflag.set(s[0], false);
-    // });
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
