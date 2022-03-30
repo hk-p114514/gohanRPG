@@ -153,6 +153,9 @@ export class Map extends Scene {
       this.moveBattle();
     });
 
+    const G = this.input.keyboard.addKey('G').on('down', () => {
+      system.collidesFlag = !system.collidesFlag;
+    });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -229,7 +232,7 @@ export class Map extends Scene {
               anotherScene: this,
               timelinedata: n,
             });
-          } else if (this.tileMap?.hasTileAt(this.xy.x, this.xy.y, 'www')) {
+          } else {
             console.log('?');
           }
         } else {
@@ -255,7 +258,7 @@ export class Map extends Scene {
     //   this.cameras.main.fadeIn(10);
     //   //this.cameras.main.fadeOut();
     // });
-    // funcs.set(this.name + ',open', (s: any[]) => {});
+    funcs.set(this.name + ',open', (s: any[]) => {});
     // funcs.set(this.name + ',delete', (s: any[]) => {
     //   system.bossflag.set(s[0], false);
     // });
