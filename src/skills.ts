@@ -34,7 +34,29 @@ import {
   sleepForAll,
   soshaku,
   uraken,
-} from 'skillsFunction';
+} from 'skillsFunction/enemySkillsFunction';
+import {
+  artificialFillet,
+  freezeChin,
+  fruitsPhantom,
+  gingerRain,
+  hukuPickMountain,
+  keemaGatling,
+  meatballFall,
+  noodleCluster,
+  persaLoaf,
+  sabaleSplash,
+  sauceBigWave,
+  shrimpSwing,
+  soupSpice,
+  swepasWhip,
+  throatThirst,
+  tripleDance,
+  vansPress,
+  veryHotCurry,
+  voidRice,
+  weedGrudge,
+} from 'skillsFunction/bossSkillsFunction';
 
 export type SkillFunction = (
   scene: Scene,
@@ -85,4 +107,36 @@ export const stateSkills: Skill[] = [
 export const buffSkills: Skill[] = [
   new Skill('アタックドーピング', attackdoping, false, false),
   new Skill('かたくなる', katakunaru, false, false),
+];
+
+export const ateSkills: Skill[] = [
+  new Skill('スイパスウィップ', swepasWhip, false, true),
+  new Skill('バンズプレス', vansPress, false, true),
+  new Skill('パーサローフ', persaLoaf, false, false),
+  new Skill('フルーツファントム', fruitsPhantom, false, true),
+  new Skill('サバレースプラッシュ', sabaleSplash, true, true),
+];
+
+export const bteSkills: Skill[] = [
+  new Skill('エビテンスイング', shrimpSwing, false, true),
+  new Skill('三色の舞', tripleDance, true, true),
+  new Skill('ジンジャーレイン', gingerRain, true, true),
+  new Skill('スロートサースト', throatThirst, false, true),
+  new Skill('ソースビッグウェーブ', sauceBigWave, true, true),
+];
+
+export const melcineSkills: Skill[] = [
+  new Skill('ヌードルクラスタ', noodleCluster, false, true),
+  new Skill('アーティフィカルチャーシュー', artificialFillet, false, true),
+  new Skill('ダーシースパイス', soupSpice, true, true),
+  new Skill('フリーズチャイン', freezeChin, false, true),
+  new Skill('ウィードグルージ', weedGrudge, true, true),
+];
+
+export const elecaSkills: Skill[] = [
+  new Skill('ボイドライス', voidRice, false, true),
+  new Skill('ミートボールフォール', meatballFall, true, true),
+  new Skill('ベリカラカリー', veryHotCurry, false, false),
+  new Skill('フクピクマウンテン', hukuPickMountain, false, false),
+  new Skill('キーマガトリング', keemaGatling, false, true),
 ];

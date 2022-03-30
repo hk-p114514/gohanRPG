@@ -28,8 +28,8 @@ export class State {
     this.skillBuff = 0;
     this.isProvocation = false;
 
-    this.poisonDamage = 1;
-    this.healDamage = 1;
+    this.poisonDamage = Math.floor(actor.hp.max * 0.1);
+    this.healDamage = Math.floor(actor.hp.max * 0.1);
     this.paralysisProbability = 2;
     this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
