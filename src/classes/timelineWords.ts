@@ -212,6 +212,58 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const desertGotsuji: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おお！帰ったか若者よ！\n街はお主の噂で持ち切りじゃぞ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'お主が旅をしていた間、ワシも指をくわえていた訳ではないぞい！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'あの、爺さん誰だっk' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '次の鍵のありかの噂を嗅ぎ回っていたんじゃ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'なんでも、ソースワデザートの青い魔物が怪しいらいいぞい！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'さぁ、ワシもこうしちゃいられん！次の噂の聞き込みじゃ！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん' },
+    { type: 'endTimeline' },
+  ],
+};
+export const oceanGotsuji: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: '待ちわびたぞ！若者！' },
+    { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…',
+    },
+    { type: 'dialog', actorName: 'ゴツジ', text: 'こんな年寄りに負けて悔しくないのか！' },
+    { type: 'dialog', actorName: 'マルク', text: '別に競ってはな' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '次の鍵は、ムギムギオーシャンの白い魔物が持っているそうじゃ！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'さ、ワシは最後の鍵の噂を探しに行くぞ！善は急げじゃ！',
 export const stoper1: Timelines = {
   start: [
     {
@@ -282,6 +334,13 @@ export const stoper7: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const volcanoGotsuji: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'さ！最後はキーマボルケーノじゃ！' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '分かったら休んどらんでさっさと行けい！じゃあな！',
 export const stoper8: Timelines = {
   start: [
     {
@@ -2310,6 +2369,167 @@ export const beforeObcBattle: Timelines = {
   ],
 };
 export const afterObcBattle: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…' },
+    { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…' },
+    { type: 'dialog', actorName: 'マルク', text: 'おい、お前' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'なんだい…私はもうすぐ力尽きる、文句があるなら今いいな…',
+    },
+    { type: 'dialog', actorName: 'マルク', text: '大盛りご飯' },
+    { type: 'dialog', actorName: 'OBC', text: '…は？' },
+    { type: 'dialog', actorName: 'マルク', text: '魔王倒したら大盛りご飯無料なんだろ？' },
+    { type: 'dialog', actorName: 'マルク', text: '早く出せよ' },
+    { type: 'dialog', actorName: 'OBC', text: 'ふん、バカだねぇ…' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'そんな広告、自作自演に決まってるじゃないか…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'はぁ！？じゃあ、食べれねぇってことかよ！？',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'まさかとは思うが、そのために来たのかい…？',
+    },
+    { type: 'dialog', actorName: 'OBC', text: '…ふふふ…ハハハハハハ！！' },
+    { type: 'dialog', actorName: 'マルク', text: 'おい！何笑ってんだよ！' },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'まさか、私がこんな理由で倒されるなんてね…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: '死ぬ前に、とんだ大馬鹿見せてもらって、私は満足だよ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'おい！もう死ぬみたいないこと言うんじゃねぇ！！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'まだ…まだ死ぬなよぉ…' },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'dialog', actorName: 'マルク', text: '腹…減ってんだよ…' },
+    { type: 'dialog', actorName: '？？？', text: '…きなさい！起きなさい！' },
+    { type: 'dialog', actorName: '？？？', text: '起きなさい！マルク！' },
+    { type: 'dialog', actorName: 'マルク', text: '…うーん？' },
+    {
+      type: 'dialog',
+      actorName: '？？？',
+      text: 'もう！38にもなって1人で起きれないなんて！情けなくないの！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'えぇ〜ママちゃまっち〜' },
+    { type: 'dialog', actorName: 'マルク', text: 'まだ起きたくないでござるよ〜' },
+    {
+      type: 'dialog',
+      actorName: 'ママちゃまっち',
+      text: '定職にも就いてないんだから！生活リズムくらい整えなさい！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'も〜、ママちゃまっちがそこまで言うならしょうがないでござるな〜',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'さて、新聞でも呼んで、3チャンでヤトウ叩きでもするでござるか〜',
+    },
+    { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
+    { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'endTimeline' },
+  ],
+};
+export const explanation = {
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'おい、そこの若者！' },
+    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'して若者よ、食堂に行くのになにか策はあるのか？',
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'サバ',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'これもうそのまま行っちゃっていいかな…',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stop: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+//Events
+export const prologue: Timelines = {
   start: [
     { type: 'event', event: 'bosslog', many: [4] },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
