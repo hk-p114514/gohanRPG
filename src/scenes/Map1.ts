@@ -18,6 +18,7 @@ import {
   hint1,
   explanation1,
 } from 'classes/timelineWords';
+import { funcs } from 'classes/exam';
 
 export class Map1 extends Map {
   constructor() {
@@ -30,6 +31,7 @@ export class Map1 extends Map {
 
   create() {
     super.create();
+    funcs.set(this.name + ',startBattleAte', () => {});
     this.setBoss(13, 3, 'Ate');
     super.setEvent('exit', warp0);
     super.setEvent('woop', warpA);
@@ -43,13 +45,5 @@ export class Map1 extends Map {
     super.setHint('stone2', stone2);
     super.setHint('stone3', stone3);
     super.setHint('stone4', stone4);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      // this.switchMap(sceneKeys.map1);
-      system.map = sceneKeys.map1;
-
-      system.switchMap(this, sceneKeys.map1);
-    });
   }
 }
