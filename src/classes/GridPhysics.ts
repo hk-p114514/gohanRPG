@@ -130,12 +130,12 @@ export class GridPhysics {
 
   private hasBlockingTile(pos: Vector2): boolean {
     if (this.hasNoTile(pos)) return true;
+    if (system.collidesFlag) return false;
     if (npcs.has(system.map + ',' + pos.x + ',' + pos.y)) return true;
     return this.tileMap.layers.some((layer) => {
       const tile = this.tileMap.getTileAt(pos.x, pos.y, false, layer.name);
       return tile && tile.properties.collides;
     });
-    return false;
   }
 
   private hasNoTile(pos: Vector2): boolean {
