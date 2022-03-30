@@ -205,45 +205,58 @@ export const tutorial1: Timelines = {
     { type: 'dialog', text: '・・・・・・。' },
     {
       type: 'dialog',
-      text: 'この後、俺は謎の指揮者に捕まり、\n色々されてしまうのだった・・・。',
+      text: 'この後、俺は謎の漫才師に捕まり、\n色々されてしまうのだった・・・。',
       actorName: 'マルク',
     },
     //GameOverにする。
     { type: 'endTimeline' },
   ],
 };
-export const explanation = {
+export const explanation: Timelines = {
   start: [
+    { type: 'event', event: 'chdir', many: ['notMob', 'left'] },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
     { type: 'dialog', actorName: 'ゴツジ', text: 'おい、そこの若者！' },
+    { type: 'event', event: 'chdir', many: ['player', 'right'] },
+    { type: 'event', event: 'log', many: ['player', 3] },
     { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
     },
+    { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
     },
+    { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
     },
+    { type: 'event', event: 'log', many: ['notMob', 1] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'して若者よ、食堂に行くのになにか策はあるのか？',
     },
+    { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
     },
+    { type: 'event', event: 'relog', many: [] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
@@ -254,21 +267,25 @@ export const explanation = {
       actorName: 'ゴツジ',
       text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
     },
+    { type: 'event', event: 'log', many: ['player', 4] },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: 'サバ',
     },
+    { type: 'event', event: 'relog', many: [] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
     },
+    { type: 'event', event: 'log', many: ['notMob', 5] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
     },
+    { type: 'event', event: 'log', many: ['player', 4] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
@@ -279,16 +296,59 @@ export const explanation = {
       actorName: 'マルク',
       text: 'これもうそのまま行っちゃっていいかな…',
     },
+    { type: 'event', event: 'relog', many: [] },
     { type: 'endTimeline' },
   ],
 };
-export const stop: Timelines = {
+export const stoplu: Timelines = {
   start: [
+    { type: 'event', event: 'log', many: ['player', 3] },
     {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'おっと、この先はまだ主には危険じゃぞい',
     },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'move', many: ['left'] },
+    { type: 'endTimeline' },
+  ],
+};
+export const stopru: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'move', many: ['right'] },
+    { type: 'endTimeline' },
+  ],
+};
+export const stopld: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'move', many: ['left'] },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoprd: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ゴツジ',
+      text: 'おっと、この先はまだ主には危険じゃぞい',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'move', many: ['right'] },
     { type: 'endTimeline' },
   ],
 };
@@ -597,7 +657,7 @@ export const afterAteBattle: Timelines = {
     { type: 'event', event: 'relog', many: [] },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'エーテはもう倒れたか…。' },
-    { type: 'dialog', actorName: '四天王D', text: 'ふん、奴は四天王の中でも最弱…。' },
+    { type: 'dialog', actorName: '四天王C', text: 'ふん、奴は四天王の中でも最弱…。' },
     { type: 'dialog', actorName: '四天王B', text: 'OBC、次は私にまかせてください。' },
     { type: 'dialog', actorName: '四天王B', text: '兄の責任は私の責任でもあります。' },
     { type: 'dialog', actorName: 'OBC', text: '良かろうビーテ、次は貴様に任せる。' },
