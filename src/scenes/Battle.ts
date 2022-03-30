@@ -36,6 +36,11 @@ export class Battle extends Scene {
     this.sorted = [];
     this.index = 0;
     this.exp = 0;
+    this.party.forEach((actor: BattleActor) => {
+      actor.hp.current = actor.hp.max;
+      actor.buff.initBuff();
+      actor.state.initState();
+    });
   }
 
   preload() {
