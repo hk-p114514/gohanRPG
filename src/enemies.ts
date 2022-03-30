@@ -34,6 +34,7 @@ import {
   bteSkills,
   melcineSkills,
   elecaSkills,
+  obcSkills,
 } from 'skills';
 import { Battle } from 'scenes/Battle';
 
@@ -308,6 +309,17 @@ const enemy = {
     speed: 20,
     startLevel: 20,
     initSkills: elecaSkills,
+  }),
+
+  obc: new BattleActor({
+    name: 'OBC',
+    hp: { current: 80, max: 80 },
+    mp: { current: 50, max: 50 },
+    atk: 25,
+    def: 25,
+    speed: 15,
+    startLevel: 23,
+    initSkills: obcSkills,
   }),
 };
 

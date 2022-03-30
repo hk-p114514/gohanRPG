@@ -37,21 +37,27 @@ import {
 } from 'skillsFunction/enemySkillsFunction';
 import {
   artificialFillet,
+  deathDining,
+  distributeEating,
   freezeChin,
   fruitsPhantom,
   gingerRain,
   hukuPickMountain,
   keemaGatling,
+  leftoverForbid,
   meatballFall,
   noodleCluster,
   persaLoaf,
   sabaleSplash,
   sauceBigWave,
   shrimpSwing,
+  silentForce,
   soupSpice,
   swepasWhip,
+  tablewareHurtle,
   throatThirst,
   tripleDance,
+  unsanitaryKitchen,
   vansPress,
   veryHotCurry,
   voidRice,
@@ -139,4 +145,13 @@ export const elecaSkills: Skill[] = [
   new Skill('ベリカラカリー', veryHotCurry, false, false),
   new Skill('フクピクマウンテン', hukuPickMountain, false, false),
   new Skill('キーマガトリング', keemaGatling, false, true),
+];
+
+export const obcSkills: Skill[] = [
+  new Skill('レフトオーバーフォービット', leftoverForbid, false, true),
+  new Skill('サイレントフォース', silentForce, false, true),
+  new Skill('ディストリビュートイーティング', distributeEating, true, true),
+  new Skill('テーブルウェアハートル', tablewareHurtle, true, true),
+  new Skill('アンサニタリーキッチン', unsanitaryKitchen, true, true),
+  new Skill('デス・ダイニング', deathDining, true, true),
 ];
