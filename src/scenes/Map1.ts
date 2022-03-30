@@ -43,13 +43,5 @@ export class Map1 extends Map {
     super.setHint('stone2', stone2);
     super.setHint('stone3', stone3);
     super.setHint('stone4', stone4);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      // this.switchMap(sceneKeys.map1);
-      system.map = sceneKeys.map1;
-
-      system.switchMap(this, sceneKeys.map1);
-    });
   }
 }
