@@ -229,7 +229,7 @@ export class Map extends Scene {
               anotherScene: this,
               timelinedata: n,
             });
-          } else if (this.tileMap?.hasTileAt(this.xy.x, this.xy.y, 'www')) {
+          } else {
             console.log('?');
           }
         } else {
