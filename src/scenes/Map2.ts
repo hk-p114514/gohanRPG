@@ -50,6 +50,7 @@ import {
   goBte,
   beforeBteBattle,
   afterBteBattle,
+  warp0,
 } from 'classes/timelineWords';
 export class Map2 extends Map {
   public stars: Array<string> = [
@@ -78,6 +79,7 @@ export class Map2 extends Map {
   create() {
     super.create();
     this.setBoss(7, 18, 'Bte');
+    super.setEvent('exit', warp0);
     super.makeNPC('Shiden', meetShiden);
     super.setEvent('meet2', meetShiden);
     super.setHint('explanation2', explanation2);
