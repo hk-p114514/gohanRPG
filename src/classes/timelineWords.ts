@@ -1,3 +1,4 @@
+import { enemy } from 'enemies';
 import { Timelines } from './Timelines';
 //テスト
 export const timelineData: Timelines = {
@@ -993,6 +994,11 @@ export const beforeAteBattle: Timelines = {
       type: 'dialog',
       actorName: 'エーテ',
       text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！',
+    },
+    {
+      type: 'event',
+      event: 'battle',
+      many: [enemy.ate],
     },
     { type: 'endTimeline' },
   ],

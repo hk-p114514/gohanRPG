@@ -395,6 +395,11 @@ export class Map extends Scene {
     funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
     });
+    funcs.set(this.name + ',battle', (s: any[]) => {
+      system.isBossBattle = true;
+      system.boss = s[0];
+      this.moveBattle();
+    });
   }
 
   moveBattle() {

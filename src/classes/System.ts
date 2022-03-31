@@ -18,6 +18,8 @@ export class System {
   public battleflag: boolean = true;
   public bossflag: Map<string, boolean> = new Map();
   public collidesFlag = false;
+  public isBossBattle: boolean = false;
+  public boss?: BattleActor;
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
