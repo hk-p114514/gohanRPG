@@ -54,7 +54,7 @@ export const mushouzan = (
   const target: BattleActor = targets[0];
   const beforeHp = target.hp.current;
   target.beInjured(attacker.buff.getAtk() * 1.5);
-  attacker.state.activeState('sleep', 1);
+  attacker.state.activeState('sleep', 2);
   const afterHp = target.hp.current;
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の夢翔斬！` },
@@ -78,12 +78,12 @@ export const inganoOguruma = (
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   let sum: number = 0;
-  while (randI(3)) {
+  do {
     const beforeHp = target.hp.current;
     target.beInjured(attacker.buff.getAtk() * 1.2);
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-  }
+  } while (randI(2));
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の因果の小車！` },
     {

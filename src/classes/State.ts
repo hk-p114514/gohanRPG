@@ -118,12 +118,16 @@ export class State {
   private stateProgress(scene: Scene, name: string): void {
     switch (name) {
       case 'poison':
-        this.onePhrase(scene, `${this.actor.name}は毒で${this.poisonDamage}ダメージ！`);
-        this.damageBuff -= this.poisonDamage;
+        if (this.poisonDamage > 0) {
+          this.onePhrase(scene, `${this.actor.name}は毒で${this.poisonDamage}ダメージ！`);
+          this.damageBuff -= this.poisonDamage;
+        }
         break;
       case 'heal':
-        this.onePhrase(scene, `${this.actor.name}は${this.healDamage}回復した!`);
-        this.damageBuff += this.healDamage;
+        if (this.healDamage > 0) {
+          this.onePhrase(scene, `${this.actor.name}は${this.healDamage}回復した!`);
+          this.damageBuff += this.healDamage;
+        }
         break;
       case 'paralysis':
         if (!randI(this.paralysisProbability - 1, 0)) {
