@@ -360,6 +360,14 @@ export const mapEnemies = new Map<string, BattleActor[]>([
   ],
 ]);
 
+export const bossEnemies: BattleActor[] = [
+  enemy.ate,
+  enemy.bte,
+  enemy.melcine,
+  enemy.eleca,
+  enemy.obc,
+];
+
 export const getGhost = (): BattleActor => allInitStatus('ghost');
 
 export const getEnemies = (key: string): BattleActor[] => {
