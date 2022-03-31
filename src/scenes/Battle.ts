@@ -48,7 +48,7 @@ export class Battle extends Scene {
     this.enemies = clone;
     // 現在のマップに出て来る可能性のある敵キャラの数
     const len = this.enemies.length;
-    const appear = randI(Battle.availableSkillCount - 1);
+    const appear = randI(Battle.maxEnemiesAppearance, 1);
     const diff = len - appear;
     for (let i = 0; i < diff; i++) {
       const n = randI(len - 1, 0);
