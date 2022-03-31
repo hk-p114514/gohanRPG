@@ -49,6 +49,9 @@ export class Battle extends Scene {
       const n = randI(len - 1, 0);
       this.enemies.splice(n, 1);
     }
+    if (system.isBossBattle && system.boss) {
+      this.enemies = [system.boss];
+    }
 
     this.sorted = [...this.party, ...this.enemies].sort((a, b) => {
       return b.speed - a.speed;

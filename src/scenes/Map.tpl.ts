@@ -161,7 +161,7 @@ export class Map extends Scene {
       this.moveBattle();
     });
 
-    const G = this.input.keyboard.addKey('G').on('down', () => {
+    const G = this.input.keyboard.addKey('g').on('down', () => {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
