@@ -327,7 +327,7 @@ export class Battle extends Scene {
       anotherScene: this,
       timelinedata: {
         win: [{ type: 'dialog', text: `敵の殲滅に成功！` }, { type: 'endTimeline' }],
-        lose: [{ type: 'dialog', text: `仲間が全滅した....` }, { type: 'endTimeline' }],
+        lose: [{ type: 'dialog', text: `味方が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
       },
       specID: situation,
