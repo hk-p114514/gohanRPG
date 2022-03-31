@@ -3,6 +3,7 @@ import { SkillFunction } from 'skills';
 import { BattleActor } from 'classes/BattleActor';
 import { skillDialog } from 'skillsFunction/skillDialog';
 import { randI } from 'functions/generalPurpose/rand';
+import { Battle } from 'scenes/Battle';
 
 // エーテ用専用技
 // スイパスウィップ
@@ -405,7 +406,7 @@ export const meatballFall: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のミートボールフォール！` },
-    { type: 'dialog', text: `平均${Math.floor(sum / num)}のダメージ！` },
+    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} のダメージ！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -471,11 +472,143 @@ export const keemaGatling: SkillFunction = (
 };
 
 // OBC専用技
-// スピルリクイッド
-export const spillLiquid: SkillFunction = (
+// レフトオーバーフォービット
+export const leftoverForbid: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.hp.current -= 15;
+  if (target.hp.current > 0) {
+    target.hp.current = 0;
+  }
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のレフトオーバーフォービット！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// サイレントフォース
+export const silentForce: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  attacker.buff.initBuff();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のサイレントフォース！` },
+    { type: 'dialog', text: `${attacker.name}は攻撃力、防御力を元に戻した！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// ディストリビュートイーティング
+export const distributeEating: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk());
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のディストリビュートイーテイング！` },
+    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// テーブルウェアハートル
+export const tablewareHurtle: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let num: number;
+  do {
+    num = randI(targets.length - 1, 0);
+  } while (targets[num].hp.current <= 0);
+  const beforeHp = targets[num].hp.current;
+  targets[num].beInjured(attacker.buff.getAtk() * 1.3);
+  const afterHp = targets[num].hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のテーブルウェアハートル！` },
+    {
+      type: 'dialog',
+      text: `${targets[num].name}は ${Math.abs(beforeHp - afterHp)} 喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// アンサニタリーキッチン
+export const unsanitaryKitchen: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  let i: number, num: number[];
+  num = [0, 0];
+  for (i = 0; i < 2; i++) {
+    do {
+      num[i] = randI(targets.length - 1, 0);
+    } while (targets[num[i]].hp.current <= 0);
+    targets[num[i]].state.activeState('sleep', 4);
+  }
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のアンサニタリーキッチン！` },
+    { type: 'dialog', text: `${targets[num[0]].name}は眠ってしまった！` },
+    { type: 'dialog', text: `${targets[num[1]].name}は眠ってしまった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// OBC専用技
+// デス・ダイニング
+export const deathDining: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.hp.current = Math.floor(target.hp.current * 0.5);
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のデス・ダイニング！` },
+    { type: 'dialog', text: `黒い霧が食堂を包み込む！` },
+    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} のダメージ！` },
+    { type: 'endTimeline' },
+  ]);
 };
