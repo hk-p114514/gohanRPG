@@ -162,7 +162,12 @@ export class TimelinePlayer extends Scene {
         this.scene.stop();
         break;
       case 'judge':
-        if (system.bossflag.get(timelineEvent.scene))
+        if (
+          system.bossflag.get('Ate') &&
+          system.bossflag.get('Bte') &&
+          system.bossflag.get('Melcine') &&
+          system.bossflag.get('Eleca')
+        )
           this.specTimeline({ timelineID: timelineEvent.timelineID });
         break;
       default:
