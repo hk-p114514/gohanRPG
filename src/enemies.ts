@@ -44,7 +44,7 @@ import {
 } from 'skills';
 import { Battle } from 'scenes/Battle';
 
-const enemy = {
+export const enemy = {
   slime: new BattleActor({
     name: 'スライム',
     spriteSrc: slime,
