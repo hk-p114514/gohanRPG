@@ -175,7 +175,16 @@ export class TimelinePlayer extends Scene {
     }
   }
   private startevent(key: string, many: any[]) {
-    if (funcs.has(system.map + ',' + key)) {
+    if (key == 'battle') {
+      if (!funcs.get(system.map + ',' + key)(many)) {
+        this.dialogBox?.clearDialogBox();
+        this.timelineIndex = -1;
+        // マップシーンのキー操作を受け付けるようにする
+        this.anotherScene?.scene.resume();
+        // timelinePlayerシーンを止める
+        this.scene.stop();
+      }
+    } else if (funcs.has(system.map + ',' + key)) {
       funcs.get(system.map + ',' + key)(many);
     }
   }

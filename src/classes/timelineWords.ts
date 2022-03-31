@@ -1000,6 +1000,7 @@ export const beforeAteBattle: Timelines = {
       event: 'battle',
       many: [enemy.ate],
     },
+    { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…。' },
     { type: 'endTimeline' },
   ],
 };
@@ -1834,6 +1835,11 @@ export const beforeBteBattle: Timelines = {
     { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
     { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'event',
+      event: 'battle',
+      many: [enemy.bte],
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -2224,6 +2230,11 @@ export const beforeMelcineBattle: Timelines = {
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
     { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'event',
+      event: 'battle',
+      many: [enemy.melcine],
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -2466,6 +2477,11 @@ export const beforeElecaBattle: Timelines = {
       text: '全員まとめて叩き潰す。',
     },
     { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'event',
+      event: 'battle',
+      many: [enemy.eleca],
+    },
     { type: 'endTimeline' },
   ],
 };
