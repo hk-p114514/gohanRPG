@@ -209,12 +209,6 @@ export class Battle extends Scene {
   backToMap() {
     this.scene.stop(sceneKeys.ui);
     this.scene.stop(sceneKeys.battle);
-    this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: system.map,
-      timelinedata: {
-        start: [{ type: 'event', event: 'move', many: ['up'] }],
-      },
-    });
     this.scene.wake(system.map);
   }
 
