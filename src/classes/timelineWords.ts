@@ -219,7 +219,11 @@ export const beBijinesuman: Timelines = {//sample019.png
       type: 'dialog',
       text: '魔王の影響が僕のビジネスにまで及んできた...\n誰か倒してくれないかなぁ。',
       actorName: 'ビジネスマン',
-//
+      //
+    },
+    { type: 'endTimeline' },
+  ],
+};
 export const desertGotsuji: Timelines = {
   start: [
     {
@@ -258,30 +262,38 @@ export const desertGotsuji: Timelines = {
         [4, 22],
         [4, 23],
       ],
-//
+      //
     },
     { type: 'endTimeline' },
   ],
 };
 //
+//
+
 export const beJK1: Timelines = {//sample018.png
-//
-export const oceanGotsuji: Timelines = {
-//
+  //
+  start: [{
+    type: 'dialog',
+    text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+    actorName: '金髪JK',
+  },
+  {
+    type: 'dialog',
+    text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+    actorName: '黒髪JK',
+    //
+  },
+  { type: 'endTimeline' },
+  ],
+};
+export const oceanGotsuji: Timelines = {//sample018.png
+  //
   start: [
     { type: 'dialog', actorName: 'ゴツジ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
     {
       type: 'dialog',
-//
-      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
-      actorName: '金髪JK',
-    },
-    {
-      type: 'dialog',
-      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
-      actorName: '黒髪JK',
-//
+      //
       actorName: 'ゴツジ',
       text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…',
     },
@@ -296,21 +308,17 @@ export const oceanGotsuji: Timelines = {
       type: 'dialog',
       actorName: 'ゴツジ',
       text: 'さ、ワシは最後の鍵の噂を探しに行くぞ！善は急げじゃ！',
-//
+      //
     },
     { type: 'endTimeline' },
   ],
 };
 //
 export const beJK2: Timelines = {//sample017.png
-//
-export const volcanoGotsuji: Timelines = {
-//
+  //
   start: [
-    { type: 'dialog', actorName: 'ゴツジ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {
       type: 'dialog',
-//
       text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
       actorName: '金髪JK',
     },
@@ -318,10 +326,21 @@ export const volcanoGotsuji: Timelines = {
       type: 'dialog',
       text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
       actorName: '黒髪JK',
-//
+      //
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const volcanoGotsuji: Timelines = {
+  //
+  start: [
+    { type: 'dialog', actorName: 'ゴツジ', text: 'さ！最後はキーマボルケーノじゃ！' },
+    {
+      type: 'dialog',
+      //
       actorName: 'ゴツジ',
       text: '分かったら休んどらんでさっさと行けい！じゃあな！',
-//
+      //
     },
     { type: 'endTimeline' },
   ],
@@ -333,14 +352,7 @@ export const beTyuubou: Timelines = {//sample015.png
       type: 'dialog',
       text: '魔王なんてオレのこの腕の力で...ブツブツ',
       actorName: '中坊',
-//
-export const stoper1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ハンバーガー',
-//
+      //
     },
     { type: 'endTimeline' },
   ],
@@ -352,14 +364,6 @@ export const beEruhu: Timelines = {//sample005.png
       type: 'dialog',
       text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
       actorName: 'エルフ',
-//
-export const stoper2: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'カッサンド',
-//
     },
     { type: 'endTimeline' },
   ],
@@ -371,14 +375,6 @@ export const beKisi: Timelines = {//sample003.png
       type: 'dialog',
       text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
       actorName: '騎士',
-//
-export const stoper3: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ギュウド',
-//
     },
     { type: 'endTimeline' },
   ],
@@ -390,14 +386,6 @@ export const beMajo: Timelines = {//sample006.png
       type: 'dialog',
       text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
       actorName: '怪しげな魔女',
-//
-export const stoper4: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'カツド',
-//
     },
     { type: 'endTimeline' },
   ],
@@ -519,44 +507,6 @@ export const afRoujin: Timelines = {//sample013.png
       type: 'dialog',
       text: 'やはりおぬしは頼もしい若者じゃ！平和のためにも、魔王をがんばって倒してくれ！！',
       actorName: '老人',
-//
-export const stoper5: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ヒャシチユウカ',
-//
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper6: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ウドン',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'チキンカ',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper8: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ギュウカ',
     },
     { type: 'endTimeline' },
   ],
@@ -647,22 +597,6 @@ export const explanation: Timelines = {
       text: 'これもうそのまま行っちゃっていいかな…',
     },
     { type: 'event', event: 'relog', many: [] },
-    { type: 'event', event: 'reset', many: ['stoper1'] },
-    { type: 'event', event: 'set', many: ['stoper1', 23, 21, stoper1] },
-    { type: 'event', event: 'reset', many: ['stoper2'] },
-    { type: 'event', event: 'set', many: ['stoper2', 28, 23, stoper2] },
-    { type: 'event', event: 'reset', many: ['stoper3'] },
-    { type: 'event', event: 'set', many: ['stoper3', 44, 23, stoper3] },
-    { type: 'event', event: 'reset', many: ['stoper4'] },
-    { type: 'event', event: 'set', many: ['stoper4', 43, 23, stoper4] },
-    { type: 'event', event: 'reset', many: ['stoper5'] },
-    { type: 'event', event: 'set', many: ['stoper5', 7, 12, stoper5] },
-    { type: 'event', event: 'reset', many: ['stoper6'] },
-    { type: 'event', event: 'set', many: ['stoper6', 9, 12, stoper6] },
-    { type: 'event', event: 'reset', many: ['stoper7'] },
-    { type: 'event', event: 'set', many: ['stoper7', 36, 11, stoper7] },
-    { type: 'event', event: 'reset', many: ['stoper8'] },
-    { type: 'event', event: 'set', many: ['stoper8', 36, 13, stoper8] },
     {
       type: 'event',
       event: 'kill',
