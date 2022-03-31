@@ -31,12 +31,6 @@ export class Battle extends Scene {
   }
 
   init() {
-    this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: this,
-      timelinedata: {
-        start: [{ type: 'dialog', text: 'てきがあらわれた！' }, { type: 'endTimeline' }],
-      },
-    });
     this.party = [...system.party];
     this.enemies = [];
     this.sorted = [];
@@ -85,8 +79,7 @@ export class Battle extends Scene {
     });
 
     // バトル開始
-    // this.nextTurn();
-    this.time.addEvent({ delay: 800, callback: this.nextTurn, callbackScope: this });
+    this.nextTurn();
   }
 
   // 2往復で1ターン：1往復目->攻撃、回復等 例：「〜の〜攻撃」「〜に〜ダメージ」
