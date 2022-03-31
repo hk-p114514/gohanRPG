@@ -393,7 +393,7 @@ export const komorebi: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  target.state.activeState('sleep', 1);
+  target.state.activeState('sleep', 2);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の木漏れ日！` },
     {
@@ -560,7 +560,7 @@ export const kakokyu: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  target.state.activeState('sleep', 1);
+  target.state.activeState('sleep', 2);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の過呼吸！` },
     {
