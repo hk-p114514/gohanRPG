@@ -24,7 +24,7 @@ export class Map4 extends Map {
     super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
     super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
     super.setnpcimage('Mough', 1, system.party[3].spriteSrc);
-    this.loadBossimage('Mel', Mel);
+    this.loadBossimage('Eleca', Eleca);
   }
   create() {
     super.create();
