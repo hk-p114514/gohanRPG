@@ -3136,5 +3136,9 @@ export const afterObcBattle: Timelines = {
 };
 
 export const zoomUp: Timelines = {
-  start: [{ type: 'event', event: 'zoomUp', many: [] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'zoomUp', many: [] },
+    { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
+    { type: 'endTimeline' },
+  ],
 };
