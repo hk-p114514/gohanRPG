@@ -1834,6 +1834,7 @@ export const beforeBteBattle: Timelines = {
     { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'battle', many: [enemy.bte] },
     { type: 'endTimeline' },
   ],
 };
