@@ -125,14 +125,6 @@ export class Map2 extends Map {
     super.setEvent('goBte', goBte);
     super.setEvent('beforeBte', beforeBteBattle);
     super.setEvent('afterBte', afterBteBattle);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map1;
-
-      // this.switchMap(sceneKeys.map1);
-      system.switchMap(this, sceneKeys.map1);
-    });
     funcs.set(this.name + ',warpstar', (s: any[]) => {
       if (this.count === -1) {
         this.count = 0;

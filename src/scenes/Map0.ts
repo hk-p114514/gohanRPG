@@ -14,14 +14,6 @@ import {
   explanation,
   stopl,
   stopr,
-  stoper1,
-  stoper2,
-  stoper3,
-  stoper4,
-  stoper5,
-  stoper6,
-  stoper7,
-  stoper8,
 } from 'classes/timelineWords';
 //import { system } from 'index';
 
@@ -52,25 +44,9 @@ export class Map0 extends Map {
     super.setHint('first', explanation0);
     super.makeNPC('notMob', noComment);
     super.makeNPC('vimmer', noComment);
-    super.makeNPC('stoper1', stoper1);
-    super.makeNPC('stoper2', stoper2);
-    super.makeNPC('stoper3', stoper3);
-    super.makeNPC('stoper4', stoper4);
-    super.makeNPC('stoper5', stoper5);
-    super.makeNPC('stoper6', stoper6);
-    super.makeNPC('stoper7', stoper7);
-    super.makeNPC('stoper8', stoper8);
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map3;
-
-      // this.switchMap(sceneKeys.map1);
-      system.switchMap(this, sceneKeys.map3);
-    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});
