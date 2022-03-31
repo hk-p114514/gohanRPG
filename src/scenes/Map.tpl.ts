@@ -245,7 +245,7 @@ export class Map extends Scene {
                 anotherScene: this,
                 timelinedata: n,
               });
-            } else if (!randI(20)) {
+            } else if (!randI(15)) {
               this.moveBattle();
             }
           } else {
