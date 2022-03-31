@@ -2226,10 +2226,11 @@ export const backboss: Timelines = {
 export const goEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', many: [8, 23] },
-    { type: 'event', event: 'set', many: ['Shiden', 6, 23, undefined] },
-    { type: 'event', event: 'set', many: ['Pouler', 6, 23, undefined] },
-    { type: 'event', event: 'set', many: ['Mough', 6, 23, undefined] },
+    { type: 'event', event: 'zoomDown', many: [] },
+    { type: 'event', event: 'warp', many: [29, 42] },
+    { type: 'event', event: 'set', many: ['Shiden', 30, 42, undefined] },
+    { type: 'event', event: 'set', many: ['Pouler', 28, 42, undefined] },
+    { type: 'event', event: 'set', many: ['Mough', 29, 43, undefined] },
     { type: 'event', event: 'chdir', many: ['player', 'up'] },
     { type: 'event', event: 'chdir', many: ['Shiden', 'up'] },
     { type: 'event', event: 'chdir', many: ['Pouler', 'up'] },
@@ -2360,6 +2361,14 @@ export const afterElecaBattle: Timelines = {
     { type: 'event', event: 'delete', many: ['afterEleca'] },
     { type: 'event', event: 'event', many: ['startE', 4, 22, castleAnnounce, 'map0'] },
     { type: 'event', event: 'event', many: ['startE', 4, 23, castleAnnounce, 'map0'] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [28, 45],
+        [30, 45],
+      ],
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -3124,4 +3133,8 @@ export const afterObcBattle: Timelines = {
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
     { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
   ],
+};
+
+export const zoomUp: Timelines = {
+  start: [{ type: 'event', event: 'zoomUp', many: [] }, { type: 'endTimeline' }],
 };

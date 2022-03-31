@@ -47,14 +47,6 @@ export class Map0 extends Map {
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map3;
-
-      // this.switchMap(sceneKeys.map1);
-      system.switchMap(this, sceneKeys.map3);
-    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});

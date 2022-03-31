@@ -50,13 +50,6 @@ export class Map5 extends Map {
     super.setHint('woop1to2', reII);
     super.setHint('wooptoboss', reIII);
     super.setHint('woopstart', warpstart);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map1;
-
-      system.switchMap(this, sceneKeys.map1);
-    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});
