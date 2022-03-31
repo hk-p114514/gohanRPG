@@ -87,9 +87,21 @@ import {
   weedGrudge,
 } from 'skillsFunction/bossSkillsFunction';
 import {
+  airOnJs,
+  beStrong,
+  charge,
+  conductorFinale,
+  daikiLate,
   drivethough,
+  forestGrace,
+  grailFantasia,
   inganoOguruma,
+  megaHeal,
+  morningRamenBless,
   mushouzan,
+  picoHeal,
+  protect,
+  redDevilRequiem,
   sogigiri,
 } from 'skillsFunction/partySkillsFunction';
 
@@ -213,4 +225,25 @@ export const marcSkills: Skill[] = [
   new Skill('夢翔斬', mushouzan, false, true), // 夢翔斬（超強攻撃、自分に眠り）
   new Skill('因果の小車', inganoOguruma, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
   new Skill('ドライブスルー', drivethough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
+];
+
+export const shidenSkills: Skill[] = [
+  new Skill('js上の詠唱曲', airOnJs, false, true),
+  new Skill('聖杯の幻想曲', grailFantasia, true, true),
+  new Skill('指揮者の終曲', conductorFinale, false, true),
+  new Skill('紅魔の鎮魂歌', redDevilRequiem, true, true),
+];
+
+export const poulerSkills: Skill[] = [
+  new Skill('朝ラーの加護', morningRamenBless, true, true),
+  new Skill('杜の恵み', forestGrace, true, false),
+  new Skill('ピコヒール', picoHeal, false, false),
+  new Skill('メガヒール', megaHeal, false, false),
+];
+
+export const moughSkills: Skill[] = [
+  new Skill('まもる', protect, false, false),
+  new Skill('つよくなる', beStrong, false, true),
+  new Skill('たいきばんせい', daikiLate, false, false),
+  new Skill('とつげき', charge, false, true),
 ];
