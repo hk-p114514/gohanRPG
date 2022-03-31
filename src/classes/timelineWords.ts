@@ -1,9 +1,7 @@
-import { events } from './exam';
 import { Timelines } from './Timelines';
-
+//テスト
 export const timelineData: Timelines = {
   start: [
-    // { type: 'startTimeline' },
     { type: 'dialog', text: '・・・・\n・・ ▼' },
     { type: 'dialog', text: 'う、うーん・・・ ▼' },
     { type: 'setBackgroundImage', x: 400, y: 300, key: 'street' },
@@ -37,7 +35,6 @@ export const timelineData: Timelines = {
     { type: 'dialog', text: 'よろしい。ではこちらへ来てください ▼', actorName: 'ACT-42' },
     { type: 'clearForeground' },
     { type: 'dialog', text: 'こうして銀河を股にかけた物語が始まるのであった・・・ ▼' },
-    // { type: 'sceneTransition', key: 'ending' },
     { type: 'endTimeline' },
   ],
   choice01_a02: [
@@ -60,13 +57,11 @@ export const timelineData: Timelines = {
       type: 'dialog',
       text: 'この後俺は謎の組織に捕まり色々されてしまうのだった・・・ ▼',
     },
-    // { type: 'sceneTransition', key: 'ending' },
     { type: 'endTimeline' },
   ],
 };
 export const Took: Timelines = {
   start: [
-    // { type: 'startTimeline' },
     { type: 'event', event: 'talk', many: [] },
     { type: 'dialog', text: 'OK▼' },
     { type: 'event', event: 'chdir', many: ['hito2', 'left'] },
@@ -112,9 +107,28 @@ export const select: Timelines = {
   choice01_a04: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
   choice01_a05: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
+
+export const warp0: Timelines = {
+  start: [{ type: 'switch', scene: 'map0' }, { type: 'endTimeline' }],
+};
+export const warp1: Timelines = {
+  start: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
+};
+export const warp2: Timelines = {
+  start: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
+};
+export const warp3: Timelines = {
+  start: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
+};
+export const warp4: Timelines = {
+  start: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
+};
+export const warp5: Timelines = {
+  start: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
+};
+
 export const noComment: Timelines = {
   start: [
-    // { type: 'startTimeline' },
     {
       type: 'dialog',
       text: 'ハハッ!\nハハハッ!\nハハハハッ!\n',
@@ -125,7 +139,6 @@ export const noComment: Timelines = {
 };
 export const dummy: Timelines = {
   start: [
-    // { type: 'startTimeline' },
     {
       type: 'dialog',
       text: 'ハハッ!\nこの先はまだ未完成なんだ。\nごめんね!',
@@ -152,6 +165,7 @@ export const prologue: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const tutorial1: Timelines = {
   start: [
     {
@@ -212,32 +226,130 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
+export const explanation: Timelines = {
+  start: [
+    { type: 'event', event: 'chdir', many: ['notMob', 'left'] },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
+    { type: 'dialog', actorName: 'ダカフ', text: 'おい、そこの若者！' },
+    { type: 'event', event: 'chdir', many: ['player', 'right'] },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
+    },
+    { type: 'event', event: 'log', many: ['notMob', 1] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'して若者よ、食堂に行くのになにか策はあるのか？',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    { type: 'event', event: 'log', many: ['notMob', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
+    },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
+    },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'サバ',
+    },
+    { type: 'event', event: 'log', many: ['notMob', 4] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
+    },
+    { type: 'event', event: 'log', many: ['notMob', 5] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'これもうそのまま行っちゃっていいかな…',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [29, 8],
+        [30, 8],
+      ],
+    },
+    { type: 'endTimeline' },
+  ],
+};
 export const desertGotsuji: Timelines = {
   start: [
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'おお！帰ったか若者よ！\n街はお主の噂で持ち切りじゃぞ！',
     },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'お主が旅をしていた間、ワシも指をくわえていた訳ではないぞい！',
     },
     { type: 'dialog', actorName: 'マルク', text: 'あの、爺さん誰だっk' },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: '次の鍵のありかの噂を嗅ぎ回っていたんじゃ！',
     },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'なんでも、ソースワデザートの青い魔物が怪しいらいいぞい！',
     },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'さぁ、ワシもこうしちゃいられん！次の噂の聞き込みじゃ！',
     },
     { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん' },
@@ -255,239 +367,314 @@ export const desertGotsuji: Timelines = {
   ],
 };
 export const oceanGotsuji: Timelines = {
+  //sample018.png
+  //
   start: [
-    { type: 'dialog', actorName: 'ゴツジ', text: '待ちわびたぞ！若者！' },
+    { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…',
     },
-    { type: 'dialog', actorName: 'ゴツジ', text: 'こんな年寄りに負けて悔しくないのか！' },
+    { type: 'dialog', actorName: 'ダカフ', text: 'こんな年寄りに負けて悔しくないのか！' },
     { type: 'dialog', actorName: 'マルク', text: '別に競ってはな' },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: '次の鍵は、ムギムギオーシャンの白い魔物が持っているそうじゃ！',
     },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'さ、ワシは最後の鍵の噂を探しに行くぞ！善は急げじゃ！',
+    },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [55, 22],
+        [55, 23],
+        [4, 22],
+        [4, 23],
+      ],
     },
     { type: 'endTimeline' },
   ],
 };
 export const volcanoGotsuji: Timelines = {
   start: [
-    { type: 'dialog', actorName: 'ゴツジ', text: 'さ！最後はキーマボルケーノじゃ！' },
+    { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: '分かったら休んどらんでさっさと行けい！じゃあな！',
     },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ハンバーガー',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper2: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'カッサンド',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper3: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ギュウド',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper4: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'カツド',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper5: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ヒャシチユウカ',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper6: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ウドン',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'チキンカ',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper8: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'defined',
-      actorName: 'ギュウカ',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const explanation: Timelines = {
-  start: [
-    { type: 'event', event: 'chdir', many: ['notMob', 'left'] },
-    { type: 'event', event: 'log', many: ['notMob', 3] },
-    { type: 'dialog', actorName: 'ゴツジ', text: 'おい、そこの若者！' },
-    { type: 'event', event: 'chdir', many: ['player', 'right'] },
-    { type: 'event', event: 'log', many: ['player', 3] },
-    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
-    { type: 'event', event: 'log', many: ['notMob', 3] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
-    },
-    { type: 'event', event: 'log', many: ['player', 4] },
-    { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
-    { type: 'event', event: 'log', many: ['notMob', 3] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
-    },
-    { type: 'event', event: 'log', many: ['player', 4] },
-    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
-    { type: 'event', event: 'log', many: ['notMob', 3] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
-    },
-    { type: 'event', event: 'log', many: ['notMob', 1] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: 'して若者よ、食堂に行くのになにか策はあるのか？',
-    },
-    { type: 'event', event: 'log', many: ['player', 4] },
-    { type: 'dialog', actorName: 'マルク', text: 'べ' },
-    { type: 'event', event: 'log', many: ['notMob', 3] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
-    },
-    { type: 'event', event: 'log', many: ['notMob', 4] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
-    },
-    { type: 'event', event: 'log', many: ['notMob', 4] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
-    },
-    { type: 'event', event: 'log', many: ['player', 4] },
-    {
-      type: 'dialog',
-      actorName: 'マルク',
-      text: 'サバ',
-    },
-    { type: 'event', event: 'log', many: ['notMob', 4] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
-    },
-    { type: 'event', event: 'log', many: ['notMob', 5] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
-    },
-    { type: 'event', event: 'log', many: ['player', 4] },
-    {
-      type: 'dialog',
-      actorName: 'ゴツジ',
-      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
-    },
-    {
-      type: 'dialog',
-      actorName: 'マルク',
-      text: 'これもうそのまま行っちゃっていいかな…',
-    },
-    { type: 'event', event: 'relog', many: [] },
-    { type: 'event', event: 'reset', many: ['stoper1'] },
-    { type: 'event', event: 'set', many: ['stoper1', 23, 21, stoper1] },
-    { type: 'event', event: 'reset', many: ['stoper2'] },
-    { type: 'event', event: 'set', many: ['stoper2', 28, 23, stoper2] },
-    { type: 'event', event: 'reset', many: ['stoper3'] },
-    { type: 'event', event: 'set', many: ['stoper3', 44, 23, stoper3] },
-    { type: 'event', event: 'reset', many: ['stoper4'] },
-    { type: 'event', event: 'set', many: ['stoper4', 43, 23, stoper4] },
-    { type: 'event', event: 'reset', many: ['stoper5'] },
-    { type: 'event', event: 'set', many: ['stoper5', 7, 12, stoper5] },
-    { type: 'event', event: 'reset', many: ['stoper6'] },
-    { type: 'event', event: 'set', many: ['stoper6', 9, 12, stoper6] },
-    { type: 'event', event: 'reset', many: ['stoper7'] },
-    { type: 'event', event: 'set', many: ['stoper7', 36, 11, stoper7] },
-    { type: 'event', event: 'reset', many: ['stoper8'] },
-    { type: 'event', event: 'set', many: ['stoper8', 36, 13, stoper8] },
     {
       type: 'event',
       event: 'kill',
       many: [
-        [29, 8],
-        [30, 8],
+        [55, 22],
+        [55, 23],
+        [4, 22],
+        [4, 23],
       ],
     },
     { type: 'endTimeline' },
   ],
 };
+export const castleAnnounce: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 1] },
+    {
+      type: 'dialog',
+      actorName: '？？？',
+      text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: '？？？', text: 'マルク' },
+    { type: 'dialog', actorName: '？？？', text: 'シデン' },
+    { type: 'dialog', actorName: '？？？', text: 'パウラ' },
+    { type: 'dialog', actorName: '？？？', text: 'マウ' },
+    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい。' },
+    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
+    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
+    { type: 'dialog', actorName: 'マルク', text: '……。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const beBijinesuman: Timelines = {
+  //sample019.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王の影響が僕のビジネスにまで及んできた...\n誰か倒してくれないかなぁ。',
+      actorName: 'ビジネスマン',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const beJK1: Timelines = {
+  //sample018.png
+  //
+  start: [
+    {
+      type: 'dialog',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
+      //
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beJK2: Timelines = {
+  //sample018.png
+  start: [
+    {
+      type: 'dialog',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
+      //
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beTyuubou: Timelines = {
+  //sample015.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王なんてオレのこの腕の力で...ブツブツ',
+      actorName: '中坊',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beEruhu: Timelines = {
+  //sample005.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
+      actorName: 'エルフ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beKisi: Timelines = {
+  //sample003.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
+      actorName: '騎士',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beMajo: Timelines = {
+  //sample006.png
+  start: [
+    {
+      type: 'dialog',
+      text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
+      actorName: '怪しげな魔女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beSyoujo: Timelines = {
+  //sample012.png
+  start: [
+    {
+      type: 'dialog',
+      text: '私も魔法少女プリラみたいに大きくなったら悪い奴を退治するのー。',
+      actorName: '少女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beRoujin: Timelines = {
+  //sample013.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'おぬしのその装備...さては魔王退治じゃな？\nほっほっほっ、頼もしい若者も居たもんじゃ。',
+      actorName: '老人',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const afBijinesuman: Timelines = {
+  //sample019.png
+  start: [
+    {
+      type: 'dialog',
+      text: '魔王軍のやつらが減って僕のビジネスが好調だよ！ありがとう！',
+      actorName: 'ビジネスマン',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afJK1: Timelines = {
+  //sample018.png
+  start: [
+    {
+      type: 'dialog',
+      text: '門限ちょっとはマシになったけどまだまだキツいわー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: '魔王が倒されたら元に戻るかなぁ。',
+      actorName: '黒髪JK',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afJK2: Timelines = {
+  //sample017.png
+  start: [
+    {
+      type: 'dialog',
+      text: '門限ちょっとはマシになったけどまだまだキツいわー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: '魔王が倒されたら元に戻るかなぁ。',
+      actorName: '黒髪JK',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afTyuubou: Timelines = {
+  //sample015.png
+  start: [
+    {
+      type: 'dialog',
+      text: '俺が毎晩行っている儀式が効いているようだな...。\nあとはお前だけだ魔王よ。クククッ...',
+      actorName: '中坊',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afEruhu: Timelines = {
+  //sample005.png
+  start: [
+    {
+      type: 'dialog',
+      text: '人が森に来てくれるようになって楽しい毎日に戻ったよ、ありがとう！\nあとは魔王だけらしいね、がんばってね！',
+      actorName: 'エルフ',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afKisi: Timelines = {
+  //sample003.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'この町はこの俺に任せろ！君は魔王にだけに集中しろ！がんばれ！',
+      actorName: '騎士',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afMajo: Timelines = {
+  //sample006.png
+  start: [
+    {
+      type: 'dialog',
+      text: '（小声）このおこづかい稼ぎも潮時かぁ...。',
+      actorName: '怪しげな魔女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afSyoujo: Timelines = {
+  //sample012.png
+  start: [
+    {
+      type: 'dialog',
+      text: '私も大きくなったらあなたみたいに強くなれるかなー？',
+      actorName: '少女',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afRoujin: Timelines = {
+  //sample013.png
+  start: [
+    {
+      type: 'dialog',
+      text: 'やはりおぬしは頼もしい若者じゃ！平和のためにも、魔王をがんばって倒してくれ！！',
+      actorName: '老人',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
 export const stopl: Timelines = {
   start: [
     { type: 'event', event: 'log', many: ['player', 3] },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
     { type: 'event', event: 'relog', many: [] },
@@ -500,7 +687,7 @@ export const stopr: Timelines = {
     { type: 'event', event: 'log', many: ['player', 3] },
     {
       type: 'dialog',
-      actorName: 'ゴツジ',
+      actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
     { type: 'event', event: 'relog', many: [] },
@@ -508,6 +695,7 @@ export const stopr: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const explanation0: Timelines = {
   start: [
     {
@@ -517,7 +705,7 @@ export const explanation0: Timelines = {
     },
     {
       type: 'dialog',
-      text: '南西に森。',
+      text: '南西にサバレーフィールド。',
       actorName: '社松の看板',
     },
     {
@@ -532,7 +720,7 @@ export const explanation0: Timelines = {
     },
     {
       type: 'dialog',
-      text: '北東に迷路。',
+      text: '北東にキーマボルケーノ。',
       actorName: '社松の看板',
     },
     {
@@ -543,35 +731,23 @@ export const explanation0: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const warp0: Timelines = {
-  start: [{ type: 'switch', scene: 'map0' }, { type: 'endTimeline' }],
-};
-export const warp1: Timelines = {
-  start: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
-};
-export const warp2: Timelines = {
-  start: [{ type: 'switch', scene: 'map2' }, { type: 'endTimeline' }],
-};
-export const warp3: Timelines = {
-  start: [{ type: 'switch', scene: 'map3' }, { type: 'endTimeline' }],
-};
-export const warp4: Timelines = {
-  start: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
-};
-export const warp5: Timelines = {
-  start: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
-};
 //Stage1
-// export const tutorial2: Timelines = {
-//   start: [
-//     {
-//       type: 'dialog',
-//       text: 'バトルのチュートリアル書いといてね',
-//       actorName: '識者',
-//     },
-//     { type: 'endTimeline' },
-//   ],
-// };
+export const explanation1: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: 'ここはサバレーフィールド。',
+      actorName: '社松の看板',
+    },
+    {
+      type: 'dialog',
+      text: 'ある時期のこの森では、\nケンタウルス座とみなみじゅうじ座がとても見やすいです。',
+      actorName: '社松の看板',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
 export const hint1: Timelines = {
   start: [
     { type: 'dialog', text: '古びた看板がある。' },
@@ -583,21 +759,6 @@ export const hint1: Timelines = {
     { type: 'event', event: 'log', many: ['player', 1] },
     { type: 'dialog', text: '？？？', actorName: 'マルク' },
     { type: 'event', event: 'relog', many: [] },
-    { type: 'endTimeline' },
-  ],
-};
-export const explanation1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: 'ここは？？？。',
-      actorName: '社松の看板',
-    },
-    {
-      type: 'dialog',
-      text: 'ある時期のこの森では、\nケンタウルス座とみなみじゅうじ座がとても見やすいです。',
-      actorName: '社松の看板',
-    },
     { type: 'endTimeline' },
   ],
 };
@@ -645,12 +806,14 @@ export const stone4: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const warpA: Timelines = {
   start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
 };
 export const backA: Timelines = {
   start: [{ type: 'event', event: 'warp', many: [29, 12] }, { type: 'endTimeline' }],
 };
+
 export const goAte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
@@ -722,7 +885,7 @@ export const afterAteBattle: Timelines = {
       text: 'ふん、覚えておくといい…いずれ貴様を滅ぼす、偉大なる魔王の名だ…。',
     },
     { type: 'event', event: 'log', many: ['player', 3] },
-    { type: 'event', event: 'break', many: [] },
+    { type: 'event', event: 'break', many: ['Ate'] },
     { type: 'dialog', actorName: 'エーテ', text: 'バタッ。' },
     { type: 'event', event: 'log', many: ['player', 4] },
     {
@@ -776,6 +939,7 @@ export const explanation2: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const meetShiden: Timelines = {
   start: [
     { type: 'event', event: 'chdir', many: ['Shiden', 'up'] },
@@ -960,6 +1124,8 @@ export const addShiden: Timelines = {
     },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'event', many: ['startC', 4, 22, oceanGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startC', 4, 23, oceanGotsuji, 'map0'] },
     {
       type: 'event',
       event: 'kill',
@@ -972,6 +1138,7 @@ export const addShiden: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const Aries: Timelines = {
   start: [{ type: 'dialog', text: 'Aries' }, { type: 'endTimeline' }],
 };
@@ -1011,6 +1178,7 @@ export const Pisces: Timelines = {
 export const Ophiuchus: Timelines = {
   start: [{ type: 'dialog', text: 'Ophiuchus' }, { type: 'endTimeline' }],
 };
+
 export const AriesWarp: Timelines = {
   start: [
     { type: 'dialog', text: 'この穴に入りますか？' },
@@ -1215,6 +1383,7 @@ export const PiscesWarp: Timelines = {
   ],
   No: [{ type: 'endTimeline' }],
 };
+
 export const reAriesWarp: Timelines = {
   start: [
     { type: 'dialog', text: 'この穴に入りますか？' },
@@ -1447,6 +1616,7 @@ export const reOphiuchusWarp: Timelines = {
   Yes: [{ type: 'event', event: 'warp', many: [7, 13] }, { type: 'endTimeline' }],
   No: [{ type: 'endTimeline' }],
 };
+
 export const goBte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
@@ -1559,7 +1729,7 @@ export const afterBteBattle: Timelines = {
     { type: 'dialog', actorName: 'ビーテ', text: 'ちょうおんぷて、だよ…。' },
     { type: 'event', event: 'relog', many: [] },
     { type: 'dialog', actorName: 'ビーテ', text: '俺の名はビチョウオンプテ、だ…。' },
-    { type: 'event', event: 'break', many: [] },
+    { type: 'event', event: 'break', many: ['Bte'] },
     { type: 'dialog', actorName: 'ビーテ', text: 'バタッ。' },
     { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: '『ー』って、長音符って言うんだ…。' },
@@ -1586,6 +1756,8 @@ export const afterBteBattle: Timelines = {
     { type: 'event', event: 'delete', many: ['afterBte'] },
     { type: 'event', event: 'event', many: ['add2-1', 2, 1, addShiden] },
     { type: 'event', event: 'event', many: ['add2-2', 3, 1, addShiden] },
+    { type: 'event', event: 'event', many: ['startB', 4, 22, desertGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startB', 4, 23, desertGotsuji, 'map0'] },
     {
       type: 'event',
       event: 'kill',
@@ -1615,6 +1787,7 @@ export const explanation3: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const dir1: Timelines = {
   start: [
     {
@@ -1654,6 +1827,7 @@ export const dir3: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const addPouler: Timelines = {
   start: [
     { type: 'event', event: 'set', many: ['Shiden', 3, 2, undefined] },
@@ -1729,6 +1903,7 @@ export const addPouler: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const restart0: Timelines = {
   start: [
     { type: 'dialog', text: '道を踏み外した！' },
@@ -1750,6 +1925,7 @@ export const restart2: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const II: Timelines = {
   start: [
     { type: 'dialog', text: 'この渦に入りますか？' },
@@ -1792,6 +1968,7 @@ export const IV: Timelines = {
   Yes: [{ type: 'event', event: 'warp', many: [31, 30] }, { type: 'endTimeline' }],
   No: [{ type: 'endTimeline' }],
 };
+
 export const reI: Timelines = {
   start: [
     { type: 'dialog', text: 'この穴に入りますか？' },
@@ -1834,6 +2011,7 @@ export const reIII: Timelines = {
   Yes: [{ type: 'event', event: 'warp', many: [9, 34] }, { type: 'endTimeline' }],
   No: [{ type: 'endTimeline' }],
 };
+
 export const warpstart: Timelines = {
   start: [
     { type: 'dialog', text: 'この渦に入りますか？' },
@@ -1848,6 +2026,7 @@ export const warpstart: Timelines = {
   Yes: [{ type: 'event', event: 'warp', many: [4, 2] }, { type: 'endTimeline' }],
   No: [{ type: 'endTimeline' }],
 };
+
 export const goMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
@@ -1954,7 +2133,7 @@ export const afterMelcineBattle: Timelines = {
     },
     { type: 'event', event: 'reset', many: ['Shiden'] },
     { type: 'event', event: 'reset', many: ['Pouler'] },
-    { type: 'event', event: 'break', many: [] },
+    { type: 'event', event: 'break', many: ['Melcine'] },
     { type: 'event', event: 'delete', many: ['goMelcine'] },
     { type: 'event', event: 'delete', many: ['beforeMelcine'] },
     { type: 'event', event: 'delete', many: ['afterMelcine'] },
@@ -1966,17 +2145,18 @@ export const explanation4: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: 'ここはどこなんだろう。',
+      text: 'ここはキーマボルケーノ。',
       actorName: '社松の看板',
     },
     {
       type: 'dialog',
-      text: '溶岩石で出来た自然の迷宮',
+      text: '溶岩石で出来た自然の迷宮。',
       actorName: '社松の看板',
     },
     { type: 'endTimeline' },
   ],
 };
+
 export const addMough: Timelines = {
   start: [
     { type: 'event', event: 'set', many: ['Shiden', 3, 2, undefined] },
@@ -2035,6 +2215,13 @@ export const addMough: Timelines = {
     { type: 'event', event: 'relog', many: [] },
     { type: 'endTimeline' },
   ],
+};
+
+export const warpboss: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backboss: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
 };
 export const goEleca: Timelines = {
   start: [
@@ -2132,7 +2319,7 @@ export const afterElecaBattle: Timelines = {
       text: '…お母様は、私の比にならない強さよ、\nせいぜい…覚悟…しておきなさい…。',
     },
     { type: 'event', event: 'relog', many: [] },
-    { type: 'event', event: 'break', many: [] },
+    { type: 'event', event: 'break', many: ['Eleca'] },
     { type: 'dialog', actorName: 'エレカ', text: 'バタッ。' },
     { type: 'event', event: 'chdir', many: ['player', 'down'] },
     { type: 'event', event: 'chdir', many: ['Shiden', 'down'] },
@@ -2161,9 +2348,19 @@ export const afterElecaBattle: Timelines = {
     { type: 'event', event: 'reset', many: ['Shiden'] },
     { type: 'event', event: 'reset', many: ['Pouler'] },
     { type: 'event', event: 'reset', many: ['Mough'] },
-    { type: 'event', event: 'delete', many: ['goEleca'] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [1, 1],
+        [2, 2],
+        [3, 3],
+      ],
+    },
     { type: 'event', event: 'delete', many: ['beforeEleca'] },
     { type: 'event', event: 'delete', many: ['afterEleca'] },
+    { type: 'event', event: 'event', many: ['startE', 4, 22, castleAnnounce, 'map0'] },
+    { type: 'event', event: 'event', many: ['startE', 4, 23, castleAnnounce, 'map0'] },
     {
       type: 'event',
       event: 'kill',
@@ -2185,31 +2382,18 @@ export const explanation5: Timelines = {
     },
     {
       type: 'dialog',
-      text: '何かヒント。',
+      text: 'マスクと消毒を忘れずに。',
       actorName: '社松の看板',
     },
     { type: 'endTimeline' },
   ],
 };
-export const castleAnnounce: Timelines = {
-  start: [
-    { type: 'event', event: 'log', many: ['player', 1] },
-    {
-      type: 'dialog',
-      actorName: '？？？',
-      text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
-    },
-    { type: 'event', event: 'log', many: ['player', 3] },
-    { type: 'dialog', actorName: '？？？', text: 'マルク' },
-    { type: 'dialog', actorName: '？？？', text: 'シデン' },
-    { type: 'dialog', actorName: '？？？', text: 'パウラ' },
-    { type: 'dialog', actorName: '？？？', text: 'マウ' },
-    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい。' },
-    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
-    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
-    { type: 'event', event: 'relog', many: [] },
-    { type: 'endTimeline' },
-  ],
+
+export const warpAte: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backAte: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
 };
 export const goReAte: Timelines = {
   start: [
@@ -2225,6 +2409,158 @@ export const goReAte: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const startAte: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 2] },
+    { type: 'dialog', actorName: 'エーテ', text: '久しぶりだな！' },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'お前は、森にいた奴。',
+    },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: '奴とは、失礼な人間だな…。',
+    },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'マルク、\n誰だこのビーテの劣化番みたいな奴は。',
+    },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: '黙れ！',
+    },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    { type: 'dialog', actorName: 'シデン', text: 'キレ方も似てるし。' },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: 'まあ良い。',
+    },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    { type: 'dialog', actorName: 'パウラ', text: '良いんだ…。' },
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'マルク', text: 'というか、何でここに。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'エーテ', text: 'OBCの力により蘇ったのだよ。' },
+    { type: 'event', event: 'bosslog', many: [4] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: 'さあ、母なる魔王の元へ行きたくば、再びこの私を倒していくがいい！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: 'その愚かな試み、このエーテが何度でもへし折ってくれるわ！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: '……。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'エーテ', text: '……。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'あれ、バトルは？' },
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'エーテ', text: 'あの、掛け声を、お願いします。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'dialog', actorName: 'マルク', text: 'あ、ごめん。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: '……。' },
+    { type: 'event', event: 'bosslog', many: [1] },
+    { type: 'dialog', actorName: 'エーテ', text: '行くぞ！！' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'dialog', actorName: 'パウラ', text: 'グダグダですね…。' },
+    { type: 'endTimeline' },
+  ],
+};
+export const endAte: Timelines = {
+  start: [
+    { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…だめだったか。' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    { type: 'dialog', actorName: 'エーテ', text: 'OBCよ、申し訳ありません…。' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'お前がいたってことは、もしかして他の奴らも…。',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: 'ふ、その通りさ。',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'エーテ',
+      text: 'お前たちの進行は、我々四天王が必ず止めて見せる。',
+    },
+    { type: 'event', event: 'break', many: ['Ate'] },
+    { type: 'dialog', actorName: 'エーテ', text: 'バタッ。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'また奴らと闘わなければならないとは…。',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'めんどくさいな！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'マウ',
+      text: '強いやつといっぱい戦える！',
+    },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: '…とにかく、気を引き締めて頑張りましょう！',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'delete', many: ['beforeAte'] },
+    { type: 'event', event: 'delete', many: ['afterAte'] },
+    { type: 'event', event: 'event', many: ['startB', 4, 22, desertGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startB', 4, 23, desertGotsuji, 'map0'] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [9, 8],
+        [10, 8],
+        [11, 8],
+        [12, 8],
+        [13, 8],
+        [14, 8],
+        [15, 8],
+        [16, 8],
+        [17, 8],
+      ],
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const warpBte: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backBte: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
 export const goReBte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
@@ -2238,6 +2574,122 @@ export const goReBte: Timelines = {
     { type: 'event', event: 'chdir', many: ['Mough', 'up'] },
     { type: 'endTimeline' },
   ],
+};
+export const startBte: Timelines = {
+  start: [
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'ビーテ', text: '…兄者は倒されたか。' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    { type: 'dialog', actorName: 'シデン', text: 'やはり次はお前か。' },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: '改めて名乗ろう',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: 'この私こそ、軟弱な兄エーテよりずっとずっと強い、\n四天王ビーテ様だ！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'わー相変わらず言い方が弱そう。' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'うるさい！' },
+    { type: 'event', event: 'log', many: ['Shiden', 4] },
+    { type: 'dialog', actorName: 'シデン', text: '敗北から何も学んでいないようだな。' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'うるさいうるさい！' },
+    { type: 'event', event: 'log', many: ['Shiden', 4] },
+    { type: 'dialog', actorName: 'マウ', text: '弱そう、残念。' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'うるさいうるさいうるさい！' },
+    { type: 'event', event: 'log', many: ['Shiden', 4] },
+    { type: 'dialog', actorName: 'パウラ', text: '皆さん、流石に言い過ぎでは？' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'うるさ…くない。' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'ありがとう。' },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: 'それより貴様ら、黙って聞いていれば、\n何度も何度もこのビーテ様を侮辱しおって！',
+    },
+    { type: 'dialog', actorName: 'パウラ', text: '黙って聞いてはなかったですけど。' },
+    { type: 'event', event: 'bosslog', many: [2] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'うるさいうるさいうるさいうるさい！' },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: 'もう許さない。',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: '徹底的にぶっ潰してくれる。',
+    },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: 'どぅおるぁぁぁ！！！',
+    },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'バトル突入セリフだけは進化してるな。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
+  ],
+};
+export const endBte: Timelines = {
+  start: [
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、またか…。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'chdir', many: ['player', 'left'] },
+    { type: 'event', event: 'chdir', many: ['Shiden', 'right'] },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: '結局あの兄者と同じ末路を辿るのか…。',
+    },
+    { type: 'event', event: 'break', many: ['Bte'] },
+    { type: 'dialog', actorName: 'ビーテ', text: 'バタッ。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    { type: 'dialog', actorName: 'マルク', text: 'あばよ、ビチョウオンプテ。' },
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'パウラ', text: 'ビチョウオンプテ……。' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    { type: 'dialog', actorName: 'パウラ', text: 'あれってそんな読み方だったんだ…。' },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: 'マウ', text: 'ながくて分かりずらい。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'reset', many: ['Shiden'] },
+    { type: 'event', event: 'delete', many: ['beforeBte'] },
+    { type: 'event', event: 'delete', many: ['afterBte'] },
+    { type: 'event', event: 'event', many: ['add2-1', 2, 1, addShiden] },
+    { type: 'event', event: 'event', many: ['add2-2', 3, 1, addShiden] },
+    { type: 'event', event: 'event', many: ['startB', 4, 22, desertGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startB', 4, 23, desertGotsuji, 'map0'] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [7, 24],
+        [6, 25],
+        [8, 25],
+        [7, 26],
+      ],
+    },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const warpMelcine: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backMelcine: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
 };
 export const goReMelcine: Timelines = {
   start: [
@@ -2253,6 +2705,106 @@ export const goReMelcine: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+export const startMelcine: Timelines = {
+  start: [
+    { type: 'event', event: 'bosslog', many: [3] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'よくぞ再びおいでくださいました！\nこの四天王一高貴な男、メルシンのもとへ！！',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: 'マルク', text: '…やっぱりこいつ嫌いだわぁ。' },
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'メルシン', text: 'それよりも貴様ら…。' },
+    { type: 'event', event: 'bosslog', many: [5] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'あの時は、よくも私を無視して進もうとしてくれましたねぇ。',
+    },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'パウラ', text: 'あっ。' },
+    { type: 'event', event: 'bosslog', many: [5] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'あの時の恨み、今ここではらさしてもらいます。',
+    },
+    { type: 'event', event: 'chdir', many: ['Shiden', 'left'] },
+    { type: 'event', event: 'chdir', many: ['Pouler', 'right'] },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'このワタクシの全力でねぇ！！',
+    },
+    { type: 'dialog', actorName: 'パウラ', text: 'やっぱり騒がしい人ですねぇ。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
+  ],
+};
+export const endMelcine: Timelines = {
+  start: [
+    { type: 'event', event: 'bosslog', many: [3] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: 'ばかな…この私がまたしても敗北するなど…。',
+    },
+    { type: 'event', event: 'bosslog', many: [2] },
+    {
+      type: 'dialog',
+      actorName: 'メルシン',
+      text: '何故だ、何故なのだぁ！！！',
+    },
+    { type: 'event', event: 'log', many: ['player', 2] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'さ、無視して行こうぜ。',
+    },
+    { type: 'event', event: 'chdir', many: ['player', 'right'] },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'chdir', many: ['Shiden', 'right'] },
+    { type: 'dialog', actorName: 'シデン', text: 'だな、まだ次がある。' },
+    { type: 'event', event: 'bosslog', many: [3] },
+    { type: 'dialog', actorName: 'パウラ', text: '行きましょう。' },
+    { type: 'event', event: 'chdir', many: ['Pouler', 'right'] },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'メルシン', text: '……。' },
+    { type: 'event', event: 'bosslog', many: [3] },
+    { type: 'dialog', actorName: 'マウ', text: '……。' },
+    { type: 'event', event: 'bosslog', many: [3] },
+    { type: 'dialog', actorName: 'マウ', text: 'お前。' },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'メルシン', text: '……？' },
+    { type: 'event', event: 'bosslog', many: [3] },
+    { type: 'dialog', actorName: 'マウ', text: 'そこそこ強かったぞ！' },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'メルシン', text: '……！' },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'メルシン', text: 'ありがとう！' },
+    { type: 'event', event: 'log', many: ['Pouler', 4] },
+    { type: 'dialog', actorName: 'メルシン', text: 'バタッ。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'reset', many: ['Shiden'] },
+    { type: 'event', event: 'reset', many: ['Pouler'] },
+    { type: 'event', event: 'break', many: ['Melcine'] },
+    { type: 'event', event: 'delete', many: ['goMelcine'] },
+    { type: 'event', event: 'delete', many: ['beforeMelcine'] },
+    { type: 'event', event: 'delete', many: ['afterMelcine'] },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const warpEleca: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backEleca: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
 export const goReEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
@@ -2266,6 +2818,115 @@ export const goReEleca: Timelines = {
     { type: 'event', event: 'chdir', many: ['Mough', 'up'] },
     { type: 'endTimeline' },
   ],
+};
+export const startEleca: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 5] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'ここまできましたか。\nやはり男たちは軟弱だったはね。',
+    },
+    { type: 'event', event: 'log', many: ['Shiden', 3] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'せっかくここまで来たんだ。\n倒させてもらうぞ！',
+    },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'あなたたちの強さは認めるわ。',
+    },
+    { type: 'event', event: 'bosslog', many: [5] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'しかし、この先はお母様の間。',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: '何人たりとも通すわけにはいかない。',
+    },
+    { type: 'event', event: 'bosslog', many: [3] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: '本気で、確実に叩き潰す。',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'endTimeline' },
+  ],
+};
+export const endEleca: Timelines = {
+  start: [
+    { type: 'event', event: 'bosslog', many: [4] },
+    { type: 'dialog', actorName: 'エレカ', text: '申し訳ありません、おかあ…さま…。' },
+    { type: 'event', event: 'log', many: ['player', 4] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: '悪いが、俺たちにはやらなきゃならない事があるんでな！',
+    },
+    { type: 'event', event: 'bosslog', many: [4] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: '…お母様に叩き潰されるその時を、楽しみに待っているわ。',
+    },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'bosslog', many: [4] },
+    {
+      type: 'dialog',
+      actorName: 'エレカ',
+      text: 'あの世でね。',
+    },
+    { type: 'event', event: 'break', many: ['Eleca'] },
+    { type: 'dialog', actorName: 'エレカ', text: 'バタッ。' },
+    { type: 'event', event: 'log', many: ['player', 1] },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: '行こう、最後の戦いへ。',
+    },
+    { type: 'event', event: 'log', many: ['Shiden', 4] },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: 'あぁ。',
+    },
+    { type: 'event', event: 'log', many: ['Pouler', 1] },
+    { type: 'dialog', actorName: 'パウラ', text: 'はい。' },
+    { type: 'event', event: 'log', many: ['Mough', 5] },
+    { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！。' },
+    { type: 'event', event: 'relog', many: [] },
+    { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'reset', many: ['Shiden'] },
+    { type: 'event', event: 'reset', many: ['Pouler'] },
+    { type: 'event', event: 'reset', many: ['Mough'] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [1, 1],
+        [2, 2],
+        [3, 3],
+      ],
+    },
+    { type: 'event', event: 'delete', many: ['startEleca'] },
+    { type: 'event', event: 'delete', many: ['endEleca'] },
+    { type: 'endTimeline' },
+  ],
+};
+
+export const warpObc: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+};
+export const backObc: Timelines = {
+  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
 };
 export const goObc: Timelines = {
   start: [
@@ -2475,5 +3136,9 @@ export const afterObcBattle: Timelines = {
 };
 
 export const zoomUp: Timelines = {
-  start: [{ type: 'event', event: 'zoomUp', many: [] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'zoomUp', many: [] },
+    { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
+    { type: 'endTimeline' },
+  ],
 };
