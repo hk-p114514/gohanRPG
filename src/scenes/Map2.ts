@@ -73,7 +73,7 @@ export class Map2 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
+    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
     this.loadBossimage('Bte', Bte);
   }
   create() {
