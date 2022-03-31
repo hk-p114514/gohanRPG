@@ -367,6 +367,8 @@ export const desertGotsuji: Timelines = {
   ],
 };
 export const oceanGotsuji: Timelines = {
+  //sample018.png
+  //
   start: [
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
@@ -454,7 +456,26 @@ export const beBijinesuman: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
 export const beJK1: Timelines = {
+  //sample018.png
+  //
+  start: [
+    {
+      type: 'dialog',
+      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      actorName: '金髪JK',
+    },
+    {
+      type: 'dialog',
+      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      actorName: '黒髪JK',
+      //
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const beJK2: Timelines = {
   //sample018.png
   start: [
     {
@@ -466,22 +487,7 @@ export const beJK1: Timelines = {
       type: 'dialog',
       text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
       actorName: '黒髪JK',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const beJK2: Timelines = {
-  //sample017.png
-  start: [
-    {
-      type: 'dialog',
-      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
-      actorName: '金髪JK',
-    },
-    {
-      type: 'dialog',
-      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
-      actorName: '黒髪JK',
+      //
     },
     { type: 'endTimeline' },
   ],
@@ -569,12 +575,12 @@ export const afJK1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '門限ちょっとは',
+      text: '門限ちょっとはマシになったけどまだまだキツいわー。',
       actorName: '金髪JK',
     },
     {
       type: 'dialog',
-      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      text: '魔王が倒されたら元に戻るかなぁ。',
       actorName: '黒髪JK',
     },
     { type: 'endTimeline' },
@@ -585,12 +591,12 @@ export const afJK2: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      text: '門限ちょっとはマシになったけどまだまだキツいわー。',
       actorName: '金髪JK',
     },
     {
       type: 'dialog',
-      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
+      text: '魔王が倒されたら元に戻るかなぁ。',
       actorName: '黒髪JK',
     },
     { type: 'endTimeline' },
@@ -601,7 +607,7 @@ export const afTyuubou: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '魔王なんてオレのこの腕の力で...ブツブツ',
+      text: '俺が毎晩行っている儀式が効いているようだな...。\nあとはお前だけだ魔王よ。クククッ...',
       actorName: '中坊',
     },
     { type: 'endTimeline' },
@@ -612,7 +618,7 @@ export const afEruhu: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
+      text: '人が森に来てくれるようになって楽しい毎日に戻ったよ、ありがとう！\nあとは魔王だけらしいね、がんばってね！',
       actorName: 'エルフ',
     },
     { type: 'endTimeline' },
@@ -623,7 +629,7 @@ export const afKisi: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
+      text: 'この町はこの俺に任せろ！君は魔王にだけに集中しろ！がんばれ！',
       actorName: '騎士',
     },
     { type: 'endTimeline' },
@@ -634,7 +640,7 @@ export const afMajo: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
+      text: '（小声）このおこづかい稼ぎも潮時かぁ...。',
       actorName: '怪しげな魔女',
     },
     { type: 'endTimeline' },
@@ -645,7 +651,7 @@ export const afSyoujo: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '私も魔法少女プリラみたいに大きくなったら悪い奴を退治するのー。',
+      text: '私も大きくなったらあなたみたいに強くなれるかなー？',
       actorName: '少女',
     },
     { type: 'endTimeline' },
@@ -656,7 +662,7 @@ export const afRoujin: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: 'おぬしのその装備...さては魔王退治じゃな？\nほっほっほっ、頼もしい若者も居たもんじゃ。',
+      text: 'やはりおぬしは頼もしい若者じゃ！平和のためにも、魔王をがんばって倒してくれ！！',
       actorName: '老人',
     },
     { type: 'endTimeline' },
