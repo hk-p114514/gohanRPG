@@ -4,6 +4,30 @@ import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { skillDialog } from './skillDialog';
 
+// 斜め切り
+export const diagonalSlash = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let sum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeHp = target.hp.current;
+      target.beInjured(attacker.buff.getAtk());
+      const afterHp = target.hp.current;
+      sum += Math.abs(beforeHp - afterHp);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の斜め切り！` },
+    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} ダメージ与えた！` },
+    { type: 'endTimeline' },
+  ]);
+};
 // そぎ切り（中攻撃）
 export const sogigiri = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
@@ -173,6 +197,26 @@ export const conductorFinale: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+// 賢者の小夜曲
+export const sageSerenade: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeDef = target.buff.getDef();
+  target.buff.setBuff(0, -target.buff.getDef * 0.2, 3);
+  const afterDef = target.buff.getDef();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の賢者の小夜曲！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の防御力が ${Math.abs(beforeDef - afterDef)} 下がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
 // 紅魔の鎮魂歌
 export const redDevilRequiem: SkillFunction = (
   scene: Scene,
@@ -231,6 +275,35 @@ export const morningRamenBless: SkillFunction = (
     { type: 'dialog', text: `敵は平均 ${Math.floor(hpSum / num)} 喰らった！` },
     { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 下がった！` },
     { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 下がった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+// 精霊の加護
+export const spiritBless: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let atkSum = 0,
+    defSum = 0,
+    num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      num++;
+      const beforeAtk = target.buff.getAtk();
+      const beforeDef = target.buff.getDef();
+      target.buff.setBuff(target.buff.getAtk() * 0.1, target.buff.getDef() * 0.1, 3);
+      const afterAtk = target.buff.getAtk();
+      const afterDef = target.buff.getDef();
+      atkSum += Math.abs(beforeAtk - afterAtk);
+      defSum += Math.abs(beforeDef - afterDef);
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の精霊の加護！` },
+    { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
+    { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -365,6 +438,26 @@ export const charge: SkillFunction = (
     {
       type: 'dialog',
       text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+// うおおおおお
+export const uooooo: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeAtk = target.buff.getAtk();
+  target.buff.setBuff(0, -target.buff.getAtk() * 0.4, 2);
+  const afterAtk = target.buff.getAtk();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のうおおおおお！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の攻撃力が${Math.abs(beforeAtk - afterAtk)}下がった！`,
     },
     { type: 'endTimeline' },
   ]);
