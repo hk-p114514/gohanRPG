@@ -1,3 +1,4 @@
+import { enemy } from 'enemies';
 import { Timelines } from './Timelines';
 //テスト
 export const timelineData: Timelines = {
@@ -124,7 +125,15 @@ export const warp4: Timelines = {
   start: [{ type: 'switch', scene: 'map4' }, { type: 'endTimeline' }],
 };
 export const warp5: Timelines = {
-  start: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
+  start: [
+    { type: 'judge', scene: 'map5', timelineID: 'final' },
+    {
+      type: 'dialog',
+      text: '食堂は固く閉ざされている。',
+    },
+    { type: 'endTimeline' },
+  ],
+  final: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
 
 export const noComment: Timelines = {
@@ -166,6 +175,78 @@ export const prologue: Timelines = {
   ],
 };
 
+export const stoper1: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper2: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper3: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper4: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper5: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper6: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper7: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const stoper8: Timelines = {
+  start: [
+    {
+      type: 'dialog',
+      text: '見えない(?)壁に塞がれている。',
+    },
+    { type: 'endTimeline' },
+  ],
+};
 export const tutorial1: Timelines = {
   start: [
     {
@@ -313,6 +394,14 @@ export const explanation: Timelines = {
       text: 'これもうそのまま行っちゃっていいかな…',
     },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'reset', many: ['stoper1'] },
+    { type: 'event', event: 'reset', many: ['stoper2'] },
+    { type: 'event', event: 'reset', many: ['stoper3'] },
+    { type: 'event', event: 'reset', many: ['stoper4'] },
+    { type: 'event', event: 'reset', many: ['stoper5'] },
+    { type: 'event', event: 'reset', many: ['stoper6'] },
+    { type: 'event', event: 'reset', many: ['stoper7'] },
+    { type: 'event', event: 'reset', many: ['stoper8'] },
     {
       type: 'event',
       event: 'kill',
@@ -324,8 +413,18 @@ export const explanation: Timelines = {
     { type: 'endTimeline' },
   ],
 };
+
+export const afterGotsuji: Timelines = {
+  //
+  start: [
+    { type: 'dialog', actorName: 'ダカフ', text: 'あの頃はよかったの〜！' },
+    { type: 'endTimeline' },
+  ],
+};
 export const desertGotsuji: Timelines = {
   start: [
+    { type: 'event', event: 'reset', many: ['notMob'] },
+    { type: 'event', event: 'set', many: ['notMob2', 6, 22, undefined] },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -363,6 +462,7 @@ export const desertGotsuji: Timelines = {
         [4, 23],
       ],
     },
+    { type: 'event', event: 'reset', many: ['notMob2'] },
     { type: 'endTimeline' },
   ],
 };
@@ -370,6 +470,7 @@ export const oceanGotsuji: Timelines = {
   //sample018.png
   //
   start: [
+    { type: 'event', event: 'set', many: ['notMob3', 53, 22, undefined] },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
     {
@@ -395,15 +496,17 @@ export const oceanGotsuji: Timelines = {
       many: [
         [55, 22],
         [55, 23],
-        [4, 22],
-        [4, 23],
+        [4, 12],
+        [4, 13],
       ],
     },
+    { type: 'event', event: 'reset', many: ['notMob3'] },
     { type: 'endTimeline' },
   ],
 };
 export const volcanoGotsuji: Timelines = {
   start: [
+    { type: 'event', event: 'set', many: ['notMob4', 6, 12, undefined] },
     { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {
       type: 'dialog',
@@ -414,33 +517,13 @@ export const volcanoGotsuji: Timelines = {
       type: 'event',
       event: 'kill',
       many: [
-        [55, 22],
-        [55, 23],
-        [4, 22],
-        [4, 23],
+        [55, 12],
+        [55, 13],
+        [4, 12],
+        [4, 13],
       ],
     },
-    { type: 'endTimeline' },
-  ],
-};
-export const castleAnnounce: Timelines = {
-  start: [
-    { type: 'event', event: 'log', many: ['player', 1] },
-    {
-      type: 'dialog',
-      actorName: '？？？',
-      text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
-    },
-    { type: 'event', event: 'log', many: ['player', 3] },
-    { type: 'dialog', actorName: '？？？', text: 'マルク' },
-    { type: 'dialog', actorName: '？？？', text: 'シデン' },
-    { type: 'dialog', actorName: '？？？', text: 'パウラ' },
-    { type: 'dialog', actorName: '？？？', text: 'マウ' },
-    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい。' },
-    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
-    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
-    { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'reset', many: ['notMob4'] },
     { type: 'endTimeline' },
   ],
 };
@@ -696,6 +779,53 @@ export const stopr: Timelines = {
   ],
 };
 
+export const castleAnnounce: Timelines = {
+  start: [
+    { type: 'event', event: 'log', many: ['player', 1] },
+    {
+      type: 'dialog',
+      actorName: '？？？',
+      text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
+    },
+    { type: 'event', event: 'log', many: ['player', 3] },
+    { type: 'dialog', actorName: '？？？', text: 'マルク' },
+    { type: 'dialog', actorName: '？？？', text: 'シデン' },
+    { type: 'dialog', actorName: '？？？', text: 'パウラ' },
+    { type: 'dialog', actorName: '？？？', text: 'マウ' },
+    { type: 'dialog', actorName: '？？？', text: '食堂の方に移動しなさい。' },
+    { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
+    { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
+    { type: 'dialog', actorName: 'マルク', text: '……。' },
+    { type: 'event', event: 'relog', many: [] },
+    {
+      type: 'event',
+      event: 'kill',
+      many: [
+        [55, 12],
+        [55, 13],
+      ],
+    },
+    { type: 'event', event: 'reset', many: ['name1'] },
+    { type: 'event', event: 'reset', many: ['name2'] },
+    { type: 'event', event: 'reset', many: ['name3'] },
+    { type: 'event', event: 'reset', many: ['name4'] },
+    { type: 'event', event: 'reset', many: ['name5'] },
+    { type: 'event', event: 'reset', many: ['name6'] },
+    { type: 'event', event: 'reset', many: ['name7'] },
+    { type: 'event', event: 'reset', many: ['name8'] },
+    { type: 'event', event: 'reset', many: ['name9'] },
+    { type: 'event', event: 'set', many: ['name1', 10, 10, afJK1] },
+    { type: 'event', event: 'set', many: ['name2', 11, 10, afJK2] },
+    { type: 'event', event: 'set', many: ['name3', 12, 10, afBijinesuman] },
+    { type: 'event', event: 'set', many: ['name4', 13, 10, afEruhu] },
+    { type: 'event', event: 'set', many: ['name5', 14, 10, afKisi] },
+    { type: 'event', event: 'set', many: ['name6', 15, 10, afTyuubou] },
+    { type: 'event', event: 'set', many: ['name7', 16, 10, afSyoujo] },
+    { type: 'event', event: 'set', many: ['name8', 17, 10, afMajo] },
+    { type: 'event', event: 'set', many: ['name9', 18, 10, afRoujin] },
+    { type: 'endTimeline' },
+  ],
+};
 export const explanation0: Timelines = {
   start: [
     {
@@ -827,12 +957,13 @@ export const beforeAteBattle: Timelines = {
     { type: 'event', event: 'log', many: ['player', 2] },
 
     { type: 'dialog', actorName: 'マルク', text: 'おい！食堂への鍵を寄越せ！' },
-    { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'log', many: ['player', 4] },
     {
       type: 'dialog',
       actorName: 'エーテ',
       text: 'ふん、初対面で随分偉そうな口を聞くじゃないか…。',
     },
+    { type: 'event', event: 'relog', many: ['player', 4] },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -863,6 +994,11 @@ export const beforeAteBattle: Timelines = {
       type: 'dialog',
       actorName: 'エーテ',
       text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！',
+    },
+    {
+      type: 'event',
+      event: 'battle',
+      many: [enemy.ate],
     },
     { type: 'endTimeline' },
   ],
@@ -1026,6 +1162,7 @@ export const meetShiden: Timelines = {
         [4, 1],
       ],
     },
+    { type: 'dialog', text: 'シデンを半ば強引に連れて行くことにした！' },
     { type: 'endTimeline' },
   ],
 };
@@ -1135,6 +1272,7 @@ export const addShiden: Timelines = {
       ],
     },
     { type: 'event', event: 'reset', many: ['Shiden'] },
+    { type: 'dialog', text: 'シデンが仲間になった！' },
     { type: 'endTimeline' },
   ],
 };
@@ -1696,6 +1834,7 @@ export const beforeBteBattle: Timelines = {
     { type: 'event', event: 'log', many: ['player', 4] },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'event', event: 'battle', many: [enemy.bte] },
     { type: 'endTimeline' },
   ],
 };
@@ -1756,8 +1895,8 @@ export const afterBteBattle: Timelines = {
     { type: 'event', event: 'delete', many: ['afterBte'] },
     { type: 'event', event: 'event', many: ['add2-1', 2, 1, addShiden] },
     { type: 'event', event: 'event', many: ['add2-2', 3, 1, addShiden] },
-    { type: 'event', event: 'event', many: ['startB', 4, 22, desertGotsuji, 'map0'] },
-    { type: 'event', event: 'event', many: ['startB', 4, 23, desertGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startB', 55, 22, oceanGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startB', 55, 23, oceanGotsuji, 'map0'] },
     {
       type: 'event',
       event: 'kill',
@@ -1900,6 +2039,7 @@ export const addPouler: Timelines = {
     { type: 'event', event: 'reset', many: ['Shiden'] },
     { type: 'event', event: 'reset', many: ['Pouler'] },
     { type: 'event', event: 'delete', many: ['add3'] },
+    { type: 'dialog', text: 'パウラが仲間になった！' },
     { type: 'endTimeline' },
   ],
 };
@@ -2137,6 +2277,8 @@ export const afterMelcineBattle: Timelines = {
     { type: 'event', event: 'delete', many: ['goMelcine'] },
     { type: 'event', event: 'delete', many: ['beforeMelcine'] },
     { type: 'event', event: 'delete', many: ['afterMelcine'] },
+    { type: 'event', event: 'event', many: ['startD', 4, 12, volcanoGotsuji, 'map0'] },
+    { type: 'event', event: 'event', many: ['startD', 4, 13, volcanoGotsuji, 'map0'] },
     { type: 'endTimeline' },
   ],
 };
@@ -2213,24 +2355,46 @@ export const addMough: Timelines = {
     { type: 'event', event: 'reset', many: ['Mough'] },
     { type: 'event', event: 'delete', many: ['add4'] },
     { type: 'event', event: 'relog', many: [] },
+    { type: 'dialog', text: 'ノリと勢いでマウが仲間になった！' },
     { type: 'endTimeline' },
   ],
 };
 
 export const warpboss: Timelines = {
-  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'dialog', text: 'この穴に入りますか？' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'Yes' },
+        { text: 'いいえ', timelineID: 'No' },
+      ],
+    },
+  ],
+  Yes: [{ type: 'event', event: 'warp', many: [29, 45] }, { type: 'endTimeline' }],
+  No: [{ type: 'endTimeline' }],
 };
 export const backboss: Timelines = {
-  start: [{ type: 'event', event: 'warp', many: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'dialog', text: 'この穴に入りますか？' },
+    {
+      type: 'choice',
+      choices: [
+        { text: 'はい', timelineID: 'Yes' },
+        { text: 'いいえ', timelineID: 'No' },
+      ],
+    },
+  ],
+  Yes: [{ type: 'event', event: 'warp', many: [4, 29] }, { type: 'endTimeline' }],
+  No: [{ type: 'endTimeline' }],
 };
 export const goEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'zoomDown', many: [] },
-    { type: 'event', event: 'warp', many: [29, 42] },
-    { type: 'event', event: 'set', many: ['Shiden', 30, 42, undefined] },
-    { type: 'event', event: 'set', many: ['Pouler', 28, 42, undefined] },
-    { type: 'event', event: 'set', many: ['Mough', 29, 43, undefined] },
+    { type: 'event', event: 'warp', many: [29, 43] },
+    { type: 'event', event: 'set', many: ['Shiden', 28, 43, undefined] },
+    { type: 'event', event: 'set', many: ['Pouler', 30, 44, undefined] },
+    { type: 'event', event: 'set', many: ['Mough', 27, 44, undefined] },
     { type: 'event', event: 'chdir', many: ['player', 'up'] },
     { type: 'event', event: 'chdir', many: ['Shiden', 'up'] },
     { type: 'event', event: 'chdir', many: ['Pouler', 'up'] },
@@ -2345,28 +2509,23 @@ export const afterElecaBattle: Timelines = {
     },
     { type: 'event', event: 'relog', many: [] },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'zoomDown', many: [] },
     { type: 'event', event: 'reset', many: ['Shiden'] },
     { type: 'event', event: 'reset', many: ['Pouler'] },
     { type: 'event', event: 'reset', many: ['Mough'] },
-    {
-      type: 'event',
-      event: 'kill',
-      many: [
-        [1, 1],
-        [2, 2],
-        [3, 3],
-      ],
-    },
     { type: 'event', event: 'delete', many: ['beforeEleca'] },
     { type: 'event', event: 'delete', many: ['afterEleca'] },
-    { type: 'event', event: 'event', many: ['startE', 4, 22, castleAnnounce, 'map0'] },
-    { type: 'event', event: 'event', many: ['startE', 4, 23, castleAnnounce, 'map0'] },
+    { type: 'event', event: 'event', many: ['startE', 55, 12, castleAnnounce, 'map0'] },
+    { type: 'event', event: 'event', many: ['startE', 55, 13, castleAnnounce, 'map0'] },
     {
       type: 'event',
       event: 'kill',
       many: [
         [28, 45],
+        [29, 44],
         [30, 45],
+        [24, 28],
+        [25, 28],
       ],
     },
     { type: 'endTimeline' },
@@ -3136,5 +3295,9 @@ export const afterObcBattle: Timelines = {
 };
 
 export const zoomUp: Timelines = {
-  start: [{ type: 'event', event: 'zoomUp', many: [] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'zoomUp', many: [] },
+    { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
+    { type: 'endTimeline' },
+  ],
 };

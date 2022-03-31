@@ -51,7 +51,8 @@ export class UI extends Scene {
     this.playerTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
-    this.playerShowUi = system.battling?.actor;
+    // this.playerShowUi = system.battling?.actor;
+    this.playerShowUi = undefined;
     this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、

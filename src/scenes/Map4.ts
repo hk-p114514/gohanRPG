@@ -1,11 +1,13 @@
 import { sceneKeys } from './sceneKeys';
-import { json } from 'index';
+import { json, system } from 'index';
 import { Map } from './Map.tpl';
-import Mel from '@/assets/characters/static/boss/melcine.png';
+import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
   afterElecaBattle,
+  backboss,
   beforeElecaBattle,
   goEleca,
+  warpboss,
   zoomUp,
 } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
@@ -16,10 +18,13 @@ export class Map4 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
-    super.setnpcimage('Pouler', 1);
-    super.setnpcimage('Mough', 1);
-    this.loadBossimage('Mel', Mel);
+    // super.setnpcimage('Shiden', 1);
+    // super.setnpcimage('Pouler', 1);
+    // super.setnpcimage('Mough', 1);
+    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
+    super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
+    super.setnpcimage('Mough', 1, system.party[3].spriteSrc);
+    this.loadBossimage('Eleca', Eleca);
   }
   create() {
     super.create();
@@ -29,7 +34,9 @@ export class Map4 extends Map {
     funcs.set(this.name + ',zoomDown', (s: any[]) => {
       this.zoomDown();
     });
-
+    this.setBoss(29, 39, 'Eleca', 0.25);
+    super.setHint('warpboss', warpboss);
+    super.setHint('warptoboss', backboss);
     super.setEvent('zoomUp', zoomUp);
     super.setEvent('goEleca', goEleca);
     super.setEvent('beforeEleca', beforeElecaBattle);

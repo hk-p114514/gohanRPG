@@ -71,11 +71,18 @@ export class Map extends Scene {
   }
   //各MapClassのloadで使うnpcの姿を決める関数
   //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: string, n: number) {
-    this.load.spritesheet(name, charas[n], {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    }); //console.log(system.map);
+  public setnpcimage(name: string, n: number, src: string = '') {
+    if (src !== '') {
+      this.load.spritesheet(name, src, {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      });
+    } else {
+      this.load.spritesheet(name, charas[n], {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      }); //console.log(system.map);
+    }
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
@@ -154,8 +161,11 @@ export class Map extends Scene {
       this.moveBattle();
     });
 
-    const G = this.input.keyboard.addKey('G').on('down', () => {
+    const G = this.input.keyboard.addKey('g').on('down', () => {
       system.collidesFlag = !system.collidesFlag;
+    });
+    const F = this.input.keyboard.addKey('F').on('down', () => {
+      system.battleflag = !system.battleflag;
     });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
@@ -238,7 +248,7 @@ export class Map extends Scene {
                 anotherScene: this,
                 timelinedata: n,
               });
-            } else if (!randI(20)) {
+            } else if (!randI(15)) {
               this.moveBattle();
             }
           } else {
@@ -264,7 +274,17 @@ export class Map extends Scene {
     funcs.set(this.name + ',judge', (s: any[]) => {
       return system.bossflag.get(s[0]);
     });
-    funcs.set(this.name + ',open', (s: any[]) => {});
+    funcs.set(this.name + ',open', (s: any[]) => {
+      if (
+        system.bossflag.get('Ate') &&
+        system.bossflag.get('Bte') &&
+        system.bossflag.get('Melcine') &&
+        system.bossflag.get('Eleca')
+      ) {
+        return true;
+      }
+      return false;
+    });
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
@@ -381,6 +401,11 @@ export class Map extends Scene {
     //プレイヤーをどこかに飛ばすイベント
     funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
+    });
+    funcs.set(this.name + ',battle', (s: any[]) => {
+      system.isBossBattle = true;
+      system.boss = s[0];
+      this.moveBattle();
     });
   }
 

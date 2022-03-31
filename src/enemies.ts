@@ -42,9 +42,8 @@ import {
   elecaSkills,
   obcSkills,
 } from 'skills';
-import { Battle } from 'scenes/Battle';
 
-const enemy = {
+export const enemy = {
   slime: new BattleActor({
     name: 'スライム',
     spriteSrc: slime,
@@ -86,18 +85,18 @@ const enemy = {
     atk: 3,
     def: 1,
     speed: 5,
-    startLevel: 3,
+    startLevel: 2,
     initSkills: [skills[3], skills[4], stateSkills[1], stateSkills[2]],
   }),
   hangedBear: new BattleActor({
     name: '†ハングドベア†',
     spriteSrc: hangedBear,
-    hp: { current: 7, max: 7 },
+    hp: { current: 6, max: 6 },
     mp: { current: 15, max: 15 },
     atk: 4,
     def: 3,
     speed: 3,
-    startLevel: 4,
+    startLevel: 3,
     initSkills: [skills[5], skills[6], stateSkills[3], stateSkills[4]],
   }),
 
@@ -359,6 +358,14 @@ export const mapEnemies = new Map<string, BattleActor[]>([
     [enemy.cutlery, enemy.friedChiken, enemy.burn, enemy.yakitori, enemy.enken],
   ],
 ]);
+
+export const bossEnemies: BattleActor[] = [
+  enemy.ate,
+  enemy.bte,
+  enemy.melcine,
+  enemy.eleca,
+  enemy.obc,
+];
 
 export const getGhost = (): BattleActor => allInitStatus('ghost');
 
