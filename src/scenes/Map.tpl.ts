@@ -71,11 +71,18 @@ export class Map extends Scene {
   }
   //各MapClassのloadで使うnpcの姿を決める関数
   //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: string, n: number) {
-    this.load.spritesheet(name, charas[n], {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    }); //console.log(system.map);
+  public setnpcimage(name: string, n: number, src: string = '') {
+    if (src !== '') {
+      this.load.spritesheet(name, src, {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      });
+    } else {
+      this.load.spritesheet(name, charas[n], {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      }); //console.log(system.map);
+    }
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)

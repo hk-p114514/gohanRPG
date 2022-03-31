@@ -361,6 +361,7 @@ export const megaHeal: SkillFunction = (
       type: 'dialog',
       text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
     },
+    { type: 'endTimeline' },
   ]);
 };
 // まもる

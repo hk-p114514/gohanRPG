@@ -38,7 +38,7 @@ export class Title extends Scene {
       delay: 3000,
       callback: () => {
         // this.add.rectangle(0, height - height / 2, width * 10, height, 0x000);
-        this.add.rectangle(0, height, width * 2, 150, 0x000);
+        this.add.rectangle(0, height, width * 2, 300, 0x000);
         // 座標の中心を指定
         this.button = this.add.image(0, 0, 'button');
         this.button.setPosition(

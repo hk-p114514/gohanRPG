@@ -1,5 +1,5 @@
 import { sceneKeys } from './sceneKeys';
-import { json } from 'index';
+import { json, system } from 'index';
 import { Map } from './Map.tpl';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
@@ -18,10 +18,13 @@ export class Map4 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
-    super.setnpcimage('Pouler', 1);
-    super.setnpcimage('Mough', 1);
-    this.loadBossimage('Eleca', Eleca);
+    // super.setnpcimage('Shiden', 1);
+    // super.setnpcimage('Pouler', 1);
+    // super.setnpcimage('Mough', 1);
+    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
+    super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
+    super.setnpcimage('Mough', 1, system.party[3].spriteSrc);
+    this.loadBossimage('Mel', Mel);
   }
   create() {
     super.create();

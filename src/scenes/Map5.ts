@@ -32,11 +32,10 @@ export class Map5 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
-    super.setnpcimage('Pouler', 1);
-    super.setnpcimage('Mough', 1);
-    this.loadBossimage('Ate', Ate);
-    this.loadBossimage('Bte', Bte);
+    // super.setnpcimage('Shiden', 1);
+    // super.setnpcimage('Pouler', 1);
+    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
+    super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
     this.loadBossimage('Mel', Mel);
     this.loadBossimage('Eleca', Eleca);
     this.loadBossimage('Obc', Obc);
