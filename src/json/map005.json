@@ -47,7 +47,7 @@
                  "gid":54,
                  "height":40,
                  "id":2,
-                 "name":"warptoboss",
+                 "name":"warpboss",
                  "rotation":90,
                  "type":"hint",
                  "visible":true,
@@ -90,18 +90,6 @@
                  "width":40,
                  "x":1160,
                  "y":1120
-                }, 
-                {
-                 "gid":51,
-                 "height":40,
-                 "id":6,
-                 "name":"zoomUp",
-                 "rotation":90,
-                 "type":"event",
-                 "visible":true,
-                 "width":40,
-                 "x":1200,
-                 "y":1160
                 }, 
                 {
                  "gid":51,
@@ -149,7 +137,7 @@
                  "visible":true,
                  "width":40,
                  "x":1160,
-                 "y":1680
+                 "y":1720
                 }, 
                 {
                  "gid":51,
@@ -161,7 +149,7 @@
                  "visible":true,
                  "width":40,
                  "x":1160,
-                 "y":1640
+                 "y":1680
                 }],
          "opacity":1,
          "type":"objectgroup",

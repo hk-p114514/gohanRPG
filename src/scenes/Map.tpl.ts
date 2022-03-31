@@ -164,6 +164,9 @@ export class Map extends Scene {
     const G = this.input.keyboard.addKey('G').on('down', () => {
       system.collidesFlag = !system.collidesFlag;
     });
+    const F = this.input.keyboard.addKey('F').on('down', () => {
+      system.battleflag = !system.battleflag;
+    });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
     this.tileset = this.tileMap.addTilesetImage('map001', assetKeys.mapImg);
@@ -271,7 +274,17 @@ export class Map extends Scene {
     funcs.set(this.name + ',judge', (s: any[]) => {
       return system.bossflag.get(s[0]);
     });
-    funcs.set(this.name + ',open', (s: any[]) => {});
+    funcs.set(this.name + ',open', (s: any[]) => {
+      if (
+        system.bossflag.get('Ate') &&
+        system.bossflag.get('Bte') &&
+        system.bossflag.get('Melcine') &&
+        system.bossflag.get('Eleca')
+      ) {
+        return true;
+      }
+      return false;
+    });
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
@@ -388,6 +401,11 @@ export class Map extends Scene {
     //プレイヤーをどこかに飛ばすイベント
     funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
+    });
+    funcs.set(this.name + ',battle', (s: any[]) => {
+      system.isBossBattle = true;
+      system.boss = s[0];
+      this.moveBattle();
     });
   }
 

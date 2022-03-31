@@ -43,7 +43,7 @@ import {
   obcSkills,
 } from 'skills';
 
-const enemy = {
+export const enemy = {
   slime: new BattleActor({
     name: 'スライム',
     spriteSrc: slime,
