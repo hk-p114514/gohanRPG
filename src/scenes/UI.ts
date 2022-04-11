@@ -224,7 +224,7 @@ export class UI extends Scene {
 
       if (available < actor.skills.length) {
         // 技の候補が沢山ありすぎる -> 抽選
-        while (skills.size < available - 1) {
+        while (skills.size < available) {
           skills.add(randArr(actor.skills));
         }
       } else {
