@@ -52,6 +52,7 @@ import {
   afterBteBattle,
   warp0,
 } from 'classes/timelineWords';
+import { shiden } from 'friends';
 export class Map2 extends Map {
   public stars: Array<string> = [
     'Aries',
@@ -73,7 +74,7 @@ export class Map2 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
     this.loadBossimage('Bte', Bte);
   }
   create() {

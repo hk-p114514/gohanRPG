@@ -1,4 +1,5 @@
 import { Vector } from 'matter';
+import { BattleActor } from './BattleActor';
 import { Choice } from './Choice';
 
 // ダイアログ表示イベント
@@ -59,6 +60,11 @@ type setBackgroundColor = {
   color: string;
 };
 
+type meetFriend = {
+  type: 'meetFriend';
+  actor: BattleActor;
+};
+
 /*======タイムラインIDの最初と最後に必ず付ける！====== */
 // ダイアログが始まる時のイベント
 type StartTimeline = {
@@ -97,6 +103,7 @@ export type Timeline = (
   | MotionEvent
   | Switch
   | Judge
+  | meetFriend
 )[];
 
 export type dialogButton = {

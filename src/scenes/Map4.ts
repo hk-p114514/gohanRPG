@@ -11,6 +11,7 @@ import {
   zoomUp,
 } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
+import { mough, pouler, shiden } from 'friends';
 
 export class Map4 extends Map {
   constructor() {
@@ -21,9 +22,9 @@ export class Map4 extends Map {
     // super.setnpcimage('Shiden', 1);
     // super.setnpcimage('Pouler', 1);
     // super.setnpcimage('Mough', 1);
-    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
-    super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
-    super.setnpcimage('Mough', 1, system.party[3].spriteSrc);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
+    super.setnpcimage('Pouler', 1, pouler.spriteSrc);
+    super.setnpcimage('Mough', 1, mough.spriteSrc);
     this.loadBossimage('Eleca', Eleca);
   }
   create() {

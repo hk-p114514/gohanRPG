@@ -25,6 +25,7 @@ import {
   warp0,
 } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
+import { pouler, shiden } from 'friends';
 
 export class Map5 extends Map {
   constructor() {
@@ -34,8 +35,8 @@ export class Map5 extends Map {
     super.preload();
     // super.setnpcimage('Shiden', 1);
     // super.setnpcimage('Pouler', 1);
-    super.setnpcimage('Shiden', 1, system.party[1].spriteSrc);
-    super.setnpcimage('Pouler', 1, system.party[2].spriteSrc);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
+    super.setnpcimage('Pouler', 1, pouler.spriteSrc);
     this.loadBossimage('Mel', Mel);
     this.loadBossimage('Eleca', Eleca);
     this.loadBossimage('Obc', Obc);
