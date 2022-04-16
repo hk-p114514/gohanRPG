@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
 //import { system } from 'index';
@@ -53,7 +53,7 @@ import {
   warp0,
 } from 'classes/timelineWords';
 import { shiden } from 'friends';
-export class Map2 extends Map {
+export class Map2 extends Map_TPL {
   public stars: Array<string> = [
     'Aries',
     'Taurus',

@@ -31,7 +31,7 @@ export const assetKeys = {
   mapImg: 'mapImg',
   player: 'player',
 };
-export class Map extends Scene {
+export class Map_TPL extends Scene {
   public tileset?: Tilemaps.Tileset;
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
@@ -45,6 +45,9 @@ export class Map extends Scene {
   public flag: number = -1;
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
+  public battleFlag: boolean = true;
+  public log?: Phaser.GameObjects.Sprite;
+  public boss?: Phaser.GameObjects.Sprite;
 
   constructor(private json: string, public name: string) {
     super({ key: name });
@@ -231,9 +234,8 @@ export class Map extends Scene {
     this.enableDebugMode();
   }
 
-  public battleflag: boolean = true;
   public update(_time: number, delta: number) {
-    if (this.battleflag) {
+    if (this.battleFlag) {
       if (!this.gridPhysics?.isMoving()) {
         if (!!this.player) {
           let nxy = this.player.getTilePos();
@@ -262,8 +264,7 @@ export class Map extends Scene {
       this.gridPhysics?.update(delta);
     }
   }
-  public log?: Phaser.GameObjects.Sprite;
-  public boss?: Phaser.GameObjects.Sprite;
+
   public setBoss(x: number, y: number, boss: string, scale = 0.5) {
     this.boss = this.add
       .sprite(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, boss)
@@ -411,7 +412,7 @@ export class Map extends Scene {
 
   moveBattle() {
     if (!getEnemies(system.map).length) return;
-    this.battleflag = false;
+    this.battleFlag = false;
     const effectsTime = 500;
     // this.cameras.main.shake(effectsTime);
     // this.cameras.main.flash(effectsTime);
@@ -419,7 +420,7 @@ export class Map extends Scene {
     // this.time.delayedCall(effectsTime, () => {});
     // switch -> sleep + start
     this.scene.switch(sceneKeys.battle);
-    this.battleflag = true;
+    this.battleFlag = true;
   }
 
   public enableDebugMode() {

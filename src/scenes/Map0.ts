@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import {
   select,
   warp1,
@@ -36,7 +36,7 @@ import {
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
-export class Map0 extends Map {
+export class Map0 extends Map_TPL {
   constructor() {
     super(json[0], sceneKeys.map0);
   }
