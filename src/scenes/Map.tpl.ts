@@ -165,7 +165,7 @@ export class Map extends Scene {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
-      system.battleflag = !system.battleflag;
+      system.battleFlag = !system.battleFlag;
     });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
@@ -272,14 +272,14 @@ export class Map extends Scene {
   //話しかけた奴が振り向くイベント
   public createEvents() {
     funcs.set(this.name + ',judge', (s: any[]) => {
-      return system.bossflag.get(s[0]);
+      return system.bossFlag.get(s[0]);
     });
     funcs.set(this.name + ',open', (s: any[]) => {
       if (
-        system.bossflag.get('Ate') &&
-        system.bossflag.get('Bte') &&
-        system.bossflag.get('Melcine') &&
-        system.bossflag.get('Eleca')
+        system.bossFlag.get('Ate') &&
+        system.bossFlag.get('Bte') &&
+        system.bossFlag.get('Melcine') &&
+        system.bossFlag.get('Eleca')
       ) {
         return true;
       }
@@ -357,7 +357,7 @@ export class Map extends Scene {
     //bossを消し去るイベント
     funcs.set(this.name + ',break', (s: any[]) => {
       this.boss?.destroy();
-      system.bossflag.set(s[0], true);
+      system.bossFlag.set(s[0], true);
     });
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
