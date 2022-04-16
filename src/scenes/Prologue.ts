@@ -32,6 +32,6 @@ export class Prologue extends Scene {
   }
 
   update() {
-    this.scene.start(sceneKeys.title);
+    this.scene.start(sceneKeys.map0);
   }
 }

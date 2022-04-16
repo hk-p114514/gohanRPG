@@ -58,19 +58,23 @@ export class Title extends Scene {
 
         // クリックした時
         this.button?.on('pointerdown', () => {
-          this.scene.start(sceneKeys.map0);
+          this.startNextScene();
         });
 
         const enter = this.input.keyboard.addKey('ENTER');
         enter.on('down', () => {
           this.button?.setTexture('button_onhover');
           setTimeout(() => {
-            this.scene.start(sceneKeys.map0);
+            this.startNextScene();
           }, 100);
         });
       },
       callbackScope: this,
     });
+  }
+
+  startNextScene() {
+    this.scene.start(sceneKeys.prologue);
   }
 
   // update() {
