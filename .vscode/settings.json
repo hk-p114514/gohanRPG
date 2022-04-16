@@ -1,4 +1,7 @@
 {
+  // javascriptデバッグ設定
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.formatOnSave": true,
   "cSpell.words": [
     "Anims",
     "changedir",
@@ -60,8 +63,5 @@
     "vimmer",
     "wmail",
     "yoyo"
-  ],
-  // javascriptデバッグ設定
-  "debug.allowBreakpointsEverywhere": true,
-  "editor.formatOnSave": true
+  ]
 }
