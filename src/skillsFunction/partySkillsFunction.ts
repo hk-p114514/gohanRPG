@@ -302,8 +302,8 @@ export const spiritBless: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の精霊の加護！` },
-    { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
-    { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
+    { type: 'dialog', text: `攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
+    { type: 'dialog', text: `防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
     { type: 'endTimeline' },
   ]);
 };

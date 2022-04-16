@@ -11,6 +11,7 @@ import { system } from 'index';
 import { Map } from 'scenes/Map.tpl';
 import { keys } from 'lodash';
 import { Vector } from 'matter';
+import { BattleActor } from './BattleActor';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -143,6 +144,9 @@ export class TimelinePlayer extends Scene {
       case 'event': // イベント追加
         this.startevent(timelineEvent.event, timelineEvent.many);
         break;
+      case 'meetFriend': // 仲間出会いイベント
+        this.addFriend(timelineEvent.actor);
+        break;
       case 'switch':
         this.dialogBox.clearDialogBox();
         this.timelineIndex = -1;
@@ -174,11 +178,17 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
+
   private startevent(key: string, many: any[]) {
     if (funcs.has(system.map + ',' + key)) {
       funcs.get(system.map + ',' + key)(many);
     }
   }
+
+  private addFriend(actor: BattleActor) {
+    system.party.push(actor);
+  }
+
   // ダイアログの作成
   private createDialogBox(x: number, y: number, width: number, height: number) {
     // ダイアログボックスの設定

@@ -1,4 +1,5 @@
 import { enemy } from 'enemies';
+import { mough, pouler, shiden } from 'friends';
 import { Timelines } from './Timelines';
 //テスト
 export const timelineData: Timelines = {
@@ -1163,6 +1164,7 @@ export const meetShiden: Timelines = {
       ],
     },
     { type: 'dialog', text: 'シデンを半ば強引に連れて行くことにした！' },
+    { type: 'meetFriend', actor: shiden },
     { type: 'endTimeline' },
   ],
 };
@@ -2040,6 +2042,7 @@ export const addPouler: Timelines = {
     { type: 'event', event: 'reset', many: ['Pouler'] },
     { type: 'event', event: 'delete', many: ['add3'] },
     { type: 'dialog', text: 'パウラが仲間になった！' },
+    { type: 'meetFriend', actor: pouler },
     { type: 'endTimeline' },
   ],
 };
@@ -2356,6 +2359,7 @@ export const addMough: Timelines = {
     { type: 'event', event: 'delete', many: ['add4'] },
     { type: 'event', event: 'relog', many: [] },
     { type: 'dialog', text: 'ノリと勢いでマウが仲間になった！' },
+    { type: 'meetFriend', actor: mough },
     { type: 'endTimeline' },
   ],
 };
