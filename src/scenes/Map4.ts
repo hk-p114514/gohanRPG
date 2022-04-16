@@ -47,12 +47,4 @@ export class Map4 extends Map_TPL {
   public update(_time: number, delta: number): void {
     super.update(_time, delta);
   }
-
-  zoomUp() {
-    this.cameras.main.zoomTo(2, 1000);
-  }
-
-  zoomDown() {
-    this.cameras.main.zoomTo(1, 1000);
-  }
 }

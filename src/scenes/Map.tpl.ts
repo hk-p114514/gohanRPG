@@ -1,3 +1,4 @@
+import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 // assets
 // import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
@@ -32,6 +33,7 @@ export const assetKeys = {
   player: 'player',
 };
 export class Map_TPL extends Scene {
+  public static readonly PROBABILITY_OF_BATTLE = 5; // パーセント
   public tileset?: Tilemaps.Tileset;
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
@@ -230,8 +232,6 @@ export class Map_TPL extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-    // Debug graphics
-    this.enableDebugMode();
   }
 
   public update(_time: number, delta: number) {
@@ -244,22 +244,21 @@ export class Map_TPL extends Scene {
           if (x !== nxy.x || y !== nxy.y) {
             this.xy = this.player.getTilePos();
             //踏むイベントの確認
+            const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
+            console.log(`1 / ${denominator}の確率でバトル`);
             if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
               let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
                 timelinedata: n,
               });
-            } else if (!randI(15)) {
+            } else if (!randI(denominator)) {
               this.moveBattle();
             }
           } else {
             this.gridControls?.update();
-            //console.log(this.player.getSprite());
           }
-          //console.log(system.map + ',' + xy.x + ',' + xy.y);
         }
-        //console.log(this.player?.getTilePos());
       }
       this.gridPhysics?.update(delta);
     }
@@ -423,18 +422,11 @@ export class Map_TPL extends Scene {
     this.battleFlag = true;
   }
 
-  public enableDebugMode() {
-    this.input.keyboard.once('keydown-D', () => {
-      // Turn on physics debugging to show player's hitbox
-      this.physics.world.createDebugGraphic();
+  zoomUp() {
+    this.cameras.main.zoomTo(2, 1000);
+  }
 
-      // Create worldLayer collision graphic above the player, but below the help text
-      const graphics = this.add.graphics().setAlpha(0.75).setDepth(20);
-      this.tileMapLayer?.renderDebug(graphics, {
-        tileColor: null, // Color of non-colliding tiles
-        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-        faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-      });
-    });
+  zoomDown() {
+    this.cameras.main.zoomTo(1, 1000);
   }
 }
