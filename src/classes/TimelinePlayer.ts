@@ -6,11 +6,9 @@ import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { npcs, funcs } from './exam';
+import { funcs } from './exam';
 import { system } from 'index';
-import { Map } from 'scenes/Map.tpl';
-import { keys } from 'lodash';
-import { Vector } from 'matter';
+import { Map_TPL } from 'scenes/Map.tpl';
 import { BattleActor } from './BattleActor';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
@@ -22,14 +20,14 @@ export class TimelinePlayer extends Scene {
   private timeline?: Timeline;
   private timelineIndex = 0;
   private isTextShow: boolean = true;
-  private anotherScene?: Map;
+  private anotherScene?: Map_TPL;
   private timelineData?: Timelines;
   private specID?: string;
   constructor() {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init(data: { anotherScene: Map; timelinedata: Timelines; specID?: string }) {
+  init(data: { anotherScene: Map_TPL; timelinedata: Timelines; specID?: string }) {
     if (!data.anotherScene || !data.timelinedata) {
       this.scene.stop();
       return;
@@ -142,7 +140,7 @@ export class TimelinePlayer extends Scene {
         this.setBackgroundColor(timelineEvent.color);
         break;
       case 'event': // イベント追加
-        this.startevent(timelineEvent.event, timelineEvent.many);
+        this.startEvent(timelineEvent.event, timelineEvent.many);
         break;
       case 'meetFriend': // 仲間出会いイベント
         this.addFriend(timelineEvent.actor);
@@ -179,7 +177,7 @@ export class TimelinePlayer extends Scene {
     }
   }
 
-  private startevent(key: string, many: any[]) {
+  private startEvent(key: string, many: any[]) {
     if (funcs.has(system.map + ',' + key)) {
       funcs.get(system.map + ',' + key)(many);
     }
