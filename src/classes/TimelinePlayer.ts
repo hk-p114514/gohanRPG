@@ -27,8 +27,8 @@ export class TimelinePlayer extends Scene {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init(data: { anotherScene: Map_TPL; timelinedata: Timelines; specID?: string }) {
-    if (!data.anotherScene || !data.timelinedata) {
+  init(data: { anotherScene: Map_TPL; timelineData: Timelines; specID?: string }) {
+    if (!data.anotherScene || !data.timelineData) {
       this.scene.stop();
       return;
     }
@@ -36,7 +36,7 @@ export class TimelinePlayer extends Scene {
     data.anotherScene.scene.pause();
 
     this.anotherScene = data.anotherScene;
-    this.timelineData = data.timelinedata;
+    this.timelineData = data.timelineData;
     this.specID = data.specID;
 
     // 背景レイヤー・前景レイヤー・UIレイヤーをコンテナを使って表現
@@ -108,7 +108,9 @@ export class TimelinePlayer extends Scene {
         this.dialogBox.setText(timelineEvent.text, true);
         this.isTextShow = false;
         break;
-
+      case 'event': // イベント追加
+        this.startEvent(timelineEvent.event, timelineEvent.many);
+        break;
       case 'setBackgroundImage': // 背景設定イベント
         this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
         break;
@@ -138,9 +140,6 @@ export class TimelinePlayer extends Scene {
         break;
       case 'setBackgroundColor':
         this.setBackgroundColor(timelineEvent.color);
-        break;
-      case 'event': // イベント追加
-        this.startEvent(timelineEvent.event, timelineEvent.many);
         break;
       case 'meetFriend': // 仲間出会いイベント
         this.addFriend(timelineEvent.actor);
