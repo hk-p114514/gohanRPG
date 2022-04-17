@@ -403,11 +403,7 @@ export class Map_TPL extends Scene {
     if (!getEnemies(system.map).length) return;
     this.battleFlag = false;
     const effectsTime = 500;
-    // this.cameras.main.shake(effectsTime);
-    // this.cameras.main.flash(effectsTime);
-    // カメラのシェイクを終了するまで待つ
-    // this.time.delayedCall(effectsTime, () => {});
-    // switch -> sleep + start
+    this.cameras.main.flash(effectsTime);
     this.scene.switch(sceneKeys.battle);
     this.battleFlag = true;
   }
