@@ -62,31 +62,6 @@ export const timelineData: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const Took: Timelines = {
-  start: [
-    { type: 'event', event: 'talk', many: [] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'chdir', many: ['hito2', 'left'] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'warp', many: [12, 12] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'chdir', many: ['player', 'right'] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'set', many: ['hito3', 13, 12, undefined] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'log', many: ['player', 1] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'log', many: ['hito3', 3] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'relog', many: [] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'event', event: 'reset', many: ['hito3'] },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'switch', scene: 'map2' },
-    { type: 'dialog', text: 'OK▼' },
-    { type: 'endTimeline' },
-  ],
-};
 //共通
 export const select: Timelines = {
   start: [
