@@ -165,12 +165,13 @@ export class TimelinePlayer extends Scene {
         break;
       case 'judge':
         if (
-          system.bossFlag.get('Ate') &&
-          system.bossFlag.get('Bte') &&
-          system.bossFlag.get('Melcine') &&
-          system.bossFlag.get('Eleca')
-        )
+          system.isBossKilled.get('Ate') &&
+          system.isBossKilled.get('Bte') &&
+          system.isBossKilled.get('Melcine') &&
+          system.isBossKilled.get('Eleca')
+        ) {
           this.specTimeline({ timelineID: timelineEvent.timelineID });
+        }
         break;
       default:
         break;
@@ -178,6 +179,7 @@ export class TimelinePlayer extends Scene {
   }
 
   private startEvent(key: string, many: any[]) {
+    // todo: イベント実行の処理にfuncsを利用するのをやめる
     if (funcs.has(system.map + ',' + key)) {
       funcs.get(system.map + ',' + key)(many);
     }
