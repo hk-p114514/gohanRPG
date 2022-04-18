@@ -109,7 +109,7 @@ export class TimelinePlayer extends Scene {
         this.isTextShow = false;
         break;
       case 'event': // イベント追加
-        this.startEvent(timelineEvent.event, timelineEvent.props);
+        this.startevent(timelineEvent.event, timelineEvent.props);
         break;
       case 'setBackgroundImage': // 背景設定イベント
         this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
