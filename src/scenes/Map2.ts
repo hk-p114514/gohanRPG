@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
 //import { system } from 'index';
@@ -52,7 +52,8 @@ import {
   afterBteBattle,
   warp0,
 } from 'classes/timelineWords';
-export class Map2 extends Map {
+import { shiden } from 'friends';
+export class Map2 extends Map_TPL {
   public stars: Array<string> = [
     'Aries',
     'Taurus',
@@ -73,7 +74,7 @@ export class Map2 extends Map {
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
     this.loadBossimage('Bte', Bte);
   }
   create() {

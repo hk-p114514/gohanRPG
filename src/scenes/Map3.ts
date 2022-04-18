@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import Mel from '@/assets/characters/static/boss/melcine.png';
 import {
   restart0,
@@ -20,15 +20,18 @@ import {
   afterMelcineBattle,
   warp0,
 } from 'classes/timelineWords';
+import { pouler, shiden } from 'friends';
 
-export class Map3 extends Map {
+export class Map3 extends Map_TPL {
   constructor() {
     super(json[3], sceneKeys.map3);
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
-    super.setnpcimage('Pouler', 1);
+    // super.setnpcimage('Shiden', 1);
+    // super.setnpcimage('Pouler', 1);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
+    super.setnpcimage('Pouler', 1, pouler.spriteSrc);
     this.loadBossimage('Mel', Mel);
   }
   create() {

@@ -1,3 +1,4 @@
+import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 // assets
 // import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
@@ -31,7 +32,8 @@ export const assetKeys = {
   mapImg: 'mapImg',
   player: 'player',
 };
-export class Map extends Scene {
+export class Map_TPL extends Scene {
+  public static readonly PROBABILITY_OF_BATTLE = 5; // パーセント
   public tileset?: Tilemaps.Tileset;
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
@@ -45,6 +47,9 @@ export class Map extends Scene {
   public flag: number = -1;
   public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
+  public battleFlag: boolean = true;
+  public log?: Phaser.GameObjects.Sprite;
+  public boss?: Phaser.GameObjects.Sprite;
 
   constructor(private json: string, public name: string) {
     super({ key: name });
@@ -71,11 +76,18 @@ export class Map extends Scene {
   }
   //各MapClassのloadで使うnpcの姿を決める関数
   //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: string, n: number) {
-    this.load.spritesheet(name, charas[n], {
-      frameWidth: characterSize,
-      frameHeight: characterSize,
-    }); //console.log(system.map);
+  public setnpcimage(name: string, n: number, src: string = '') {
+    if (src !== '') {
+      this.load.spritesheet(name, src, {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      });
+    } else {
+      this.load.spritesheet(name, charas[n], {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      }); //console.log(system.map);
+    }
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
@@ -154,11 +166,11 @@ export class Map extends Scene {
       this.moveBattle();
     });
 
-    const G = this.input.keyboard.addKey('G').on('down', () => {
+    const G = this.input.keyboard.addKey('g').on('down', () => {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
-      system.battleflag = !system.battleflag;
+      system.battleFlag = !system.battleFlag;
     });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
@@ -220,13 +232,10 @@ export class Map extends Scene {
       this.gridPhysics = new GridPhysics(this.player, this.tileMap);
       this.gridControls = new GridControls(this.input, this.gridPhysics);
     }
-    // Debug graphics
-    this.enableDebugMode();
   }
 
-  public battleflag: boolean = true;
   public update(_time: number, delta: number) {
-    if (this.battleflag) {
+    if (this.battleFlag) {
       if (!this.gridPhysics?.isMoving()) {
         if (!!this.player) {
           let nxy = this.player.getTilePos();
@@ -235,85 +244,64 @@ export class Map extends Scene {
           if (x !== nxy.x || y !== nxy.y) {
             this.xy = this.player.getTilePos();
             //踏むイベントの確認
+            const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
+            console.log(`1 / ${denominator}の確率でバトル`);
             if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
               let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
                 timelinedata: n,
               });
-            } else if (!randI(20) && system.battleflag) {
+            } else if (!randI(denominator)) {
               this.moveBattle();
             }
           } else {
             this.gridControls?.update();
-            //console.log(this.player.getSprite());
           }
-          //console.log(system.map + ',' + xy.x + ',' + xy.y);
         }
-        //console.log(this.player?.getTilePos());
       }
       this.gridPhysics?.update(delta);
     }
   }
-  public log?: Phaser.GameObjects.Sprite;
-  public boss?: Phaser.GameObjects.Sprite;
+
   public setBoss(x: number, y: number, boss: string, scale = 0.5) {
     this.boss = this.add
       .sprite(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, boss)
       .setScale(scale);
   }
-  //話しかけた奴が振り向くイベント
+
+  // 座標からオブジェクトを削除
   public createEvents() {
-    funcs.set(this.name + ',judge', (s: any[]) => {
-      return system.bossflag.get(s[0]);
-    });
-    funcs.set(this.name + ',open', (s: any[]) => {
-      if (
-        system.bossflag.get('Ate') &&
-        system.bossflag.get('Bte') &&
-        system.bossflag.get('Melcine') &&
-        system.bossflag.get('Eleca')
-      ) {
-        return true;
-      }
-      return false;
-    });
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
       }
     });
+
+    // 名前からオブジェクトを削除
     funcs.set(this.name + ',delete', (s: any[]) => {
       if (names.has(this.name + s[0])) {
         events.delete(names.get(this.name + s[0]));
         names.delete(this.name + s[0]);
       }
     });
+
     funcs.set(this.name + ',event', (s: any[]) => {
       if (s[4] === undefined) {
-        events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
-        names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+        // events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+        // names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+        // template literalに書き換える
+        events.set(`${this.name},${s[1]},${s[2]}`, s[3]);
+        names.set(s[0], `${this.name},${s[1]},${s[2]}`);
       } else {
-        events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
-        names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+        // events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
+        // names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+        // template literalに書き換える
+        events.set(`${s[4]},${s[1]},${s[2]}`, s[3]);
+        names.set(s[0], `${s[4]},${s[1]},${s[2]}`);
       }
     });
-    funcs.set(this.name + ',talk', () => {
-      if (!!this.player) {
-        let xy = this.player.getTilePos();
-        let z = this.player.getdir();
-        xy.x += map.get(z).x;
-        xy.y += map.get(z).y;
-        if (!!npcs.has(system.map + ',' + xy.x + ',' + xy.y)) {
-          let n = npcs.get(system.map + ',' + xy.x + ',' + xy.y);
-          n.changedir(this.player.getredir());
-        } else {
-          console.log('?');
-        }
-        console.log(system.map + ',' + xy.x + ',' + xy.y);
-      }
-      console.log('dekitawa');
-    });
+
     //誰かが振り向くイベント
     funcs.set(this.name + ',chdir', (s: any[]) => {
       if (names.has(system.map + s[0])) {
@@ -326,6 +314,7 @@ export class Map extends Scene {
         console.log('not found');
       }
     });
+
     //誰かを配置するイベント
     funcs.set(this.name + ',set', (s: any[]) => {
       hints.set(system.map + ',' + s[1] + ',' + s[2], s[3]);
@@ -335,6 +324,7 @@ export class Map extends Scene {
       names.set(system.map + s[0], system.map + ',' + s[1] + ',' + s[2]);
       console.log(system.map + ',' + s[1] + ',' + s[2]);
     });
+
     //誰かを消し去るイベント
     funcs.set(this.name + ',reset', (s: any[]) => {
       if (names.has(system.map + s[0])) {
@@ -347,16 +337,19 @@ export class Map extends Scene {
         console.log('not found');
       }
     });
+
     //bossを消し去るイベント
     funcs.set(this.name + ',break', (s: any[]) => {
       this.boss?.destroy();
-      system.bossflag.set(s[0], true);
+      system.isBossKilled.set(s[0], true);
     });
+
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
       this.gridPhysics?.movePlayer(s[0]);
     });
-    //誰かが呟くイベント
+
+    // 誰かが呟くアイコンを表示するイベント
     funcs.set(this.name + ',log', (s: any[]) => {
       if (names.has(system.map + s[0])) {
         let a = names.get(system.map + s[0]);
@@ -376,6 +369,7 @@ export class Map extends Scene {
         console.log('not found');
       }
     });
+
     funcs.set(this.name + ',bosslog', (s: any[]) => {
       let x = this.boss?.x;
       let y = this.boss?.y;
@@ -387,14 +381,17 @@ export class Map extends Scene {
         console.log('humei');
       }
     });
+
     //誰かの呟きを消し去るイベント
     funcs.set(this.name + ',relog', (s: any[]) => {
       this.log?.destroy();
     });
+
     //プレイヤーをどこかに飛ばすイベント
     funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
     });
+
     funcs.set(this.name + ',battle', (s: any[]) => {
       system.isBossBattle = true;
       system.boss = s[0];
@@ -404,29 +401,18 @@ export class Map extends Scene {
 
   moveBattle() {
     if (!getEnemies(system.map).length) return;
-    this.battleflag = false;
+    this.battleFlag = false;
     const effectsTime = 500;
-    // this.cameras.main.shake(effectsTime);
-    // this.cameras.main.flash(effectsTime);
-    // カメラのシェイクを終了するまで待つ
-    // this.time.delayedCall(effectsTime, () => {});
-    // switch -> sleep + start
+    this.cameras.main.flash(effectsTime);
     this.scene.switch(sceneKeys.battle);
-    this.battleflag = true;
+    this.battleFlag = true;
   }
 
-  public enableDebugMode() {
-    this.input.keyboard.once('keydown-D', () => {
-      // Turn on physics debugging to show player's hitbox
-      this.physics.world.createDebugGraphic();
+  zoomUp() {
+    this.cameras.main.zoomTo(2, 1000);
+  }
 
-      // Create worldLayer collision graphic above the player, but below the help text
-      const graphics = this.add.graphics().setAlpha(0.75).setDepth(20);
-      this.tileMapLayer?.renderDebug(graphics, {
-        tileColor: null, // Color of non-colliding tiles
-        collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-        faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-      });
-    });
+  zoomDown() {
+    this.cameras.main.zoomTo(1, 1000);
   }
 }

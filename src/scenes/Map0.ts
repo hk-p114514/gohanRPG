@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import {
   select,
   warp1,
@@ -36,13 +36,16 @@ import {
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
-export class Map0 extends Map {
+export class Map0 extends Map_TPL {
   constructor() {
     super(json[0], sceneKeys.map0);
   }
   preload() {
     super.preload();
     super.setnpcimage('notMob', 0);
+    super.setnpcimage('notMob2', 0);
+    super.setnpcimage('notMob3', 0);
+    super.setnpcimage('notMob4', 0);
     super.setnpcimage('name1', 0);
     super.setnpcimage('name2', 0);
     super.setnpcimage('name3', 0);
@@ -64,6 +67,7 @@ export class Map0 extends Map {
     super.makeNPC('name7', beSyoujo);
     super.makeNPC('name8', beMajo);
     super.makeNPC('name9', beRoujin);
+    super.makeNPC('notMob', afterGotsuji);
     super.makeNPC('stoper1', stoper1);
     super.makeNPC('stoper2', stoper2);
     super.makeNPC('stoper3', stoper3);
@@ -78,7 +82,6 @@ export class Map0 extends Map {
     super.setEvent('goStage4', warp4);
     super.setHint('goStage5', warp5);
     super.setHint('first', explanation0);
-    super.makeNPC('notMob', afterGotsuji);
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);

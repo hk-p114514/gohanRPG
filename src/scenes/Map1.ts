@@ -1,5 +1,5 @@
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
 import Ate from '@/assets/characters/static/boss/ate.png';
 import {
@@ -20,7 +20,7 @@ import {
 } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
 
-export class Map1 extends Map {
+export class Map1 extends Map_TPL {
   constructor() {
     super(json[1], sceneKeys.map1);
   }
