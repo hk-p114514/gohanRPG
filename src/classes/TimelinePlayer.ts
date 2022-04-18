@@ -1,4 +1,4 @@
-import { dialogButton, Timeline } from './Timeline';
+import { dialogButton, Timeline, MotionEventProps } from './Timeline';
 import { Choice } from './Choice';
 import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Scene } from 'phaser';
@@ -109,7 +109,7 @@ export class TimelinePlayer extends Scene {
         this.isTextShow = false;
         break;
       case 'event': // イベント追加
-        this.startEvent(timelineEvent.event, timelineEvent.many);
+        this.startEvent(timelineEvent.event, timelineEvent.props);
         break;
       case 'setBackgroundImage': // 背景設定イベント
         this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
@@ -177,10 +177,10 @@ export class TimelinePlayer extends Scene {
     }
   }
 
-  private startEvent(key: string, many: any[]) {
+  private startEvent(key: string, props: any[]) {
     // todo: イベント実行の処理にfuncsを利用するのをやめる
     if (funcs.has(system.map + ',' + key)) {
-      funcs.get(system.map + ',' + key)(many);
+      funcs.get(system.map + ',' + key)(props);
     }
   }
 
