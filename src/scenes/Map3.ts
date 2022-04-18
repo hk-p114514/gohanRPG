@@ -1,6 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import Mel from '@/assets/characters/static/boss/melcine.png';
 import {
   restart0,
@@ -22,7 +22,7 @@ import {
 } from 'classes/timelineWords';
 import { pouler, shiden } from 'friends';
 
-export class Map3 extends Map {
+export class Map3 extends Map_TPL {
   constructor() {
     super(json[3], sceneKeys.map3);
   }
