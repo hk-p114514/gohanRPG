@@ -157,7 +157,7 @@ export class State {
   private onePhrase(scene: Scene, text: string) {
     scene.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: scene,
-      timelinedata: {
+      timelineData: {
         start: [
           {
             type: 'dialog',

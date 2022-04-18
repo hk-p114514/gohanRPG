@@ -187,7 +187,7 @@ export const ateSkills: Skill[] = [
   new Skill('スイパスウィップ', swepasWhip, false, true),
   new Skill('バンズプレス', vansPress, false, true),
   new Skill('パーサローフ', persaLoaf, false, false),
-  new Skill('フルーツファントム', fruitsPhantom, false, false),
+  new Skill('フルーツファントム', fruitsPhantom, false, true),
   new Skill('サバレースプラッシュ', sabaleSplash, true, true),
 ];
 
