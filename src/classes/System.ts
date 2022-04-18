@@ -16,17 +16,17 @@ export class System {
   public isBattle: boolean = false;
   public battling?: Battling;
   public battleFlag: boolean = true;
-  public bossFlag: Map<string, boolean> = new Map();
+  public isBossKilled: Map<string, boolean> = new Map();
   public collidesFlag = false;
   public isBossBattle: boolean = false;
   public boss?: BattleActor;
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
-    this.bossFlag.set('Ate', false);
-    this.bossFlag.set('Bte', false);
-    this.bossFlag.set('Melcine', false);
-    this.bossFlag.set('Eleca', false);
+    this.isBossKilled.set('Ate', false);
+    this.isBossKilled.set('Bte', false);
+    this.isBossKilled.set('Melcine', false);
+    this.isBossKilled.set('Eleca', false);
   }
 
   public preload() {}

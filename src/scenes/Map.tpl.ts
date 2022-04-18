@@ -269,58 +269,39 @@ export class Map_TPL extends Scene {
       .sprite(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, boss)
       .setScale(scale);
   }
-  //話しかけた奴が振り向くイベント
+
+  // 座標からオブジェクトを削除
   public createEvents() {
-    funcs.set(this.name + ',judge', (s: any[]) => {
-      return system.bossFlag.get(s[0]);
-    });
-    funcs.set(this.name + ',open', (s: any[]) => {
-      if (
-        system.bossFlag.get('Ate') &&
-        system.bossFlag.get('Bte') &&
-        system.bossFlag.get('Melcine') &&
-        system.bossFlag.get('Eleca')
-      ) {
-        return true;
-      }
-      return false;
-    });
     funcs.set(this.name + ',kill', (s: any[]) => {
       for (let i = 0; i < s.length; ++i) {
         events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
       }
     });
+
+    // 名前からオブジェクトを削除
     funcs.set(this.name + ',delete', (s: any[]) => {
       if (names.has(this.name + s[0])) {
         events.delete(names.get(this.name + s[0]));
         names.delete(this.name + s[0]);
       }
     });
+
     funcs.set(this.name + ',event', (s: any[]) => {
       if (s[4] === undefined) {
-        events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
-        names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+        // events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
+        // names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
+        // template literalに書き換える
+        events.set(`${this.name},${s[1]},${s[2]}`, s[3]);
+        names.set(s[0], `${this.name},${s[1]},${s[2]}`);
       } else {
-        events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
-        names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+        // events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
+        // names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
+        // template literalに書き換える
+        events.set(`${s[4]},${s[1]},${s[2]}`, s[3]);
+        names.set(s[0], `${s[4]},${s[1]},${s[2]}`);
       }
     });
-    funcs.set(this.name + ',talk', () => {
-      if (!!this.player) {
-        let xy = this.player.getTilePos();
-        let z = this.player.getdir();
-        xy.x += map.get(z).x;
-        xy.y += map.get(z).y;
-        if (!!npcs.has(system.map + ',' + xy.x + ',' + xy.y)) {
-          let n = npcs.get(system.map + ',' + xy.x + ',' + xy.y);
-          n.changedir(this.player.getredir());
-        } else {
-          console.log('?');
-        }
-        console.log(system.map + ',' + xy.x + ',' + xy.y);
-      }
-      console.log('dekitawa');
-    });
+
     //誰かが振り向くイベント
     funcs.set(this.name + ',chdir', (s: any[]) => {
       if (names.has(system.map + s[0])) {
@@ -333,6 +314,7 @@ export class Map_TPL extends Scene {
         console.log('not found');
       }
     });
+
     //誰かを配置するイベント
     funcs.set(this.name + ',set', (s: any[]) => {
       hints.set(system.map + ',' + s[1] + ',' + s[2], s[3]);
@@ -342,6 +324,7 @@ export class Map_TPL extends Scene {
       names.set(system.map + s[0], system.map + ',' + s[1] + ',' + s[2]);
       console.log(system.map + ',' + s[1] + ',' + s[2]);
     });
+
     //誰かを消し去るイベント
     funcs.set(this.name + ',reset', (s: any[]) => {
       if (names.has(system.map + s[0])) {
@@ -354,16 +337,19 @@ export class Map_TPL extends Scene {
         console.log('not found');
       }
     });
+
     //bossを消し去るイベント
     funcs.set(this.name + ',break', (s: any[]) => {
       this.boss?.destroy();
-      system.bossFlag.set(s[0], true);
+      system.isBossKilled.set(s[0], true);
     });
+
     //プレイヤーを一マス動かすイベント
     funcs.set(this.name + ',move', (s: any[]) => {
       this.gridPhysics?.movePlayer(s[0]);
     });
-    //誰かが呟くイベント
+
+    // 誰かが呟くアイコンを表示するイベント
     funcs.set(this.name + ',log', (s: any[]) => {
       if (names.has(system.map + s[0])) {
         let a = names.get(system.map + s[0]);
@@ -383,6 +369,7 @@ export class Map_TPL extends Scene {
         console.log('not found');
       }
     });
+
     funcs.set(this.name + ',bosslog', (s: any[]) => {
       let x = this.boss?.x;
       let y = this.boss?.y;
@@ -394,14 +381,17 @@ export class Map_TPL extends Scene {
         console.log('humei');
       }
     });
+
     //誰かの呟きを消し去るイベント
     funcs.set(this.name + ',relog', (s: any[]) => {
       this.log?.destroy();
     });
+
     //プレイヤーをどこかに飛ばすイベント
     funcs.set(this.name + ',warp', (s: any[]) => {
       this.player?.moveTilePos(s[0], s[1]);
     });
+
     funcs.set(this.name + ',battle', (s: any[]) => {
       system.isBossBattle = true;
       system.boss = s[0];
@@ -413,11 +403,7 @@ export class Map_TPL extends Scene {
     if (!getEnemies(system.map).length) return;
     this.battleFlag = false;
     const effectsTime = 500;
-    // this.cameras.main.shake(effectsTime);
-    // this.cameras.main.flash(effectsTime);
-    // カメラのシェイクを終了するまで待つ
-    // this.time.delayedCall(effectsTime, () => {});
-    // switch -> sleep + start
+    this.cameras.main.flash(effectsTime);
     this.scene.switch(sceneKeys.battle);
     this.battleFlag = true;
   }

@@ -1,4 +1,4 @@
-import { dialogButton, Timeline } from './Timeline';
+import { dialogButton, Timeline, MotionEventProps } from './Timeline';
 import { Choice } from './Choice';
 import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Scene } from 'phaser';
@@ -27,8 +27,8 @@ export class TimelinePlayer extends Scene {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init(data: { anotherScene: Map_TPL; timelinedata: Timelines; specID?: string }) {
-    if (!data.anotherScene || !data.timelinedata) {
+  init(data: { anotherScene: Map_TPL; timelineData: Timelines; specID?: string }) {
+    if (!data.anotherScene || !data.timelineData) {
       this.scene.stop();
       return;
     }
@@ -36,7 +36,7 @@ export class TimelinePlayer extends Scene {
     data.anotherScene.scene.pause();
 
     this.anotherScene = data.anotherScene;
-    this.timelineData = data.timelinedata;
+    this.timelineData = data.timelineData;
     this.specID = data.specID;
 
     // 背景レイヤー・前景レイヤー・UIレイヤーをコンテナを使って表現
@@ -108,7 +108,9 @@ export class TimelinePlayer extends Scene {
         this.dialogBox.setText(timelineEvent.text, true);
         this.isTextShow = false;
         break;
-
+      case 'event': // イベント追加
+        this.startEvent(timelineEvent.event, timelineEvent.props);
+        break;
       case 'setBackgroundImage': // 背景設定イベント
         this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
         break;
@@ -139,9 +141,6 @@ export class TimelinePlayer extends Scene {
       case 'setBackgroundColor':
         this.setBackgroundColor(timelineEvent.color);
         break;
-      case 'event': // イベント追加
-        this.startEvent(timelineEvent.event, timelineEvent.many);
-        break;
       case 'meetFriend': // 仲間出会いイベント
         this.addFriend(timelineEvent.actor);
         break;
@@ -165,21 +164,23 @@ export class TimelinePlayer extends Scene {
         break;
       case 'judge':
         if (
-          system.bossFlag.get('Ate') &&
-          system.bossFlag.get('Bte') &&
-          system.bossFlag.get('Melcine') &&
-          system.bossFlag.get('Eleca')
-        )
+          system.isBossKilled.get('Ate') &&
+          system.isBossKilled.get('Bte') &&
+          system.isBossKilled.get('Melcine') &&
+          system.isBossKilled.get('Eleca')
+        ) {
           this.specTimeline({ timelineID: timelineEvent.timelineID });
+        }
         break;
       default:
         break;
     }
   }
 
-  private startEvent(key: string, many: any[]) {
+  private startEvent(key: string, props: any[]) {
+    // todo: イベント実行の処理にfuncsを利用するのをやめる
     if (funcs.has(system.map + ',' + key)) {
-      funcs.get(system.map + ',' + key)(many);
+      funcs.get(system.map + ',' + key)(props);
     }
   }
 
