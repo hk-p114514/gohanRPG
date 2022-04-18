@@ -395,7 +395,7 @@ export class Map_TPL extends Scene {
     funcs.set(this.name + ',battle', (s: any[]) => {
       system.isBossBattle = true;
       system.boss = s[0];
-      this.moveBattle();
+      return this.moveBattle();
     });
   }
 
