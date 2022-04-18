@@ -329,7 +329,7 @@ export class Battle extends Scene {
     }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: {
+      timelineData: {
         win: [{ type: 'dialog', text: `敵の殲滅に成功！` }, { type: 'endTimeline' }],
         lose: [{ type: 'dialog', text: `味方が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
@@ -358,7 +358,7 @@ export class Battle extends Scene {
 
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: {
+      timelineData: {
         start: [...timeLines, { type: 'endTimeline' }],
       },
     });

@@ -8,6 +8,6 @@ export type Timelines = {
 
 export type SceneTimelines = {
   anotherScene: Map_TPL;
-  timelinedata: Timelines;
+  timelineData: Timelines;
   specID?: string;
 };

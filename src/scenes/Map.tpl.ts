@@ -146,7 +146,7 @@ export class Map_TPL extends Scene {
           let n = hints.get(system.map + ',' + xy.x + ',' + xy.y);
           this.scene.launch(sceneKeys.timelinePlayer, {
             anotherScene: this,
-            timelinedata: n,
+            timelineData: n,
           });
         } else {
           console.log('?');
@@ -158,7 +158,7 @@ export class Map_TPL extends Scene {
     const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
       this.scene.launch(sceneKeys.timelinePlayer, {
         anotherScene: this,
-        timelinedata: select,
+        timelineData: select,
       });
     });
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
@@ -250,7 +250,7 @@ export class Map_TPL extends Scene {
               let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
-                timelinedata: n,
+                timelineData: n,
               });
             } else if (!randI(denominator)) {
               this.moveBattle();
