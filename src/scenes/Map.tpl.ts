@@ -398,7 +398,7 @@ export class Map extends Scene {
     funcs.set(this.name + ',battle', (s: any[]) => {
       system.isBossBattle = true;
       system.boss = s[0];
-      return this.moveBattle();
+      this.moveBattle();
     });
   }
 

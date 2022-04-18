@@ -1000,7 +1000,6 @@ export const beforeAteBattle: Timelines = {
       event: 'battle',
       many: [enemy.ate],
     },
-    { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…。' },
     { type: 'endTimeline' },
   ],
 };
