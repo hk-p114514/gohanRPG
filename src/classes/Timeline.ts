@@ -84,6 +84,9 @@ export type MotionEventProps = {
   name?: string;
   direction?: Direction;
   bubbleIndex?: number;
+  timeline?: Timeline;
+  setEventMap?: string;
+  battleActor?: BattleActor;
 };
 
 // 関数等を追加したい時のイベント

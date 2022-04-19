@@ -43,6 +43,7 @@ export class TimelinePlayer extends Scene {
     this.backgroundLayer = this.add.container(0, 0);
     this.foregroundLayer = this.add.container(0, 0);
     this.uiLayer = this.add.container(0, 0);
+    console.log('init');
   }
 
   preload() {}
@@ -79,9 +80,11 @@ export class TimelinePlayer extends Scene {
 
     this.specTimeline({ timelineID: this.specID });
     this.timelineIndex = 0;
+    console.log('create');
   }
 
   update() {
+    console.log(1);
     if (!this.timeline) return;
     if (!this.dialogBox) return;
     if (!this.anotherScene) return;
@@ -92,6 +95,7 @@ export class TimelinePlayer extends Scene {
     if (!this.isTextShow) {
       return;
     }
+    console.log(2);
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
     const timelineEvent = this.timeline[this.timelineIndex++];
     console.log(this.anotherScene);
@@ -177,6 +181,7 @@ export class TimelinePlayer extends Scene {
     }
   }
   private startevent(key: string, many: any[]) {
+    console.log(key);
     if (key == 'battle') {
       if (!funcs.get(system.map + ',' + key)(many)) {
         this.dialogBox?.clearDialogBox();
@@ -186,9 +191,103 @@ export class TimelinePlayer extends Scene {
         // timelinePlayerシーンを止める
         this.scene.stop();
       }
-    } else if (funcs.has(system.map + ',' + key)) {
-      funcs.get(system.map + ',' + key)(many);
+    } else {
+      let box: MotionEventProps = {};
+      switch (key) {
+        case 'kill':
+          this.anotherScene?.kill(many);
+          break;
+        case 'delete':
+          box.name = many[0];
+          if (box.name === undefined) break;
+          this.anotherScene?.delete(box.name);
+          break;
+        case 'event':
+          box.name = many[0];
+          box.x = many[1];
+          box.y = many[2];
+          box.timeline = many[3];
+          box.setEventMap = many[4];
+          if (box.name === undefined) break;
+          if (box.x === undefined) break;
+          if (box.y === undefined) break;
+          if (box.timeline === undefined) break;
+          this.anotherScene?.event(box.name, box.x, box.y, box.timeline, box.setEventMap);
+          break;
+        case 'chdir':
+          box.name = many[0];
+          box.direction = many[1];
+          if (box.name === undefined) break;
+          if (box.direction === undefined) break;
+          this.anotherScene?.chdir(box.name, box.direction);
+          break;
+        case 'set':
+          box.name = many[0];
+          box.x = many[1];
+          box.y = many[2];
+          box.timeline = many[3];
+          if (box.name === undefined) break;
+          if (box.x === undefined) break;
+          if (box.y === undefined) break;
+          if (box.timeline === undefined) break;
+          this.anotherScene?.set(box.name, box.x, box.y, box.timeline);
+          break;
+        case 'reset':
+          box.name = many[0];
+          if (box.name === undefined) break;
+          this.anotherScene?.reset(box.name);
+          break;
+        case 'break':
+          box.name = many[0];
+          if (box.name === undefined) break;
+          this.anotherScene?.break(box.name);
+          break;
+        case 'move':
+          box.direction = many[0];
+          if (box.direction === undefined) break;
+          this.anotherScene?.move(box.direction);
+          break;
+        case 'setlog':
+          box.name = many[0];
+          box.bubbleIndex = many[1];
+          if (box.name === undefined) break;
+          if (box.bubbleIndex === undefined) break;
+          this.anotherScene?.setlog(box.name, box.bubbleIndex);
+          break;
+        case 'bosslog':
+          box.bubbleIndex = many[0];
+          if (box.bubbleIndex === undefined) break;
+          this.anotherScene?.bosslog(box.bubbleIndex);
+          break;
+        case 'relog':
+          this.anotherScene?.relog();
+          break;
+        case 'warp':
+          box.x = many[0];
+          box.y = many[1];
+          if (box.x === undefined) break;
+          if (box.y === undefined) break;
+          this.anotherScene?.warp(box.x, box.y);
+          break;
+        case 'battle':
+          box.battleActor = many[0];
+          if (box.battleActor === undefined) break;
+          this.anotherScene?.battle(box.battleActor);
+          break;
+        case 'moveBattle':
+          this.anotherScene?.moveBattle();
+          break;
+        case 'zoomUp':
+          this.anotherScene?.zoomUp();
+          break;
+        case 'zoomDown':
+          this.anotherScene?.zoomDown();
+          break;
+      }
     }
+    // else if (funcs.has(system.map + ',' + key)) {
+    //   funcs.get(system.map + ',' + key)(many);
+    // }
   }
 
   private addFriend(actor: BattleActor) {
