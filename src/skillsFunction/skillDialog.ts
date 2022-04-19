@@ -7,6 +7,6 @@ import { Timeline } from 'classes/Timeline';
 export const skillDialog = (scene: Scene, timelineData: Timeline) => {
   scene.scene.launch(sceneKeys.timelinePlayer, {
     anotherScene: scene,
-    timelinedata: { start: timelineData },
+    timelineData: { start: timelineData },
   });
 };
