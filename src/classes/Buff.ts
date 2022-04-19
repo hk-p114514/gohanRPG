@@ -1,4 +1,3 @@
-import { forEach } from 'lodash';
 import { BattleActor } from './BattleActor';
 
 export class Buff {

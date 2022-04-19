@@ -36,11 +36,6 @@ export class Battle extends Scene {
     this.sorted = [];
     this.index = 0;
     this.exp = 0;
-    this.party.forEach((actor: BattleActor) => {
-      actor.hp.current = actor.hp.max;
-      actor.buff.initBuff();
-      actor.state.initState();
-    });
   }
 
   preload() {
@@ -60,6 +55,12 @@ export class Battle extends Scene {
 
     this.sorted = [...this.party, ...this.enemies].sort((a, b) => {
       return b.speed - a.speed;
+    });
+
+    this.sorted.forEach((actor: BattleActor) => {
+      actor.hp.current = actor.hp.max;
+      actor.buff.initBuff();
+      actor.state.initState();
     });
 
     // バトル勝利時にプレイヤー達が獲得する経験値を計算
@@ -328,7 +329,7 @@ export class Battle extends Scene {
     }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: {
+      timelineData: {
         win: [{ type: 'dialog', text: `敵の殲滅に成功！` }, { type: 'endTimeline' }],
         lose: [{ type: 'dialog', text: `味方が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
@@ -357,7 +358,7 @@ export class Battle extends Scene {
 
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: {
+      timelineData: {
         start: [...timeLines, { type: 'endTimeline' }],
       },
     });
