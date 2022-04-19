@@ -43,7 +43,7 @@ export class Battle extends Scene {
     this.enemies = clone;
     // 現在のマップに出て来る可能性のある敵キャラの数
     const len = this.enemies.length;
-    const appear = randI(Battle.availableSkillCount - 1);
+    const appear = randI(Battle.maxEnemiesAppearance - 1, 1);
     const diff = len - appear;
     for (let i = 0; i < diff; i++) {
       const n = randI(len - 1, 0);
@@ -140,6 +140,7 @@ export class Battle extends Scene {
         // actor.getRandSkill()(actor, enemies);
         // actorの攻撃
         if (actor.state.getPossible()) {
+          // 行動可能
           if (this.party.includes(actor)) {
             // 該当のキャラクターがプレイヤー側なら、
             // 使う技をプレイヤーに選択させる
@@ -151,6 +152,15 @@ export class Battle extends Scene {
             // 該当のキャラクターが敵側なら、
             // ランダムに技を選択する
             this.actorAction(actor);
+          }
+        } else {
+          // 行動不可能
+          // 主人公視点の技を表示しない
+          // ターンごとのactorの変化を記録する
+          if (this.party.includes(actor)) {
+            system.setActor(actor);
+          } else {
+            system.battling = undefined;
           }
         }
 
