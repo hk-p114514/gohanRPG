@@ -113,7 +113,7 @@ export class TimelinePlayer extends Scene {
         this.isTextShow = false;
         break;
       case 'event': // イベント追加
-        this.startevent(timelineEvent.event, timelineEvent.props);
+        this.startevent(timelineEvent.event, timelineEvent.props, timelineEvent.contents);
         break;
       case 'setBackgroundImage': // 背景設定イベント
         this.setBackgroundImage(timelineEvent.x, timelineEvent.y, timelineEvent.key);
@@ -180,22 +180,19 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-  private startevent(key: string, many: any[]) {
+  private startevent(
+    key: string,
+    many: any[] | undefined,
+    contents: MotionEventProps | undefined,
+  ) {
     console.log(key);
-    if (key == 'battle') {
-      if (!funcs.get(system.map + ',' + key)(many)) {
-        this.dialogBox?.clearDialogBox();
-        this.timelineIndex = -1;
-        // マップシーンのキー操作を受け付けるようにする
-        this.anotherScene?.scene.resume();
-        // timelinePlayerシーンを止める
-        this.scene.stop();
-      }
-    } else {
+    if (many !== undefined && contents === undefined) {
       let box: MotionEventProps = {};
       switch (key) {
         case 'kill':
-          this.anotherScene?.kill(many);
+          box.xy = many;
+          if (box.xy === undefined) break;
+          this.anotherScene?.kill(box.xy);
           break;
         case 'delete':
           box.name = many[0];
@@ -247,7 +244,7 @@ export class TimelinePlayer extends Scene {
           if (box.direction === undefined) break;
           this.anotherScene?.move(box.direction);
           break;
-        case 'setlog':
+        case 'log':
           box.name = many[0];
           box.bubbleIndex = many[1];
           if (box.name === undefined) break;
@@ -272,7 +269,104 @@ export class TimelinePlayer extends Scene {
         case 'battle':
           box.battleActor = many[0];
           if (box.battleActor === undefined) break;
-          this.anotherScene?.battle(box.battleActor);
+          if (!this.anotherScene?.battle(box.battleActor)) {
+            this.dialogBox?.clearDialogBox();
+            this.timelineIndex = -1;
+            // マップシーンのキー操作を受け付けるようにする
+            this.anotherScene?.scene.resume();
+            // timelinePlayerシーンを止める
+            this.scene.stop();
+          }
+          break;
+        case 'moveBattle':
+          this.anotherScene?.moveBattle();
+          break;
+        case 'zoomUp':
+          this.anotherScene?.zoomUp();
+          break;
+        case 'zoomDown':
+          this.anotherScene?.zoomDown();
+          break;
+      }
+    } else if (many === undefined && contents !== undefined) {
+      switch (key) {
+        case 'kill':
+          if (contents.xy === undefined) break;
+          this.anotherScene?.kill(contents.xy);
+          break;
+        case 'delete':
+          if (contents.name === undefined) break;
+          this.anotherScene?.delete(contents.name);
+          break;
+        case 'event':
+          if (contents.name === undefined) break;
+          if (contents.x === undefined) break;
+          if (contents.y === undefined) break;
+          if (contents.timeline === undefined) break;
+          this.anotherScene?.event(
+            contents.name,
+            contents.x,
+            contents.y,
+            contents.timeline,
+            contents.setEventMap,
+          );
+          break;
+        case 'chdir':
+          if (contents.name === undefined) break;
+          if (contents.direction === undefined) break;
+          this.anotherScene?.chdir(contents.name, contents.direction);
+          break;
+        case 'set':
+          if (contents.name === undefined) break;
+          if (contents.x === undefined) break;
+          if (contents.y === undefined) break;
+          if (contents.timeline === undefined) break;
+          this.anotherScene?.set(
+            contents.name,
+            contents.x,
+            contents.y,
+            contents.timeline,
+          );
+          break;
+        case 'reset':
+          if (contents.name === undefined) break;
+          this.anotherScene?.reset(contents.name);
+          break;
+        case 'break':
+          if (contents.name === undefined) break;
+          this.anotherScene?.break(contents.name);
+          break;
+        case 'move':
+          if (contents.direction === undefined) break;
+          this.anotherScene?.move(contents.direction);
+          break;
+        case 'log':
+          if (contents.name === undefined) break;
+          if (contents.bubbleIndex === undefined) break;
+          this.anotherScene?.setlog(contents.name, contents.bubbleIndex);
+          break;
+        case 'bosslog':
+          if (contents.bubbleIndex === undefined) break;
+          this.anotherScene?.bosslog(contents.bubbleIndex);
+          break;
+        case 'relog':
+          this.anotherScene?.relog();
+          break;
+        case 'warp':
+          if (contents.x === undefined) break;
+          if (contents.y === undefined) break;
+          this.anotherScene?.warp(contents.x, contents.y);
+          break;
+        case 'battle':
+          if (contents.battleActor === undefined) break;
+          if (!this.anotherScene?.battle(contents.battleActor)) {
+            this.dialogBox?.clearDialogBox();
+            this.timelineIndex = -1;
+            // マップシーンのキー操作を受け付けるようにする
+            this.anotherScene?.scene.resume();
+            // timelinePlayerシーンを止める
+            this.scene.stop();
+          }
           break;
         case 'moveBattle':
           this.anotherScene?.moveBattle();

@@ -103,7 +103,7 @@ export class Map_TPL extends Scene {
         let l = this.add.sprite(0, 0, name, 1);
         let hito = new Player(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
-        names.set(system.map + name, system.map + ',' + x + ',' + y);
+        names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
         console.log(system.map + ',' + x + ',' + y);
       }
     }
@@ -116,7 +116,7 @@ export class Map_TPL extends Scene {
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
-        names.set(system.map + name, system.map + ',' + x + ',' + y);
+        names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
         events.set(system.map + ',' + x + ',' + y, took);
       }
     }
@@ -135,8 +135,9 @@ export class Map_TPL extends Scene {
   }
 
   public create() {
+    //keyEvents
     //話しかけるor調べるkey
-    const space = this.input.keyboard.addKey('SPACE').on('down', () => {
+    const space = this.input.keyboard.addKey('ENTER').on('down', () => {
       console.log(this.player);
       if (this.gridPhysics?.isMoving()) return;
       if (!!this.player) {
@@ -156,7 +157,6 @@ export class Map_TPL extends Scene {
         console.log(system.map + ',' + xy.x + ',' + xy.y);
       }
     });
-
     const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
       this.scene.launch(sceneKeys.timelinePlayer, {
         anotherScene: this,
@@ -167,12 +167,14 @@ export class Map_TPL extends Scene {
     const B = this.input.keyboard.addKey('B').on('down', () => {
       this.moveBattle();
     });
-
-    const G = this.input.keyboard.addKey('g').on('down', () => {
+    const G = this.input.keyboard.addKey('G').on('down', () => {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
       system.battleFlag = !system.battleFlag;
+    });
+    const V = this.input.keyboard.addKey('V').on('down', () => {
+      system.eventFlag = !system.eventFlag;
     });
     // マップを作成
     this.tileMap = this.make.tilemap({ key: this.name });
@@ -248,13 +250,16 @@ export class Map_TPL extends Scene {
             //踏むイベントの確認
             const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
             console.log(`1 / ${denominator}の確率でバトル`);
-            if (!!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y)) {
+            if (
+              !!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y) &&
+              system.eventFlag
+            ) {
               let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
                 timelineData: n,
               });
-            } else if (!randI(denominator)) {
+            } else if (!randI(denominator) && system.battleFlag) {
               this.moveBattle();
             }
           } else {
@@ -402,18 +407,17 @@ export class Map_TPL extends Scene {
   /**/
 
   //events
-
   //未変更
-  public kill(s: any[]) {
-    for (let i = 0; i < s.length; ++i) {
-      events.delete(this.name + ',' + s[i][0] + ',' + s[i][1]);
+  public kill(xy: { x: number; y: number }[]) {
+    for (let i = 0; i < xy.length; ++i) {
+      events.delete(this.name + ',' + xy[i].x + ',' + xy[i].y);
     }
   }
   // イベントを削除
   public delete(objectName: string) {
     if (names.has(this.name + objectName)) {
-      events.delete(names.get(this.name + objectName));
-      names.delete(this.name + objectName);
+      events.delete(names.get(this.name + ',' + objectName));
+      names.delete(this.name + ',' + objectName);
     }
   }
   //イベントを配置
@@ -440,8 +444,8 @@ export class Map_TPL extends Scene {
   }
   //キャラの向きを変える
   public chdir(charName: string, direction: Direction) {
-    if (names.has(system.map + charName)) {
-      let point = names.get(system.map + charName);
+    if (names.has(system.map + ',' + charName)) {
+      let point = names.get(system.map + ',' + charName);
       let character = npcs.get(point);
       character.changedir(direction);
     } else if (charName === 'player') {
@@ -456,19 +460,19 @@ export class Map_TPL extends Scene {
     let sprite = this.add.sprite(0, 0, charName, 1);
     let char = new Player(sprite, new Phaser.Math.Vector2(x, y), charName);
     npcs.set(system.map + ',' + x + ',' + y, char);
-    names.set(system.map + charName, system.map + ',' + x + ',' + y);
+    names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
     console.log(system.map + ',' + x + ',' + y);
   }
   //キャラを消す
   public reset(charName: string) {
-    if (names.has(system.map + charName)) {
-      let point = names.get(system.map + charName);
+    if (names.has(system.map + ',' + charName)) {
+      let point = names.get(system.map + ',' + charName);
       let character = npcs.get(point);
       character.destroy();
-      npcs.delete(charName);
-      names.delete(system.map + charName);
+      npcs.delete(point);
+      names.delete(system.map + ',' + charName);
     } else {
-      console.log('not found');
+      console.log('not found' + system.map + ',' + charName);
     }
   }
   //ボスを消す
@@ -482,19 +486,19 @@ export class Map_TPL extends Scene {
   }
   // 吹き出し表示
   public setlog(charName: string, bubbleIndex: number) {
-    if (names.has(system.map + charName)) {
-      let a = names.get(system.map + charName);
-      let b = npcs.get(a);
-      let c = b.getPosition();
-      c.y -= tileSize;
+    if (names.has(system.map + ',' + charName)) {
+      let point = names.get(system.map + ',' + charName);
+      let character = npcs.get(point);
+      let bubblePoint = character.getPosition();
+      bubblePoint.y -= tileSize;
       this.log?.destroy();
-      this.log = this.add.sprite(c.x, c.y, 'log' + bubbleIndex);
+      this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, 'log' + bubbleIndex);
     } else if (charName === 'player') {
       if (this.player) {
-        let c = this.player.getPosition();
-        c.y -= tileSize;
+        let bubblePoint = this.player.getPosition();
+        bubblePoint.y -= tileSize;
         this.log?.destroy();
-        this.log = this.add.sprite(c.x, c.y, 'log' + bubbleIndex);
+        this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, 'log' + bubbleIndex);
       }
     } else {
       console.log('not found');
