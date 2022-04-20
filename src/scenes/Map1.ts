@@ -2,12 +2,10 @@ import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
 import Ate from '@/assets/characters/static/boss/ate.png';
+import { warp0 } from 'classes/timelineWords';
 import {
-  warp0,
   warpA,
   backA,
-  dummy,
-  noComment,
   beforeAteBattle,
   afterAteBattle,
   goAte,
@@ -17,7 +15,7 @@ import {
   stone4,
   hint1,
   explanation1,
-} from 'classes/timelineWords';
+} from 'classes/timelineWords1';
 import { funcs } from 'classes/exam';
 
 export class Map1 extends Map_TPL {

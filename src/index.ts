@@ -25,8 +25,8 @@ import { marc, mough, pouler, shiden } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  Title,
   Prologue,
+  Title,
   Map0,
   Map1,
   Map2,
@@ -40,7 +40,7 @@ const scenes = [
 ];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map0, [marc, shiden, pouler, mough]);
+export const system = new System(sceneKeys.map0, [marc]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [
