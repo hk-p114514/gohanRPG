@@ -10,9 +10,10 @@ import { marcSkills, moughSkills, poulerSkills, shidenSkills, skills } from 'ski
 const marc: BattleActor = new BattleActor({
   name: 'マルク',
   spriteSrc: marcSprite,
-  atk: 4,
-  def: 6,
-  speed: 5,
+  hp: { current: 7, max: 7 },
+  atk: 5,
+  def: 7,
+  speed: 6,
   initSkills: marcSkills,
 });
 
