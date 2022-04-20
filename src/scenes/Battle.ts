@@ -6,6 +6,8 @@ import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
 import { randArr, randI } from 'functions/generalPurpose/rand';
 import { State } from 'classes/State';
+import { System } from 'classes/System';
+import { Map_TPL } from './Map.tpl';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -157,11 +159,7 @@ export class Battle extends Scene {
           // 行動不可能
           // 主人公視点の技を表示しない
           // ターンごとのactorの変化を記録する
-          if (this.party.includes(actor)) {
-            system.setActor(actor);
-          } else {
-            system.battling = undefined;
-          }
+          system.battling = undefined;
         }
 
         this.index++;
@@ -367,7 +365,7 @@ export class Battle extends Scene {
     });
 
     this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: this,
+      anotherScene: this.scene.get(system.map),
       timelineData: {
         start: [...timeLines, { type: 'endTimeline' }],
       },
