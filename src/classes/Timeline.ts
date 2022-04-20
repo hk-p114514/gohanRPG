@@ -1,4 +1,6 @@
+import { Direction } from 'classes/Direction';
 import { Vector } from 'matter';
+import { BattleActor } from './BattleActor';
 import { Choice } from './Choice';
 
 // ダイアログ表示イベント
@@ -59,6 +61,11 @@ type setBackgroundColor = {
   color: string;
 };
 
+type meetFriend = {
+  type: 'meetFriend';
+  actor: BattleActor;
+};
+
 /*======タイムラインIDの最初と最後に必ず付ける！====== */
 // ダイアログが始まる時のイベント
 type StartTimeline = {
@@ -71,11 +78,19 @@ type EndTimeline = {
 };
 /*=================================================== */
 
+export type MotionEventProps = {
+  x?: number;
+  y?: number;
+  name?: string;
+  direction?: Direction;
+  bubbleIndex?: number;
+};
+
 // 関数等を追加したい時のイベント
 type MotionEvent = {
   type: 'event';
   event: string;
-  many: Array<any>;
+  props: Array<any>;
 };
 
 type Switch = {
@@ -97,6 +112,7 @@ export type Timeline = (
   | MotionEvent
   | Switch
   | Judge
+  | meetFriend
 )[];
 
 export type dialogButton = {

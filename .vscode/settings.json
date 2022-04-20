@@ -1,4 +1,7 @@
 {
+  // javascriptデバッグ設定
+  "debug.allowBreakpointsEverywhere": true,
+  "editor.formatOnSave": true,
   "cSpell.words": [
     "Anims",
     "changedir",
@@ -7,6 +10,7 @@
     "createevents",
     "dekitawa",
     "draworder",
+    "Eleca",
     "firstgid",
     "gameover",
     "getdir",
@@ -44,6 +48,7 @@
     "slimea",
     "slimeb",
     "spritesheet",
+    "startevent",
     "tilecount",
     "tiledversion",
     "tileheight",
@@ -59,8 +64,5 @@
     "vimmer",
     "wmail",
     "yoyo"
-  ],
-  // javascriptデバッグ設定
-  "debug.allowBreakpointsEverywhere": true,
-  "editor.formatOnSave": true
+  ]
 }
