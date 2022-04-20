@@ -8,8 +8,8 @@ import {
   beforeElecaBattle,
   goEleca,
   warpboss,
-  zoomUp,
-} from 'classes/timelineWords';
+} from 'classes/timelineWords4';
+import { zoomUp } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 

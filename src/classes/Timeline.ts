@@ -84,13 +84,17 @@ export type MotionEventProps = {
   name?: string;
   direction?: Direction;
   bubbleIndex?: number;
+  timeline?: Timeline;
+  setEventMap?: string;
+  battleActor?: BattleActor;
+  xy?: { x: number; y: number }[];
 };
-
 // 関数等を追加したい時のイベント
 type MotionEvent = {
   type: 'event';
   event: string;
-  props: Array<any>;
+  props?: Array<any>;
+  contents?: MotionEventProps;
 };
 
 type Switch = {

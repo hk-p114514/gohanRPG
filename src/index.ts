@@ -8,7 +8,6 @@ import mapJson4 from '@/json/map004.json';
 import mapJson5 from '@/json/map005.json';
 import mapJson6 from '@/json/map006.json';
 import { H, W } from 'functions/DOM/windowInfo';
-import { Preload } from './scenes/Preload';
 import { Prologue } from 'scenes/Prologue';
 import { Title } from 'scenes/Title';
 import { GameOver } from 'scenes/GameOver';
@@ -28,7 +27,6 @@ import { marc, mough, pouler, shiden } from 'friends';
 const scenes = [
   Prologue,
   Title,
-  Preload,
   Map0,
   Map1,
   Map2,
