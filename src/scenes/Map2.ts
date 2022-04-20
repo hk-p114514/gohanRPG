@@ -3,7 +3,7 @@ import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
-//import { system } from 'index';
+import { warp0 } from 'classes/timelineWords';
 import {
   Aries,
   Taurus,
@@ -50,8 +50,7 @@ import {
   goBte,
   beforeBteBattle,
   afterBteBattle,
-  warp0,
-} from 'classes/timelineWords';
+} from 'classes/timelineWords2';
 import { shiden } from 'friends';
 export class Map2 extends Map_TPL {
   public stars: Array<string> = [
