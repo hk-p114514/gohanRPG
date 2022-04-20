@@ -2,7 +2,7 @@ import { GameObjects, Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { hints } from 'classes/exam';
-import logo from 'images/logo.png';
+import logo from '@/images/title.png';
 import button from '@/images/button.png';
 import buttonOnHover from '@/images/button_onhover.png';
 
