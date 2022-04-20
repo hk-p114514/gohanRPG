@@ -8,7 +8,6 @@ import mapJson4 from '@/json/map004.json';
 import mapJson5 from '@/json/map005.json';
 import mapJson6 from '@/json/map006.json';
 import { H, W } from 'functions/DOM/windowInfo';
-import { Preload } from './scenes/Preload';
 import { Prologue } from 'scenes/Prologue';
 import { Title } from 'scenes/Title';
 import { GameOver } from 'scenes/GameOver';
@@ -26,9 +25,8 @@ import { marc, mough, pouler, shiden } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  Title,
   Prologue,
-  Preload,
+  Title,
   Map0,
   Map1,
   Map2,
@@ -42,7 +40,7 @@ const scenes = [
 ];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map0, [marc, shiden, pouler, mough]);
+export const system = new System(sceneKeys.map0, [marc]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [

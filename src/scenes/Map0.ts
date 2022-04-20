@@ -2,12 +2,9 @@ import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import {
-  select,
   warp1,
   warp2,
   warp3,
-  dummy,
-  noComment,
   warp4,
   warp5,
   explanation0,
@@ -32,7 +29,7 @@ import {
   beSyoujo,
   beMajo,
   beRoujin,
-} from 'classes/timelineWords';
+} from 'classes/timelineWords0';
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
