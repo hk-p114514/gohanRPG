@@ -233,6 +233,9 @@ export class UI extends Scene {
           skills.add(skill);
         });
       }
+      skills.forEach((skill) => {
+        console.error(skill.getName());
+      });
 
       skills.forEach((skill) => {
         const skillText = this.add
