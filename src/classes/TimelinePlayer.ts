@@ -6,7 +6,6 @@ import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { funcs } from './exam';
 import { system } from 'index';
 import { Map_TPL } from 'scenes/Map.tpl';
 import { BattleActor } from './BattleActor';
