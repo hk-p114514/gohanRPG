@@ -384,7 +384,9 @@ export class TimelinePlayer extends Scene {
   }
 
   private addFriend(actor: BattleActor) {
-    system.party.push(actor);
+    if (!system.party.includes(actor)) {
+      system.party.push(actor);
+    }
   }
 
   // ダイアログの作成
