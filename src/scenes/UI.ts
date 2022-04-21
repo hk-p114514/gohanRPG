@@ -220,7 +220,7 @@ export class UI extends Scene {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
       const skills = new Set<Skill>();
-      const available = Battle.availableSkillCount;
+      const available = actor.state.getAvailableSkillCount(Battle.availableSkillCount);
 
       if (available < actor.skills.length) {
         // 技の候補が沢山ありすぎる -> 抽選
