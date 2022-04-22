@@ -1,4 +1,5 @@
 import { BattleActor } from 'classes/BattleActor';
+import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
@@ -24,7 +25,7 @@ export const diagonalSlash = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の斜め切り！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} ダメージ与えた！` },
+    { type: 'dialog', text: `敵に平均 ${Math.floor(sum / num)} ダメージ与えた！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -77,13 +78,15 @@ export const inganoOguruma = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
+  // 50％の確率で連続で攻撃する
+  const denominator = probabilityToDenominator(50);
   let sum: number = 0;
   do {
     const beforeHp = target.hp.current;
     target.beInjured(attacker.buff.getAtk() * 1.2);
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-  } while (randI(2));
+  } while (randI(denominator) && !target.isDead());
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の因果の小車！` },
     {
@@ -238,7 +241,7 @@ export const redDevilRequiem: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の紅魔の鎮魂歌！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} ダメージ与えた！` },
+    { type: 'dialog', text: `敵に平均 ${Math.floor(sum / num)} ダメージ与えた！` },
     { type: 'dialog', text: '敵を毒状態にした！' },
     { type: 'endTimeline' },
   ]);
@@ -271,7 +274,7 @@ export const morningRamenBless: SkillFunction = (
     }
   });
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}の朝ラーの加護！` },
+    { type: 'dialog', text: `${attacker.name}の朝ラーの怒り！` },
     { type: 'dialog', text: `敵は平均 ${Math.floor(hpSum / num)} 喰らった！` },
     { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 下がった！` },
     { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 下がった！` },
@@ -302,8 +305,8 @@ export const spiritBless: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の精霊の加護！` },
-    { type: 'dialog', text: `攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
-    { type: 'dialog', text: `防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
+    { type: 'dialog', text: `仲間の攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
+    { type: 'dialog', text: `仲間の防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -324,7 +327,10 @@ export const forestGrace: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / targets.length)} 回復した！` },
+    {
+      type: 'dialog',
+      text: `仲間のHPが平均 ${Math.floor(sum / targets.length)} 回復した！`,
+    },
     { type: 'dialog', text: '技が1つ多く選べるようになった！' },
     { type: 'endTimeline' },
   ]);
