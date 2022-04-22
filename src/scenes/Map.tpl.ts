@@ -425,7 +425,7 @@ export class Map_TPL extends Scene {
     eventName: string,
     x: number,
     y: number,
-    contents: Timeline,
+    contents: Timelines,
     anotherMap: string | undefined,
   ) {
     if (anotherMap === undefined) {
@@ -455,7 +455,7 @@ export class Map_TPL extends Scene {
     }
   }
   //キャラを配置する
-  public set(charName: string, x: number, y: number, contents: Timeline) {
+  public set(charName: string, x: number, y: number, contents: Timelines) {
     hints.set(system.map + ',' + x + ',' + y, contents);
     let sprite = this.add.sprite(0, 0, charName, 1);
     let char = new Player(sprite, new Phaser.Math.Vector2(x, y), charName);
