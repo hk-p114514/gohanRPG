@@ -45,7 +45,6 @@ export class TimelinePlayer extends Scene {
     this.backgroundLayer = this.add.container(0, 0);
     this.foregroundLayer = this.add.container(0, 0);
     this.uiLayer = this.add.container(0, 0);
-    console.log('init');
   }
 
   preload() {}
@@ -82,11 +81,9 @@ export class TimelinePlayer extends Scene {
 
     this.specTimeline({ timelineID: this.specID });
     this.timelineIndex = 0;
-    console.log('create');
   }
 
   update() {
-    console.log(1);
     if (!this.timeline) return;
     if (!this.dialogBox) return;
     if (!this.anotherScene) return;
@@ -97,7 +94,6 @@ export class TimelinePlayer extends Scene {
     if (!this.isTextShow) {
       return;
     }
-    console.log(2);
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
     const timelineEvent = this.timeline[this.timelineIndex++];
     console.log(this.anotherScene);
