@@ -4,14 +4,13 @@ import { Map_TPL } from './Map.tpl';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
   addMough,
-  afterElecaBattle,
+  //afterElecaBattle,
   backboss,
   beforeElecaBattle,
   goEleca,
   warpboss,
 } from 'classes/timelineWords4';
 import { warp0, zoomUp } from 'classes/timelineWords';
-import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 
 export class Map4 extends Map_TPL {
@@ -20,9 +19,6 @@ export class Map4 extends Map_TPL {
   }
   preload() {
     super.preload();
-    // super.setnpcimage('Shiden', 1);
-    // super.setnpcimage('Pouler', 1);
-    // super.setnpcimage('Mough', 1);
     super.setnpcimage('Shiden', 1, shiden.spriteSrc);
     super.setnpcimage('Pouler', 1, pouler.spriteSrc);
     super.setnpcimage('Mough', 1, mough.spriteSrc);
@@ -38,7 +34,7 @@ export class Map4 extends Map_TPL {
     //super.setEvent('zoomUp', zoomUp);
     super.setEvent('goEleca', goEleca);
     super.setEvent('beforeEleca', beforeElecaBattle);
-    super.setEvent('afterEleca', afterElecaBattle);
+    //super.setEvent('afterEleca', afterElecaBattle);
     super.zoomUp();
   }
 

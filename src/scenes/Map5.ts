@@ -7,31 +7,34 @@ import Melcine from '@/assets/characters/static/boss/melcine.png';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import Obc from '@/assets/characters/static/boss/obc.png';
 import { warp0 } from 'classes/timelineWords';
-import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 import {
-  afterObcBattle,
-  backAte,
-  backBte,
-  backEleca,
-  backMelcine,
-  backObc,
-  beforeObcBattle,
-  endAte,
-  endBte,
-  endEleca,
-  endMelcine,
-  goObc,
-  goReAte,
-  goReBte,
-  goReEleca,
-  goReMelcine,
-  startAte,
+  explanation5,
   warpAte,
   warpBte,
   warpEleca,
   warpMelcine,
   warpObc,
+  backAte,
+  backBte,
+  backEleca,
+  backMelcine,
+  backObc,
+  goReAte,
+  goReBte,
+  goReEleca,
+  goReMelcine,
+  goObc,
+  startAte,
+  startBte,
+  startEleca,
+  startMelcine,
+  beforeObcBattle,
+  // endAte,
+  // endBte,
+  // endEleca,
+  // endMelcine,
+  // afterObcBattle,
 } from 'classes/timelineWords5';
 
 export class Map5 extends Map_TPL {
@@ -52,6 +55,7 @@ export class Map5 extends Map_TPL {
   create() {
     super.create();
     this.setBoss(8, 35, 'Ate', 0.5, true);
+    super.setHint('explanation5', explanation5);
     super.setEvent('exit', warp0);
     super.setEvent('toboss1', warpAte);
     super.setEvent('toboss2', warpBte);
@@ -64,18 +68,15 @@ export class Map5 extends Map_TPL {
     super.setEvent('spawnPoint4', backEleca);
     super.setEvent('spawnPoint5', backObc);
     super.setEvent('goAte', goReAte);
-    super.setEvent('startAte', endAte);
+    super.setEvent('startAte', startAte);
     super.setEvent('goBte', goReBte);
-    super.setEvent('startBte', endBte);
+    super.setEvent('startBte', startBte);
     super.setEvent('goMelcine', goReMelcine);
-    super.setEvent('startMelcine', endMelcine);
+    super.setEvent('startMelcine', startMelcine);
     super.setEvent('goEleca', goReEleca);
-    super.setEvent('startEleca', endEleca);
+    super.setEvent('startEleca', startEleca);
     super.setEvent('goObc', goObc);
-    super.setEvent('startObc', afterObcBattle);
-
-    // イベントの位置を取得
-    // const events = this.tileMap?.filterTiles((tile) => {});
+    super.setEvent('startObc', beforeObcBattle);
   }
   public update(_time: number, delta: number): void {
     super.update(_time, delta);

@@ -101,8 +101,7 @@ export type MotionEventProps = {
 type MotionEvent = {
   type: 'event';
   event: string;
-  props?: Array<any>;
-  contents?: MotionEventProps;
+  contents: MotionEventProps;
 };
 
 type Switch = {

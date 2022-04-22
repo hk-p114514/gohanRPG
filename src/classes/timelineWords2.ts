@@ -1112,16 +1112,16 @@ export const beforeBteBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    {
-      type: 'event',
-      event: 'battle',
-      contents: { battleActor: enemy.bte },
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const afterBteBattle: Timelines = {
-  start: [
+    //     {
+    //       type: 'event',
+    //       event: 'battle',
+    //       contents: { battleActor: enemy.bte },
+    //     },
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterBteBattle: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、こんな所で…。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
@@ -1196,6 +1196,11 @@ export const afterBteBattle: Timelines = {
     { type: 'dialog', actorName: 'エレカ', text: 'お母様の御心のままに。' },
     { type: 'dialog', actorName: 'OBC', text: 'しくじるんじゃないよ、メルシン。' },
     { type: 'dialog', actorName: 'メルシン', text: 'ワタクシに、全てお任せあれ…。' },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Bte' },
+    },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     {
       type: 'event',

@@ -1,11 +1,6 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
 import { Timelines } from './Timelines';
 import { Direction } from './Direction';
-import { castleAnnounce, oceanGotsuji, volcanoGotsuji } from './timelineWords0';
-import { buffSkills } from 'skills';
 
-//Stage5
 export const explanation5: Timelines = {
   start: [
     {
@@ -41,17 +36,17 @@ export const goReAte: Timelines = {
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Shiden', x: 8, y: 40, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Pouler', x: 10, y: 40, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Mough', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Mough', x: 7, y: 40, timeline: undefined },
     },
     {
       type: 'event',
@@ -202,11 +197,11 @@ export const startAte: Timelines = {
     { type: 'dialog', actorName: 'エーテ', text: '行くぞ！！' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'パウラ', text: 'グダグダですね…。' },
-    { type: 'endTimeline' },
-  ],
-};
-export const endAte: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endAte: Timelines = {
+    //   start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…だめだったか。' },
     { type: 'dialog', actorName: 'エーテ', text: 'OBCよ、申し訳ありません…。' },
     {
@@ -275,30 +270,26 @@ export const endAte: Timelines = {
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 8, y: 5, name: 'Bte' } },
+    { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
+    { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
+    { type: 'event', event: 'reset', contents: { name: 'Mough' } },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'beforeAte' },
+      contents: { name: 'startAte' },
     },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'afterAte' },
+      contents: { name: 'endAte' },
     },
     {
       type: 'event',
       event: 'kill',
       contents: {
         xy: [
-          { x: 9, y: 8 },
-          { x: 10, y: 8 },
-          { x: 11, y: 8 },
-          { x: 12, y: 8 },
-          { x: 13, y: 8 },
-          { x: 14, y: 8 },
-          { x: 15, y: 8 },
-          { x: 16, y: 8 },
-          { x: 17, y: 8 },
+          { x: 8, y: 41 },
+          { x: 9, y: 41 },
         ],
       },
     },
@@ -321,21 +312,21 @@ export const backBte: Timelines = {
 export const goReBte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: 'warp', contents: { x: 9, y: 10 } },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Shiden', x: 8, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Pouler', x: 10, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Mough', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Mough', x: 7, y: 10, timeline: undefined },
     },
     {
       type: 'event',
@@ -454,11 +445,11 @@ export const startBte: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: 'バトル突入セリフだけは進化してるな。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endBte: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endBte: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、またか…。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
@@ -503,25 +494,25 @@ export const endBte: Timelines = {
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 50, y: 5, name: 'Melcine' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
+    { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
+    { type: 'event', event: 'reset', contents: { name: 'Mough' } },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'befoerBte' },
+      contents: { name: 'startBte' },
     },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'afterBte' },
+      contents: { name: 'endBte' },
     },
     {
       type: 'event',
       event: 'kill',
       contents: {
         xy: [
-          { x: 7, y: 24 },
-          { x: 6, y: 25 },
-          { x: 8, y: 25 },
-          { x: 7, y: 26 },
+          { x: 8, y: 11 },
+          { x: 9, y: 11 },
         ],
       },
     },
@@ -544,21 +535,21 @@ export const backMelcine: Timelines = {
 export const goReMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: 'warp', contents: { x: 51, y: 10 } },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Shiden', x: 50, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Pouler', x: 52, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Mough', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Mough', x: 49, y: 10, timeline: undefined },
     },
     {
       type: 'event',
@@ -639,11 +630,11 @@ export const startMelcine: Timelines = {
     },
     { type: 'dialog', actorName: 'パウラ', text: 'やっぱり騒がしい人ですねぇ。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endMelcine: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endMelcine: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -723,20 +714,26 @@ export const endMelcine: Timelines = {
     { type: 'event', event: 'createBoss', contents: { x: 30, y: 4, name: 'Eleca' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
+    { type: 'event', event: 'reset', contents: { name: 'Mough' } },
     {
       type: 'event',
-      event: 'delete',
-      contents: { name: 'goMelcine' },
+      event: 'kill',
+      contents: {
+        xy: [
+          { x: 50, y: 12 },
+          { x: 50, y: 13 },
+        ],
+      },
     },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'beforeMelcine' },
+      contents: { name: 'startMelcine' },
     },
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'afterMelcine' },
+      contents: { name: 'endMelcine' },
     },
     { type: 'endTimeline' },
   ],
@@ -757,21 +754,21 @@ export const backEleca: Timelines = {
 export const goReEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: 'warp', contents: { x: 31, y: 10 } },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Shiden', x: 30, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Pouler', x: 32, y: 10, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Mough', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Mough', x: 29, y: 10, timeline: undefined },
     },
     {
       type: 'event',
@@ -851,11 +848,11 @@ export const startEleca: Timelines = {
       text: '本気で相手してあげるわ、覚悟しなさい。',
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endEleca: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endEleca: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: '申し訳ありません、おかあ…さま…。' },
     {
@@ -926,9 +923,8 @@ export const endEleca: Timelines = {
       event: 'kill',
       contents: {
         xy: [
-          { x: 1, y: 1 },
-          { x: 2, y: 2 },
-          { x: 3, y: 3 },
+          { x: 30, y: 11 },
+          { x: 31, y: 11 },
         ],
       },
     },
@@ -1144,10 +1140,11 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-  ],
-};
-export const afterObcBattle: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterObcBattle: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
     { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…。' },
@@ -1246,7 +1243,7 @@ export const afterObcBattle: Timelines = {
     {
       type: 'event',
       event: 'delete',
-      contents: { name: 'beforeObc' },
+      contents: { name: 'startObc' },
     },
     {
       type: 'event',
@@ -1282,5 +1279,6 @@ export const afterObcBattle: Timelines = {
     },
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
     { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'endTimeline' },
   ],
 };

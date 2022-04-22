@@ -27,70 +27,7 @@ export const warp5: Timelines = {
   final: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
 
-export const stoper1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper2: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper3: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper4: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper5: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper6: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper8: Timelines = {
+export const stoper: Timelines = {
   start: [
     {
       type: 'dialog',
@@ -279,7 +216,6 @@ export const explanation: Timelines = {
 };
 
 export const afterGotsuji: Timelines = {
-  //
   start: [
     { type: 'dialog', actorName: 'ダカフ', text: 'あの頃はよかったの〜！' },
     { type: 'endTimeline' },

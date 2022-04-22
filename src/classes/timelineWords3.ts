@@ -98,12 +98,16 @@ export const addPouler: Timelines = {
       event: 'chdir',
       contents: { name: 'Shiden', direction: Direction.UP },
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'player', bubbleIndex: 1 },
+    },
     { type: 'dialog', actorName: 'マルク', text: 'お、どうしたお嬢ちゃん！' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 3 },
+      contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'パウラ', text: '私も、連れて行ってもらえませんか…？' },
     {
@@ -365,12 +369,12 @@ export const goMelcine: Timelines = {
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 52, y: 29, timeline: undefined },
+      contents: { name: 'Shiden', x: 52, y: 28, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 50, y: 29, timeline: undefined },
+      contents: { name: 'Pouler', x: 50, y: 28, timeline: undefined },
     },
     {
       type: 'event',
@@ -464,11 +468,11 @@ export const beforeMelcineBattle: Timelines = {
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const afterMelcineBattle: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterMelcineBattle: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -487,14 +491,14 @@ export const afterMelcineBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 2 },
     },
     {
+      type: 'event',
+      event: 'chdir',
+      contents: { name: 'player', direction: Direction.LEFT },
+    },
+    {
       type: 'dialog',
       actorName: 'マルク',
       text: 'ごちゃごちゃうるせぇ野郎だな、とっとと行こうぜ。',
-    },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'player', direction: Direction.RIGHT },
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     {
@@ -529,6 +533,11 @@ export const afterMelcineBattle: Timelines = {
       type: 'dialog',
       actorName: 'エレカ',
       text: '分かっているわ。\nお母様の元へは、虫けら1匹通しはしない…。',
+    },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Melcine' },
     },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     { type: 'event', event: 'reset', contents: { name: 'Pouler' } },

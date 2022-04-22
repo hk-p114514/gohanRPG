@@ -339,11 +339,11 @@ export const beforeElecaBattle: Timelines = {
       text: '全員まとめて叩き潰す。',
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const afterElecaBattle: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterElecaBattle: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: 'うぐっ…おかあ…さま…。' },
     {
@@ -414,6 +414,11 @@ export const afterElecaBattle: Timelines = {
       type: 'dialog',
       actorName: 'マルク',
       text: 'ああ、折角ここまで来たんだ。\nもっと強くなって、魔王ぶっとばしてやろうぜ！',
+    },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Eleca' },
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
