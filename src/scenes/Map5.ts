@@ -9,29 +9,32 @@ import Obc from '@/assets/characters/static/boss/obc.png';
 import { warp0 } from 'classes/timelineWords';
 import { mough, pouler, shiden } from 'friends';
 import {
-  afterObcBattle,
-  backAte,
-  backBte,
-  backEleca,
-  backMelcine,
-  backObc,
-  beforeObcBattle,
-  endAte,
-  endBte,
-  endEleca,
-  endMelcine,
   explanation5,
-  goObc,
-  goReAte,
-  goReBte,
-  goReEleca,
-  goReMelcine,
-  startAte,
   warpAte,
   warpBte,
   warpEleca,
   warpMelcine,
   warpObc,
+  backAte,
+  backBte,
+  backEleca,
+  backMelcine,
+  backObc,
+  goReAte,
+  goReBte,
+  goReEleca,
+  goReMelcine,
+  goObc,
+  startAte,
+  startBte,
+  startEleca,
+  startMelcine,
+  beforeObcBattle,
+  // endAte,
+  // endBte,
+  // endEleca,
+  // endMelcine,
+  // afterObcBattle,
 } from 'classes/timelineWords5';
 
 export class Map5 extends Map_TPL {
@@ -65,18 +68,15 @@ export class Map5 extends Map_TPL {
     super.setEvent('spawnPoint4', backEleca);
     super.setEvent('spawnPoint5', backObc);
     super.setEvent('goAte', goReAte);
-    super.setEvent('startAte', endAte);
+    super.setEvent('startAte', startAte);
     super.setEvent('goBte', goReBte);
-    super.setEvent('startBte', endBte);
+    super.setEvent('startBte', startBte);
     super.setEvent('goMelcine', goReMelcine);
-    super.setEvent('startMelcine', endMelcine);
+    super.setEvent('startMelcine', startMelcine);
     super.setEvent('goEleca', goReEleca);
-    super.setEvent('startEleca', endEleca);
+    super.setEvent('startEleca', startEleca);
     super.setEvent('goObc', goObc);
-    super.setEvent('startObc', afterObcBattle);
-
-    // イベントの位置を取得
-    // const events = this.tileMap?.filterTiles((tile) => {});
+    super.setEvent('startObc', beforeObcBattle);
   }
   public update(_time: number, delta: number): void {
     super.update(_time, delta);

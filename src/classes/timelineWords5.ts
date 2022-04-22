@@ -197,11 +197,11 @@ export const startAte: Timelines = {
     { type: 'dialog', actorName: 'エーテ', text: '行くぞ！！' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'パウラ', text: 'グダグダですね…。' },
-    { type: 'endTimeline' },
-  ],
-};
-export const endAte: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endAte: Timelines = {
+    //   start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…だめだったか。' },
     { type: 'dialog', actorName: 'エーテ', text: 'OBCよ、申し訳ありません…。' },
     {
@@ -445,11 +445,11 @@ export const startBte: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: 'バトル突入セリフだけは進化してるな。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endBte: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endBte: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、またか…。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
@@ -630,11 +630,11 @@ export const startMelcine: Timelines = {
     },
     { type: 'dialog', actorName: 'パウラ', text: 'やっぱり騒がしい人ですねぇ。' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endMelcine: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endMelcine: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -848,11 +848,11 @@ export const startEleca: Timelines = {
       text: '本気で相手してあげるわ、覚悟しなさい。',
     },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'endTimeline' },
-  ],
-};
-export const endEleca: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const endEleca: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: '申し訳ありません、おかあ…さま…。' },
     {
@@ -1140,10 +1140,11 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
-  ],
-};
-export const afterObcBattle: Timelines = {
-  start: [
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterObcBattle: Timelines = {
+    //   start: [
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
     { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…。' },
@@ -1278,5 +1279,6 @@ export const afterObcBattle: Timelines = {
     },
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
     { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'endTimeline' },
   ],
 };

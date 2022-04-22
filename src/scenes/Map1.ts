@@ -6,8 +6,7 @@ import { warp0 } from 'classes/timelineWords';
 import {
   warpA,
   backA,
-  //beforeAteBattle,
-  afterAteBattle,
+  beforeAteBattle,
   goAte,
   stone1,
   stone2,
@@ -15,7 +14,6 @@ import {
   stone4,
   hint1,
   explanation1,
-  beforeAteBattle,
 } from 'classes/timelineWords1';
 
 export class Map1 extends Map_TPL {
@@ -35,7 +33,6 @@ export class Map1 extends Map_TPL {
     super.setEvent('goAte', goAte);
     super.setEvent('woopboss', backA);
     super.setEvent('beforeAte', beforeAteBattle);
-    super.setEvent('afterAte', afterAteBattle);
     super.setHint('stage1hint', hint1);
     super.setHint('explanation1', explanation1);
     super.setHint('stone1', stone1);

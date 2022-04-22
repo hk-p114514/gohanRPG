@@ -48,7 +48,7 @@ import {
   explanation2,
   goBte,
   beforeBteBattle,
-  afterBteBattle,
+  //afterBteBattle,
 } from 'classes/timelineWords2';
 import { shiden } from 'friends';
 export class Map2 extends Map_TPL {
@@ -125,7 +125,7 @@ export class Map2 extends Map_TPL {
       super.setHint('reOphiuchuswarp', reOphiuchusWarp);
       super.setEvent('goBte', goBte);
       super.setEvent('beforeBte', beforeBteBattle);
-      super.setEvent('afterBte', afterBteBattle);
+      //super.setEvent('afterBte', afterBteBattle);
     }
   }
   public warpStar(starName: string, x: number, y: number) {

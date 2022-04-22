@@ -18,7 +18,7 @@ import {
   addPouler,
   goMelcine,
   beforeMelcineBattle,
-  afterMelcineBattle,
+  //afterMelcineBattle,
 } from 'classes/timelineWords3';
 import { pouler, shiden } from 'friends';
 
@@ -42,7 +42,7 @@ export class Map3 extends Map_TPL {
     super.setEvent('add3', addPouler);
     super.setEvent('goMelcine', goMelcine);
     super.setEvent('beforeMelcine', beforeMelcineBattle);
-    super.setEvent('afterMelcine', afterMelcineBattle);
+    //super.setEvent('afterMelcine', afterMelcineBattle);
     super.setEvent('restart', restart0);
     super.setEvent('restart1', restart1);
     super.setEvent('restart2', restart2);

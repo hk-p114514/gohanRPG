@@ -183,16 +183,16 @@ export const beforeAteBattle: Timelines = {
       actorName: 'エーテ',
       text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！',
     },
-    {
-      type: 'event',
-      event: 'battle',
-      contents: { battleActor: enemy.ate },
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const afterAteBattle: Timelines = {
-  start: [
+    //     {
+    //       type: 'event',
+    //       event: 'battle',
+    //       contents: { battleActor: enemy.ate },
+    //     },
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterAteBattle: Timelines = {
+    //   start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…。' },
     {
       type: 'dialog',
