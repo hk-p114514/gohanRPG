@@ -6,7 +6,6 @@ import { tileSize } from 'scenes/Map.tpl';
 import { H, W } from 'functions/DOM/windowInfo';
 import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
-import { funcs } from './exam';
 import { system } from 'index';
 import { Map_TPL } from 'scenes/Map.tpl';
 import { allMap } from './Timeline';
@@ -402,7 +401,9 @@ export class TimelinePlayer extends Scene {
   }
 
   private addFriend(actor: BattleActor) {
-    system.party.push(actor);
+    if (!system.party.includes(actor)) {
+      system.party.push(actor);
+    }
   }
 
   // ダイアログの作成
