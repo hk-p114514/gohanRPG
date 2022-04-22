@@ -1196,6 +1196,11 @@ export const afterBteBattle: Timelines = {
     { type: 'dialog', actorName: 'エレカ', text: 'お母様の御心のままに。' },
     { type: 'dialog', actorName: 'OBC', text: 'しくじるんじゃないよ、メルシン。' },
     { type: 'dialog', actorName: 'メルシン', text: 'ワタクシに、全てお任せあれ…。' },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Bte' },
+    },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     {
       type: 'event',

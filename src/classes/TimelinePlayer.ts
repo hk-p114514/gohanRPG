@@ -292,6 +292,9 @@ export class TimelinePlayer extends Scene {
       }
     } else if (many === undefined && contents !== undefined) {
       switch (key) {
+        case 'judge':
+          if (contents.name === undefined) break;
+          this.anotherScene?.judge(contents.name);
         case 'kill':
           if (contents.xy === undefined) break;
           this.anotherScene?.kill(contents.xy);
@@ -328,6 +331,7 @@ export class TimelinePlayer extends Scene {
             contents.x,
             contents.y,
             contents.timeline,
+            contents.direction,
           );
           break;
         case 'reset':
@@ -395,9 +399,6 @@ export class TimelinePlayer extends Scene {
           break;
       }
     }
-    // else if (funcs.has(system.map + ',' + key)) {
-    //   funcs.get(system.map + ',' + key)(many);
-    // }
   }
 
   private addFriend(actor: BattleActor) {

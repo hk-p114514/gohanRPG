@@ -93,7 +93,7 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
-  public makeNPC(name: string, took: Timelines) {
+  public makeNPC(name: string, took: Timelines, dir?: string) {
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
@@ -104,6 +104,8 @@ export class Map_TPL extends Scene {
         let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
         names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
+        if (dir !== undefined) hito.changedir(dir);
+        break;
       }
     }
   }
@@ -278,15 +280,17 @@ export class Map_TPL extends Scene {
   }
 
   //events
-  //未変更
   public kill(xy: { x: number; y: number }[]) {
     for (let i = 0; i < xy.length; ++i) {
       events.delete(this.name + ',' + xy[i].x + ',' + xy[i].y);
     }
   }
+  public judge(bossName: string) {
+    if (system.isBossKilled.has(bossName)) system.isBossKilled.set(bossName, true);
+  }
   // イベントを削除
   public delete(objectName: string) {
-    if (names.has(this.name + objectName)) {
+    if (names.has(this.name + ',' + objectName)) {
       events.delete(names.get(this.name + ',' + objectName));
       names.delete(this.name + ',' + objectName);
     }
@@ -326,12 +330,19 @@ export class Map_TPL extends Scene {
     }
   }
   //キャラを配置する
-  public set(charName: string, x: number, y: number, contents: Timelines) {
+  public set(
+    charName: string,
+    x: number,
+    y: number,
+    contents: Timelines,
+    direction?: Direction,
+  ) {
     hints.set(system.map + ',' + x + ',' + y, contents);
     let sprite = this.add.sprite(0, 0, charName, 1);
     let char = new Char(sprite, new Phaser.Math.Vector2(x, y), charName);
     npcs.set(system.map + ',' + x + ',' + y, char);
     names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
+    if (direction !== undefined) char.changedir(direction);
   }
   //キャラを消す
   public reset(charName: string) {

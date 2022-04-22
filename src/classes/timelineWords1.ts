@@ -105,7 +105,7 @@ export const warpA: Timelines = {
 };
 export const backA: Timelines = {
   start: [
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: 'warp', contents: { x: 29, y: 12 } },
     { type: 'endTimeline' },
   ],
 };
@@ -170,7 +170,6 @@ export const beforeAteBattle: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: 'なんか、ごめん。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: 'いいよ、俺もちょっと調子乗ってたし。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 1 } },
     { type: 'dialog', actorName: 'エーテ', text: '…雰囲気戻していい？' },
     { type: 'event', event: 'relog', contents: { name: 'relog' } },
     { type: 'dialog', actorName: 'マルク', text: 'お願いします。' },
@@ -200,6 +199,7 @@ export const afterAteBattle: Timelines = {
       actorName: 'エーテ',
       text: '俺は、四天王なんだ…こんな所で、倒れる訳にはいかないんだ…！',
     },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: '俺を生み出しし母、OBCの為に…！' },
     {
       type: 'event',
@@ -238,6 +238,11 @@ export const afterAteBattle: Timelines = {
     { type: 'dialog', actorName: '四天王B', text: '兄の責任は私の責任でもあります。' },
     { type: 'dialog', actorName: 'OBC', text: '良かろうビーテ、次は貴様に任せる。' },
     { type: 'dialog', actorName: 'ビーテ', text: '必ずや、止めてみせます故…。' },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Ate' },
+    },
     {
       type: 'event',
       event: 'delete',

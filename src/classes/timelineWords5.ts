@@ -37,9 +37,9 @@ export const goReAte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'warp', contents: { x: 9, y: 40 } },
-    { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
-    { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
-    { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
+    { type: 'event', event: 'set', props: ['Shiden', 9, 39, undefined] },
+    { type: 'event', event: 'set', props: ['Pouler', 6, 41, undefined] },
+    { type: 'event', event: 'set', props: ['Mough', 6, 38, undefined] },
     { type: 'event', event: 'chdir', props: ['player', 'up'] },
     { type: 'event', event: 'chdir', props: ['Shiden', 'up'] },
     { type: 'event', event: 'chdir', props: ['Pouler', 'up'] },

@@ -415,6 +415,11 @@ export const afterElecaBattle: Timelines = {
       actorName: 'マルク',
       text: 'ああ、折角ここまで来たんだ。\nもっと強くなって、魔王ぶっとばしてやろうぜ！',
     },
+    {
+      type: 'event',
+      event: 'judge',
+      contents: { name: 'Eleca' },
+    },
     { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'zoomDown', contents: { name: 'proto' } },

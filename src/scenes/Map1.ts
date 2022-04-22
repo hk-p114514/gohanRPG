@@ -6,7 +6,7 @@ import { warp0 } from 'classes/timelineWords';
 import {
   warpA,
   backA,
-  beforeAteBattle,
+  //beforeAteBattle,
   afterAteBattle,
   goAte,
   stone1,
@@ -15,6 +15,7 @@ import {
   stone4,
   hint1,
   explanation1,
+  beforeAteBattle,
 } from 'classes/timelineWords1';
 import { funcs } from 'classes/exam';
 
