@@ -11,7 +11,7 @@ import log5 from '@/assets/items/onpu.png';
 // classes
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
-import { Player } from 'classes/Player';
+import { Char } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
 import { select } from 'classes/timelineWords';
@@ -39,7 +39,7 @@ export class Map_TPL extends Scene {
   public tileset?: Tilemaps.Tileset;
   public tileMap?: Tilemaps.Tilemap;
   public tileMapLayer?: Tilemaps.TilemapLayer;
-  public player?: Player;
+  public player?: Char;
   public enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
@@ -101,7 +101,7 @@ export class Map_TPL extends Scene {
           y = Math.floor(e.y / tileSize);
         hints.set(system.map + ',' + x + ',' + y, took);
         let l = this.add.sprite(0, 0, name, 1);
-        let hito = new Player(l, new Phaser.Math.Vector2(x, y), name);
+        let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
         names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
         console.log(system.map + ',' + x + ',' + y);
@@ -228,7 +228,7 @@ export class Map_TPL extends Scene {
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
       this.xy = new Phaser.Math.Vector2(tileX, tileY);
-      this.player = new Player(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
+      this.player = new Char(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
     }
 
     // グリッドの設定
@@ -271,9 +271,13 @@ export class Map_TPL extends Scene {
     }
   }
 
-  public setBoss(x: number, y: number, boss: string, scale = 0.5) {
+  public setBoss(x: number, y: number, boss: string, scale = 0.5, half = false) {
     this.boss = this.add
-      .sprite(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, boss)
+      .sprite(
+        x * tileSize + tileSize / 2 + (half ? 20 : 0),
+        y * tileSize + tileSize / 2,
+        boss,
+      )
       .setScale(scale);
   }
 
@@ -329,7 +333,7 @@ export class Map_TPL extends Scene {
   public set(charName: string, x: number, y: number, contents: Timelines) {
     hints.set(system.map + ',' + x + ',' + y, contents);
     let sprite = this.add.sprite(0, 0, charName, 1);
-    let char = new Player(sprite, new Phaser.Math.Vector2(x, y), charName);
+    let char = new Char(sprite, new Phaser.Math.Vector2(x, y), charName);
     npcs.set(system.map + ',' + x + ',' + y, char);
     names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
     console.log(system.map + ',' + x + ',' + y);

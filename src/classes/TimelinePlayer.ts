@@ -8,7 +8,10 @@ import { Timelines } from './Timelines';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { system } from 'index';
 import { Map_TPL } from 'scenes/Map.tpl';
+import { allMap } from './Timeline';
 import { BattleActor } from './BattleActor';
+import { Map2 } from 'scenes/Map2';
+import { Map5 } from 'scenes/Map5';
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -26,7 +29,7 @@ export class TimelinePlayer extends Scene {
     super({ key: sceneKeys.timelinePlayer });
   }
 
-  init(data: { anotherScene: Map_TPL; timelineData: Timelines; specID?: string }) {
+  init(data: { anotherScene: allMap; timelineData: Timelines; specID?: string }) {
     if (!data.anotherScene || !data.timelineData) {
       this.scene.stop();
       return;
@@ -375,6 +378,20 @@ export class TimelinePlayer extends Scene {
           break;
         case 'zoomDown':
           this.anotherScene?.zoomDown();
+          break;
+        case 'waprStar':
+          if (contents.name === undefined) break;
+          if (contents.x === undefined) break;
+          if (contents.y === undefined) break;
+          if (this.anotherScene instanceof Map2)
+            this.anotherScene?.warpStar(contents.name, contents.x, contents.y);
+          break;
+        case 'createBoss':
+          if (contents.name === undefined) break;
+          if (contents.x === undefined) break;
+          if (contents.y === undefined) break;
+          if (this.anotherScene instanceof Map5)
+            this.anotherScene?.createBoss(contents.x, contents.y, contents.name);
           break;
       }
     }
