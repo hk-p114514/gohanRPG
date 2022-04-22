@@ -47,4 +47,13 @@ const mough: BattleActor = new BattleActor({
   initSkills: moughSkills,
 });
 
-export { marc, shiden, pouler, mough };
+const administrator: BattleActor = new BattleActor({
+  name: 'Administrator',
+  startLevel: 99,
+  atk: 100,
+  def: 100100,
+  speed: 100,
+  initSkills: [...marcSkills, ...shidenSkills, ...poulerSkills, ...moughSkills],
+});
+
+export { marc, shiden, pouler, mough, administrator };

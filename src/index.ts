@@ -21,12 +21,12 @@ import { Map2 } from 'scenes/Map2';
 import { Map3 } from 'scenes/Map3';
 import { Map4 } from 'scenes/Map4';
 import { Map5 } from 'scenes/Map5';
-import { marc, mough, pouler, shiden } from 'friends';
+import { marc, mough, pouler, shiden, administrator } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  Prologue,
-  Title,
+  // Prologue,
+  // Title,
   Map0,
   Map1,
   Map2,
@@ -40,7 +40,7 @@ const scenes = [
 ];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map0, [marc]);
+export const system = new System(sceneKeys.map0, [marc, administrator]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [
