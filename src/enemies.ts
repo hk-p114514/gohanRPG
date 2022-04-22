@@ -260,7 +260,7 @@ export const enemy = {
     initSkills: [skills[20], skills[21], skills[22], buffSkills[3]],
   }),
   enken: new BattleActor({
-    name: 'えんけんさん',
+    name: '炎犬さん',
     spriteSrc: enken,
     hp: { current: 12, max: 12 },
     mp: { current: 40, max: 40 },
@@ -357,6 +357,7 @@ export const mapEnemies = new Map<string, BattleActor[]>([
     sceneKeys.map4,
     [enemy.cutlery, enemy.friedChiken, enemy.burn, enemy.yakitori, enemy.enken],
   ],
+  [sceneKeys.map5, []],
 ]);
 
 export const bossEnemies: BattleActor[] = [

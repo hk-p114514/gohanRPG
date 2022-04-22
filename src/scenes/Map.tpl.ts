@@ -88,7 +88,7 @@ export class Map_TPL extends Scene {
       this.load.spritesheet(name, charas[n], {
         frameWidth: characterSize,
         frameHeight: characterSize,
-      }); //console.log(system.map);
+      });
     }
   }
   //各MapClassのcreateで使うnpcを配置する関数
@@ -104,7 +104,6 @@ export class Map_TPL extends Scene {
         let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
         names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
-        console.log(system.map + ',' + x + ',' + y);
       }
     }
   }
@@ -138,7 +137,6 @@ export class Map_TPL extends Scene {
     //keyEvents
     //話しかけるor調べるkey
     const space = this.input.keyboard.addKey('ENTER').on('down', () => {
-      console.log(this.player);
       if (this.gridPhysics?.isMoving()) return;
       if (!!this.player) {
         let xy = this.player.getTilePos();
@@ -154,7 +152,6 @@ export class Map_TPL extends Scene {
         } else {
           console.log('?');
         }
-        console.log(system.map + ',' + xy.x + ',' + xy.y);
       }
     });
     const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
@@ -249,7 +246,6 @@ export class Map_TPL extends Scene {
             this.xy = this.player.getTilePos();
             //踏むイベントの確認
             const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
-            console.log(`1 / ${denominator}の確率でバトル`);
             if (
               !!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y) &&
               system.eventFlag
@@ -336,7 +332,6 @@ export class Map_TPL extends Scene {
     let char = new Char(sprite, new Phaser.Math.Vector2(x, y), charName);
     npcs.set(system.map + ',' + x + ',' + y, char);
     names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
-    console.log(system.map + ',' + x + ',' + y);
   }
   //キャラを消す
   public reset(charName: string) {

@@ -21,13 +21,12 @@ import { Map2 } from 'scenes/Map2';
 import { Map3 } from 'scenes/Map3';
 import { Map4 } from 'scenes/Map4';
 import { Map5 } from 'scenes/Map5';
-import { marc, mough, pouler, shiden } from 'friends';
+import { marc, mough, pouler, shiden, administrator } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  // Title,
   // Prologue,
-  // Preload,
+  // Title,
   Map0,
   Map1,
   Map2,
