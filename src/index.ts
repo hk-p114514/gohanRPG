@@ -26,9 +26,9 @@ import { marc, mough, pouler, shiden } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  Title,
-  Prologue,
-  Preload,
+  // Title,
+  // Prologue,
+  // Preload,
   Map0,
   Map1,
   Map2,

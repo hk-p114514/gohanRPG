@@ -93,7 +93,10 @@ export const warpboss: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [29, 45] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: 'warp', contents: { x: 29, y: 50 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 export const backboss: Timelines = {

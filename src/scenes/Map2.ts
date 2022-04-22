@@ -146,19 +146,19 @@ export class Map2 extends Map_TPL {
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});
   }
-  public warpStar(s: any[]) {
+  public warpStar(starName: string, x: number, y: number) {
     if (this.count === -1) {
       this.count = 0;
       this.player?.moveTilePos(7, 12);
       return;
     }
-    if (s[0] !== this.stars[this.count]) {
+    if (starName !== this.stars[this.count]) {
       this.count = -1;
     } else {
       ++this.count;
       this.count %= 12;
     }
-    this.player?.moveTilePos(s[1], s[2]);
+    this.player?.moveTilePos(x, y);
   }
   public update(_time: number, delta: number): void {
     super.update(_time, delta);
