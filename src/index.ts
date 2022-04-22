@@ -40,7 +40,7 @@ const scenes = [
 ];
 // const scenes = [Map1, Map2];
 
-export const system = new System(sceneKeys.map0, [marc, administrator]);
+export const system = new System(sceneKeys.map0, [marc]);
 
 // マップデータのjsonをまとめる
 export const json: string[] = [
