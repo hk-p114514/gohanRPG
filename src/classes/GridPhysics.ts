@@ -1,5 +1,5 @@
 import { Direction } from './Direction';
-import { Player } from './Player';
+import { Char } from './Player';
 import * as Phaser from 'phaser';
 import { tileSize } from 'scenes/Map.tpl';
 import { npcs } from './exam';
@@ -24,9 +24,9 @@ export class GridPhysics {
 
   private lastMovementIntent = Direction.NONE;
 
-  constructor(private player: Player, private tileMap: Phaser.Tilemaps.Tilemap) {}
+  constructor(private player: Char, private tileMap: Phaser.Tilemaps.Tilemap) {}
 
-  chcon(char: Player) {
+  chcon(char: Char) {
     this.player = char;
   }
 

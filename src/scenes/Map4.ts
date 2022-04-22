@@ -3,13 +3,14 @@ import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
+  addMough,
   afterElecaBattle,
   backboss,
   beforeElecaBattle,
   goEleca,
   warpboss,
 } from 'classes/timelineWords4';
-import { zoomUp } from 'classes/timelineWords';
+import { warp0, zoomUp } from 'classes/timelineWords';
 import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 
@@ -29,19 +30,16 @@ export class Map4 extends Map_TPL {
   }
   create() {
     super.create();
-    funcs.set(this.name + ',zoomUp', (s: any[]) => {
-      this.zoomUp();
-    });
-    funcs.set(this.name + ',zoomDown', (s: any[]) => {
-      this.zoomDown();
-    });
-    this.setBoss(29, 39, 'Eleca', 0.25);
+    this.setBoss(29, 44, 'Eleca');
+    super.setEvent('exit', warp0);
+    super.setEvent('add4', addMough);
     super.setHint('warpboss', warpboss);
     super.setHint('warptoboss', backboss);
-    super.setEvent('zoomUp', zoomUp);
+    //super.setEvent('zoomUp', zoomUp);
     super.setEvent('goEleca', goEleca);
     super.setEvent('beforeEleca', beforeElecaBattle);
     super.setEvent('afterEleca', afterElecaBattle);
+    super.zoomUp();
   }
 
   public update(_time: number, delta: number): void {

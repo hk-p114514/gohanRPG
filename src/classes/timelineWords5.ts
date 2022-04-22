@@ -22,15 +22,21 @@ export const explanation5: Timelines = {
 };
 
 export const warpAte: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 9, y: 42 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const backAte: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 27, y: 31 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const goReAte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [8, 23] },
+    { type: 'event', event: 'warp', contents: { x: 9, y: 40 } },
     { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
@@ -117,7 +123,6 @@ export const startAte: Timelines = {
 export const endAte: Timelines = {
   start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…だめだったか。' },
-    { type: 'event', event: 'log', props: ['player', 1] },
     { type: 'dialog', actorName: 'エーテ', text: 'OBCよ、申し訳ありません…。' },
     { type: 'event', event: 'log', props: ['player', 1] },
     {
@@ -164,6 +169,7 @@ export const endAte: Timelines = {
     },
     { type: 'event', event: 'relog', props: [] },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'createBoss', contents: { x: 8, y: 5, name: 'Bte' } },
     { type: 'event', event: 'delete', props: ['beforeAte'] },
     { type: 'event', event: 'delete', props: ['afterAte'] },
     {
@@ -186,15 +192,21 @@ export const endAte: Timelines = {
 };
 
 export const warpBte: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 9, y: 12 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const backBte: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 9, y: 31 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const goReBte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [8, 23] },
+    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
     { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
@@ -289,11 +301,12 @@ export const endBte: Timelines = {
     { type: 'event', event: 'bosslog', props: [4] },
     { type: 'dialog', actorName: 'パウラ', text: 'ビチョウオンプテ……。' },
     { type: 'event', event: 'log', props: ['player', 1] },
-    { type: 'dialog', actorName: 'パウラ', text: 'あれってそんな読み方だったんだ…。' },
+    { type: 'dialog', actorName: 'パウラ', text: 'あれってそんな読み方したんですね…。' },
     { type: 'event', event: 'log', props: ['player', 3] },
     { type: 'dialog', actorName: 'マウ', text: 'ながくて分かりずらい。' },
     { type: 'event', event: 'relog', props: [] },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'createBoss', contents: { x: 50, y: 5, name: 'Melcine' } },
     { type: 'event', event: 'reset', props: ['Shiden'] },
     { type: 'event', event: 'delete', props: ['beforeBte'] },
     { type: 'event', event: 'delete', props: ['afterBte'] },
@@ -312,15 +325,21 @@ export const endBte: Timelines = {
 };
 
 export const warpMelcine: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 51, y: 12 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const backMelcine: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 9, y: 1 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const goReMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [8, 23] },
+    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
     { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
@@ -412,12 +431,13 @@ export const endMelcine: Timelines = {
     { type: 'event', event: 'log', props: ['Pouler', 4] },
     { type: 'dialog', actorName: 'メルシン', text: 'ありがとう！' },
     { type: 'event', event: 'log', props: ['Pouler', 4] },
+    { type: 'event', event: 'break', props: ['Melcine'] },
     { type: 'dialog', actorName: 'メルシン', text: 'バタッ。' },
     { type: 'event', event: 'relog', props: [] },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'createBoss', contents: { x: 30, y: 4, name: 'Eleca' } },
     { type: 'event', event: 'reset', props: ['Shiden'] },
     { type: 'event', event: 'reset', props: ['Pouler'] },
-    { type: 'event', event: 'break', props: ['Melcine'] },
     { type: 'event', event: 'delete', props: ['goMelcine'] },
     { type: 'event', event: 'delete', props: ['beforeMelcine'] },
     { type: 'event', event: 'delete', props: ['afterMelcine'] },
@@ -426,15 +446,21 @@ export const endMelcine: Timelines = {
 };
 
 export const warpEleca: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 31, y: 12 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const backEleca: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 51, y: 1 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const goReEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [8, 23] },
+    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
     { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
@@ -530,6 +556,7 @@ export const endEleca: Timelines = {
     { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！。' },
     { type: 'event', event: 'relog', props: [] },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: 'createBoss', contents: { x: 50, y: 35, name: 'Obc' } },
     { type: 'event', event: 'reset', props: ['Shiden'] },
     { type: 'event', event: 'reset', props: ['Pouler'] },
     { type: 'event', event: 'reset', props: ['Mough'] },
@@ -549,15 +576,21 @@ export const endEleca: Timelines = {
 };
 
 export const warpObc: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 48, y: 43 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const backObc: Timelines = {
-  start: [{ type: 'event', event: 'warp', props: [13, 9] }, { type: 'endTimeline' }],
+  start: [
+    { type: 'event', event: 'warp', contents: { x: 31, y: 1 } },
+    { type: 'endTimeline' },
+  ],
 };
 export const goObc: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [8, 23] },
+    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
     { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Pouler', 6, 23, undefined] },
     { type: 'event', event: 'set', props: ['Mough', 6, 23, undefined] },
