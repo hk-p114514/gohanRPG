@@ -132,7 +132,7 @@ export const prologue: Timelines = {
 
 export const zoomUp: Timelines = {
   start: [
-    { type: 'event', event: 'zoomUp', props: [] },
+    { type: 'event', event: 'zoomUp', contents: {} },
     { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
     { type: 'endTimeline' },
   ],

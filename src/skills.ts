@@ -234,7 +234,7 @@ export const marcSkills: Skill[] = [
 
 export const shidenSkills: Skill[] = [
   new Skill('js上の詠唱曲', airOnJs, false, true),
-  new Skill('聖杯の幻想曲', grailFantasia, true, true),
+  new Skill('聖杯の幻想曲', grailFantasia, false, false),
   new Skill('指揮者の終曲', conductorFinale, false, true),
   new Skill('賢者の小夜曲', sageSerenade, false, true),
   new Skill('紅魔の鎮魂歌', redDevilRequiem, true, true),

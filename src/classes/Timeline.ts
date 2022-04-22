@@ -2,6 +2,7 @@ import { Direction } from 'classes/Direction';
 import { Vector } from 'matter';
 import { BattleActor } from './BattleActor';
 import { Choice } from './Choice';
+import { Timelines } from './Timelines';
 
 // ダイアログ表示イベント
 type DialogEvent = {
@@ -84,7 +85,7 @@ export type MotionEventProps = {
   name?: string;
   direction?: Direction;
   bubbleIndex?: number;
-  timeline?: Timeline;
+  timeline?: Timelines;
   setEventMap?: string;
   battleActor?: BattleActor;
   xy?: { x: number; y: number }[];
