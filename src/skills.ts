@@ -241,7 +241,7 @@ export const shidenSkills: Skill[] = [
 ];
 
 export const poulerSkills: Skill[] = [
-  new Skill('朝ラーの加護', morningRamenBless, true, true),
+  new Skill('朝ラーの怒り', morningRamenBless, true, true),
   new Skill('精霊の加護', spiritBless, true, false),
   new Skill('杜の恵み', forestGrace, true, false),
   new Skill('ピコヒール', picoHeal, false, false),
