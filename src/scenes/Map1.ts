@@ -17,7 +17,6 @@ import {
   explanation1,
   beforeAteBattle,
 } from 'classes/timelineWords1';
-import { funcs } from 'classes/exam';
 
 export class Map1 extends Map_TPL {
   constructor() {
@@ -30,7 +29,6 @@ export class Map1 extends Map_TPL {
 
   create() {
     super.create();
-    funcs.set(this.name + ',startBattleAte', () => {});
     this.setBoss(13, 3, 'Ate');
     super.setEvent('exit', warp0);
     super.setEvent('woop', warpA);

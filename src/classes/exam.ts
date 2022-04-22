@@ -6,5 +6,4 @@ map.set('down', new Phaser.Math.Vector2(0, 1));
 export const npcs = new Map();
 export const events = new Map();
 export const hints = new Map();
-export const funcs = new Map();
 export const names = new Map();

@@ -11,7 +11,6 @@ import {
   warpboss,
 } from 'classes/timelineWords4';
 import { warp0, zoomUp } from 'classes/timelineWords';
-import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 
 export class Map4 extends Map_TPL {

@@ -1,7 +1,6 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
 import { warp0 } from 'classes/timelineWords';
 import {

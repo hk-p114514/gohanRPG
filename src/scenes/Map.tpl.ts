@@ -18,7 +18,7 @@ import { select } from 'classes/timelineWords';
 // values
 import { system } from 'index';
 import { charas } from 'classes/Characters';
-import { map, events, hints, npcs, funcs, names } from 'classes/exam';
+import { map, events, hints, npcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
 
 // functions

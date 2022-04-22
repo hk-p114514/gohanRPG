@@ -7,7 +7,6 @@ import Melcine from '@/assets/characters/static/boss/melcine.png';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import Obc from '@/assets/characters/static/boss/obc.png';
 import { warp0 } from 'classes/timelineWords';
-import { funcs } from 'classes/exam';
 import { mough, pouler, shiden } from 'friends';
 import {
   afterObcBattle,
@@ -21,6 +20,7 @@ import {
   endBte,
   endEleca,
   endMelcine,
+  explanation5,
   goObc,
   goReAte,
   goReBte,
@@ -52,6 +52,7 @@ export class Map5 extends Map_TPL {
   create() {
     super.create();
     this.setBoss(8, 35, 'Ate', 0.5, true);
+    super.setHint('explanation5', explanation5);
     super.setEvent('exit', warp0);
     super.setEvent('toboss1', warpAte);
     super.setEvent('toboss2', warpBte);
