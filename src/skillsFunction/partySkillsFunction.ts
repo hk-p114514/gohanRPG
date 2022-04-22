@@ -3,7 +3,7 @@ import { probabilityToDenominator } from 'functions/generalPurpose/probabilityTo
 import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
-import { skillDialog } from './skillDialog';
+import { changeToFriendsView, skillDialog } from './skillDialog';
 
 // 斜め切り
 export const diagonalSlash = (
@@ -25,7 +25,12 @@ export const diagonalSlash = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の斜め切り！` },
-    { type: 'dialog', text: `敵に平均 ${Math.floor(sum / num)} ダメージ与えた！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${Math.floor(
+        sum / num,
+      )} ダメージ与えた！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -181,7 +186,7 @@ export const conductorFinale: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の指揮者の終曲！` },
     {
       type: 'dialog',
-      text: `${target.name}の防御が${Math.abs(
+      text: `${target.name}の防御力が${Math.abs(
         targetBeforeDef - targetAfterDef,
       )}下がった！`,
     },
@@ -241,8 +246,13 @@ export const redDevilRequiem: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の紅魔の鎮魂歌！` },
-    { type: 'dialog', text: `敵に平均 ${Math.floor(sum / num)} ダメージ与えた！` },
-    { type: 'dialog', text: '敵を毒状態にした！' },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${Math.floor(
+        sum / num,
+      )} ダメージ与えた！`,
+    },
+    { type: 'dialog', text: `${changeToFriendsView(attacker, targets)}を毒状態にした！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -275,9 +285,24 @@ export const morningRamenBless: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の朝ラーの怒り！` },
-    { type: 'dialog', text: `敵は平均 ${Math.floor(hpSum / num)} 喰らった！` },
-    { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 下がった！` },
-    { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 下がった！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        hpSum / num,
+      )} 喰らった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の攻撃力が平均 ${Math.floor(
+        atkSum / num,
+      )} 下がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${Math.floor(
+        defSum / num,
+      )} 下がった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -305,8 +330,18 @@ export const spiritBless: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の精霊の加護！` },
-    { type: 'dialog', text: `仲間の攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
-    { type: 'dialog', text: `仲間の防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の攻撃力が平均 ${Math.floor(
+        atkSum / num,
+      )} 上がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${Math.floor(
+        defSum / num,
+      )} 上がった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -329,7 +364,9 @@ export const forestGrace: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
     {
       type: 'dialog',
-      text: `仲間のHPが平均 ${Math.floor(sum / targets.length)} 回復した！`,
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        sum / targets.length,
+      )} 回復した！`,
     },
     { type: 'dialog', text: '技が1つ多く選べるようになった！' },
     { type: 'endTimeline' },
@@ -381,7 +418,13 @@ export const protect: SkillFunction = (
   target.state.activeState('provocation', 4);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のまもる！` },
-    { type: 'dialog', text: `${target.name}は挑発し、敵の注意を引いた！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は挑発し、${changeToFriendsView(
+        attacker,
+        targets,
+      )}の注意を引いた！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -424,7 +467,10 @@ export const daikiLate: SkillFunction = (
   target.buff.setBuff(0, 1000000, 1);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のたいきばんせい！` },
-    { type: 'dialog', text: `${target.name}は敵の注意を引いた！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は${changeToFriendsView(attacker, targets)}の注意を引いた！`,
+    },
     { type: 'dialog', text: `${target.name}の防御力がかなり上がった！` },
     { type: 'endTimeline' },
   ]);

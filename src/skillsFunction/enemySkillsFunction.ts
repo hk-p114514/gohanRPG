@@ -1,7 +1,7 @@
 import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
-import { skillDialog } from './skillDialog';
+import { changeToFriendsView, skillDialog } from './skillDialog';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { Timeline } from 'classes/Timeline';
 import { Skill } from 'classes/Skill';
@@ -105,12 +105,14 @@ export const attackdoping: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
+  const beforeAtk = target.buff.getAtk();
   target.buff.setBuff(target.buff.getAtk() * 0.2, 0, 3);
+  const afterAtk = target.buff.getAtk();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のアタックドーピング！` },
     {
       type: 'dialog',
-      text: `${target.name}の 攻撃力が上がった！`,
+      text: `${target.name}の 攻撃力が${Math.abs(beforeAtk - afterAtk)}上がった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -124,12 +126,14 @@ export const katakunaru: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  target.buff.setBuff(0, 100, 3);
+  const beforeDef = target.buff.getDef();
+  target.buff.setBuff(0, target.buff.getDef() * 0.2, 3);
+  const afterDef = target.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のかたくなる！` },
     {
       type: 'dialog',
-      text: `${target.name}の 防御力が上がった！`,
+      text: `${target.name}の 防御力が${Math.abs(beforeDef - afterDef)}上がった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -192,7 +196,10 @@ export const nichidaiTacle = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の日大災害誤射タックル！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -246,7 +253,10 @@ export const onsenryoko = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の温泉旅行！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -274,7 +284,10 @@ export const isekaitense = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の伊勢回転性！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -337,7 +350,10 @@ export const batmobiru = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のバットモビール！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -420,7 +436,10 @@ export const hanihant = (scene: Scene, attacker: BattleActor, targets: BattleAct
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のハニーハント！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -488,7 +507,10 @@ export const norinoridance = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のノリノリダンス！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -591,7 +613,10 @@ export const firebress = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のファイヤーブレス！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -619,7 +644,10 @@ export const presentbonus = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のプレゼントボーナス！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -637,7 +665,7 @@ export const bresscare: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}のブレスケア！` },
     {
       type: 'dialog',
-      text: `${target.name}は 温かい気持ちになった！`,
+      text: `${target.name}のHPが徐々に回復していく！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -695,7 +723,10 @@ export const blackbox = (scene: Scene, attacker: BattleActor, targets: BattleAct
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のブラックボックス！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -726,7 +757,10 @@ export const susumoSE = (
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}は言った` },
     { type: 'dialog', text: `進もう、すべてを栄養にして！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -751,7 +785,10 @@ export const atrnoseibi = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のアトラクションの整備不良！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -827,7 +864,10 @@ export const kekkai = (scene: Scene, attacker: BattleActor, targets: BattleActor
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の決壊！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -848,7 +888,10 @@ export const hanran = (scene: Scene, attacker: BattleActor, targets: BattleActor
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の氾濫！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -1094,7 +1137,10 @@ export const suitsgurai = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のスイーツ喰らい！` },
-    { type: 'dialog', text: `平均 ${sum} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${sum} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -1119,7 +1165,10 @@ export const hakusinGyoi = (
 
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の迫真の演技...御意ﾂ！` },
-    { type: 'dialog', text: `平均 ${sum} ダメージ！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
