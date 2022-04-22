@@ -206,7 +206,7 @@ export const sageSerenade: SkillFunction = (
   if (!targets.length) return;
   const target = targets[0];
   const beforeDef = target.buff.getDef();
-  target.buff.setBuff(0, -target.buff.getDef * 0.2, 3);
+  target.buff.setBuff(0, -target.buff.getDef() * 0.2, 3);
   const afterDef = target.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の賢者の小夜曲！` },

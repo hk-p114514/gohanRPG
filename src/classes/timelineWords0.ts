@@ -137,7 +137,7 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
   Yes: [
-    { type: 'event', event: 'delete', props: ['tutorial1'] },
+    { type: 'event', event: 'delete', contents: { name: 'tutorial1' } },
     { type: 'endTimeline' },
   ],
   No: [
@@ -287,8 +287,12 @@ export const afterGotsuji: Timelines = {
 };
 export const desertGotsuji: Timelines = {
   start: [
-    { type: 'event', event: 'reset', props: ['notMob'] },
-    { type: 'event', event: 'set', props: ['notMob2', 6, 22, undefined] },
+    { type: 'event', event: 'reset', contents: { name: 'notMob' } },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'notMob2', x: 6, y: 22, timeline: undefined },
+    },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -319,14 +323,16 @@ export const desertGotsuji: Timelines = {
     {
       type: 'event',
       event: 'kill',
-      props: [
-        [55, 22],
-        [55, 23],
-        [4, 22],
-        [4, 23],
-      ],
+      contents: {
+        xy: [
+          { x: 55, y: 22 },
+          { x: 55, y: 23 },
+          { x: 4, y: 22 },
+          { x: 4, y: 23 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob2'] },
+    { type: 'event', event: 'reset', contents: { name: 'notMob2' } },
     { type: 'endTimeline' },
   ],
 };
@@ -334,7 +340,11 @@ export const oceanGotsuji: Timelines = {
   //sample018.png
   //
   start: [
-    { type: 'event', event: 'set', props: ['notMob3', 53, 22, undefined] },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'notMob3', x: 53, y: 22, timeline: undefined },
+    },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
     {
@@ -357,20 +367,26 @@ export const oceanGotsuji: Timelines = {
     {
       type: 'event',
       event: 'kill',
-      props: [
-        [55, 22],
-        [55, 23],
-        [4, 12],
-        [4, 13],
-      ],
+      contents: {
+        xy: [
+          { x: 55, y: 22 },
+          { x: 55, y: 23 },
+          { x: 4, y: 12 },
+          { x: 4, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob3'] },
+    { type: 'event', event: 'reset', contents: { name: 'notMob3' } },
     { type: 'endTimeline' },
   ],
 };
 export const volcanoGotsuji: Timelines = {
   start: [
-    { type: 'event', event: 'set', props: ['notMob4', 6, 12, undefined] },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'notMob4', x: 6, y: 12, timeline: undefined },
+    },
     { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {
       type: 'dialog',
@@ -380,14 +396,16 @@ export const volcanoGotsuji: Timelines = {
     {
       type: 'event',
       event: 'kill',
-      props: [
-        [55, 12],
-        [55, 13],
-        [4, 12],
-        [4, 13],
-      ],
+      contents: {
+        xy: [
+          { x: 55, y: 12 },
+          { x: 55, y: 13 },
+          { x: 4, y: 12 },
+          { x: 4, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob4'] },
+    { type: 'event', event: 'reset', contents: { name: 'notMob4' } },
     { type: 'endTimeline' },
   ],
 };
@@ -618,40 +636,52 @@ export const afRoujin: Timelines = {
 
 export const stopl: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'move', props: ['left'] },
+    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'move', contents: { direction: Direction.LEFT } },
     { type: 'endTimeline' },
   ],
 };
 export const stopr: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 3] },
+    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'move', props: ['right'] },
+    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'move',
+      contents: { direction: Direction.RIGHT },
+    },
     { type: 'endTimeline' },
   ],
 };
 
 export const castleAnnounce: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 1] },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'player', bubbleIndex: 1 },
+    },
     {
       type: 'dialog',
       actorName: '？？？',
       text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
     },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 3 } },
     { type: 'dialog', actorName: '？？？', text: 'マルク' },
     { type: 'dialog', actorName: '？？？', text: 'シデン' },
     { type: 'dialog', actorName: '？？？', text: 'パウラ' },
@@ -660,33 +690,71 @@ export const castleAnnounce: Timelines = {
     { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
     { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: 'relog', props: [] },
+    { type: 'event', event: 'relog', contents: { name: 'proto' } },
     {
       type: 'event',
       event: 'kill',
-      props: [
-        [55, 12],
-        [55, 13],
-      ],
+      contents: {
+        xy: [
+          { x: 55, y: 12 },
+          { x: 55, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['name1'] },
-    { type: 'event', event: 'reset', props: ['name2'] },
-    { type: 'event', event: 'reset', props: ['name3'] },
-    { type: 'event', event: 'reset', props: ['name4'] },
-    { type: 'event', event: 'reset', props: ['name5'] },
-    { type: 'event', event: 'reset', props: ['name6'] },
-    { type: 'event', event: 'reset', props: ['name7'] },
-    { type: 'event', event: 'reset', props: ['name8'] },
-    { type: 'event', event: 'reset', props: ['name9'] },
-    { type: 'event', event: 'set', props: ['name1', 10, 10, afJK1] },
-    { type: 'event', event: 'set', props: ['name2', 11, 10, afJK2] },
-    { type: 'event', event: 'set', props: ['name3', 12, 10, afBijinesuman] },
-    { type: 'event', event: 'set', props: ['name4', 13, 10, afEruhu] },
-    { type: 'event', event: 'set', props: ['name5', 14, 10, afKisi] },
-    { type: 'event', event: 'set', props: ['name6', 15, 10, afTyuubou] },
-    { type: 'event', event: 'set', props: ['name7', 16, 10, afSyoujo] },
-    { type: 'event', event: 'set', props: ['name8', 17, 10, afMajo] },
-    { type: 'event', event: 'set', props: ['name9', 18, 10, afRoujin] },
+    { type: 'event', event: 'reset', contents: { name: 'name1' } },
+    { type: 'event', event: 'reset', contents: { name: 'name2' } },
+    { type: 'event', event: 'reset', contents: { name: 'name3' } },
+    { type: 'event', event: 'reset', contents: { name: 'name4' } },
+    { type: 'event', event: 'reset', contents: { name: 'name5' } },
+    { type: 'event', event: 'reset', contents: { name: 'name6' } },
+    { type: 'event', event: 'reset', contents: { name: 'name7' } },
+    { type: 'event', event: 'reset', contents: { name: 'name8' } },
+    { type: 'event', event: 'reset', contents: { name: 'name9' } },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name1', x: 10, y: 10, timeline: afJK1 },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name2', x: 11, y: 10, timeline: afJK2 },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name3', x: 12, y: 10, timeline: afBijinesuman },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name4', x: 13, y: 10, timeline: afEruhu },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name5', x: 14, y: 10, timeline: afKisi },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name6', x: 15, y: 10, timeline: afTyuubou },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name7', x: 16, y: 10, timeline: afSyoujo },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name8', x: 17, y: 10, timeline: afMajo },
+    },
+    {
+      type: 'event',
+      event: 'set',
+      contents: { name: 'name9', x: 18, y: 10, timeline: afRoujin },
+    },
     { type: 'endTimeline' },
   ],
 };

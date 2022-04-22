@@ -9,6 +9,7 @@ import { Map4 } from 'scenes/Map4';
 import { Map5 } from 'scenes/Map5';
 import { BattleActor } from './BattleActor';
 import { Choice } from './Choice';
+import { Timelines } from './Timelines';
 
 // ダイアログ表示イベント
 type DialogEvent = {
@@ -91,7 +92,7 @@ export type MotionEventProps = {
   name?: string;
   direction?: Direction;
   bubbleIndex?: number;
-  timeline?: Timeline;
+  timeline?: Timelines;
   setEventMap?: string;
   battleActor?: BattleActor;
   xy?: { x: number; y: number }[];
