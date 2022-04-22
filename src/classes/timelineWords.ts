@@ -132,8 +132,99 @@ export const prologue: Timelines = {
 
 export const zoomUp: Timelines = {
   start: [
-    { type: 'event', event: 'zoomUp', props: [] },
+    { type: 'event', event: 'zoomUp', contents: {} },
     { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
     { type: 'endTimeline' },
   ],
 };
+/*シデン先生のtimelineWords書き換え講座
+{
+      type: 'event',
+      event: 'kill',
+      props: [
+        [29,8],
+        [30,8]
+      ],
+    },
+
+{
+  type: 'event',
+  event: 'kill',
+  contents: {
+    xy: [
+      { x: 29, y: 8 },
+      { x: 30, y: 8 },
+    ],
+  },
+},
+
+
+    { type: 'event', event: 'delete', props: ['beforeAte'] },
+
+    { type: 'event', event: 'delete', contents: {name:'beforeAte'} },
+
+    { type: 'event', event: 'event', props: ['startA', 4, 22, desertGotsuji] },
+
+    { type: 'event', event: 'event', contents: {name:'startA',x: 4, y:22, timeline:desertGotsuji },
+
+    { type: 'event', event: 'event', props: ['startB', 4, 22, desertGotsuji, 'map0'] },
+
+    { type: 'event', event: 'event', contents: {name:'startB',x: 4, y:22, timeline:desertGotsuji, setEventMap:'map0' },
+    
+    {
+      type: 'event',
+      event: 'chdir',
+      props: ['notMob', 'left' ],
+    },
+
+    {
+      type: 'event',
+      event: 'chdir',
+      contents: { name: 'notMob', direction: Direction.LEFT },
+    },
+
+    { type: 'event', event: 'set', props: ['Shiden', 6, 23, undefined] },
+
+    { type: 'event', event: 'set', contents: {name:'Shiden', x:6,y: 23,timeline: undefined} },
+
+    { type: 'event', event: 'reset', props: ['stoper1']},
+
+    { type: 'event', event: 'reset', contents: { name: 'stoper1' } },
+    
+    { type: 'event', event: 'break', props: ['Ate'] },
+
+    { type: 'event', event: 'break', contents: {name:'Ate'} },
+
+    { type: 'event', event: 'move', props: ['left'] },
+
+    { type: 'event', event: 'move', contents: {direction:Direction.LEFT} },
+
+    { type: 'event', event: 'log', props: ['player', 3] },
+
+    { type: 'event', event: 'log', contents:{name:'player', bubbleIndex:3} },
+
+    { type: 'event', event: 'bosslog', props: [4] },
+
+    { type: 'event', event: 'bosslog', contents: {bubbleIndex:4} },
+
+    { type: 'event', event: 'relog', props: [] },
+
+    { type: 'event', event: 'relog', contents: {name:'proto'} },
+    
+    { type: 'event', event: 'warp', props: [13, 7] },
+
+    { type: 'event', event: 'warp', contents: {x:13,y: 7} },
+
+    {
+      type: 'event',
+      event: 'battle',
+      props: [enemy.ate],
+    },
+
+    {
+      type: 'event',
+      event: 'battle',
+      contents: {battleActor:enemy.ate},
+    },
+    
+    */
