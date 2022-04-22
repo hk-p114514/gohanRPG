@@ -357,6 +357,7 @@ export const mapEnemies = new Map<string, BattleActor[]>([
     sceneKeys.map4,
     [enemy.cutlery, enemy.friedChiken, enemy.burn, enemy.yakitori, enemy.enken],
   ],
+  [sceneKeys.map5, []],
 ]);
 
 export const bossEnemies: BattleActor[] = [

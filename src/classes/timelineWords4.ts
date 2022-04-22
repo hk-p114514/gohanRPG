@@ -174,7 +174,7 @@ export const warpboss: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: 'warp', contents: { x: 29, y: 45 } },
+    { type: 'event', event: 'warp', contents: { x: 29, y: 50 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
