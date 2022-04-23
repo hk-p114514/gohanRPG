@@ -1,8 +1,6 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
 import { Timelines } from './Timelines';
 import { Direction } from './Direction';
-import { addShiden } from './timelineWords2';
+
 export const warp1: Timelines = {
   start: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
 };
@@ -17,7 +15,7 @@ export const warp4: Timelines = {
 };
 export const warp5: Timelines = {
   start: [
-    { type: 'judge', scene: 'map5', timelineID: 'final' },
+    { type: 'isAllBossDead', scene: 'map5', timelineID: 'final' },
     {
       type: 'dialog',
       text: '食堂は固く閉ざされている。',

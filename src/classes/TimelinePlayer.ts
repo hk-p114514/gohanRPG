@@ -98,6 +98,7 @@ export class TimelinePlayer extends Scene {
     const timelineEvent = this.timeline[this.timelineIndex++];
     console.log(this.anotherScene);
     console.log(timelineEvent);
+
     switch (timelineEvent.type) {
       case 'dialog': // ダイアログイベント
         if (timelineEvent.actorName) {
@@ -164,7 +165,7 @@ export class TimelinePlayer extends Scene {
         // timelinePlayerシーンを止める
         this.scene.stop();
         break;
-      case 'judge':
+      case 'isAllBossDead':
         if (
           system.isBossKilled.get('Ate') &&
           system.isBossKilled.get('Bte') &&
@@ -178,123 +179,20 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
+
   private startevent(key: string, contents: MotionEventProps) {
     console.log(key);
-    // if (many !== undefined && contents === undefined) {
-    //   let box: MotionEventProps = {};
-    //   switch (key) {
-    //     case 'kill':
-    //       box.xy = many;
-    //       if (box.xy === undefined) break;
-    //       this.anotherScene?.kill(box.xy);
-    //       break;
-    //     case 'delete':
-    //       box.name = many[0];
-    //       if (box.name === undefined) break;
-    //       this.anotherScene?.delete(box.name);
-    //       break;
-    //     case 'event':
-    //       box.name = many[0];
-    //       box.x = many[1];
-    //       box.y = many[2];
-    //       box.timeline = many[3];
-    //       box.setEventMap = many[4];
-    //       if (box.name === undefined) break;
-    //       if (box.x === undefined) break;
-    //       if (box.y === undefined) break;
-    //       if (box.timeline === undefined) break;
-    //       this.anotherScene?.event(box.name, box.x, box.y, box.timeline, box.setEventMap);
-    //       break;
-    //     case 'chdir':
-    //       box.name = many[0];
-    //       box.direction = many[1];
-    //       if (box.name === undefined) break;
-    //       if (box.direction === undefined) break;
-    //       this.anotherScene?.chdir(box.name, box.direction);
-    //       break;
-    //     case 'set':
-    //       box.name = many[0];
-    //       box.x = many[1];
-    //       box.y = many[2];
-    //       box.timeline = many[3];
-    //       if (box.name === undefined) break;
-    //       if (box.x === undefined) break;
-    //       if (box.y === undefined) break;
-    //       if (box.timeline === undefined) break;
-    //       this.anotherScene?.set(box.name, box.x, box.y, box.timeline);
-    //       break;
-    //     case 'reset':
-    //       box.name = many[0];
-    //       if (box.name === undefined) break;
-    //       this.anotherScene?.reset(box.name);
-    //       break;
-    //     case 'break':
-    //       box.name = many[0];
-    //       if (box.name === undefined) break;
-    //       this.anotherScene?.break(box.name);
-    //       break;
-    //     case 'move':
-    //       box.direction = many[0];
-    //       if (box.direction === undefined) break;
-    //       this.anotherScene?.move(box.direction);
-    //       break;
-    //     case 'log':
-    //       box.name = many[0];
-    //       box.bubbleIndex = many[1];
-    //       if (box.name === undefined) break;
-    //       if (box.bubbleIndex === undefined) break;
-    //       this.anotherScene?.setlog(box.name, box.bubbleIndex);
-    //       break;
-    //     case 'bosslog':
-    //       box.bubbleIndex = many[0];
-    //       if (box.bubbleIndex === undefined) break;
-    //       this.anotherScene?.bosslog(box.bubbleIndex);
-    //       break;
-    //     case 'relog':
-    //       this.anotherScene?.relog();
-    //       break;
-    //     case 'warp':
-    //       box.x = many[0];
-    //       box.y = many[1];
-    //       if (box.x === undefined) break;
-    //       if (box.y === undefined) break;
-    //       this.anotherScene?.warp(box.x, box.y);
-    //       break;
-    //     case 'battle':
-    //       box.battleActor = many[0];
-    //       if (box.battleActor === undefined) break;
-    //       if (!this.anotherScene?.battle(box.battleActor)) {
-    //         this.dialogBox?.clearDialogBox();
-    //         this.timelineIndex = -1;
-    //         // マップシーンのキー操作を受け付けるようにする
-    //         this.anotherScene?.scene.resume();
-    //         // timelinePlayerシーンを止める
-    //         this.scene.stop();
-    //       }
-    //       break;
-    //     case 'moveBattle':
-    //       this.anotherScene?.moveBattle();
-    //       break;
-    //     case 'zoomUp':
-    //       this.anotherScene?.zoomUp();
-    //       break;
-    //     case 'zoomDown':
-    //       this.anotherScene?.zoomDown();
-    //       break;
-    //   }
-    // } else
-    // if (contents !== undefined) {
     switch (key) {
       case 'judge':
         if (contents.name === undefined) break;
-        this.anotherScene?.judge(contents.name);
+        this.anotherScene?.fixKillBossByName(contents.name);
       case 'kill':
         if (contents.xy === undefined) break;
-        this.anotherScene?.kill(contents.xy);
+        this.anotherScene?.removeEventByXYs(contents.xy);
         break;
       case 'delete':
         if (contents.name === undefined) break;
-        this.anotherScene?.delete(contents.name);
+        this.anotherScene?.removeObjectByName(contents.name);
         break;
       case 'event':
         if (contents.name === undefined) break;
@@ -312,14 +210,14 @@ export class TimelinePlayer extends Scene {
       case 'chdir':
         if (contents.name === undefined) break;
         if (contents.direction === undefined) break;
-        this.anotherScene?.chdir(contents.name, contents.direction);
+        this.anotherScene?.changeNpcDir(contents.name, contents.direction);
         break;
       case 'set':
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         if (contents.timeline === undefined) break;
-        this.anotherScene?.set(
+        this.anotherScene?.setNpc(
           contents.name,
           contents.x,
           contents.y,
@@ -329,11 +227,11 @@ export class TimelinePlayer extends Scene {
         break;
       case 'reset':
         if (contents.name === undefined) break;
-        this.anotherScene?.reset(contents.name);
+        this.anotherScene?.removeNpcByName(contents.name);
         break;
       case 'break':
         if (contents.name === undefined) break;
-        this.anotherScene?.break(contents.name);
+        this.anotherScene?.removeBossByName(contents.name);
         break;
       case 'move':
         if (contents.direction === undefined) break;
@@ -342,23 +240,23 @@ export class TimelinePlayer extends Scene {
       case 'log':
         if (contents.name === undefined) break;
         if (contents.bubbleIndex === undefined) break;
-        this.anotherScene?.setlog(contents.name, contents.bubbleIndex);
+        this.anotherScene?.displayBubble(contents.name, contents.bubbleIndex);
         break;
       case 'bosslog':
         if (contents.bubbleIndex === undefined) break;
-        this.anotherScene?.bosslog(contents.bubbleIndex);
+        this.anotherScene?.displayBossBubble(contents.bubbleIndex);
         break;
       case 'relog':
-        this.anotherScene?.relog();
+        this.anotherScene?.removeBubble();
         break;
       case 'warp':
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
-        this.anotherScene?.warp(contents.x, contents.y);
+        this.anotherScene?.warpPlayerByXY(contents.x, contents.y);
         break;
       case 'battle':
         if (contents.battleActor === undefined) break;
-        if (!this.anotherScene?.battle(contents.battleActor)) {
+        if (!this.anotherScene?.moveBattleBoss(contents.battleActor)) {
           this.dialogBox?.clearDialogBox();
           this.timelineIndex = -1;
           // マップシーンのキー操作を受け付けるようにする

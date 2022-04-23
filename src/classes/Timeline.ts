@@ -1,5 +1,4 @@
 import { Direction } from 'classes/Direction';
-import { Vector } from 'matter';
 import { Map_TPL } from 'scenes/Map.tpl';
 import { Map0 } from 'scenes/Map0';
 import { Map1 } from 'scenes/Map1';
@@ -58,8 +57,8 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
-type Judge = {
-  type: 'judge';
+type IsAllBossDead = {
+  type: 'isAllBossDead';
   scene: string;
   timelineID: string;
 };
@@ -122,7 +121,7 @@ export type Timeline = (
   | EndTimeline
   | MotionEvent
   | Switch
-  | Judge
+  | IsAllBossDead
   | meetFriend
 )[];
 
