@@ -1,8 +1,7 @@
-import { enemy } from 'enemies';
-import { buffSkills } from 'skills';
 import { Direction } from './Direction';
 import { Timelines } from './Timelines';
 import { desertGotsuji } from './timelineWords0';
+
 //Stage1
 export const explanation1: Timelines = {
   start: [

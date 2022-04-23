@@ -1,8 +1,8 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
+import { pouler } from 'friends';
 import { Timelines } from './Timelines';
 import { Direction } from './Direction';
-import { oceanGotsuji, volcanoGotsuji } from './timelineWords0';
+import { volcanoGotsuji } from './timelineWords0';
+
 //Stage3
 export const explanation3: Timelines = {
   start: [
