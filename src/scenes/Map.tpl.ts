@@ -14,18 +14,17 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Char } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
-import { select } from 'classes/timelineWords';
+import { select } from 'timelineWords/timelineWords';
 // values
 import { system } from 'index';
 import { charas } from 'classes/Characters';
-import { map, events, hints, npcs, funcs, names } from 'classes/exam';
+import { map, events, hints, npcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
 
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { marc } from 'friends';
 import { randI } from 'functions/generalPurpose/rand';
-import { Timeline } from 'classes/Timeline';
 import { Direction } from 'classes/Direction';
 
 export const tileSize: number = 40;
@@ -93,7 +92,7 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
-  public makeNPC(name: string, took: Timelines) {
+  public makeNPC(name: string, took: Timelines, dir?: string) {
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
@@ -104,6 +103,8 @@ export class Map_TPL extends Scene {
         let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
         npcs.set(system.map + ',' + x + ',' + y, hito);
         names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
+        if (dir !== undefined) hito.changedir(dir);
+        break;
       }
     }
   }
@@ -278,21 +279,27 @@ export class Map_TPL extends Scene {
   }
 
   //events
-  //未変更
-  public kill(xy: { x: number; y: number }[]) {
+  public removeEventByXYs(xy: { x: number; y: number }[]) {
     for (let i = 0; i < xy.length; ++i) {
       events.delete(this.name + ',' + xy[i].x + ',' + xy[i].y);
     }
   }
+
+  public fixKillBossByName(bossName: string) {
+    if (system.isBossKilled.has(bossName)) {
+      system.isBossKilled.set(bossName, true);
+    }
+  }
+
   // イベントを削除
-  public delete(objectName: string) {
-    if (names.has(this.name + objectName)) {
+  public removeObjectByName(objectName: string) {
+    if (names.has(this.name + ',' + objectName)) {
       events.delete(names.get(this.name + ',' + objectName));
       names.delete(this.name + ',' + objectName);
     }
   }
   //イベントを配置
-  public event(
+  public setEventByXY(
     eventName: string,
     x: number,
     y: number,
@@ -314,7 +321,7 @@ export class Map_TPL extends Scene {
     }
   }
   //キャラの向きを変える
-  public chdir(charName: string, direction: Direction) {
+  public changeNpcDir(charName: string, direction: Direction) {
     if (names.has(system.map + ',' + charName)) {
       let point = names.get(system.map + ',' + charName);
       let character = npcs.get(point);
@@ -326,15 +333,23 @@ export class Map_TPL extends Scene {
     }
   }
   //キャラを配置する
-  public set(charName: string, x: number, y: number, contents: Timelines) {
+  public setNpc(
+    charName: string,
+    x: number,
+    y: number,
+    contents: Timelines,
+    direction?: Direction,
+  ) {
     hints.set(system.map + ',' + x + ',' + y, contents);
     let sprite = this.add.sprite(0, 0, charName, 1);
     let char = new Char(sprite, new Phaser.Math.Vector2(x, y), charName);
     npcs.set(system.map + ',' + x + ',' + y, char);
     names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
+    if (direction !== undefined) char.changedir(direction);
   }
+
   //キャラを消す
-  public reset(charName: string) {
+  public removeNpcByName(charName: string) {
     if (names.has(system.map + ',' + charName)) {
       let point = names.get(system.map + ',' + charName);
       let character = npcs.get(point);
@@ -346,16 +361,16 @@ export class Map_TPL extends Scene {
     }
   }
   //ボスを消す
-  public break(bossName: string) {
+  public removeBossByName(bossName: string) {
     this.boss?.destroy();
     system.isBossKilled.set(bossName, true);
   }
   //プレイヤーを一マス動かす(会話終了後)
-  public move(direction: Direction) {
+  public movePlayerByDir(direction: Direction) {
     this.gridPhysics?.movePlayer(direction);
   }
   // 吹き出し表示
-  public setlog(charName: string, bubbleIndex: number) {
+  public displayBubble(charName: string, bubbleIndex: number) {
     if (names.has(system.map + ',' + charName)) {
       let point = names.get(system.map + ',' + charName);
       let character = npcs.get(point);
@@ -375,7 +390,7 @@ export class Map_TPL extends Scene {
     }
   }
   // 吹き出し表示(ボス限定)
-  public bosslog(bubbleIndex: number) {
+  public displayBossBubble(bubbleIndex: number) {
     let bossX = this.boss?.x;
     let bossY = this.boss?.y;
     if (bossX !== undefined && bossY !== undefined) {
@@ -387,14 +402,14 @@ export class Map_TPL extends Scene {
     }
   }
   //吹き出し消し
-  public relog() {
+  public removeBubble() {
     this.log?.destroy();
   }
   //ワープ
-  public warp(x: number, y: number) {
+  public warpPlayerByXY(x: number, y: number) {
     this.player?.moveTilePos(x, y);
   }
-  public battle(bossData: BattleActor) {
+  public moveBattleBoss(bossData: BattleActor) {
     system.isBossBattle = true;
     system.boss = bossData;
     this.moveBattle();

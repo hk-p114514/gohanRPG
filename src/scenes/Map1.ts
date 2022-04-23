@@ -2,12 +2,11 @@ import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
 import Ate from '@/assets/characters/static/boss/ate.png';
-import { warp0 } from 'classes/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import {
   warpA,
   backA,
   beforeAteBattle,
-  afterAteBattle,
   goAte,
   stone1,
   stone2,
@@ -15,8 +14,7 @@ import {
   stone4,
   hint1,
   explanation1,
-} from 'classes/timelineWords1';
-import { funcs } from 'classes/exam';
+} from 'timelineWords/timelineWords1';
 
 export class Map1 extends Map_TPL {
   constructor() {
@@ -29,14 +27,12 @@ export class Map1 extends Map_TPL {
 
   create() {
     super.create();
-    funcs.set(this.name + ',startBattleAte', () => {});
     this.setBoss(13, 3, 'Ate');
     super.setEvent('exit', warp0);
     super.setEvent('woop', warpA);
     super.setEvent('goAte', goAte);
     super.setEvent('woopboss', backA);
     super.setEvent('beforeAte', beforeAteBattle);
-    super.setEvent('afterAte', afterAteBattle);
     super.setHint('stage1hint', hint1);
     super.setHint('explanation1', explanation1);
     super.setHint('stone1', stone1);

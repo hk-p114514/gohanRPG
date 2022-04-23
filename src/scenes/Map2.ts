@@ -1,9 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
-import { warp0 } from 'classes/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import {
   Aries,
   Taurus,
@@ -49,8 +48,8 @@ import {
   explanation2,
   goBte,
   beforeBteBattle,
-  afterBteBattle,
-} from 'classes/timelineWords2';
+  //afterBteBattle,
+} from 'timelineWords/timelineWords2';
 import { shiden } from 'friends';
 export class Map2 extends Map_TPL {
   public stars: Array<string> = [
@@ -126,10 +125,10 @@ export class Map2 extends Map_TPL {
       super.setHint('reOphiuchuswarp', reOphiuchusWarp);
       super.setEvent('goBte', goBte);
       super.setEvent('beforeBte', beforeBteBattle);
-      super.setEvent('afterBte', afterBteBattle);
+      //super.setEvent('afterBte', afterBteBattle);
     }
   }
-  public warpStar(starName: string, x: number, y: number) {
+  public warpPlayerByStar(starName: string, x: number, y: number) {
     if (this.count === -1) {
       this.count = 0;
       this.player?.moveTilePos(7, 12);

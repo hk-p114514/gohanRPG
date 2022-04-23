@@ -12,14 +12,7 @@ import {
   stopl,
   stopr,
   afterGotsuji,
-  stoper1,
-  stoper8,
-  stoper7,
-  stoper6,
-  stoper5,
-  stoper4,
-  stoper3,
-  stoper2,
+  stoper,
   beJK1,
   beJK2,
   beBijinesuman,
@@ -29,7 +22,7 @@ import {
   beSyoujo,
   beMajo,
   beRoujin,
-} from 'classes/timelineWords0';
+} from 'timelineWords/timelineWords0';
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
@@ -65,14 +58,14 @@ export class Map0 extends Map_TPL {
     super.makeNPC('name8', beMajo);
     super.makeNPC('name9', beRoujin);
     super.makeNPC('notMob', afterGotsuji);
-    super.makeNPC('stoper1', stoper1);
-    super.makeNPC('stoper2', stoper2);
-    super.makeNPC('stoper3', stoper3);
-    super.makeNPC('stoper4', stoper4);
-    super.makeNPC('stoper5', stoper5);
-    super.makeNPC('stoper6', stoper6);
-    super.makeNPC('stoper7', stoper7);
-    super.makeNPC('stoper8', stoper8);
+    super.makeNPC('stoper1', stoper);
+    super.makeNPC('stoper2', stoper);
+    super.makeNPC('stoper3', stoper);
+    super.makeNPC('stoper4', stoper);
+    super.makeNPC('stoper5', stoper);
+    super.makeNPC('stoper6', stoper);
+    super.makeNPC('stoper7', stoper);
+    super.makeNPC('stoper8', stoper);
     super.setEvent('goStage1', warp1);
     super.setEvent('goStage2', warp2);
     super.setEvent('goStage3', warp3);
