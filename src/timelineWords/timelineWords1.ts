@@ -1,5 +1,5 @@
-import { Direction } from './Direction';
-import { Timelines } from './Timelines';
+import { Direction } from '../classes/Direction';
+import { Timelines } from '../classes/Timelines';
 import { desertGotsuji } from './timelineWords0';
 
 //Stage1

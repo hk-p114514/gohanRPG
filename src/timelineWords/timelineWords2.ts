@@ -1,6 +1,6 @@
 import { shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
+import { Timelines } from '../classes/Timelines';
+import { Direction } from '../classes/Direction';
 import { oceanGotsuji } from './timelineWords0';
 
 //Stage2

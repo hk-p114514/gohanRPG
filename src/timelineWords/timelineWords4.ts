@@ -1,6 +1,6 @@
 import { mough } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
+import { Timelines } from '../classes/Timelines';
+import { Direction } from '../classes/Direction';
 import { castleAnnounce } from './timelineWords0';
 
 //Stage4

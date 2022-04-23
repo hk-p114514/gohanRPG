@@ -1,4 +1,4 @@
-import { Timelines } from './Timelines';
+import { Timelines } from '../classes/Timelines';
 //テスト
 export const timelineData: Timelines = {
   start: [

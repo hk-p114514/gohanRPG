@@ -14,7 +14,7 @@ import { GridPhysics } from 'classes/GridPhysics';
 import { Char } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
 import { Timelines } from 'classes/Timelines';
-import { select } from 'classes/timelineWords';
+import { select } from 'timelineWords/timelineWords';
 // values
 import { system } from 'index';
 import { charas } from 'classes/Characters';
