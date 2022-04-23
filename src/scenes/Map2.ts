@@ -128,7 +128,7 @@ export class Map2 extends Map_TPL {
       //super.setEvent('afterBte', afterBteBattle);
     }
   }
-  public warpStar(starName: string, x: number, y: number) {
+  public warpPlayerByStar(starName: string, x: number, y: number) {
     if (this.count === -1) {
       this.count = 0;
       this.player?.moveTilePos(7, 12);

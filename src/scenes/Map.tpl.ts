@@ -299,7 +299,7 @@ export class Map_TPL extends Scene {
     }
   }
   //イベントを配置
-  public event(
+  public setEventByXY(
     eventName: string,
     x: number,
     y: number,
@@ -366,7 +366,7 @@ export class Map_TPL extends Scene {
     system.isBossKilled.set(bossName, true);
   }
   //プレイヤーを一マス動かす(会話終了後)
-  public move(direction: Direction) {
+  public movePlayerByDir(direction: Direction) {
     this.gridPhysics?.movePlayer(direction);
   }
   // 吹き出し表示

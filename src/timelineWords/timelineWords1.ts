@@ -1,6 +1,18 @@
 import { Direction } from '../classes/Direction';
 import { Timelines } from '../classes/Timelines';
 import { desertGotsuji } from './timelineWords0';
+import {
+  fixKillBossByName,
+  removeEventByXYs,
+  removeObjectByName,
+  setEventByXY,
+  changeNpcDir,
+  removeBossByName,
+  displayBubble,
+  displayBossBubble,
+  removeBubble,
+  warpPlayerByXY,
+} from './events';
 
 //Stage1
 export const explanation1: Timelines = {
@@ -28,11 +40,11 @@ export const hint1: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '？？？', actorName: 'マルク' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'endTimeline' },
   ],
 };
@@ -43,11 +55,11 @@ export const stone1: Timelines = {
     { type: 'dialog', text: '森の...から...上に...' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '額 looks？\n', actorName: 'マルク' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'endTimeline' },
   ],
 };
@@ -58,11 +70,11 @@ export const stone2: Timelines = {
     { type: 'dialog', text: 'ギナンに...近い...進んだ...' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '明くる楠？', actorName: 'マルク' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'endTimeline' },
   ],
 };
@@ -73,11 +85,11 @@ export const stone3: Timelines = {
     { type: 'dialog', text: '最も...真っすぐ...地に...' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: 'どんな星座だよ。', actorName: 'マルク' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'endTimeline' },
   ],
 };
@@ -88,30 +100,30 @@ export const stone4: Timelines = {
     { type: 'dialog', text: '主は...丸...眠る...' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '誰だよ今井って？', actorName: 'マルク' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'endTimeline' },
   ],
 };
 export const warpA: Timelines = {
   start: [
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 13, y: 9 } },
     { type: 'endTimeline' },
   ],
 };
 export const backA: Timelines = {
   start: [
-    { type: 'event', event: 'warp', contents: { x: 29, y: 12 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 12 } },
     { type: 'endTimeline' },
   ],
 };
 export const goAte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 13, y: 7 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 13, y: 7 } },
     { type: 'endTimeline' },
   ],
 };
@@ -119,17 +131,17 @@ export const beforeAteBattle: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 2 },
     },
 
     { type: 'dialog', actorName: 'マルク', text: 'おい！食堂への鍵を寄越せ！' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -137,7 +149,7 @@ export const beforeAteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'relog',
+      event: removeBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     {
@@ -147,30 +159,30 @@ export const beforeAteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'うん、知らんかった。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: 'あ、そう。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: '……。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'なんか、ごめん。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: 'いいよ、俺もちょっと調子乗ってたし。' },
     { type: 'dialog', actorName: 'エーテ', text: '…雰囲気戻していい？' },
-    { type: 'event', event: 'relog', contents: { name: 'relog' } },
+    { type: 'event', event: removeBubble, contents: { name: removeBubble } },
     { type: 'dialog', actorName: 'マルク', text: 'お願いします。' },
     {
       type: 'dialog',
@@ -184,7 +196,7 @@ export const beforeAteBattle: Timelines = {
     },
     //     {
     //       type: 'event',
-    //       event: 'battle',
+    //       event: moveBattleBoss,
     //       contents: { battleActor: enemy.ate },
     //     },
     //     { type: 'endTimeline' },
@@ -198,15 +210,15 @@ export const beforeAteBattle: Timelines = {
       actorName: 'エーテ',
       text: '俺は、四天王なんだ…こんな所で、倒れる訳にはいかないんだ…！',
     },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: '俺を生み出しし母、OBCの為に…！' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'OBC？なんだそれ？' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -214,14 +226,14 @@ export const beforeAteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
-    { type: 'event', event: 'break', contents: { name: 'Ate' } },
+    { type: 'event', event: removeBossByName, contents: { name: 'Ate' } },
     { type: 'dialog', actorName: 'エーテ', text: 'バタッ。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     {
@@ -229,7 +241,7 @@ export const beforeAteBattle: Timelines = {
       actorName: 'マルク',
       text: '…死に際に色々吐いてくれる系四天王だったな…。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'エーテはもう倒れたか…。' },
     { type: 'dialog', actorName: '四天王C', text: 'ふん、奴は四天王の中でも最弱…。' },
@@ -239,22 +251,22 @@ export const beforeAteBattle: Timelines = {
     { type: 'dialog', actorName: 'ビーテ', text: '必ずや、止めてみせます故…。' },
     {
       type: 'event',
-      event: 'judge',
+      event: fixKillBossByName,
       contents: { name: 'Ate' },
     },
     {
       type: 'event',
-      event: 'delete',
+      event: removeObjectByName,
       contents: { name: 'beforeAte' },
     },
     {
       type: 'event',
-      event: 'delete',
+      event: removeObjectByName,
       contents: { name: 'afterAte' },
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startB',
         x: 4,
@@ -265,7 +277,7 @@ export const beforeAteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startB',
         x: 4,
@@ -276,7 +288,7 @@ export const beforeAteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'kill',
+      event: removeEventByXYs,
       contents: {
         xy: [
           { x: 9, y: 8 },

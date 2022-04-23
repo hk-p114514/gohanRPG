@@ -12,6 +12,28 @@ import { allMap } from './Timeline';
 import { BattleActor } from './BattleActor';
 import { Map2 } from 'scenes/Map2';
 import { Map5 } from 'scenes/Map5';
+import {
+  fixKillBossByName,
+  removeEventByXYs,
+  removeObjectByName,
+  setEventByXY,
+  changeNpcDir,
+  setNpc,
+  removeNpcByName,
+  removeBossByName,
+  movePlayerByDir,
+  displayBubble,
+  displayBossBubble,
+  removeBubble,
+  warpPlayerByXY,
+  moveBattleBoss,
+  moveBattle,
+  zoomUp,
+  zoomDown,
+  warpPlayerByStar,
+  createBoss,
+} from 'timelineWords/events';
+
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
   private textStyle: Phaser.Types.GameObjects.Text.TextStyle = {};
@@ -183,23 +205,27 @@ export class TimelinePlayer extends Scene {
   private startevent(key: string, contents: MotionEventProps) {
     console.log(key);
     switch (key) {
-      case 'judge':
+      case fixKillBossByName:
         if (contents.name === undefined) break;
         this.anotherScene?.fixKillBossByName(contents.name);
-      case 'kill':
+      case removeEventByXYs:
         if (contents.xy === undefined) break;
         this.anotherScene?.removeEventByXYs(contents.xy);
         break;
-      case 'delete':
+      case removeObjectByName:
         if (contents.name === undefined) break;
         this.anotherScene?.removeObjectByName(contents.name);
         break;
-      case 'event':
+      case removeBossByName:
+        if (contents.name === undefined) break;
+        this.anotherScene?.removeBossByName(contents.name);
+        break;
+      case setEventByXY:
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         if (contents.timeline === undefined) break;
-        this.anotherScene?.event(
+        this.anotherScene?.setEventByXY(
           contents.name,
           contents.x,
           contents.y,
@@ -207,12 +233,12 @@ export class TimelinePlayer extends Scene {
           contents.setEventMap,
         );
         break;
-      case 'chdir':
+      case changeNpcDir:
         if (contents.name === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.changeNpcDir(contents.name, contents.direction);
         break;
-      case 'set':
+      case setNpc:
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -225,36 +251,32 @@ export class TimelinePlayer extends Scene {
           contents.direction,
         );
         break;
-      case 'reset':
+      case removeNpcByName:
         if (contents.name === undefined) break;
         this.anotherScene?.removeNpcByName(contents.name);
         break;
-      case 'break':
-        if (contents.name === undefined) break;
-        this.anotherScene?.removeBossByName(contents.name);
-        break;
-      case 'move':
+      case movePlayerByDir:
         if (contents.direction === undefined) break;
-        this.anotherScene?.move(contents.direction);
+        this.anotherScene?.movePlayerByDir(contents.direction);
         break;
-      case 'log':
+      case displayBubble:
         if (contents.name === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.displayBubble(contents.name, contents.bubbleIndex);
         break;
-      case 'bosslog':
+      case displayBossBubble:
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.displayBossBubble(contents.bubbleIndex);
         break;
-      case 'relog':
+      case removeBubble:
         this.anotherScene?.removeBubble();
         break;
-      case 'warp':
+      case warpPlayerByXY:
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         this.anotherScene?.warpPlayerByXY(contents.x, contents.y);
         break;
-      case 'battle':
+      case moveBattleBoss:
         if (contents.battleActor === undefined) break;
         if (!this.anotherScene?.moveBattleBoss(contents.battleActor)) {
           this.dialogBox?.clearDialogBox();
@@ -265,23 +287,23 @@ export class TimelinePlayer extends Scene {
           this.scene.stop();
         }
         break;
-      case 'moveBattle':
+      case moveBattle:
         this.anotherScene?.moveBattle();
         break;
-      case 'zoomUp':
+      case zoomUp:
         this.anotherScene?.zoomUp();
         break;
-      case 'zoomDown':
+      case zoomDown:
         this.anotherScene?.zoomDown();
         break;
-      case 'waprStar':
+      case warpPlayerByStar:
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         if (this.anotherScene instanceof Map2)
-          this.anotherScene?.warpStar(contents.name, contents.x, contents.y);
+          this.anotherScene?.warpPlayerByStar(contents.name, contents.x, contents.y);
         break;
-      case 'createBoss':
+      case createBoss:
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
