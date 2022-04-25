@@ -5,6 +5,12 @@ import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { changeToFriendsView, skillDialog } from './skillDialog';
 
+// sample
+export const sample = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  skillDialog(scene, []);
+};
+
 // 斜め切り
 export const diagonalSlash = (
   scene: Scene,
@@ -34,8 +40,13 @@ export const diagonalSlash = (
     { type: 'endTimeline' },
   ]);
 };
+
 // そぎ切り（中攻撃）
-export const sogigiri = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+export const shaveSlash = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   const beforeHp = target.hp.current;
@@ -50,8 +61,9 @@ export const sogigiri = (scene: Scene, attacker: BattleActor, targets: BattleAct
     { type: 'endTimeline' },
   ]);
 };
+
 // 夢翔斬（超強攻撃、自分に眠り）
-export const mushouzan = (
+export const dreamSlash = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -75,8 +87,9 @@ export const mushouzan = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
-export const inganoOguruma = (
+export const causalCar = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -101,8 +114,9 @@ export const inganoOguruma = (
     { type: 'endTimeline' },
   ]);
 };
+
 // ドライブスルー（強攻撃、被害者にマヒ）
-export const drivethough = (
+export const driveThrough = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -128,6 +142,7 @@ export const drivethough = (
     { type: 'endTimeline' },
   ]);
 };
+
 // js上の詠唱曲
 export const airOnJs: SkillFunction = (
   scene: Scene,

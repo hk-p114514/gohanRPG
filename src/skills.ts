@@ -89,22 +89,22 @@ import {
 import {
   airOnJs,
   beStrong,
+  causalCar,
   charge,
   conductorFinale,
   daikiLate,
   diagonalSlash,
-  drivethough,
+  dreamSlash,
+  driveThrough,
   forestGrace,
   grailFantasia,
-  inganoOguruma,
   megaHeal,
   morningRamenBless,
-  mushouzan,
   picoHeal,
   protect,
   redDevilRequiem,
   sageSerenade,
-  sogigiri,
+  shaveSlash,
   spiritBless,
   uooooo,
 } from 'skillsFunction/partySkillsFunction';
@@ -226,10 +226,10 @@ export const obcSkills: Skill[] = [
 
 export const marcSkills: Skill[] = [
   new Skill('斜め切り', diagonalSlash, true, true),
-  new Skill('そぎ切り', sogigiri, false, true), // そぎ切り（中攻撃）
-  new Skill('夢翔斬', mushouzan, false, true), // 夢翔斬（超強攻撃、自分に眠り）
-  new Skill('因果の小車', inganoOguruma, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
-  new Skill('ドライブスルー', drivethough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
+  new Skill('そぎ切り', shaveSlash, false, true), // そぎ切り（中攻撃）
+  new Skill('夢翔斬', dreamSlash, false, true), // 夢翔斬（超強攻撃、自分に眠り）
+  new Skill('因果の小車', causalCar, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
+  new Skill('ドライブスルー', driveThrough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
 ];
 
 export const shidenSkills: Skill[] = [
