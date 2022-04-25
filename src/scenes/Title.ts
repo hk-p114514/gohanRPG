@@ -61,8 +61,7 @@ export class Title extends Scene {
           this.startNextScene();
         });
 
-        const enter = this.input.keyboard.addKey('ENTER');
-        enter.on('down', () => {
+        const space = this.input.keyboard.addKey('SPACE').on('down', () => {
           this.button?.setTexture('button_onhover');
           setTimeout(() => {
             this.startNextScene();
