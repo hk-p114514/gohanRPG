@@ -6,7 +6,7 @@ import Bte from '@/assets/characters/static/boss/bte.png';
 import Melcine from '@/assets/characters/static/boss/melcine.png';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import Obc from '@/assets/characters/static/boss/obc.png';
-import { warp0 } from 'classes/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import { mough, pouler, shiden } from 'friends';
 import {
   explanation5,
@@ -35,7 +35,7 @@ import {
   // endEleca,
   // endMelcine,
   // afterObcBattle,
-} from 'classes/timelineWords5';
+} from 'timelineWords/timelineWords5';
 
 export class Map5 extends Map_TPL {
   constructor() {

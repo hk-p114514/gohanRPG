@@ -1,8 +1,4 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
-import { addShiden } from './timelineWords2';
+import { Timelines } from '../classes/Timelines';
 //テスト
 export const timelineData: Timelines = {
   start: [

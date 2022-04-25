@@ -2,7 +2,7 @@ import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import Mel from '@/assets/characters/static/boss/melcine.png';
-import { warp0 } from 'classes/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import {
   restart0,
   restart1,
@@ -19,7 +19,7 @@ import {
   goMelcine,
   beforeMelcineBattle,
   //afterMelcineBattle,
-} from 'classes/timelineWords3';
+} from 'timelineWords/timelineWords3';
 import { pouler, shiden } from 'friends';
 
 export class Map3 extends Map_TPL {
