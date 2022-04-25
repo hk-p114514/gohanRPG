@@ -169,7 +169,7 @@ export class Map_TPL extends Scene {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
-      system.battleFlag = !system.battleFlag;
+      system.DEBUG_isIgnoreBattle = !system.DEBUG_isIgnoreBattle;
     });
     const V = this.input.keyboard.addKey('V').on('down', () => {
       system.eventFlag = !system.eventFlag;
@@ -256,7 +256,7 @@ export class Map_TPL extends Scene {
                 anotherScene: this,
                 timelineData: n,
               });
-            } else if (!randI(denominator) && system.battleFlag) {
+            } else if (!randI(denominator) && system.DEBUG_isIgnoreBattle) {
               this.moveBattle();
             }
           } else {

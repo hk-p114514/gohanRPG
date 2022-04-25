@@ -15,7 +15,7 @@ export class System {
   public party: BattleActor[] = [];
   public isBattle: boolean = false;
   public battling?: Battling;
-  public battleFlag: boolean = true;
+  public DEBUG_isIgnoreBattle: boolean = true;
   public isBossKilled: Map<string, boolean> = new Map();
   public collidesFlag: boolean = true;
   public eventFlag: boolean = true;
