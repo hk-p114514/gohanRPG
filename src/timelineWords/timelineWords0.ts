@@ -79,7 +79,6 @@ export const tutorial1: Timelines = {
         { text: '制作者風情が話しかけるな', timelineID: 'end' },
       ],
     },
-    { type: 'endTimeline' },
   ],
   Yes: [
     { type: 'event', event: removeObjectByName, contents: { name: 'tutorial1' } },
