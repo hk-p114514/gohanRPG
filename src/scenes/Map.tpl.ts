@@ -137,7 +137,7 @@ export class Map_TPL extends Scene {
   public create() {
     //keyEvents
     //話しかけるor調べるkey
-    const space = this.input.keyboard.addKey('ENTER').on('down', () => {
+    const space = this.input.keyboard.addKey('SPACE').on('down', () => {
       if (this.gridPhysics?.isMoving()) return;
       if (!!this.player) {
         let xy = this.player.getTilePos();

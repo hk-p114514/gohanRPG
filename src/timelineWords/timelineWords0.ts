@@ -58,7 +58,7 @@ export const tutorial1: Timelines = {
     },
     {
       type: 'dialog',
-      text: "'Enter'keyかマウスカーソルのクリックで会話を進める事が出来ます。",
+      text: "'SPACE'keyかマウスカーソルのクリックで会話を進める事が出来ます。",
       actorName: '識者',
     },
     {

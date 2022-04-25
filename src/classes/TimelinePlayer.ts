@@ -71,8 +71,7 @@ export class TimelinePlayer extends Scene {
 
   preload() {}
   create() {
-    const enter = this.scene.scene.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
+    const space = this.scene.scene.input.keyboard.addKey('SPACE').on('down', () => {
       this.isTextShow = true;
     });
 
@@ -248,7 +247,6 @@ export class TimelinePlayer extends Scene {
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
-        if (contents.timeline === undefined) break;
         this.anotherScene?.setNpc(
           contents.name,
           contents.x,
