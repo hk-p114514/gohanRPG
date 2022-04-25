@@ -54,8 +54,8 @@ export class Map5 extends Map_TPL {
   }
   create() {
     super.create();
-    //this.createBoss(8, 35, 'Ate');
-    this.createBoss(48, 36, 'Obc');
+    this.createBoss(8, 35, 'Ate');
+    //this.createBoss(48, 36, 'Obc');
     super.setHint('explanation5', explanation5);
     super.setEvent('exit', warp0);
     super.setEvent('toboss1', warpAte);
