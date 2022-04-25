@@ -115,6 +115,23 @@ export const causalCar = (
   ]);
 };
 
+// 舞車
+export const danceCar = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeAtk = target.buff.getAtk();
+  target.buff.setBuff(target.buff.getAtk() * 0.5, 0, 3);
+  const afterAtk = target.buff.getAtk();
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の舞車！` },
+    {
+      type: 'dialog',
+      text: `${target.name}の攻撃力が${Math.abs(beforeAtk - afterAtk)}上がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // ドライブスルー（強攻撃、被害者にマヒ）
 export const driveThrough = (
   scene: Scene,
@@ -163,6 +180,23 @@ export const airOnJs: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
+// tiledの回旋曲
+export const tiledRondo = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  target.state.activeState('glucosamine', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のtiledの回旋曲！` },
+    { type: 'dialog', text: `${target.name}は グルコサミン状態になった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // 聖杯の幻想曲
 export const grailFantasia: SkillFunction = (
   scene: Scene,
@@ -183,6 +217,7 @@ export const grailFantasia: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 指揮者の終曲
 export const conductorFinale: SkillFunction = (
   scene: Scene,
@@ -223,6 +258,7 @@ export const conductorFinale: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 賢者の小夜曲
 export const sageSerenade: SkillFunction = (
   scene: Scene,
@@ -243,6 +279,7 @@ export const sageSerenade: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 紅魔の鎮魂歌
 export const redDevilRequiem: SkillFunction = (
   scene: Scene,
@@ -274,6 +311,7 @@ export const redDevilRequiem: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 朝ラーの怒り
 export const morningRamenBless: SkillFunction = (
   scene: Scene,
@@ -324,6 +362,7 @@ export const morningRamenBless: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 精霊の加護
 export const spiritBless: SkillFunction = (
   scene: Scene,
@@ -363,6 +402,7 @@ export const spiritBless: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // 杜の恵み
 export const forestGrace: SkillFunction = (
   scene: Scene,
@@ -390,6 +430,7 @@ export const forestGrace: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // ピコヒール
 export const picoHeal: SkillFunction = (
   scene: Scene,
@@ -405,6 +446,7 @@ export const picoHeal: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // メガヒール
 export const megaHeal: SkillFunction = (
   scene: Scene,
@@ -425,6 +467,24 @@ export const megaHeal: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
+// ハイヒール
+export const highHeal = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のハイヒール！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // まもる
 export const protect: SkillFunction = (
   scene: Scene,
@@ -446,6 +506,7 @@ export const protect: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // つよくなる
 export const beStrong: SkillFunction = (
   scene: Scene,
@@ -473,6 +534,22 @@ export const beStrong: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
+// かたくなる
+export const beHard: SkillFunction = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  attacker.buff.setBuff(0, 1000000, 2);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のかたくなる！` },
+    { type: 'dialog', text: `${attacker.name}は2ターン無敵になった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // たいきばんせい
 export const daikiLate: SkillFunction = (
   scene: Scene,
@@ -493,6 +570,7 @@ export const daikiLate: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // とつげき
 export const charge: SkillFunction = (
   scene: Scene,
@@ -513,6 +591,7 @@ export const charge: SkillFunction = (
     { type: 'endTimeline' },
   ]);
 };
+
 // うおおおおお
 export const uooooo: SkillFunction = (
   scene: Scene,

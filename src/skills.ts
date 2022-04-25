@@ -88,16 +88,19 @@ import {
 } from 'skillsFunction/bossSkillsFunction';
 import {
   airOnJs,
+  beHard,
   beStrong,
   causalCar,
   charge,
   conductorFinale,
   daikiLate,
+  danceCar,
   diagonalSlash,
   dreamSlash,
   driveThrough,
   forestGrace,
   grailFantasia,
+  highHeal,
   megaHeal,
   morningRamenBless,
   picoHeal,
@@ -106,6 +109,7 @@ import {
   sageSerenade,
   shaveSlash,
   spiritBless,
+  tiledRondo,
   uooooo,
 } from 'skillsFunction/partySkillsFunction';
 
@@ -177,7 +181,7 @@ export const stateSkills: Skill[] = [
 
 export const buffSkills: Skill[] = [
   new Skill('アタックドーピング', attackdoping, false, false), // 攻撃力（増）
-  new Skill('かたくなる', katakunaru, false, false), // 防御力（増）
+  new Skill('かたくなる', katakunaru, true, false), // 防御力（増）
   new Skill('1個増量', oneplus, false, false), // 攻撃力（増）
   new Skill('弐怒漬け', nidozuke, false, false), // 攻撃力（増）
   new Skill('睨みつける', niramitsukeru, false, false), // 攻撃力（減）
@@ -229,11 +233,13 @@ export const marcSkills: Skill[] = [
   new Skill('そぎ切り', shaveSlash, false, true), // そぎ切り（中攻撃）
   new Skill('夢翔斬', dreamSlash, false, true), // 夢翔斬（超強攻撃、自分に眠り）
   new Skill('因果の小車', causalCar, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
+  new Skill('舞車', danceCar, false, false),
   new Skill('ドライブスルー', driveThrough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
 ];
 
 export const shidenSkills: Skill[] = [
   new Skill('js上の詠唱曲', airOnJs, false, true),
+  new Skill('tiledの回旋曲', tiledRondo, false, false),
   new Skill('聖杯の幻想曲', grailFantasia, false, false),
   new Skill('指揮者の終曲', conductorFinale, false, true),
   new Skill('賢者の小夜曲', sageSerenade, false, true),
@@ -246,11 +252,13 @@ export const poulerSkills: Skill[] = [
   new Skill('杜の恵み', forestGrace, true, false),
   new Skill('ピコヒール', picoHeal, false, false),
   new Skill('メガヒール', megaHeal, false, false),
+  new Skill('ハイヒール', highHeal, false, true),
 ];
 
 export const moughSkills: Skill[] = [
   new Skill('まもる', protect, false, false),
   new Skill('つよくなる', beStrong, false, true),
+  new Skill('かたくなる', beHard, true, false),
   new Skill('たいきばんせい', daikiLate, false, false),
   new Skill('とつげき', charge, false, true),
   new Skill('うおおおおお', uooooo, false, true),
