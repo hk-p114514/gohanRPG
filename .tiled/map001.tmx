@@ -7893,12 +7893,12 @@
   <object id="5" name="notMob" type="npc" gid="53" x="1240" y="320" width="40" height="40" rotation="90"/>
   <object id="6" name="startMob" type="event" gid="150" x="1160" y="320" width="40" height="40" rotation="90"/>
   <object id="7" name="startMob" type="event" gid="150" x="1200" y="320" width="40" height="40" rotation="90"/>
-  <object id="13" name="stopru" type="event" gid="102" x="160" y="480" width="40" height="40" rotation="90"/>
-  <object id="15" name="stoprd" type="event" gid="102" x="160" y="520" width="40" height="40" rotation="90"/>
-  <object id="16" name="stopld" type="event" gid="102" x="2200" y="920" width="40" height="40" rotation="90"/>
-  <object id="21" name="stoplu" type="event" gid="102" x="2200" y="480" width="40" height="40" rotation="90"/>
-  <object id="22" name="stopld" type="event" gid="102" x="2200" y="520" width="40" height="40" rotation="90"/>
-  <object id="23" name="stoplu" type="event" gid="102" x="2200" y="880" width="40" height="40" rotation="90"/>
+  <object id="13" name="stopr" type="event" gid="102" x="160" y="480" width="40" height="40" rotation="90"/>
+  <object id="15" name="stopr" type="event" gid="102" x="160" y="520" width="40" height="40" rotation="90"/>
+  <object id="16" name="stopl" type="event" gid="102" x="2200" y="920" width="40" height="40" rotation="90"/>
+  <object id="21" name="stopl" type="event" gid="102" x="2200" y="480" width="40" height="40" rotation="90"/>
+  <object id="22" name="stopl" type="event" gid="102" x="2200" y="520" width="40" height="40" rotation="90"/>
+  <object id="23" name="stopl" type="event" gid="102" x="2200" y="880" width="40" height="40" rotation="90"/>
   <object id="24" name="first" type="hint" gid="149" x="1240" y="1120" width="40" height="40" rotation="90"/>
   <object id="25" name="stoper1" type="npc" gid="51" x="280" y="880" width="40" height="40" rotation="90"/>
   <object id="26" name="stoper6" type="npc" gid="51" x="280" y="520" width="40" height="40" rotation="90"/>
