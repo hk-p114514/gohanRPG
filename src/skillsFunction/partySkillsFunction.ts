@@ -1,8 +1,9 @@
 import { BattleActor } from 'classes/BattleActor';
+import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
-import { skillDialog } from './skillDialog';
+import { changeToFriendsView, skillDialog } from './skillDialog';
 
 // 斜め切り
 export const diagonalSlash = (
@@ -24,7 +25,12 @@ export const diagonalSlash = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の斜め切り！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} ダメージ与えた！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        sum / num,
+      )} ダメージ喰らった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -77,13 +83,15 @@ export const inganoOguruma = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
+  // 50％の確率で連続で攻撃する
+  const denominator = probabilityToDenominator(50);
   let sum: number = 0;
   do {
     const beforeHp = target.hp.current;
     target.beInjured(attacker.buff.getAtk() * 1.2);
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-  } while (randI(2));
+  } while (randI(denominator) && !target.isDead());
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の因果の小車！` },
     {
@@ -153,7 +161,10 @@ export const grailFantasia: SkillFunction = (
   const afterHp = target.hp.current;
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の聖杯の幻想曲！` },
-    { type: 'dialog', text: `${target.name}は${Math.abs(beforeHp - afterHp)}回復した！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -178,7 +189,7 @@ export const conductorFinale: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の指揮者の終曲！` },
     {
       type: 'dialog',
-      text: `${target.name}の防御が${Math.abs(
+      text: `${target.name}の防御力が${Math.abs(
         targetBeforeDef - targetAfterDef,
       )}下がった！`,
     },
@@ -238,12 +249,17 @@ export const redDevilRequiem: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の紅魔の鎮魂歌！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / num)} ダメージ与えた！` },
-    { type: 'dialog', text: '敵を毒状態にした！' },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        sum / num,
+      )} ダメージ喰らった！`,
+    },
+    { type: 'dialog', text: `${changeToFriendsView(attacker, targets)}を毒状態にした！` },
     { type: 'endTimeline' },
   ]);
 };
-// 朝ラーの加護
+// 朝ラーの怒り
 export const morningRamenBless: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
@@ -271,10 +287,25 @@ export const morningRamenBless: SkillFunction = (
     }
   });
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}の朝ラーの加護！` },
-    { type: 'dialog', text: `敵は平均 ${Math.floor(hpSum / num)} 喰らった！` },
-    { type: 'dialog', text: `敵の攻撃力が平均 ${Math.floor(atkSum / num)} 下がった！` },
-    { type: 'dialog', text: `敵の防御力が平均 ${Math.floor(defSum / num)} 下がった！` },
+    { type: 'dialog', text: `${attacker.name}の朝ラーの怒り！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        hpSum / num,
+      )} ダメージ喰らった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の攻撃力が平均 ${Math.floor(
+        atkSum / num,
+      )} 下がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${Math.floor(
+        defSum / num,
+      )} 下がった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -302,8 +333,18 @@ export const spiritBless: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の精霊の加護！` },
-    { type: 'dialog', text: `攻撃力が平均 ${Math.floor(atkSum / num)} 上がった！` },
-    { type: 'dialog', text: `防御力が平均 ${Math.floor(defSum / num)} 上がった！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の攻撃力が平均 ${Math.floor(
+        atkSum / num,
+      )} 上がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${Math.floor(
+        defSum / num,
+      )} 上がった！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -324,7 +365,12 @@ export const forestGrace: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
-    { type: 'dialog', text: `平均 ${Math.floor(sum / targets.length)} 回復した！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        sum / targets.length,
+      )} 回復した！`,
+    },
     { type: 'dialog', text: '技が1つ多く選べるようになった！' },
     { type: 'endTimeline' },
   ]);
@@ -375,7 +421,13 @@ export const protect: SkillFunction = (
   target.state.activeState('provocation', 4);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のまもる！` },
-    { type: 'dialog', text: `${target.name}は挑発し、敵の注意を引いた！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は挑発し、${changeToFriendsView(
+        attacker,
+        targets,
+      )}の注意を引いた！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -418,7 +470,10 @@ export const daikiLate: SkillFunction = (
   target.buff.setBuff(0, 1000000, 1);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のたいきばんせい！` },
-    { type: 'dialog', text: `${target.name}は敵の注意を引いた！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は${changeToFriendsView(attacker, targets)}の注意を引いた！`,
+    },
     { type: 'dialog', text: `${target.name}の防御力がかなり上がった！` },
     { type: 'endTimeline' },
   ]);
@@ -458,7 +513,7 @@ export const uooooo: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}のうおおおおお！` },
     {
       type: 'dialog',
-      text: `${target.name}の攻撃力が${Math.abs(beforeAtk - afterAtk)}下がった！`,
+      text: `${target.name}の攻撃力が ${Math.abs(beforeAtk - afterAtk)} 下がった！`,
     },
     { type: 'endTimeline' },
   ]);

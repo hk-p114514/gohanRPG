@@ -22,7 +22,7 @@ import {
   beSyoujo,
   beMajo,
   beRoujin,
-} from 'classes/timelineWords0';
+} from 'timelineWords/timelineWords0';
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
