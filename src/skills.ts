@@ -187,7 +187,7 @@ export const ateSkills: Skill[] = [
   new Skill('スイパスウィップ', swepasWhip, false, true),
   new Skill('バンズプレス', vansPress, false, true),
   new Skill('パーサローフ', persaLoaf, false, false),
-  new Skill('フルーツファントム', fruitsPhantom, false, false),
+  new Skill('フルーツファントム', fruitsPhantom, false, true),
   new Skill('サバレースプラッシュ', sabaleSplash, true, true),
 ];
 
@@ -234,14 +234,14 @@ export const marcSkills: Skill[] = [
 
 export const shidenSkills: Skill[] = [
   new Skill('js上の詠唱曲', airOnJs, false, true),
-  new Skill('聖杯の幻想曲', grailFantasia, true, true),
+  new Skill('聖杯の幻想曲', grailFantasia, false, false),
   new Skill('指揮者の終曲', conductorFinale, false, true),
   new Skill('賢者の小夜曲', sageSerenade, false, true),
   new Skill('紅魔の鎮魂歌', redDevilRequiem, true, true),
 ];
 
 export const poulerSkills: Skill[] = [
-  new Skill('朝ラーの加護', morningRamenBless, true, true),
+  new Skill('朝ラーの怒り', morningRamenBless, true, true),
   new Skill('精霊の加護', spiritBless, true, false),
   new Skill('杜の恵み', forestGrace, true, false),
   new Skill('ピコヒール', picoHeal, false, false),

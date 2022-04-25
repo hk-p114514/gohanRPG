@@ -26,12 +26,12 @@ export class Prologue extends Scene {
 
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: prologue,
+      timelineData: prologue,
     });
     this.isDialogDisplay = true;
   }
 
   update() {
-    this.scene.start(sceneKeys.title);
+    this.scene.start(sceneKeys.map0);
   }
 }

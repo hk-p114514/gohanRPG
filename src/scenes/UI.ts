@@ -51,7 +51,8 @@ export class UI extends Scene {
     this.playerTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
-    this.playerShowUi = system.battling?.actor;
+    // this.playerShowUi = system.battling?.actor;
+    this.playerShowUi = undefined;
     this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
     // そのため、バトルシーンでキャラクターが死んで配列に変更があった場合、
@@ -219,11 +220,11 @@ export class UI extends Scene {
       let playerSkillX = x + margin + boxWidth * 1 - textPadding.left;
       let playerSkillY = y + margin - textPadding.top;
       const skills = new Set<Skill>();
-      const available = Battle.availableSkillCount;
+      const available = actor.state.getAvailableSkillCount(Battle.availableSkillCount);
 
       if (available < actor.skills.length) {
         // 技の候補が沢山ありすぎる -> 抽選
-        while (skills.size < available - 1) {
+        while (skills.size < available) {
           skills.add(randArr(actor.skills));
         }
       } else {
@@ -232,6 +233,9 @@ export class UI extends Scene {
           skills.add(skill);
         });
       }
+      skills.forEach((skill) => {
+        console.error(skill.getName());
+      });
 
       skills.forEach((skill) => {
         const skillText = this.add

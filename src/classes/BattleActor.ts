@@ -112,7 +112,7 @@ export class BattleActor {
       atk: this.atk * rate,
       def: this.def * rate,
       maxHp: this.hp.max * rate,
-      speed: this.speed,
+      speed: this.speed * rate,
     });
   }
 
