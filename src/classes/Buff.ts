@@ -1,4 +1,3 @@
-import { forEach } from 'lodash';
 import { BattleActor } from './BattleActor';
 
 export class Buff {
@@ -20,7 +19,7 @@ export class Buff {
     this.rmBuffsIndex.splice(0, this.rmBuffsIndex.length);
     this.buffs.forEach((buff: BuffInfo) => {
       buff.time--;
-      if (buff.time < 0) {
+      if (buff.time <= 0) {
         this.rmBuffsIndex.push(this.buffs.indexOf(buff));
       }
     });
@@ -46,7 +45,7 @@ export class Buff {
     if (atk <= 0) {
       atk = 1;
     }
-    return atk;
+    return Math.floor(atk);
   }
 
   public getDef(): number {
@@ -57,7 +56,7 @@ export class Buff {
     if (def <= 0) {
       def = 1;
     }
-    return def;
+    return Math.floor(def);
   }
 }
 

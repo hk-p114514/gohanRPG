@@ -1,5 +1,5 @@
 import { Direction } from './Direction';
-import { Player } from './Player';
+import { Char } from './Player';
 import * as Phaser from 'phaser';
 import { tileSize } from 'scenes/Map.tpl';
 import { npcs } from './exam';
@@ -24,9 +24,9 @@ export class GridPhysics {
 
   private lastMovementIntent = Direction.NONE;
 
-  constructor(private player: Player, private tileMap: Phaser.Tilemaps.Tilemap) {}
+  constructor(private player: Char, private tileMap: Phaser.Tilemaps.Tilemap) {}
 
-  chcon(char: Player) {
+  chcon(char: Char) {
     this.player = char;
   }
 
@@ -130,7 +130,7 @@ export class GridPhysics {
 
   private hasBlockingTile(pos: Vector2): boolean {
     if (this.hasNoTile(pos)) return true;
-    if (system.collidesFlag) return false;
+    if (!system.collidesFlag) return false;
     if (npcs.has(system.map + ',' + pos.x + ',' + pos.y)) return true;
     return this.tileMap.layers.some((layer) => {
       const tile = this.tileMap.getTileAt(pos.x, pos.y, false, layer.name);

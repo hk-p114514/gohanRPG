@@ -6,6 +6,8 @@ import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
 import { randArr, randI } from 'functions/generalPurpose/rand';
 import { State } from 'classes/State';
+import { System } from 'classes/System';
+import { Map_TPL } from './Map.tpl';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -36,11 +38,6 @@ export class Battle extends Scene {
     this.sorted = [];
     this.index = 0;
     this.exp = 0;
-    this.party.forEach((actor: BattleActor) => {
-      actor.hp.current = actor.hp.max;
-      actor.buff.initBuff();
-      actor.state.initState();
-    });
   }
 
   preload() {
@@ -48,15 +45,24 @@ export class Battle extends Scene {
     this.enemies = clone;
     // 現在のマップに出て来る可能性のある敵キャラの数
     const len = this.enemies.length;
-    const appear = randI(Battle.availableSkillCount - 1);
+    const appear = randI(Battle.maxEnemiesAppearance - 1, 1);
     const diff = len - appear;
     for (let i = 0; i < diff; i++) {
       const n = randI(len - 1, 0);
       this.enemies.splice(n, 1);
     }
+    if (system.isBossBattle && system.boss) {
+      this.enemies = [system.boss];
+    }
 
     this.sorted = [...this.party, ...this.enemies].sort((a, b) => {
       return b.speed - a.speed;
+    });
+
+    this.sorted.forEach((actor: BattleActor) => {
+      actor.hp.current = actor.hp.max;
+      actor.buff.initBuff();
+      actor.state.initState();
     });
 
     // バトル勝利時にプレイヤー達が獲得する経験値を計算
@@ -136,6 +142,7 @@ export class Battle extends Scene {
         // actor.getRandSkill()(actor, enemies);
         // actorの攻撃
         if (actor.state.getPossible()) {
+          // 行動可能
           if (this.party.includes(actor)) {
             // 該当のキャラクターがプレイヤー側なら、
             // 使う技をプレイヤーに選択させる
@@ -148,6 +155,11 @@ export class Battle extends Scene {
             // ランダムに技を選択する
             this.actorAction(actor);
           }
+        } else {
+          // 行動不可能
+          // 主人公視点の技を表示しない
+          // ターンごとのactorの変化を記録する
+          system.battling = undefined;
         }
 
         this.index++;
@@ -325,9 +337,9 @@ export class Battle extends Scene {
     }
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: {
+      timelineData: {
         win: [{ type: 'dialog', text: `敵の殲滅に成功！` }, { type: 'endTimeline' }],
-        lose: [{ type: 'dialog', text: `仲間が全滅した....` }, { type: 'endTimeline' }],
+        lose: [{ type: 'dialog', text: `味方が全滅した....` }, { type: 'endTimeline' }],
         dead: [{ type: 'dialog', text: text }, { type: 'endTimeline' }],
       },
       specID: situation,
@@ -353,8 +365,8 @@ export class Battle extends Scene {
     });
 
     this.scene.launch(sceneKeys.timelinePlayer, {
-      anotherScene: this,
-      timelinedata: {
+      anotherScene: this.scene.get(system.map),
+      timelineData: {
         start: [...timeLines, { type: 'endTimeline' }],
       },
     });

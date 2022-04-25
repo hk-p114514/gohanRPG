@@ -1,7 +1,7 @@
 import { Direction } from './Direction';
 import { GridControls } from './GridControls';
 import { GridPhysics } from './GridPhysics';
-import { Player } from './Player';
+import { Char } from './Player';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -34,7 +34,7 @@ export class GameScene extends Phaser.Scene {
     playerSprite.scale = 3;
     this.cameras.main.startFollow(playerSprite);
     this.cameras.main.roundPixels = true;
-    const player = new Player(playerSprite, new Phaser.Math.Vector2(6, 6));
+    const player = new Char(playerSprite, new Phaser.Math.Vector2(6, 6));
 
     this.gridPhysics = new GridPhysics(player, cloudCityTilemap);
     this.gridControls = new GridControls(this.input, this.gridPhysics);

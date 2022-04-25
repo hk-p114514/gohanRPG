@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import newsPaper from 'images/newsPaper.jpg';
 import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { prologue } from 'classes/timelineWords';
+import { prologue } from 'timelineWords/timelineWords';
 import { sceneKeys } from 'scenes/sceneKeys';
 
 export class Prologue extends Scene {
@@ -26,12 +26,12 @@ export class Prologue extends Scene {
 
     this.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: this,
-      timelinedata: prologue,
+      timelineData: prologue,
     });
     this.isDialogDisplay = true;
   }
 
   update() {
-    this.scene.start(sceneKeys.title);
+    this.scene.start(sceneKeys.map0);
   }
 }

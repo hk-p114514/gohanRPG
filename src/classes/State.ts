@@ -28,8 +28,8 @@ export class State {
     this.skillBuff = 0;
     this.isProvocation = false;
 
-    this.poisonDamage = 1;
-    this.healDamage = 1;
+    this.poisonDamage = Math.floor(actor.hp.max * 0.1);
+    this.healDamage = Math.floor(actor.hp.max * 0.1);
     this.paralysisProbability = 2;
     this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
@@ -118,12 +118,16 @@ export class State {
   private stateProgress(scene: Scene, name: string): void {
     switch (name) {
       case 'poison':
-        this.onePhrase(scene, `${this.actor.name}は毒で${this.poisonDamage}ダメージ！`);
-        this.damageBuff -= this.poisonDamage;
+        if (this.poisonDamage > 0) {
+          this.onePhrase(scene, `${this.actor.name}は毒で${this.poisonDamage}ダメージ！`);
+          this.damageBuff -= this.poisonDamage;
+        }
         break;
       case 'heal':
-        this.onePhrase(scene, `${this.actor.name}は${this.healDamage}回復した!`);
-        this.damageBuff += this.healDamage;
+        if (this.healDamage > 0) {
+          this.onePhrase(scene, `${this.actor.name}は${this.healDamage}回復した!`);
+          this.damageBuff += this.healDamage;
+        }
         break;
       case 'paralysis':
         if (!randI(this.paralysisProbability - 1, 0)) {
@@ -153,7 +157,7 @@ export class State {
   private onePhrase(scene: Scene, text: string) {
     scene.scene.launch(sceneKeys.timelinePlayer, {
       anotherScene: scene,
-      timelinedata: {
+      timelineData: {
         start: [
           {
             type: 'dialog',

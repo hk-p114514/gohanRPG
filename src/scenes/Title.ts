@@ -2,7 +2,7 @@ import { GameObjects, Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { hints } from 'classes/exam';
-import logo from 'images/logo.png';
+import logo from '@/images/title.png';
 import button from '@/images/button.png';
 import buttonOnHover from '@/images/button_onhover.png';
 
@@ -37,8 +37,14 @@ export class Title extends Scene {
     this.time.addEvent({
       delay: 3000,
       callback: () => {
-        this.add.rectangle(0, height - height / 8, width * 10, height / 7, 0x000);
-        this.button = this.add.image(width / 1.5, height - height / 8, 'button');
+        // this.add.rectangle(0, height - height / 2, width * 10, height, 0x000);
+        this.add.rectangle(0, height, width * 2, 300, 0x000);
+        // 座標の中心を指定
+        this.button = this.add.image(0, 0, 'button');
+        this.button.setPosition(
+          width - this.button.width,
+          height - this.button.height / 2,
+        );
         this.button?.setInteractive();
         // ボタンにカーソルが乗った時
         this.button?.on('pointerover', () => {
@@ -52,19 +58,23 @@ export class Title extends Scene {
 
         // クリックした時
         this.button?.on('pointerdown', () => {
-          this.scene.start(sceneKeys.map0);
+          this.startNextScene();
         });
 
         const enter = this.input.keyboard.addKey('ENTER');
         enter.on('down', () => {
           this.button?.setTexture('button_onhover');
           setTimeout(() => {
-            this.scene.start(sceneKeys.map0);
+            this.startNextScene();
           }, 100);
         });
       },
       callbackScope: this,
     });
+  }
+
+  startNextScene() {
+    this.scene.start(sceneKeys.prologue);
   }
 
   // update() {

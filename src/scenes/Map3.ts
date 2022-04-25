@@ -1,7 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import Mel from '@/assets/characters/static/boss/melcine.png';
+import { warp0 } from 'timelineWords/timelineWords';
 import {
   restart0,
   restart1,
@@ -17,18 +18,20 @@ import {
   addPouler,
   goMelcine,
   beforeMelcineBattle,
-  afterMelcineBattle,
-  warp0,
-} from 'classes/timelineWords';
+  //afterMelcineBattle,
+} from 'timelineWords/timelineWords3';
+import { pouler, shiden } from 'friends';
 
-export class Map3 extends Map {
+export class Map3 extends Map_TPL {
   constructor() {
     super(json[3], sceneKeys.map3);
   }
   preload() {
     super.preload();
-    super.setnpcimage('Shiden', 1);
-    super.setnpcimage('Pouler', 1);
+    // super.setnpcimage('Shiden', 1);
+    // super.setnpcimage('Pouler', 1);
+    super.setnpcimage('Shiden', 1, shiden.spriteSrc);
+    super.setnpcimage('Pouler', 1, pouler.spriteSrc);
     this.loadBossimage('Mel', Mel);
   }
   create() {
@@ -39,7 +42,7 @@ export class Map3 extends Map {
     super.setEvent('add3', addPouler);
     super.setEvent('goMelcine', goMelcine);
     super.setEvent('beforeMelcine', beforeMelcineBattle);
-    super.setEvent('afterMelcine', afterMelcineBattle);
+    //super.setEvent('afterMelcine', afterMelcineBattle);
     super.setEvent('restart', restart0);
     super.setEvent('restart1', restart1);
     super.setEvent('restart2', restart2);
@@ -50,13 +53,6 @@ export class Map3 extends Map {
     super.setHint('woop1to2', reII);
     super.setHint('wooptoboss', reIII);
     super.setHint('woopstart', warpstart);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map1;
-
-      system.switchMap(this, sceneKeys.map1);
-    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});

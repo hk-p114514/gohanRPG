@@ -1,76 +1,80 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
-import { Map } from './Map.tpl';
+import { Map_TPL } from './Map.tpl';
 import {
-  select,
   warp1,
   warp2,
   warp3,
-  dummy,
-  noComment,
   warp4,
   warp5,
   explanation0,
   explanation,
   stopl,
   stopr,
-  stoper1,
-  stoper2,
-  stoper3,
-  stoper4,
-  stoper5,
-  stoper6,
-  stoper7,
-  stoper8,
-} from 'classes/timelineWords';
+  afterGotsuji,
+  stoper,
+  beJK1,
+  beJK2,
+  beBijinesuman,
+  beEruhu,
+  beKisi,
+  beTyuubou,
+  beSyoujo,
+  beMajo,
+  beRoujin,
+} from 'timelineWords/timelineWords0';
+import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
 
-export class Map0 extends Map {
+export class Map0 extends Map_TPL {
   constructor() {
     super(json[0], sceneKeys.map0);
   }
   preload() {
     super.preload();
     super.setnpcimage('notMob', 0);
-    super.setnpcimage('vimmer', 0);
-    super.setnpcimage('stoper1', 0);
-    super.setnpcimage('stoper2', 0);
-    super.setnpcimage('stoper3', 0);
-    super.setnpcimage('stoper4', 0);
-    super.setnpcimage('stoper5', 0);
-    super.setnpcimage('stoper6', 0);
-    super.setnpcimage('stoper7', 0);
-    super.setnpcimage('stoper8', 0);
+    super.setnpcimage('notMob2', 0);
+    super.setnpcimage('notMob3', 0);
+    super.setnpcimage('notMob4', 0);
+    super.setnpcimage('JK1', 0);
+    super.setnpcimage('JK2', 0);
+    super.setnpcimage('Bijinesuman', 0);
+    super.setnpcimage('Eruhu', 0);
+    super.setnpcimage('Kisi', 0);
+    super.setnpcimage('Tyuubou', 0);
+    super.setnpcimage('Syoujo', 0);
+    super.setnpcimage('Majo', 0);
+    super.setnpcimage('Roujin', 0);
   }
   create() {
     super.create();
+    super.makeNPC('JK1', beJK1);
+    super.makeNPC('JK2', beJK2);
+    super.makeNPC('Bijinesuman', beBijinesuman);
+    super.makeNPC('Eruhu', beEruhu);
+    super.makeNPC('Kisi', beKisi);
+    super.makeNPC('Tyuubou', beTyuubou);
+    super.makeNPC('Syoujo', beSyoujo);
+    super.makeNPC('Majo', beMajo);
+    super.makeNPC('Roujin', beRoujin);
+    super.makeNPC('notMob', afterGotsuji);
+    super.makeNPC('stoper1', stoper);
+    super.makeNPC('stoper2', stoper);
+    super.makeNPC('stoper3', stoper);
+    super.makeNPC('stoper4', stoper);
+    super.makeNPC('stoper5', stoper);
+    super.makeNPC('stoper6', stoper);
+    super.makeNPC('stoper7', stoper);
+    super.makeNPC('stoper8', stoper);
     super.setEvent('goStage1', warp1);
     super.setEvent('goStage2', warp2);
     super.setEvent('goStage3', warp3);
     super.setEvent('goStage4', warp4);
-    super.setEvent('goStage5', warp5);
+    super.setHint('goStage5', warp5);
     super.setHint('first', explanation0);
-    super.makeNPC('notMob', noComment);
-    super.makeNPC('vimmer', noComment);
-    super.makeNPC('stoper1', stoper1);
-    super.makeNPC('stoper2', stoper2);
-    super.makeNPC('stoper3', stoper3);
-    super.makeNPC('stoper4', stoper4);
-    super.makeNPC('stoper5', stoper5);
-    super.makeNPC('stoper6', stoper6);
-    super.makeNPC('stoper7', stoper7);
-    super.makeNPC('stoper8', stoper8);
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);
-    // enterキーでシーンを切り替える
-    const enter = this.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
-      system.map = sceneKeys.map3;
-
-      // this.switchMap(sceneKeys.map1);
-      system.switchMap(this, sceneKeys.map3);
-    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});

@@ -122,7 +122,7 @@ export class Actor {
   getdir(): string {
     return this.dir;
   }
-  getredir(): string {
+  getReverseDir(): string {
     switch (this.dir) {
       case 'up':
         return 'down';

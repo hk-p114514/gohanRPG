@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="34">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="44">
  <editorsettings>
   <export target="../src/json/map001.json" format="json"/>
  </editorsettings>
@@ -7872,7 +7872,15 @@
  </layer>
  <objectgroup id="3" name="objects">
   <object id="1" name="spawnPoint" gid="201" x="320" y="840" width="40" height="40" rotation="90"/>
-  <object id="56" name="hito2" type="npc" gid="1" x="1200" y="640" width="40" height="40" rotation="90"/>
+  <object id="56" name="JK1" type="npc" gid="1" x="760" y="880" width="40" height="40" rotation="90"/>
+  <object id="34" name="Roujin" type="npc" gid="1" x="1080" y="880" width="40" height="40" rotation="90"/>
+  <object id="35" name="Majo" type="npc" gid="1" x="1040" y="880" width="40" height="40" rotation="90"/>
+  <object id="36" name="Syoujo" type="npc" gid="1" x="1000" y="880" width="40" height="40" rotation="90"/>
+  <object id="37" name="Tyuubou" type="npc" gid="1" x="960" y="880" width="40" height="40" rotation="90"/>
+  <object id="38" name="Kisi" type="npc" gid="1" x="920" y="880" width="40" height="40" rotation="90"/>
+  <object id="39" name="Eruhu" type="npc" gid="1" x="880" y="880" width="40" height="40" rotation="90"/>
+  <object id="40" name="Bijinesuman" type="npc" gid="1" x="840" y="880" width="40" height="40" rotation="90"/>
+  <object id="41" name="JK2" type="npc" gid="1" x="800" y="880" width="40" height="40" rotation="90"/>
   <object id="2" name="goStage3" type="event" gid="2" x="120" y="480" width="40" height="40" rotation="90"/>
   <object id="10" name="goStage3" type="event" gid="2" x="120" y="520" width="40" height="40" rotation="90"/>
   <object id="9" name="goStage1" type="event" gid="2" x="120" y="880" width="40" height="40" rotation="90"/>
@@ -7885,12 +7893,12 @@
   <object id="5" name="notMob" type="npc" gid="53" x="1240" y="320" width="40" height="40" rotation="90"/>
   <object id="6" name="startMob" type="event" gid="150" x="1160" y="320" width="40" height="40" rotation="90"/>
   <object id="7" name="startMob" type="event" gid="150" x="1200" y="320" width="40" height="40" rotation="90"/>
-  <object id="13" name="stopru" type="event" gid="102" x="160" y="480" width="40" height="40" rotation="90"/>
-  <object id="15" name="stoprd" type="event" gid="102" x="160" y="520" width="40" height="40" rotation="90"/>
-  <object id="16" name="stopld" type="event" gid="102" x="2200" y="920" width="40" height="40" rotation="90"/>
-  <object id="21" name="stoplu" type="event" gid="102" x="2200" y="480" width="40" height="40" rotation="90"/>
-  <object id="22" name="stopld" type="event" gid="102" x="2200" y="520" width="40" height="40" rotation="90"/>
-  <object id="23" name="stoplu" type="event" gid="102" x="2200" y="880" width="40" height="40" rotation="90"/>
+  <object id="13" name="stopr" type="event" gid="102" x="160" y="480" width="40" height="40" rotation="90"/>
+  <object id="15" name="stopr" type="event" gid="102" x="160" y="520" width="40" height="40" rotation="90"/>
+  <object id="16" name="stopl" type="event" gid="102" x="2200" y="920" width="40" height="40" rotation="90"/>
+  <object id="21" name="stopl" type="event" gid="102" x="2200" y="480" width="40" height="40" rotation="90"/>
+  <object id="22" name="stopl" type="event" gid="102" x="2200" y="520" width="40" height="40" rotation="90"/>
+  <object id="23" name="stopl" type="event" gid="102" x="2200" y="880" width="40" height="40" rotation="90"/>
   <object id="24" name="first" type="hint" gid="149" x="1240" y="1120" width="40" height="40" rotation="90"/>
   <object id="25" name="stoper1" type="npc" gid="51" x="280" y="880" width="40" height="40" rotation="90"/>
   <object id="26" name="stoper6" type="npc" gid="51" x="280" y="520" width="40" height="40" rotation="90"/>
@@ -7900,5 +7908,7 @@
   <object id="33" name="stoper7" type="npc" gid="51" x="2080" y="480" width="40" height="40" rotation="90"/>
   <object id="30" name="stoper2" type="npc" gid="51" x="280" y="920" width="40" height="40" rotation="90"/>
   <object id="31" name="stoper3" type="npc" gid="51" x="2080" y="880" width="40" height="40" rotation="90"/>
+  <object id="42" name="goStage5" type="hint" gid="99" x="1160" y="240" width="40" height="40" rotation="90"/>
+  <object id="43" name="goStage5" type="hint" gid="99" x="1200" y="240" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>
