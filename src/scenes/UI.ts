@@ -20,7 +20,8 @@ type Unit = {
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
   private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
-  private playerTexts: GameObjects.Text[] = [];
+  private statesTexts: GameObjects.Text[] = [];
+  private statesShowUi: BattleActor = system.party[0];
   private playerSkills: GameObjects.Text[] = [];
   private targetActors: Phaser.GameObjects.Text[] = [];
   private playerShowUi?: BattleActor = system.battling?.actor;
@@ -48,10 +49,10 @@ export class UI extends Scene {
   }
 
   init(data: { actors: BattleActor[][]; battleScene: Scene }) {
-    this.playerTexts = [];
+    this.statesTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
-    // this.playerShowUi = system.battling?.actor;
+    this.statesShowUi = system.party[0];
     this.playerShowUi = undefined;
     this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
@@ -107,8 +108,35 @@ export class UI extends Scene {
     const margin = this.boxMargin;
     this.playerData.forEach((data) => {
       const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
-      this.playerTexts.push(text);
+      this.statesTexts.push(text);
       y += margin;
+    });
+
+    // 左のボックスにプレイヤーの名前を表示
+    const textPadding = { left: 20, top: 5, right: 20, bottom: 5 };
+    // x, yはキャラクターデータの下に表示するために、初期化せずにそのまま使う
+    let actorX = x + margin + boxWidth * 0 - textPadding.left;
+    let actorY = y + margin - textPadding.top;
+    // 一文字分だけ空白を入れる
+    actorY += margin;
+    system.party.forEach((actor) => {
+      const actorNameText = this.add
+        .text(actorX, actorY, actor.name, this.fontStyle)
+        .setInteractive({
+          useHandCursor: true,
+        })
+        .setPadding(textPadding);
+      actorNameText.on('pointerdown', () => {
+        // 左のボックスに表示するステータスの人物を変更
+        this.statesShowUi = actor;
+      });
+      actorY += margin;
+      actorNameText.on('pointerover', () => {
+        actorNameText.setFill('#ff0000');
+      });
+      actorNameText.on('pointerout', () => {
+        actorNameText.setFill('#ffffff');
+      });
     });
   }
 
@@ -187,23 +215,38 @@ export class UI extends Scene {
   }
 
   drawPlayerData(): void {
-    // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
-    if (this.playerShowUi) {
-      const { current, max } = this.playerShowUi.hp;
-      const { current: mp, max: mpMax } = this.playerShowUi.mp;
-      const data: string[] = [
-        `${this.playerShowUi.name}`,
-        `HP_: ${current}/${max}`,
-        `MP_: ${mp}/${mpMax}`,
-        `ATK: ${this.playerShowUi.atk}`,
-        `DEF: ${this.playerShowUi.def}`,
-      ];
+    // 常にステータスを更新し、最新の状態で表示する
+    const { current, max } = this.statesShowUi.hp;
+    const { current: mp, max: mpMax } = this.statesShowUi.mp;
+    const data: string[] = [
+      `${this.statesShowUi.name}`,
+      `HP_: ${current}/${max}`,
+      `MP_: ${mp}/${mpMax}`,
+      `ATK: ${this.statesShowUi.atk}`,
+      `DEF: ${this.statesShowUi.def}`,
+      `SPD: ${this.statesShowUi.speed}`,
+    ];
+    // statesTextsの中身を更新する
+    this.statesTexts.forEach((text, i) => {
+      text.setText(data[i]);
+    });
 
-      // playerTextsの中身を更新する
-      this.playerTexts.forEach((text, i) => {
-        text.setText(data[i]);
-      });
-    }
+    // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
+    // if (this.playerShowUi) {
+    //   const { current, max } = this.playerShowUi.hp;
+    //   const { current: mp, max: mpMax } = this.playerShowUi.mp;
+    //   const data: string[] = [
+    //     `${this.playerShowUi.name}`,
+    //     `HP_: ${current}/${max}`,
+    //     `MP_: ${mp}/${mpMax}`,
+    //     `ATK: ${this.playerShowUi.atk}`,
+    //     `DEF: ${this.playerShowUi.def}`,
+    //   ];
+    //   // statesTextsの中身を更新する
+    //   this.statesTexts.forEach((text, i) => {
+    //     text.setText(data[i]);
+    //   });
+    // }
   }
 
   drawPlayerAttack() {
@@ -248,6 +291,14 @@ export class UI extends Scene {
           this.targetActors.forEach((text) => {
             text.destroy();
           });
+          // 選択されたら、そのスキルだけ「▶」をつける
+          this.playerSkills.forEach((text) => {
+            if (text.text[0] === '▶') {
+              text.setText(text.text.slice(1));
+            }
+          });
+          skillText.setText('▶' + skillText.text);
+
           const { forAllTargets, forEnemy } = skill.getSkillInfo();
           // バトルシーンのシーンを取得
           const battleScene = this.scene.get(sceneKeys.battle) as Battle;
@@ -282,10 +333,14 @@ export class UI extends Scene {
                 this.targetActors.forEach((text) => {
                   text.destroy();
                 });
+                // 配列自体をなくす
+                this.targetActors.splice(0, this.targetActors.length);
                 // スキルのテキストの削除
                 this.playerSkills.forEach((text) => {
                   text.destroy();
                 });
+                // 配列自体をなくす
+                this.playerSkills.splice(0, this.playerSkills.length);
                 // スキルの実行
                 skill.exe(battleScene, actor, [member]);
                 // バトルシーンを再開させる
