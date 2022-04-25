@@ -390,13 +390,20 @@ export class Map_TPL extends Scene {
     }
   }
   // 吹き出し表示(ボス限定)
-  public displayBossBubble(bubbleIndex: number) {
+  public displayBossBubble(bubbleIndex: number, OBC: boolean = false) {
     let bossX = this.boss?.x;
     let bossY = this.boss?.y;
     if (bossX !== undefined && bossY !== undefined) {
-      bossY -= tileSize;
       this.log?.destroy();
-      this.log = this.add.sprite(bossX, bossY, 'log' + bubbleIndex);
+      console.log(OBC);
+      if (OBC) {
+        bossY -= tileSize * 3;
+        bossX -= tileSize * 1.1;
+        this.log = this.add.sprite(bossX, bossY, 'log' + bubbleIndex);
+      } else {
+        bossY -= tileSize;
+        this.log = this.add.sprite(bossX, bossY, 'log' + bubbleIndex);
+      }
     } else {
       console.log('unknown');
     }

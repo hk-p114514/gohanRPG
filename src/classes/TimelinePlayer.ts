@@ -274,7 +274,7 @@ export class TimelinePlayer extends Scene {
       case displayBossBubble:
         if (contents === undefined) break;
         if (contents.bubbleIndex === undefined) break;
-        this.anotherScene?.displayBossBubble(contents.bubbleIndex);
+        this.anotherScene?.displayBossBubble(contents.bubbleIndex, contents.flag);
         break;
       case removeBubble:
         this.anotherScene?.removeBubble();

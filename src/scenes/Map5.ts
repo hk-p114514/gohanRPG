@@ -54,7 +54,8 @@ export class Map5 extends Map_TPL {
   }
   create() {
     super.create();
-    this.setBoss(8, 35, 'Ate', 0.5, true);
+    //this.createBoss(8, 35, 'Ate');
+    this.createBoss(48, 36, 'Obc');
     super.setHint('explanation5', explanation5);
     super.setEvent('exit', warp0);
     super.setEvent('toboss1', warpAte);
@@ -82,9 +83,10 @@ export class Map5 extends Map_TPL {
     super.update(_time, delta);
   }
   public createBoss(x: number, y: number, boss: string) {
+    if (boss == 'Ate') this.setBoss(x, y, boss, 0.5, true);
     if (boss === 'Bte') this.setBoss(x, y, boss, 0.5, true);
     if (boss === 'Melcine') this.setBoss(x, y, boss, 0.25, true);
     if (boss === 'Eleca') this.setBoss(x, y, boss, 0.5, true);
-    if (boss === 'Obc') this.setBoss(x, y, boss, 0.5, true);
+    if (boss === 'Obc') this.setBoss(x, y, boss, 0.25, true);
   }
 }
