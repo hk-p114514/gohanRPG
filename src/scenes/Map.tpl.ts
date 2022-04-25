@@ -334,7 +334,7 @@ export class Map_TPL extends Scene {
     charName: string,
     x: number,
     y: number,
-    contents: Timelines,
+    contents?: Timelines,
     direction?: Direction,
   ) {
     hints.set(system.map + ',' + x + ',' + y, contents);

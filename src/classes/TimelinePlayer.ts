@@ -178,7 +178,7 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-  private startevent(key: string, contents: MotionEventProps) {
+  private startevent(key: string, contents?: MotionEventProps) {
     console.log(key);
     // if (many !== undefined && contents === undefined) {
     //   let box: MotionEventProps = {};
@@ -286,17 +286,21 @@ export class TimelinePlayer extends Scene {
     // if (contents !== undefined) {
     switch (key) {
       case 'judge':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.judge(contents.name);
       case 'kill':
+        if (contents === undefined) break;
         if (contents.xy === undefined) break;
         this.anotherScene?.kill(contents.xy);
         break;
       case 'delete':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.delete(contents.name);
         break;
       case 'event':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -310,15 +314,16 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case 'chdir':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.chdir(contents.name, contents.direction);
         break;
       case 'set':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
-        if (contents.timeline === undefined) break;
         this.anotherScene?.set(
           contents.name,
           contents.x,
@@ -328,23 +333,28 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case 'reset':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.reset(contents.name);
         break;
       case 'break':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.break(contents.name);
         break;
       case 'move':
+        if (contents === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.move(contents.direction);
         break;
       case 'log':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.setlog(contents.name, contents.bubbleIndex);
         break;
       case 'bosslog':
+        if (contents === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.bosslog(contents.bubbleIndex);
         break;
@@ -352,11 +362,13 @@ export class TimelinePlayer extends Scene {
         this.anotherScene?.relog();
         break;
       case 'warp':
+        if (contents === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         this.anotherScene?.warp(contents.x, contents.y);
         break;
       case 'battle':
+        if (contents === undefined) break;
         if (contents.battleActor === undefined) break;
         if (!this.anotherScene?.battle(contents.battleActor)) {
           this.dialogBox?.clearDialogBox();
@@ -377,6 +389,7 @@ export class TimelinePlayer extends Scene {
         this.anotherScene?.zoomDown();
         break;
       case 'waprStar':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -384,6 +397,7 @@ export class TimelinePlayer extends Scene {
           this.anotherScene?.warpStar(contents.name, contents.x, contents.y);
         break;
       case 'createBoss':
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;

@@ -1,6 +1,5 @@
 import { Timelines } from './Timelines';
 import { Direction } from './Direction';
-
 export const explanation5: Timelines = {
   start: [
     {
@@ -16,7 +15,6 @@ export const explanation5: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const warpAte: Timelines = {
   start: [
     { type: 'event', event: 'warp', contents: { x: 9, y: 42 } },
@@ -75,24 +73,24 @@ export const startAte: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'plyaer', bubbleIndex: 2 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'エーテ', text: '久しぶりだな！' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      contents: { name: 'player', bubbleIndex: 3 },
     },
     {
       type: 'dialog',
       actorName: 'マルク',
-      text: 'お前は、森にいた奴。',
+      text: 'お前は、森にいた奴！',
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     {
       type: 'dialog',
@@ -102,17 +100,17 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      contents: { name: 'Shiden', bubbleIndex: 1 },
     },
     {
       type: 'dialog',
       actorName: 'シデン',
-      text: 'マルク、\n誰だこのビーテの劣化版みたいな奴は。',
+      text: 'マルク、\n誰だ、このビーテの劣化版みたいな奴は。',
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 2 },
     },
     {
       type: 'dialog',
@@ -122,13 +120,13 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      contents: { name: 'Shiden', bubbleIndex: 4 },
     },
-    { type: 'dialog', actorName: 'シデン', text: 'キレ方も似てるし。' },
+    { type: 'dialog', actorName: 'シデン', text: 'キレ方も似てるな。' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     {
       type: 'dialog',
@@ -138,17 +136,17 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'Pouler', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'パウラ', text: '良いんだ…。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'マルク', text: 'というか、何でここに。' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 5 },
     },
-    { type: 'dialog', actorName: 'エーテ', text: 'OBCの力により蘇ったのだよ。' },
+    { type: 'dialog', actorName: 'エーテ', text: 'OBCのお力によって蘇ったのだよ。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
@@ -157,8 +155,8 @@ export const startAte: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
     },
     {
       type: 'dialog',
@@ -168,7 +166,7 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
     {
@@ -180,12 +178,16 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'player', bubbleIndex: 1 },
     },
-    { type: 'dialog', actorName: 'マルク', text: 'あれ、バトルは？' },
+    { type: 'dialog', actorName: 'マルク', text: 'あれ、始めないの？' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エーテ', text: 'あの、掛け声を、お願いします。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'マルク', text: 'あ、ごめん。' },
     {
       type: 'event',
@@ -193,28 +195,46 @@ export const startAte: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 1 } },
+    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'エーテ', text: '行くぞ！！' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: 'グダグダですね…。' },
+    {
+      type: 'event',
+      event: 'relog',
+    },
     //     { type: 'endTimeline' },
     //   ],
     // };
     // export const endAte: Timelines = {
     //   start: [
-    { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…だめだったか。' },
+    {
+      type: 'event',
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
+    },
+    { type: 'dialog', actorName: 'エーテ', text: 'ぐはっ…だめだったか。' },
+    {
+      type: 'event',
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'エーテ', text: 'OBCよ、申し訳ありません…。' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'player', bubbleIndex: 4 },
     },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: 'お前がいたってことは、もしかして他の奴らも…。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -230,12 +250,13 @@ export const startAte: Timelines = {
       actorName: 'エーテ',
       text: 'お前たちの進行は、我々四天王が必ず止めて見せる。',
     },
+    { type: 'event', event: 'relog' },
     { type: 'event', event: 'break', contents: { name: 'Ate' } },
     { type: 'dialog', actorName: 'エーテ', text: 'バタッ。' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     {
       type: 'dialog',
@@ -245,17 +266,17 @@ export const startAte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     {
       type: 'dialog',
       actorName: 'シデン',
-      text: 'めんどくさいな！',
+      text: 'めんどくさいな…。',
     },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'Mough', bubbleIndex: 5 },
     },
     {
       type: 'dialog',
@@ -263,11 +284,16 @@ export const startAte: Timelines = {
       text: '強いやつといっぱい戦える！',
     },
     {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 3 },
+    },
+    {
       type: 'dialog',
       actorName: 'パウラ',
       text: '…とにかく、気を引き締めて頑張りましょう！',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 8, y: 5, name: 'Bte' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
@@ -296,7 +322,6 @@ export const startAte: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const warpBte: Timelines = {
   start: [
     { type: 'event', event: 'warp', contents: { x: 9, y: 12 } },
@@ -358,13 +383,13 @@ export const startBte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'やはり次はお前か。' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     {
       type: 'dialog',
@@ -373,13 +398,13 @@ export const startBte: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
     },
     {
       type: 'dialog',
       actorName: 'ビーテ',
-      text: 'この私こそ、軟弱な兄エーテよりずっとずっと強い、\n四天王ビーテ様だ！',
+      text: 'この私こそ、軟弱な兄エーテよりずっとずっと強い、\n四天王のビーテ様だ！',
     },
     {
       type: 'event',
@@ -400,7 +425,7 @@ export const startBte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Shiden', bubbleIndex: 4 },
+      contents: { name: 'Mough', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マウ', text: '弱そう、残念。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
@@ -408,66 +433,86 @@ export const startBte: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Shiden', bubbleIndex: 4 },
+      contents: { name: 'Pouler', bubbleIndex: 4 },
     },
-    { type: 'dialog', actorName: 'パウラ', text: '皆さん、流石に言い過ぎでは？' },
+    { type: 'dialog', actorName: 'パウラ', text: '皆さん、流石に言い過ぎでは…。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'うるさ…くない。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ありがとう。' },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
-      text: 'それより貴様ら、黙って聞いていれば、\n何度も何度もこのビーテ様を侮辱しおって！',
+      text: 'それより貴様ら、黙って聞いていれば。',
     },
-    { type: 'dialog', actorName: 'パウラ', text: '黙って聞いてはなかったですけど。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
-    { type: 'dialog', actorName: 'ビーテ', text: 'うるさいうるさいうるさいうるさい！' },
+    {
+      type: 'dialog',
+      actorName: 'ビーテ',
+      text: '何度も何度もこのビーテ様を侮辱しおって！',
+    },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
+    {
+      type: 'dialog',
+      actorName: 'パウラ',
+      text: '（黙って聞いてはいなかった気がしますけど…。）',
+    },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Shiden', bubbleIndex: 4 },
+    },
+    { type: 'dialog', actorName: 'シデン', text: '毎度毎度騒がしいモブだな。' },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'dialog', actorName: 'ビーテ', text: 'う・る・さ・い！' },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
       text: 'もう許さない。',
     },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
       text: '徹底的にぶっ潰してくれる。',
     },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
-      text: 'どぅおるぁぁぁ！！！',
+      text: 'どぅおるあぁぁぁ！！！',
     },
     {
       type: 'event',
       event: 'log',
       contents: { name: 'player', bubbleIndex: 4 },
     },
-    { type: 'dialog', actorName: 'マルク', text: 'バトル突入セリフだけは進化してるな。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'バトル突入セリフだけは進化してるんだな。',
+    },
+    { type: 'event', event: 'relog' },
     //     { type: 'endTimeline' },
     //   ],
     // };
     // export const endBte: Timelines = {
     //   start: [
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、またか…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'player', direction: Direction.LEFT },
-    },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'Shiden', direction: Direction.RIGHT },
-    },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
       text: '結局あの兄者と同じ末路を辿るのか…。',
     },
+    { type: 'event', event: 'relog' },
     { type: 'event', event: 'break', contents: { name: 'Bte' } },
     { type: 'dialog', actorName: 'ビーテ', text: 'バタッ。' },
     {
@@ -476,21 +521,21 @@ export const startBte: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'あばよ、ビチョウオンプテ。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
-    { type: 'dialog', actorName: 'パウラ', text: 'ビチョウオンプテ……。' },
+    { type: 'event', event: 'log', contents: { name: 'Pouler', bubbleIndex: 3 } },
+    { type: 'dialog', actorName: 'パウラ', text: 'ビチョウオンプテ……？' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'Pouler', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'パウラ', text: 'あれってそんな読み方したんですね…。' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      contents: { name: 'Mough', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マウ', text: 'ながくて分かりずらい。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 50, y: 5, name: 'Melcine' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
@@ -519,7 +564,6 @@ export const startBte: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const warpMelcine: Timelines = {
   start: [
     { type: 'event', event: 'warp', contents: { x: 51, y: 12 } },
@@ -585,12 +629,12 @@ export const startMelcine: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '…やっぱりこいつ嫌いだわぁ。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'メルシン', text: 'それよりも貴様ら…。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
@@ -599,10 +643,10 @@ export const startMelcine: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      contents: { name: 'Pouler', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'パウラ', text: 'あっ。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
@@ -610,26 +654,15 @@ export const startMelcine: Timelines = {
     },
     {
       type: 'event',
-      event: 'chdir',
-      contents: { name: 'Shiden', direction: Direction.UP },
-    },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'Pouler', direction: Direction.RIGHT },
-    },
-    {
-      type: 'event',
-      event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
     },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'このワタクシの全力でねぇ！！',
     },
-    { type: 'dialog', actorName: 'パウラ', text: 'やっぱり騒がしい人ですねぇ。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     //     { type: 'endTimeline' },
     //   ],
     // };
@@ -649,8 +682,13 @@ export const startMelcine: Timelines = {
     },
     {
       type: 'event',
+      event: 'chdir',
+      contents: { name: 'player', direction: Direction.LEFT },
+    },
+    {
+      type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 2 },
+      contents: { name: 'player', bubbleIndex: 5 },
     },
     {
       type: 'dialog',
@@ -660,71 +698,63 @@ export const startMelcine: Timelines = {
     {
       type: 'event',
       event: 'chdir',
-      contents: { name: 'player', direction: Direction.RIGHT },
+      contents: { name: 'Shiden', direction: Direction.RIGHT },
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Shiden', bubbleIndex: 4 },
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'だな、まだ次がある。' },
     {
       type: 'event',
       event: 'chdir',
-      contents: { name: 'Shiden', direction: Direction.RIGHT },
+      contents: { name: 'Pouler', direction: Direction.LEFT },
     },
-    { type: 'dialog', actorName: 'シデン', text: 'だな、まだ次がある。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: '行きましょう。' },
     {
       type: 'event',
-      event: 'chdir',
-      contents: { name: 'Pouler', direction: Direction.RIGHT },
-    },
-    {
-      type: 'event',
-      event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'メルシン', text: '……。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
+    { type: 'event', event: 'log', contents: { name: 'Mough', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マウ', text: '……。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
+    { type: 'event', event: 'log', contents: { name: 'Mough', bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'マウ', text: 'お前。' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'メルシン', text: '……？' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
+    { type: 'event', event: 'log', contents: { name: 'Mough', bubbleIndex: 5 } },
     { type: 'dialog', actorName: 'マウ', text: 'そこそこ強かったぞ！' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'メルシン', text: '……！' },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 4 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'メルシン', text: 'ありがとう！' },
-    { type: 'event', event: 'log', contents: { name: 'Pouler', bubbleIndex: 4 } },
+    { type: 'event', event: 'relog' },
     { type: 'event', event: 'break', contents: { name: 'Melcine' } },
     { type: 'dialog', actorName: 'メルシン', text: 'バタッ。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 30, y: 4, name: 'Eleca' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
     { type: 'event', event: 'reset', contents: { name: 'Mough' } },
-    {
-      type: 'event',
-      event: 'kill',
-      contents: {
-        xy: [
-          { x: 50, y: 12 },
-          { x: 50, y: 13 },
-        ],
-      },
-    },
     {
       type: 'event',
       event: 'delete',
@@ -735,10 +765,19 @@ export const startMelcine: Timelines = {
       event: 'delete',
       contents: { name: 'endMelcine' },
     },
+    {
+      type: 'event',
+      event: 'kill',
+      contents: {
+        xy: [
+          { x: 50, y: 12 },
+          { x: 50, y: 13 },
+        ],
+      },
+    },
     { type: 'endTimeline' },
   ],
 };
-
 export const warpEleca: Timelines = {
   start: [
     { type: 'event', event: 'warp', contents: { x: 31, y: 12 } },
@@ -797,18 +836,18 @@ export const startEleca: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 5 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     {
       type: 'dialog',
       actorName: 'エレカ',
-      text: 'ここまできましたか。\nやはり男たちは軟弱だったわね。',
+      text: 'ここまできましたか。\nやはりあの男たちは軟弱だったわね。',
     },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Shiden', bubbleIndex: 3 },
+      contents: { name: 'player', bubbleIndex: 3 },
     },
     {
       type: 'dialog',
@@ -817,24 +856,24 @@ export const startEleca: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 5 },
     },
     {
       type: 'dialog',
       actorName: 'エレカ',
       text: 'あなたたちの強さは認めるわ。',
     },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'エレカ',
-      text: 'しかし、この先はお母様の間。',
+      text: 'しかし、この先はお母様のお部屋。',
     },
     {
       type: 'event',
-      event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      event: 'bosslog',
+      contents: { bubbleIndex: 4 },
     },
     {
       type: 'dialog',
@@ -847,7 +886,7 @@ export const startEleca: Timelines = {
       actorName: 'エレカ',
       text: '本気で相手してあげるわ、覚悟しなさい。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     //     { type: 'endTimeline' },
     //   ],
     // };
@@ -858,7 +897,7 @@ export const startEleca: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 4 },
+      contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     {
       type: 'dialog',
@@ -871,19 +910,19 @@ export const startEleca: Timelines = {
       actorName: 'エレカ',
       text: '…お母様に叩き潰されるその時を、楽しみに待っているわ。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'エレカ',
       text: 'あの世でね。',
     },
+    { type: 'event', event: 'relog' },
     { type: 'event', event: 'break', contents: { name: 'Eleca' } },
     { type: 'dialog', actorName: 'エレカ', text: 'バタッ。' },
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'player', bubbleIndex: 4 },
     },
     {
       type: 'dialog',
@@ -903,31 +942,21 @@ export const startEleca: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 1 },
+      contents: { name: 'Pouler', bubbleIndex: 3 },
     },
-    { type: 'dialog', actorName: 'パウラ', text: 'はい。' },
+    { type: 'dialog', actorName: 'パウラ', text: '…はい。' },
     {
       type: 'event',
       event: 'log',
       contents: { name: 'Mough', bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'createBoss', contents: { x: 50, y: 35, name: 'Obc' } },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
     { type: 'event', event: 'reset', contents: { name: 'Mough' } },
-    {
-      type: 'event',
-      event: 'kill',
-      contents: {
-        xy: [
-          { x: 30, y: 11 },
-          { x: 31, y: 11 },
-        ],
-      },
-    },
     {
       type: 'event',
       event: 'delete',
@@ -938,10 +967,19 @@ export const startEleca: Timelines = {
       event: 'delete',
       contents: { name: 'endEleca' },
     },
+    {
+      type: 'event',
+      event: 'kill',
+      contents: {
+        xy: [
+          { x: 30, y: 11 },
+          { x: 31, y: 11 },
+        ],
+      },
+    },
     { type: 'endTimeline' },
   ],
 };
-
 export const warpObc: Timelines = {
   start: [
     { type: 'event', event: 'warp', contents: { x: 48, y: 43 } },
@@ -957,21 +995,21 @@ export const backObc: Timelines = {
 export const goObc: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 13, y: 9 } },
+    { type: 'event', event: 'warp', contents: { x: 48, y: 41 } },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Shiden', x: 47, y: 41, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Pouler', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Pouler', x: 49, y: 41, timeline: undefined },
     },
     {
       type: 'event',
       event: 'set',
-      contents: { name: 'Mough', x: 6, y: 23, timeline: undefined },
+      contents: { name: 'Mough', x: 46, y: 41, timeline: undefined },
     },
     {
       type: 'event',
@@ -1006,11 +1044,17 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'おい、貴様がOBCだな。' },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'いかにも。',
+    },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'OBC',
-      text: 'いかにも。\n私OBC、すなわち"おばちゃん"の略さ…。',
+      text: '私はOBC、すなわち食堂の"おばちゃん"だよ…。',
     },
     {
       type: 'event',
@@ -1034,6 +1078,7 @@ export const beforeObcBattle: Timelines = {
       actorName: 'OBC',
       text: 'お前たちが来なければ、いずれ霧も晴らしてやったというのに…。',
     },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1061,7 +1106,11 @@ export const beforeObcBattle: Timelines = {
       event: 'chdir',
       contents: { name: 'Pouler', direction: Direction.UP },
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 1 },
+    },
     {
       type: 'dialog',
       actorName: 'パウラ',
@@ -1072,12 +1121,17 @@ export const beforeObcBattle: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'Pouler', bubbleIndex: 3 },
+      contents: { name: 'Pouler', bubbleIndex: 4 },
     },
     {
       type: 'dialog',
       actorName: 'パウラ',
       text: 'どうして…どうしてそんなことをするんですか！',
+    },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'Pouler', bubbleIndex: 3 },
     },
     {
       type: 'dialog',
@@ -1089,22 +1143,6 @@ export const beforeObcBattle: Timelines = {
       type: 'dialog',
       actorName: 'OBC',
       text: 'その方がおいしいし、パワーが出るだろう？',
-    },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'player', direction: Direction.LEFT },
-    },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'Pouler', direction: Direction.LEFT },
-    },
-    {
-      type: 'event',
-      event: 'chdir',
-      contents: { name: 'Mough', direction: Direction.RIGHT },
     },
     {
       type: 'event',
@@ -1125,7 +1163,13 @@ export const beforeObcBattle: Timelines = {
     {
       type: 'dialog',
       actorName: 'OBC',
-      text: 'ここまできたら後にも引けないからね\nこの世界まるごと、私の味で染め上げてくれる！！',
+      text: 'ここまできたら後にも引けないからね。',
+    },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
+    {
+      type: 'dialog',
+      actorName: 'OBC',
+      text: 'この世界まるごと、私の味で染め上げてくれる！！',
     },
     {
       type: 'event',
@@ -1139,14 +1183,15 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: 'relog' },
     //     { type: 'endTimeline' },
     //   ],
     // };
     // export const afterObcBattle: Timelines = {
     //   start: [
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…。' },
     {
       type: 'event',
@@ -1154,7 +1199,7 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'おい、お前。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 1 } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1163,9 +1208,9 @@ export const beforeObcBattle: Timelines = {
     {
       type: 'event',
       event: 'log',
-      contents: { name: 'player', bubbleIndex: 3 },
+      contents: { name: 'player', bubbleIndex: 4 },
     },
-    { type: 'dialog', actorName: 'マルク', text: '大盛りご飯。' },
+    { type: 'dialog', actorName: 'マルク', text: '大盛りご飯…。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 1 } },
     { type: 'dialog', actorName: 'OBC', text: '…は？' },
     {
@@ -1174,6 +1219,11 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: '魔王倒したら大盛りご飯無料なんだろ？' },
+    {
+      type: 'event',
+      event: 'log',
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'マルク', text: '早く出せよ。' },
     { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'OBC', text: 'ふん、バカだねぇ…。' },
@@ -1207,12 +1257,13 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'おい！何笑ってんだよ！' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'まさか、私がこんな理由で倒されるなんてね…。',
     },
+    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1234,12 +1285,20 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'まだ…まだ死ぬなよぉ…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
     { type: 'event', event: 'reset', contents: { name: 'Pouler' } },
     { type: 'event', event: 'reset', contents: { name: 'Mough' } },
-    { type: 'event', event: 'delete', contents: { name: 'goObc' } },
+    {
+      type: 'event',
+      event: 'kill',
+      contents: {
+        xy: [
+          { x: 47, y: 42 },
+          { x: 48, y: 42 },
+        ],
+      },
+    },
     {
       type: 'event',
       event: 'delete',
@@ -1258,14 +1317,14 @@ export const beforeObcBattle: Timelines = {
     {
       type: 'dialog',
       actorName: '？？？',
-      text: 'もう！38にもなって1人で起きれないなんて！情けなくないの！',
+      text: 'もう！38にもなって1人で起きれないなんて！\n情けなくないの！',
     },
     { type: 'dialog', actorName: 'マルク', text: 'えぇ〜ママちゃまっち〜。' },
     { type: 'dialog', actorName: 'マルク', text: 'まだ起きたくないでござるよ〜。' },
     {
       type: 'dialog',
       actorName: 'ママちゃまっち',
-      text: '定職にも就いてないんだから！生活リズムくらい整えなさい！',
+      text: '定職にも就いてないんだから！\n生活リズムくらい整えなさい！',
     },
     {
       type: 'dialog',

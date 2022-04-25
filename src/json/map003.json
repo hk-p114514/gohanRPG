@@ -131,7 +131,7 @@
                  "gid":202,
                  "height":40,
                  "id":9,
-                 "name":"Virgo",
+                 "name":"Virgowarp",
                  "rotation":90,
                  "type":"hint",
                  "visible":true,
@@ -786,30 +786,6 @@
                  "width":40,
                  "x":120,
                  "y":400
-                }, 
-                {
-                 "gid":102,
-                 "height":40,
-                 "id":72,
-                 "name":"exit",
-                 "rotation":90,
-                 "type":"event",
-                 "visible":true,
-                 "width":40,
-                 "x":80,
-                 "y":0
-                }, 
-                {
-                 "gid":102,
-                 "height":40,
-                 "id":73,
-                 "name":"exit",
-                 "rotation":90,
-                 "type":"event",
-                 "visible":true,
-                 "width":40,
-                 "x":120,
-                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -818,7 +794,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":74,
+ "nextobjectid":72,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

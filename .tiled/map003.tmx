@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="72">
+ <editorsettings>
+  <export target="../src/json/map003.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="map001" tilewidth="40" tileheight="40" tilecount="1296" columns="48">
   <image source="../src/assets/maps/map001.png" width="1920" height="1080"/>
   <tile id="0">
@@ -7876,7 +7879,7 @@
   <object id="6" name="Scorpiowarp" type="hint" gid="202" x="1280" y="120" width="40" height="40" rotation="90"/>
   <object id="7" name="reArieswarp" type="hint" gid="202" x="1080" y="480" width="40" height="40" rotation="90"/>
   <object id="8" name="Tauruswarp" type="hint" gid="202" x="1280" y="480" width="40" height="40" rotation="90"/>
-  <object id="9" name="Virgo" type="hint" gid="202" x="1520" y="120" width="40" height="40" rotation="90"/>
+  <object id="9" name="Virgowarp" type="hint" gid="202" x="1520" y="120" width="40" height="40" rotation="90"/>
   <object id="10" name="reCapricornwarp" type="hint" gid="202" x="1520" y="480" width="40" height="40" rotation="90"/>
   <object id="11" name="Aquariuswarp" type="hint" gid="202" x="1760" y="480" width="40" height="40" rotation="90"/>
   <object id="12" name="reTauruswarp" type="hint" gid="202" x="1760" y="120" width="40" height="40" rotation="90"/>
