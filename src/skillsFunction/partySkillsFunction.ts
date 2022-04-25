@@ -11,6 +11,39 @@ export const sample = (scene: Scene, attacker: BattleActor, targets: BattleActor
   skillDialog(scene, []);
 };
 
+// 車懸りの刃
+export const carSuspendBlade = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let i: number, sum: number, num: number;
+  sum = 0;
+  num = 0;
+  targets.forEach((target: BattleActor) => {
+    if (target.hp.current > 0) {
+      const beforeHp = target.hp.current;
+      for (i = 0; i < 2; i++) {
+        target.beInjured(target.buff.getAtk() * 0.4);
+      }
+      const afterHp = target.hp.current;
+      sum = Math.abs(beforeHp - afterHp);
+      num++;
+    }
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の車懸りの刃！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
+        sum / num,
+      )} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // 斜め切り
 export const diagonalSlash = (
   scene: Scene,
@@ -193,6 +226,22 @@ export const tiledRondo = (
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のtiledの回旋曲！` },
     { type: 'dialog', text: `${target.name}は グルコサミン状態になった！` },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// 心理の狂詩曲
+export const psychologyRhapsody = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  target.state.activeState('poison', 3);
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の心理の狂詩曲！` },
+    { type: 'dialog', text: `${target.name}は どく状態になった！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -431,6 +480,23 @@ export const forestGrace: SkillFunction = (
   ]);
 };
 
+// ヒール
+export const heal = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beHealed(attacker.hp.max * 0.3);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のヒール！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // ピコヒール
 export const picoHeal: SkillFunction = (
   scene: Scene,
@@ -502,6 +568,23 @@ export const protect: SkillFunction = (
         attacker,
         targets,
       )}の注意を引いた！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// せめる
+export const assault = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk());
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のせめる！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
