@@ -88,8 +88,10 @@ import {
 } from 'skillsFunction/bossSkillsFunction';
 import {
   airOnJs,
+  assault,
   beHard,
   beStrong,
+  carSuspendBlade,
   causalCar,
   charge,
   conductorFinale,
@@ -105,6 +107,7 @@ import {
   morningRamenBless,
   picoHeal,
   protect,
+  psychologyRhapsody,
   redDevilRequiem,
   sageSerenade,
   shaveSlash,
@@ -229,6 +232,7 @@ export const obcSkills: Skill[] = [
 ];
 
 export const marcSkills: Skill[] = [
+  new Skill('車懸りの刃', carSuspendBlade, true, true),
   new Skill('斜め切り', diagonalSlash, true, true),
   new Skill('そぎ切り', shaveSlash, false, true), // そぎ切り（中攻撃）
   new Skill('夢翔斬', dreamSlash, false, true), // 夢翔斬（超強攻撃、自分に眠り）
@@ -240,6 +244,7 @@ export const marcSkills: Skill[] = [
 export const shidenSkills: Skill[] = [
   new Skill('js上の詠唱曲', airOnJs, false, true),
   new Skill('tiledの回旋曲', tiledRondo, false, false),
+  new Skill('心理の狂詩曲', psychologyRhapsody, false, true),
   new Skill('聖杯の幻想曲', grailFantasia, false, false),
   new Skill('指揮者の終曲', conductorFinale, false, true),
   new Skill('賢者の小夜曲', sageSerenade, false, true),
@@ -250,6 +255,7 @@ export const poulerSkills: Skill[] = [
   new Skill('朝ラーの怒り', morningRamenBless, true, true),
   new Skill('精霊の加護', spiritBless, true, false),
   new Skill('杜の恵み', forestGrace, true, false),
+  new Skill('ヒール', heal, false, false),
   new Skill('ピコヒール', picoHeal, false, false),
   new Skill('メガヒール', megaHeal, false, false),
   new Skill('ハイヒール', highHeal, false, true),
@@ -257,6 +263,7 @@ export const poulerSkills: Skill[] = [
 
 export const moughSkills: Skill[] = [
   new Skill('まもる', protect, false, false),
+  new Skill('せめる', assault, false, true),
   new Skill('つよくなる', beStrong, false, true),
   new Skill('かたくなる', beHard, true, false),
   new Skill('たいきばんせい', daikiLate, false, false),
