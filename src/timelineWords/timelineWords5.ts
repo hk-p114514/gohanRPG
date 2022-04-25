@@ -185,8 +185,8 @@ export const startAte: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: '……。' },
     {
       type: 'event',
-      event: displayBubble,
-      contents: { name: 'player', bubbleIndex: 4 },
+      event: displayBossBubble,
+      contents: { bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'エーテ', text: '……。' },
     {
@@ -535,7 +535,7 @@ export const startBte: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'あばよ、ビチョウオンプテ。' },
-    { type: 'event', event: displayBubble, contents: { name: 'Pouler', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'Pouler', bubbleIndex: 1 } },
     { type: 'dialog', actorName: 'パウラ', text: 'ビチョウオンプテ……？' },
     {
       type: 'event',
@@ -784,8 +784,8 @@ export const startMelcine: Timelines = {
       event: removeEventByXYs,
       contents: {
         xy: [
-          { x: 50, y: 12 },
-          { x: 50, y: 13 },
+          { x: 50, y: 11 },
+          { x: 51, y: 11 },
         ],
       },
     },
@@ -964,7 +964,7 @@ export const startEleca: Timelines = {
       event: displayBubble,
       contents: { name: 'Mough', bubbleIndex: 5 },
     },
-    { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！。' },
+    { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！' },
     { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: createBoss, contents: { x: 50, y: 35, name: 'Obc' } },
@@ -1050,7 +1050,11 @@ export const goObc: Timelines = {
 };
 export const beforeObcBattle: Timelines = {
   start: [
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    {
+      type: 'event',
+      event: displayBossBubble,
+      contents: { bubbleIndex: 4, flag: true },
+    },
     { type: 'dialog', actorName: 'OBC', text: 'おや…まさか本当に来るとはね。' },
     {
       type: 'event',
@@ -1058,13 +1062,13 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'おい、貴様がOBCだな。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'いかにも。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1080,19 +1084,19 @@ export const beforeObcBattle: Timelines = {
       actorName: 'パウラ',
       text: 'そんな…食堂の乗っ取り騒ぎも何もかも、自作自演だったって言うんですか！？',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'その通りだよ…。\n適当な所で切り上げて全部元通りにしてしまえば、食堂の復活を祝う客が沢山訪れる。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'お前たちが来なければ、いずれ霧も晴らしてやったというのに…。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1130,7 +1134,7 @@ export const beforeObcBattle: Timelines = {
       actorName: 'パウラ',
       text: '…というか、霧によって味付けを濃くしたのも、あなたの仕業なんですか。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: 'そうだよ、それも私さ。' },
     {
       type: 'event',
@@ -1152,7 +1156,7 @@ export const beforeObcBattle: Timelines = {
       actorName: 'パウラ',
       text: 'そんなことしたら、健康寿命が縮んでしまうじゃないですか！',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1171,15 +1175,15 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'シデン', text: 'ふざけるなぁ！！' },
     { type: 'dialog', actorName: 'シデン', text: '俺はな、薄味が好みなんだぁぁ！！' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: 'ならば、濃い味に慣れさせるまでよ！！' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'ここまできたら後にも引けないからね。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1203,9 +1207,9 @@ export const beforeObcBattle: Timelines = {
     // };
     // export const afterObcBattle: Timelines = {
     //   start: [
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: '私も本当に、ここまでのようだ…。' },
     {
       type: 'event',
@@ -1213,7 +1217,7 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'おい、お前。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1225,7 +1229,7 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '大盛りご飯…。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 1, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: '…は？' },
     {
       type: 'event',
@@ -1239,9 +1243,9 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: '早く出せよ。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: 'ふん、バカだねぇ…。' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1257,13 +1261,13 @@ export const beforeObcBattle: Timelines = {
       actorName: 'マルク',
       text: 'はぁ！？じゃあ、食べれねぇってことかよ！？',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'まさかとは思うが、そのために来たのかい…？',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: '…ふふふ…ハハハハハハ！！' },
     {
       type: 'event',
@@ -1271,13 +1275,13 @@ export const beforeObcBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'おい！何笑ってんだよ！' },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
       text: 'まさか、私がこんな理由で倒されるなんてね…。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5, flag: true } },
     {
       type: 'dialog',
       actorName: 'OBC',
@@ -1327,15 +1331,15 @@ export const beforeObcBattle: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: '腹…減ってんだよ…。' },
     { type: 'dialog', text: '…………。' },
     { type: 'dialog', actorName: '？？？', text: '…きなさい！起きなさい！' },
-    { type: 'dialog', actorName: '？？？', text: '起きなさい！マルク！' },
-    { type: 'dialog', actorName: 'マルク', text: '…うーん？' },
+    { type: 'dialog', actorName: '？？？', text: '起きなさい！ショウム！' },
+    { type: 'dialog', actorName: 'ショウム', text: '…うーん？' },
     {
       type: 'dialog',
       actorName: '？？？',
       text: 'もう！38にもなって1人で起きれないなんて！\n情けなくないの！',
     },
-    { type: 'dialog', actorName: 'マルク', text: 'えぇ〜ママちゃまっち〜。' },
-    { type: 'dialog', actorName: 'マルク', text: 'まだ起きたくないでござるよ〜。' },
+    { type: 'dialog', actorName: 'ショウム', text: 'えぇ〜ママちゃまっち〜。' },
+    { type: 'dialog', actorName: 'ショウム', text: 'まだ起きたくないでござるよ〜。' },
     {
       type: 'dialog',
       actorName: 'ママちゃまっち',
@@ -1343,12 +1347,12 @@ export const beforeObcBattle: Timelines = {
     },
     {
       type: 'dialog',
-      actorName: 'マルク',
+      actorName: 'ショウム',
       text: 'も〜、ママちゃまっちがそこまで言うならしょうがないでござるな〜。',
     },
     {
       type: 'dialog',
-      actorName: 'マルク',
+      actorName: 'ショウム',
       text: 'さて、新聞でも呼んで、3チャンでヤトウ叩きでもするでござるか〜。',
     },
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },

@@ -22,6 +22,7 @@ import {
   beSyoujo,
   beMajo,
   beRoujin,
+  tutorial1,
 } from 'timelineWords/timelineWords0';
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
@@ -75,6 +76,10 @@ export class Map0 extends Map_TPL {
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelineData: tutorial1,
+    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});
