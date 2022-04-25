@@ -1,8 +1,23 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
+import { shiden } from 'friends';
+import { Timelines } from '../classes/Timelines';
+import { Direction } from '../classes/Direction';
 import { oceanGotsuji } from './timelineWords0';
+
+import {
+  fixKillBossByName,
+  removeEventByXYs,
+  removeObjectByName,
+  setEventByXY,
+  changeNpcDir,
+  setNpc,
+  removeNpcByName,
+  removeBossByName,
+  displayBubble,
+  displayBossBubble,
+  removeBubble,
+  warpPlayerByXY,
+  warpPlayerByStar,
+} from './events';
 //Stage2
 export const explanation2: Timelines = {
   start: [
@@ -23,12 +38,12 @@ export const meetShiden: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 1 },
     },
     {
@@ -38,7 +53,7 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 5 },
     },
     {
@@ -48,7 +63,7 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 1 },
     },
     {
@@ -56,7 +71,7 @@ export const meetShiden: Timelines = {
       actorName: 'シデン',
       text: 'そのために、砂漠の四天王を倒しに来たと…。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'マルク', text: 'そういうことだ。' },
     {
       type: 'dialog',
@@ -65,13 +80,13 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'よくそこまで分かったな。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     {
@@ -81,13 +96,13 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'お前も杖持って無いじゃん！' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     {
@@ -95,7 +110,7 @@ export const meetShiden: Timelines = {
       actorName: 'シデン',
       text: '能ある鷹は杖を隠すんだよ。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'dialog',
       actorName: 'シデン',
@@ -108,7 +123,7 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     {
@@ -118,43 +133,43 @@ export const meetShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'シデン', text: '使えると言えば連れて行かれるのか。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: '連れて行くって言ったらどうする？' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: '断る。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'マルク', text: 'じゃあ連れてかない。' },
     { type: 'dialog', actorName: 'シデン', text: 'じゃあ魔法使える。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'じゃあ連れてく。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'じゃあ話が違う。' },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'event',
-      event: 'kill',
+      event: removeEventByXYs,
       contents: {
         xy: [
           { x: 2, y: 1 },
@@ -172,22 +187,22 @@ export const addShiden: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'set',
+      event: setNpc,
       contents: { name: 'Shiden', x: 3, y: 4, timeline: undefined },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.DOWN },
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 5 },
     },
     {
@@ -195,11 +210,11 @@ export const addShiden: Timelines = {
       actorName: 'マルク',
       text: 'そんじゃ、俺はこれで。\n世話になったな。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'シデン', text: '…なぁ、俺も連れて行ってくれないか。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     {
@@ -209,19 +224,19 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '魔王にまつわる黒い噂は知っているな？' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: '知らん。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     {
@@ -229,7 +244,7 @@ export const addShiden: Timelines = {
       actorName: 'シデン',
       text: '全く、倒そうとしているんじゃないのか…。',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'シデン', text: 'まぁいい、教えてやるから覚えておけ。' },
     {
       type: 'dialog',
@@ -238,17 +253,17 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'そうなの？' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '本当に何も知らないんだな…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'dialog',
       actorName: 'シデン',
@@ -256,7 +271,7 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     {
@@ -266,19 +281,19 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'そこが問題なんだよ！！' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: '急に熱くなるじゃん。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     {
@@ -288,13 +303,13 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'ゴクリ…。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     {
@@ -304,25 +319,25 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '…はぁ。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'シデン', text: '俺はな、薄味が好みなんだよ！！' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'お、おぅ。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     {
@@ -337,7 +352,7 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 5 },
     },
     {
@@ -346,10 +361,10 @@ export const addShiden: Timelines = {
       text: '…まぁ着いてきてくれるならなんでもいいや。',
     },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startC',
         x: 4,
@@ -360,7 +375,7 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startC',
         x: 4,
@@ -371,7 +386,7 @@ export const addShiden: Timelines = {
     },
     {
       type: 'event',
-      event: 'kill',
+      event: removeEventByXYs,
       contents: {
         xy: [
           { x: 2, y: 1 },
@@ -379,7 +394,7 @@ export const addShiden: Timelines = {
         ],
       },
     },
-    { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'dialog', text: 'シデンが仲間になった！' },
     { type: 'endTimeline' },
   ],
@@ -437,7 +452,7 @@ export const AriesWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Aries', x: 27, y: 12 },
     },
     { type: 'endTimeline' },
@@ -458,7 +473,7 @@ export const TaurusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Taurus', x: 44, y: 3 },
     },
     { type: 'endTimeline' },
@@ -479,7 +494,7 @@ export const GeminiWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Gemini', x: 16, y: 2 },
     },
     { type: 'endTimeline' },
@@ -500,7 +515,7 @@ export const CancerWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Cancer', x: 29, y: 21 },
     },
     { type: 'endTimeline' },
@@ -521,7 +536,7 @@ export const LeoWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Leo', x: 41, y: 7 },
     },
     { type: 'endTimeline' },
@@ -542,7 +557,7 @@ export const VirgoWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Virgo', x: 56, y: 26 },
     },
     { type: 'endTimeline' },
@@ -563,7 +578,7 @@ export const LibraWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Libra', x: 27, y: 3 },
     },
     { type: 'endTimeline' },
@@ -584,7 +599,7 @@ export const ScorpioWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Scorpio', x: 27, y: 17 },
     },
     { type: 'endTimeline' },
@@ -605,7 +620,7 @@ export const SagittariusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Sagittarius', x: 56, y: 3 },
     },
     { type: 'endTimeline' },
@@ -626,7 +641,7 @@ export const CapricornWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Capricorn', x: 43, y: 12 },
     },
     { type: 'endTimeline' },
@@ -647,7 +662,7 @@ export const AquariusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Aquarius', x: 35, y: 26 },
     },
     { type: 'endTimeline' },
@@ -668,7 +683,7 @@ export const PiscesWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Pisces', x: 17, y: 26 },
     },
     { type: 'endTimeline' },
@@ -689,7 +704,7 @@ export const reAriesWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Aries', x: 21, y: 2 },
     },
     { type: 'endTimeline' },
@@ -710,7 +725,7 @@ export const reTaurusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Taurus', x: 32, y: 12 },
     },
     { type: 'endTimeline' },
@@ -731,7 +746,7 @@ export const reGeminiWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Gemini', x: 50, y: 12 },
     },
     { type: 'endTimeline' },
@@ -752,7 +767,7 @@ export const reCancerWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Cancer', x: 11, y: 2 },
     },
     { type: 'endTimeline' },
@@ -773,7 +788,7 @@ export const reLeoWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Leo', x: 23, y: 22 },
     },
     { type: 'endTimeline' },
@@ -794,7 +809,7 @@ export const reVirgoWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Virgo', x: 56, y: 26 },
     },
     { type: 'endTimeline' },
@@ -815,7 +830,7 @@ export const reLibraWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Libra', x: 56, y: 17 },
     },
     { type: 'endTimeline' },
@@ -836,7 +851,7 @@ export const reScorpioWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Scorpio', x: 32, y: 3 },
     },
     { type: 'endTimeline' },
@@ -857,7 +872,7 @@ export const reSagittariusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Sagittarius', x: 27, y: 26 },
     },
     { type: 'endTimeline' },
@@ -878,7 +893,7 @@ export const reCapricornWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Capricorn', x: 56, y: 12 },
     },
     { type: 'endTimeline' },
@@ -899,7 +914,7 @@ export const reAquariusWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Aquarius', x: 44, y: 12 },
     },
     { type: 'endTimeline' },
@@ -920,7 +935,7 @@ export const rePiscesWarp: Timelines = {
   Yes: [
     {
       type: 'event',
-      event: 'warpstar',
+      event: warpPlayerByStar,
       contents: { name: 'Pisces', x: 50, y: 22 },
     },
     { type: 'endTimeline' },
@@ -939,7 +954,7 @@ export const OphiuchusWarp: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: 'warp', contents: { x: 7, y: 25 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 25 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
@@ -956,7 +971,7 @@ export const reOphiuchusWarp: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: 'warp', contents: { x: 7, y: 13 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 13 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
@@ -964,20 +979,20 @@ export const reOphiuchusWarp: Timelines = {
 export const goBte: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', contents: { x: 8, y: 23 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 8, y: 23 } },
     {
       type: 'event',
-      event: 'set',
+      event: setNpc,
       contents: { name: 'Shiden', x: 6, y: 23, timeline: undefined },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.UP },
     },
     { type: 'endTimeline' },
@@ -985,17 +1000,17 @@ export const goBte: Timelines = {
 };
 export const beforeBteBattle: Timelines = {
   start: [
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: '…先日は兄者が世話になったようだね。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: '兄者って、草原にいたあいつか？' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     {
@@ -1005,19 +1020,19 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'わー弱そう。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'うるさい！' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '頭も小さそうだな。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'うるさいうるさい！' },
     {
       type: 'dialog',
@@ -1025,7 +1040,7 @@ export const beforeBteBattle: Timelines = {
       text: '貴様ら、黙って聞いておればビーテ様を侮辱しおって！',
     },
     { type: 'dialog', actorName: 'シデン', text: '黙ってはなかったぞ。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     { type: 'dialog', actorName: 'ビーテ', text: '揚げ足ばかり取るなまどろっこしい！！' },
     {
       type: 'dialog',
@@ -1034,35 +1049,35 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.LEFT },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.RIGHT },
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'うわー脳筋だ。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '間違いないな。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.UP },
     },
     {
@@ -1072,11 +1087,11 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'ほら論点ずらした。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
@@ -1084,22 +1099,22 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.LEFT },
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'くどい。\n早くバトルしろ。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.UP },
     },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 2 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'ビーテ',
@@ -1107,14 +1122,14 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     //     {
     //       type: 'event',
-    //       event: 'battle',
+    //       event: moveBattleBoss,
     //       contents: { battleActor: enemy.bte },
     //     },
     //     { type: 'endTimeline' },
@@ -1122,17 +1137,17 @@ export const beforeBteBattle: Timelines = {
     // };
     // export const afterBteBattle: Timelines = {
     //   start: [
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、こんな所で…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.LEFT },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.RIGHT },
     },
     {
@@ -1141,15 +1156,15 @@ export const beforeBteBattle: Timelines = {
       text: '大口叩いてた割には、って感じだったな。',
     },
     { type: 'dialog', actorName: 'シデン', text: '同感だ。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 4 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.UP },
     },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'Shiden', direction: Direction.UP },
     },
     {
@@ -1160,25 +1175,25 @@ export const beforeBteBattle: Timelines = {
     { type: 'dialog', actorName: 'ビーテ', text: 'ーテ兄弟の名に泥を塗ってしまった…。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '名前の区切りビ・ーテだったんだな。' },
     {
       type: 'event',
-      event: 'log',
+      event: displayBubble,
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: '…ーテってなんて読むのこれ。' },
-    { type: 'event', event: 'bosslog', contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ちょうおんぷて、だよ…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'ビーテ', text: '俺の名はビチョウオンプテ、だ…。' },
-    { type: 'event', event: 'break', contents: { name: 'Bte' } },
+    { type: 'event', event: removeBossByName, contents: { name: 'Bte' } },
     { type: 'dialog', actorName: 'ビーテ', text: 'バタッ。' },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: '『ー』って、長音符って言うんだ…。' },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'チョウオンプテ兄弟はやられたか。' },
     { type: 'dialog', actorName: '四天王C', text: '全く、情けないですねぇ…。' },
@@ -1198,33 +1213,33 @@ export const beforeBteBattle: Timelines = {
     { type: 'dialog', actorName: 'メルシン', text: 'ワタクシに、全てお任せあれ…。' },
     {
       type: 'event',
-      event: 'judge',
+      event: fixKillBossByName,
       contents: { name: 'Bte' },
     },
-    { type: 'event', event: 'reset', contents: { name: 'Shiden' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     {
       type: 'event',
-      event: 'delete',
+      event: removeObjectByName,
       contents: { name: 'beforeBte' },
     },
     {
       type: 'event',
-      event: 'delete',
+      event: removeObjectByName,
       contents: { name: 'afterBte' },
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: { name: 'add2-1', x: 2, y: 1, timeline: addShiden },
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: { name: 'add2-2', x: 3, y: 1, timeline: addShiden },
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startB',
         x: 55,
@@ -1235,7 +1250,7 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'event',
+      event: setEventByXY,
       contents: {
         name: 'startB',
         x: 55,
@@ -1246,7 +1261,7 @@ export const beforeBteBattle: Timelines = {
     },
     {
       type: 'event',
-      event: 'kill',
+      event: removeEventByXYs,
       contents: {
         xy: [
           { x: 7, y: 24 },
