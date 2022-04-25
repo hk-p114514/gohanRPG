@@ -1,8 +1,16 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
-import { addShiden } from './timelineWords2';
+import { Timelines } from '../classes/Timelines';
+import { Direction } from '../classes/Direction';
+import {
+  removeEventByXYs,
+  removeObjectByName,
+  changeNpcDir,
+  setNpc,
+  removeNpcByName,
+  movePlayerByDir,
+  displayBubble,
+  removeBubble,
+} from './events';
+
 export const warp1: Timelines = {
   start: [{ type: 'switch', scene: 'map1' }, { type: 'endTimeline' }],
 };
@@ -17,7 +25,7 @@ export const warp4: Timelines = {
 };
 export const warp5: Timelines = {
   start: [
-    { type: 'judge', scene: 'map5', timelineID: 'final' },
+    { type: 'isAllBossDead', scene: 'map5', timelineID: 'final' },
     {
       type: 'dialog',
       text: '食堂は固く閉ざされている。',
@@ -27,70 +35,7 @@ export const warp5: Timelines = {
   final: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
 
-export const stoper1: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper2: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper3: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper4: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper5: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper6: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper7: Timelines = {
-  start: [
-    {
-      type: 'dialog',
-      text: '見えない(?)壁に塞がれている。',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const stoper8: Timelines = {
+export const stoper: Timelines = {
   start: [
     {
       type: 'dialog',
@@ -137,7 +82,7 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
   Yes: [
-    { type: 'event', event: 'delete', props: ['tutorial1'] },
+    { type: 'event', event: removeObjectByName, contents: { name: 'tutorial1' } },
     { type: 'endTimeline' },
   ],
   No: [
@@ -167,55 +112,55 @@ export const explanation: Timelines = {
   start: [
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'notMob', direction: Direction.LEFT },
     },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'ダカフ', text: 'おい、そこの若者！' },
     {
       type: 'event',
-      event: 'chdir',
+      event: changeNpcDir,
       contents: { name: 'player', direction: Direction.RIGHT },
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
     },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 1 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 1 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'して若者よ、食堂に行くのになにか策はあるのか？',
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: 'べ' },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 3 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
     },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -226,25 +171,25 @@ export const explanation: Timelines = {
       actorName: 'ダカフ',
       text: '噂に聞いた話じゃが、その鍵のうちの1つは、\nサバレーフィールドの赤い魔物が持っとるそうじゃな！',
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: 'サバ',
     },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
     },
-    { type: 'event', event: 'log', contents: { name: 'notMob', bubbleIndex: 5 } },
+    { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
     },
-    { type: 'event', event: 'log', contents: { name: 'player', bubbleIndex: 4 } },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -255,18 +200,18 @@ export const explanation: Timelines = {
       actorName: 'マルク',
       text: 'これもうそのまま行っちゃっていいかな…',
     },
-    { type: 'event', event: 'relog', contents: { name: 'proto' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper1' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper2' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper3' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper4' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper5' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper6' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper7' } },
-    { type: 'event', event: 'reset', contents: { name: 'stoper8' } },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper1' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper2' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper3' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper4' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper5' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper6' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper7' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'stoper8' } },
     {
       type: 'event',
-      event: 'kill',
+      event: removeEventByXYs,
       contents: {
         xy: [
           { x: 29, y: 8 },
@@ -279,7 +224,6 @@ export const explanation: Timelines = {
 };
 
 export const afterGotsuji: Timelines = {
-  //
   start: [
     { type: 'dialog', actorName: 'ダカフ', text: 'あの頃はよかったの〜！' },
     { type: 'endTimeline' },
@@ -287,8 +231,12 @@ export const afterGotsuji: Timelines = {
 };
 export const desertGotsuji: Timelines = {
   start: [
-    { type: 'event', event: 'reset', props: ['notMob'] },
-    { type: 'event', event: 'set', props: ['notMob2', 6, 22, undefined] },
+    { type: 'event', event: removeNpcByName, contents: { name: 'notMob' } },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'notMob2', x: 6, y: 22, timeline: undefined },
+    },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -318,15 +266,17 @@ export const desertGotsuji: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん' },
     {
       type: 'event',
-      event: 'kill',
-      props: [
-        [55, 22],
-        [55, 23],
-        [4, 22],
-        [4, 23],
-      ],
+      event: removeEventByXYs,
+      contents: {
+        xy: [
+          { x: 55, y: 22 },
+          { x: 55, y: 23 },
+          { x: 4, y: 22 },
+          { x: 4, y: 23 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob2'] },
+    { type: 'event', event: removeNpcByName, contents: { name: 'notMob2' } },
     { type: 'endTimeline' },
   ],
 };
@@ -334,7 +284,11 @@ export const oceanGotsuji: Timelines = {
   //sample018.png
   //
   start: [
-    { type: 'event', event: 'set', props: ['notMob3', 53, 22, undefined] },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'notMob3', x: 53, y: 22, timeline: undefined },
+    },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
     {
@@ -356,21 +310,27 @@ export const oceanGotsuji: Timelines = {
     },
     {
       type: 'event',
-      event: 'kill',
-      props: [
-        [55, 22],
-        [55, 23],
-        [4, 12],
-        [4, 13],
-      ],
+      event: removeEventByXYs,
+      contents: {
+        xy: [
+          { x: 55, y: 22 },
+          { x: 55, y: 23 },
+          { x: 4, y: 12 },
+          { x: 4, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob3'] },
+    { type: 'event', event: removeNpcByName, contents: { name: 'notMob3' } },
     { type: 'endTimeline' },
   ],
 };
 export const volcanoGotsuji: Timelines = {
   start: [
-    { type: 'event', event: 'set', props: ['notMob4', 6, 12, undefined] },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'notMob4', x: 6, y: 12, timeline: undefined },
+    },
     { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {
       type: 'dialog',
@@ -379,15 +339,17 @@ export const volcanoGotsuji: Timelines = {
     },
     {
       type: 'event',
-      event: 'kill',
-      props: [
-        [55, 12],
-        [55, 13],
-        [4, 12],
-        [4, 13],
-      ],
+      event: removeEventByXYs,
+      contents: {
+        xy: [
+          { x: 55, y: 12 },
+          { x: 55, y: 13 },
+          { x: 4, y: 12 },
+          { x: 4, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['notMob4'] },
+    { type: 'event', event: removeNpcByName, contents: { name: 'notMob4' } },
     { type: 'endTimeline' },
   ],
 };
@@ -618,40 +580,52 @@ export const afRoujin: Timelines = {
 
 export const stopl: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'move', props: ['left'] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: movePlayerByDir, contents: { direction: Direction.LEFT } },
     { type: 'endTimeline' },
   ],
 };
 export const stopr: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 3] },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'おっと、その先はまだ主には危険じゃぞい',
     },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'move', props: ['right'] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: movePlayerByDir,
+      contents: { direction: Direction.RIGHT },
+    },
     { type: 'endTimeline' },
   ],
 };
 
 export const castleAnnounce: Timelines = {
   start: [
-    { type: 'event', event: 'log', props: ['player', 1] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 1 },
+    },
     {
       type: 'dialog',
       actorName: '？？？',
       text: 'あの世行き前半のグループ、あの世行き前半のグループ。',
     },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 3 } },
     { type: 'dialog', actorName: '？？？', text: 'マルク' },
     { type: 'dialog', actorName: '？？？', text: 'シデン' },
     { type: 'dialog', actorName: '？？？', text: 'パウラ' },
@@ -660,33 +634,71 @@ export const castleAnnounce: Timelines = {
     { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
     { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: 'relog', props: [] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'event',
-      event: 'kill',
-      props: [
-        [55, 12],
-        [55, 13],
-      ],
+      event: removeEventByXYs,
+      contents: {
+        xy: [
+          { x: 55, y: 12 },
+          { x: 55, y: 13 },
+        ],
+      },
     },
-    { type: 'event', event: 'reset', props: ['name1'] },
-    { type: 'event', event: 'reset', props: ['name2'] },
-    { type: 'event', event: 'reset', props: ['name3'] },
-    { type: 'event', event: 'reset', props: ['name4'] },
-    { type: 'event', event: 'reset', props: ['name5'] },
-    { type: 'event', event: 'reset', props: ['name6'] },
-    { type: 'event', event: 'reset', props: ['name7'] },
-    { type: 'event', event: 'reset', props: ['name8'] },
-    { type: 'event', event: 'reset', props: ['name9'] },
-    { type: 'event', event: 'set', props: ['name1', 10, 10, afJK1] },
-    { type: 'event', event: 'set', props: ['name2', 11, 10, afJK2] },
-    { type: 'event', event: 'set', props: ['name3', 12, 10, afBijinesuman] },
-    { type: 'event', event: 'set', props: ['name4', 13, 10, afEruhu] },
-    { type: 'event', event: 'set', props: ['name5', 14, 10, afKisi] },
-    { type: 'event', event: 'set', props: ['name6', 15, 10, afTyuubou] },
-    { type: 'event', event: 'set', props: ['name7', 16, 10, afSyoujo] },
-    { type: 'event', event: 'set', props: ['name8', 17, 10, afMajo] },
-    { type: 'event', event: 'set', props: ['name9', 18, 10, afRoujin] },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name1' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name2' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name3' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name4' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name5' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name6' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name7' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name8' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'name9' } },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name1', x: 10, y: 10, timeline: afJK1 },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name2', x: 11, y: 10, timeline: afJK2 },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name3', x: 12, y: 10, timeline: afBijinesuman },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name4', x: 13, y: 10, timeline: afEruhu },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name5', x: 14, y: 10, timeline: afKisi },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name6', x: 15, y: 10, timeline: afTyuubou },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name7', x: 16, y: 10, timeline: afSyoujo },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name8', x: 17, y: 10, timeline: afMajo },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'name9', x: 18, y: 10, timeline: afRoujin },
+    },
     { type: 'endTimeline' },
   ],
 };

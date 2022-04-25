@@ -1,9 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { funcs } from 'classes/exam';
 import Bte from '@/assets/characters/static/boss/bte.png';
-import { warp0 } from 'classes/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import {
   Aries,
   Taurus,
@@ -49,8 +48,8 @@ import {
   explanation2,
   goBte,
   beforeBteBattle,
-  afterBteBattle,
-} from 'classes/timelineWords2';
+  //afterBteBattle,
+} from 'timelineWords/timelineWords2';
 import { shiden } from 'friends';
 export class Map2 extends Map_TPL {
   public stars: Array<string> = [
@@ -126,22 +125,22 @@ export class Map2 extends Map_TPL {
       super.setHint('reOphiuchuswarp', reOphiuchusWarp);
       super.setEvent('goBte', goBte);
       super.setEvent('beforeBte', beforeBteBattle);
-      super.setEvent('afterBte', afterBteBattle);
+      //super.setEvent('afterBte', afterBteBattle);
     }
   }
-  public warpStar(s: any[]) {
+  public warpPlayerByStar(starName: string, x: number, y: number) {
     if (this.count === -1) {
       this.count = 0;
       this.player?.moveTilePos(7, 12);
       return;
     }
-    if (s[0] !== this.stars[this.count]) {
+    if (starName !== this.stars[this.count]) {
       this.count = -1;
     } else {
       ++this.count;
       this.count %= 12;
     }
-    this.player?.moveTilePos(s[1], s[2]);
+    this.player?.moveTilePos(x, y);
   }
   public update(_time: number, delta: number): void {
     super.update(_time, delta);

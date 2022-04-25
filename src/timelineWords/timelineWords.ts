@@ -1,8 +1,4 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
-import { addShiden } from './timelineWords2';
+import { Timelines } from '../classes/Timelines';
 //テスト
 export const timelineData: Timelines = {
   start: [
@@ -132,7 +128,7 @@ export const prologue: Timelines = {
 
 export const zoomUp: Timelines = {
   start: [
-    { type: 'event', event: 'zoomUp', props: [] },
+    { type: 'event', event: 'zoomUp', contents: {} },
     { type: 'dialog', text: '暑さで目がくらみ視界が悪くなってしまった！' },
     { type: 'endTimeline' },
   ],

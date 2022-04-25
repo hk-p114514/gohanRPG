@@ -1,8 +1,21 @@
-import { enemy } from 'enemies';
-import { mough, pouler, shiden } from 'friends';
-import { Timelines } from './Timelines';
-import { Direction } from './Direction';
-import { oceanGotsuji, volcanoGotsuji } from './timelineWords0';
+import { pouler } from 'friends';
+import { Timelines } from '../classes/Timelines';
+import { Direction } from '../classes/Direction';
+import { volcanoGotsuji } from './timelineWords0';
+import {
+  fixKillBossByName,
+  removeObjectByName,
+  setEventByXY,
+  changeNpcDir,
+  setNpc,
+  removeNpcByName,
+  removeBossByName,
+  displayBubble,
+  displayBossBubble,
+  removeBubble,
+  warpPlayerByXY,
+} from './events';
+
 //Stage3
 export const explanation3: Timelines = {
   start: [
@@ -62,31 +75,83 @@ export const dir3: Timelines = {
 
 export const addPouler: Timelines = {
   start: [
-    { type: 'event', event: 'set', props: ['Shiden', 3, 2, undefined] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'down'] },
-    { type: 'event', event: 'set', props: ['Pouler', 2, 1, undefined] },
-    { type: 'event', event: 'chdir', props: ['Pouler', 'down'] },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Shiden', x: 3, y: 2, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.DOWN },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Pouler', x: 2, y: 1, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Pouler', direction: Direction.DOWN },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: 'あ、あの…。' },
-    { type: 'event', event: 'chdir', props: ['player', 'up'] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'up'] },
-    { type: 'event', event: 'relog', props: [] },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 1 },
+    },
     { type: 'dialog', actorName: 'マルク', text: 'お、どうしたお嬢ちゃん！' },
-    { type: 'event', event: 'log', props: ['Pouler', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: '私も、連れて行ってもらえませんか…？' },
-    { type: 'event', event: 'log', props: ['Shiden', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Shiden', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'シデン', text: 'やめておけ、危険すぎる。' },
-    { type: 'event', event: 'relog', props: [] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'マルク', text: '俺もシデンに賛成かな、敵も多いし。' },
-    { type: 'event', event: 'log', props: ['Pouler', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 3 },
+    },
     {
       type: 'dialog',
       actorName: 'パウラ',
       text: 'でも、お父さんとお母さんを助けたいんです！',
     },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'マルク', text: '…詳しく聞かせてくれ。' },
-    { type: 'event', event: 'log', props: ['Pouler', 4] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
     {
       type: 'dialog',
       actorName: 'パウラ',
@@ -102,14 +167,34 @@ export const addPouler: Timelines = {
       actorName: 'パウラ',
       text: '水を飲めば一時的には治りますが、食事もままならなくなってしまい…。',
     },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'マルク', text: '…分かった、着いて来い。' },
-    { type: 'event', event: 'log', props: ['Pouler', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: '本当ですか！' },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'down'] },
-    { type: 'event', event: 'log', props: ['Shiden', 3] },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.DOWN },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Shiden', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'シデン', text: 'いいのか！マルク！' },
-    { type: 'event', event: 'log', props: ['player', 5] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 5 },
+    },
     {
       type: 'dialog',
       actorName: 'マルク',
@@ -120,18 +205,26 @@ export const addPouler: Timelines = {
       actorName: 'マルク',
       text: 'なら、連れて行って魔王倒して、一緒に両親も救った方がいいだろ。',
     },
-    { type: 'event', event: 'log', props: ['Pouler', 5] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'up'] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 5 },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.UP },
+    },
     {
       type: 'dialog',
       actorName: 'パウラ',
       text: 'あ、ありがとうございます！\n回復魔法が使えるので、一生懸命がんばります！',
     },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'reset', props: ['Shiden'] },
-    { type: 'event', event: 'reset', props: ['Pouler'] },
-    { type: 'event', event: 'delete', props: ['add3'] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
+    { type: 'event', event: removeObjectByName, contents: { name: 'add3' } },
     { type: 'dialog', text: 'パウラが仲間になった！' },
     { type: 'meetFriend', actor: pouler },
     { type: 'endTimeline' },
@@ -141,21 +234,21 @@ export const addPouler: Timelines = {
 export const restart0: Timelines = {
   start: [
     { type: 'dialog', text: '道を踏み外した！' },
-    { type: 'event', event: 'warp', props: [4, 2] },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 4, y: 2 } },
     { type: 'endTimeline' },
   ],
 };
 export const restart1: Timelines = {
   start: [
     { type: 'dialog', text: '道を踏み外した！' },
-    { type: 'event', event: 'warp', props: [58, 3] },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 58, y: 3 } },
     { type: 'endTimeline' },
   ],
 };
 export const restart2: Timelines = {
   start: [
     { type: 'dialog', text: '道を踏み外した！' },
-    { type: 'event', event: 'warp', props: [26, 38] },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 26, y: 38 } },
     { type: 'endTimeline' },
   ],
 };
@@ -171,7 +264,10 @@ export const II: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [59, 3] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 59, y: 3 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 export const III: Timelines = {
@@ -185,7 +281,10 @@ export const III: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [26, 15] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 26, y: 15 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 export const IV: Timelines = {
@@ -199,7 +298,10 @@ export const IV: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [31, 30] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 31, y: 30 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 
@@ -214,7 +316,10 @@ export const reI: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [24, 13] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 24, y: 13 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 export const reII: Timelines = {
@@ -228,7 +333,10 @@ export const reII: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [53, 8] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 53, y: 8 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 export const reIII: Timelines = {
@@ -242,7 +350,10 @@ export const reIII: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [9, 34] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 9, y: 34 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 
@@ -257,51 +368,102 @@ export const warpstart: Timelines = {
       ],
     },
   ],
-  Yes: [{ type: 'event', event: 'warp', props: [4, 2] }, { type: 'endTimeline' }],
+  Yes: [
+    { type: 'event', event: warpPlayerByXY, contents: { x: 4, y: 2 } },
+    { type: 'endTimeline' },
+  ],
   No: [{ type: 'endTimeline' }],
 };
 
 export const goMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'warp', props: [51, 28] },
-    { type: 'event', event: 'set', props: ['Shiden', 52, 29, undefined] },
-    { type: 'event', event: 'set', props: ['Pouler', 50, 29, undefined] },
-    { type: 'event', event: 'chdir', props: ['player', 'up'] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'up'] },
-    { type: 'event', event: 'chdir', props: ['Pouler', 'up'] },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 51, y: 28 } },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Shiden', x: 52, y: 28, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Pouler', x: 50, y: 28, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Pouler', direction: Direction.UP },
+    },
     { type: 'endTimeline' },
   ],
 };
 export const beforeMelcineBattle: Timelines = {
   start: [
-    { type: 'event', event: 'bosslog', props: [3] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'よくぞおいでくださいました！\nこのワタクシこそが、四天王一高貴な男、メルシンなのでっすぅ！！',
     },
-    { type: 'event', event: 'log', props: ['player', 3] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     { type: 'dialog', actorName: 'マルク', text: '…俺もうこいつ嫌いかもしんない。' },
-    { type: 'event', event: 'bosslog', props: [4] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'メルシン', text: 'おやおや、それは残念ですねぇ…。' },
-    { type: 'event', event: 'bosslog', props: [5] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'この美しき海の守り手の魅力が伝わらないだなんて…オヨヨ…。',
     },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'left'] },
-    { type: 'event', event: 'chdir', props: ['Pouler', 'right'] },
-    { type: 'event', event: 'log', props: ['Pouler', 4] },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.LEFT },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Pouler', direction: Direction.RIGHT },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: 'なんだか、騒がしい人ですね。' },
-    { type: 'event', event: 'log', props: ['Shiden', 5] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Shiden', bubbleIndex: 5 },
+    },
     { type: 'dialog', actorName: 'シデン', text: 'ビーテとも大して変わらなそうだな。' },
-    { type: 'event', event: 'bosslog', props: [3] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'up'] },
-    { type: 'event', event: 'chdir', props: ['Pouler', 'up'] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Pouler', direction: Direction.UP },
+    },
     { type: 'dialog', actorName: 'メルシン', text: 'おや、聞き捨てなりませんねぇ！' },
-    { type: 'event', event: 'relog', props: [] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     {
       type: 'dialog',
       actorName: 'メルシン',
@@ -312,46 +474,66 @@ export const beforeMelcineBattle: Timelines = {
       actorName: 'メルシン',
       text: 'やつらは四天王の面汚しに過ぎません…。',
     },
-    { type: 'event', event: 'bosslog', props: [2] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'endTimeline' },
-  ],
-};
-export const afterMelcineBattle: Timelines = {
-  start: [
-    { type: 'event', event: 'bosslog', props: [3] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    //     { type: 'endTimeline' },
+    //   ],
+    // };
+    // export const afterMelcineBattle: Timelines = {
+    //   start: [
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'ぬぅ、このワタクシが、敗れるなど…。',
     },
-    { type: 'event', event: 'bosslog', props: [2] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 2 } },
     {
       type: 'dialog',
       actorName: 'メルシン',
       text: 'こんな無様な幕引きなんて、認めません、認めませんよォォォ！！！',
     },
-    { type: 'event', event: 'log', props: ['player', 2] },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 2 },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.LEFT },
+    },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: 'ごちゃごちゃうるせぇ野郎だな、とっとと行こうぜ。',
     },
-    { type: 'event', event: 'chdir', props: ['player', 'right'] },
-    { type: 'event', event: 'relog', props: [] },
-    { type: 'event', event: 'chdir', props: ['Shiden', 'right'] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.RIGHT },
+    },
     { type: 'dialog', actorName: 'シデン', text: 'うむ、付き合うだけ時間の無駄だ。' },
-    { type: 'event', event: 'bosslog', props: [3] },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'メルシン', text: 'えっ、ちょ。' },
-    { type: 'event', event: 'chdir', props: ['Pouler', 'right'] },
-    { type: 'event', event: 'log', props: ['Pouler', 4] },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Pouler', direction: Direction.RIGHT },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Pouler', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'パウラ', text: 'えぇ…。' },
-    { type: 'event', event: 'relog', props: [] },
+    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: '…結局あんた以外、皆やられちまったよ。' },
     { type: 'dialog', actorName: 'エレカ', text: '当然よ、男は皆軟弱者だもの。' },
@@ -365,14 +547,51 @@ export const afterMelcineBattle: Timelines = {
       actorName: 'エレカ',
       text: '分かっているわ。\nお母様の元へは、虫けら1匹通しはしない…。',
     },
-    { type: 'event', event: 'reset', props: ['Shiden'] },
-    { type: 'event', event: 'reset', props: ['Pouler'] },
-    { type: 'event', event: 'break', props: ['Melcine'] },
-    { type: 'event', event: 'delete', props: ['goMelcine'] },
-    { type: 'event', event: 'delete', props: ['beforeMelcine'] },
-    { type: 'event', event: 'delete', props: ['afterMelcine'] },
-    { type: 'event', event: 'event', props: ['startD', 4, 12, volcanoGotsuji, 'map0'] },
-    { type: 'event', event: 'event', props: ['startD', 4, 13, volcanoGotsuji, 'map0'] },
+    {
+      type: 'event',
+      event: fixKillBossByName,
+      contents: { name: 'Melcine' },
+    },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
+    { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
+    { type: 'event', event: removeBossByName, contents: { name: 'Melcine' } },
+    {
+      type: 'event',
+      event: removeObjectByName,
+      contents: { name: 'goMelcine' },
+    },
+    {
+      type: 'event',
+      event: removeObjectByName,
+      contents: { name: 'beforeMelcine' },
+    },
+    {
+      type: 'event',
+      event: removeObjectByName,
+      contents: { name: 'afterMelcine' },
+    },
+    {
+      type: 'event',
+      event: setEventByXY,
+      contents: {
+        name: 'startD',
+        x: 4,
+        y: 12,
+        timeline: volcanoGotsuji,
+        setEventMap: 'map0',
+      },
+    },
+    {
+      type: 'event',
+      event: setEventByXY,
+      contents: {
+        name: 'startD',
+        x: 4,
+        y: 13,
+        timeline: volcanoGotsuji,
+        setEventMap: 'map0',
+      },
+    },
     { type: 'endTimeline' },
   ],
 };

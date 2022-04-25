@@ -3,14 +3,14 @@ import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
-  afterElecaBattle,
+  addMough,
+  //afterElecaBattle,
   backboss,
   beforeElecaBattle,
   goEleca,
   warpboss,
-} from 'classes/timelineWords4';
-import { zoomUp } from 'classes/timelineWords';
-import { funcs } from 'classes/exam';
+} from 'timelineWords/timelineWords4';
+import { warp0, zoomUp } from 'timelineWords/timelineWords';
 import { mough, pouler, shiden } from 'friends';
 
 export class Map4 extends Map_TPL {
@@ -19,9 +19,6 @@ export class Map4 extends Map_TPL {
   }
   preload() {
     super.preload();
-    // super.setnpcimage('Shiden', 1);
-    // super.setnpcimage('Pouler', 1);
-    // super.setnpcimage('Mough', 1);
     super.setnpcimage('Shiden', 1, shiden.spriteSrc);
     super.setnpcimage('Pouler', 1, pouler.spriteSrc);
     super.setnpcimage('Mough', 1, mough.spriteSrc);
@@ -29,19 +26,16 @@ export class Map4 extends Map_TPL {
   }
   create() {
     super.create();
-    funcs.set(this.name + ',zoomUp', (s: any[]) => {
-      this.zoomUp();
-    });
-    funcs.set(this.name + ',zoomDown', (s: any[]) => {
-      this.zoomDown();
-    });
-    this.setBoss(29, 39, 'Eleca', 0.25);
+    this.setBoss(29, 44, 'Eleca');
+    super.setEvent('exit', warp0);
+    super.setEvent('add4', addMough);
     super.setHint('warpboss', warpboss);
     super.setHint('warptoboss', backboss);
-    super.setEvent('zoomUp', zoomUp);
+    //super.setEvent('zoomUp', zoomUp);
     super.setEvent('goEleca', goEleca);
     super.setEvent('beforeEleca', beforeElecaBattle);
-    super.setEvent('afterEleca', afterElecaBattle);
+    //super.setEvent('afterEleca', afterElecaBattle);
+    super.zoomUp();
   }
 
   public update(_time: number, delta: number): void {

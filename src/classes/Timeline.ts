@@ -1,7 +1,14 @@
 import { Direction } from 'classes/Direction';
-import { Vector } from 'matter';
+import { Map_TPL } from 'scenes/Map.tpl';
+import { Map0 } from 'scenes/Map0';
+import { Map1 } from 'scenes/Map1';
+import { Map2 } from 'scenes/Map2';
+import { Map3 } from 'scenes/Map3';
+import { Map4 } from 'scenes/Map4';
+import { Map5 } from 'scenes/Map5';
 import { BattleActor } from './BattleActor';
 import { Choice } from './Choice';
+import { Timelines } from './Timelines';
 
 // ダイアログ表示イベント
 type DialogEvent = {
@@ -50,8 +57,8 @@ type ChoiceEvent = {
   choices: Choice[];
 };
 
-type Judge = {
-  type: 'judge';
+type IsAllBossDead = {
+  type: 'isAllBossDead';
   scene: string;
   timelineID: string;
 };
@@ -77,14 +84,14 @@ type EndTimeline = {
   type: 'endTimeline';
 };
 /*=================================================== */
-
+export type allMap = Map_TPL | Map0 | Map1 | Map2 | Map3 | Map4 | Map5;
 export type MotionEventProps = {
   x?: number;
   y?: number;
   name?: string;
   direction?: Direction;
   bubbleIndex?: number;
-  timeline?: Timeline;
+  timeline?: Timelines;
   setEventMap?: string;
   battleActor?: BattleActor;
   xy?: { x: number; y: number }[];
@@ -93,8 +100,7 @@ export type MotionEventProps = {
 type MotionEvent = {
   type: 'event';
   event: string;
-  props?: Array<any>;
-  contents?: MotionEventProps;
+  contents: MotionEventProps;
 };
 
 type Switch = {
@@ -115,7 +121,7 @@ export type Timeline = (
   | EndTimeline
   | MotionEvent
   | Switch
-  | Judge
+  | IsAllBossDead
   | meetFriend
 )[];
 
