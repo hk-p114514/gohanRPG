@@ -71,8 +71,7 @@ export class TimelinePlayer extends Scene {
 
   preload() {}
   create() {
-    const enter = this.scene.scene.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
+    const space = this.scene.scene.input.keyboard.addKey('SPACE').on('down', () => {
       this.isTextShow = true;
     });
 
@@ -201,26 +200,30 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-
-  private startevent(key: string, contents: MotionEventProps) {
+  private startevent(key: string, contents?: MotionEventProps) {
     console.log(key);
     switch (key) {
       case fixKillBossByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.fixKillBossByName(contents.name);
       case removeEventByXYs:
+        if (contents === undefined) break;
         if (contents.xy === undefined) break;
         this.anotherScene?.removeEventByXYs(contents.xy);
         break;
       case removeObjectByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeObjectByName(contents.name);
         break;
       case removeBossByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeBossByName(contents.name);
         break;
       case setEventByXY:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -234,15 +237,16 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case changeNpcDir:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.changeNpcDir(contents.name, contents.direction);
         break;
       case setNpc:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
-        if (contents.timeline === undefined) break;
         this.anotherScene?.setNpc(
           contents.name,
           contents.x,
@@ -252,19 +256,23 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case removeNpcByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeNpcByName(contents.name);
         break;
       case movePlayerByDir:
+        if (contents === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.movePlayerByDir(contents.direction);
         break;
       case displayBubble:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.displayBubble(contents.name, contents.bubbleIndex);
         break;
       case displayBossBubble:
+        if (contents === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.displayBossBubble(contents.bubbleIndex);
         break;
@@ -272,11 +280,13 @@ export class TimelinePlayer extends Scene {
         this.anotherScene?.removeBubble();
         break;
       case warpPlayerByXY:
+        if (contents === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         this.anotherScene?.warpPlayerByXY(contents.x, contents.y);
         break;
       case moveBattleBoss:
+        if (contents === undefined) break;
         if (contents.battleActor === undefined) break;
         if (!this.anotherScene?.moveBattleBoss(contents.battleActor)) {
           this.dialogBox?.clearDialogBox();
@@ -297,6 +307,7 @@ export class TimelinePlayer extends Scene {
         this.anotherScene?.zoomDown();
         break;
       case warpPlayerByStar:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -304,6 +315,7 @@ export class TimelinePlayer extends Scene {
           this.anotherScene?.warpPlayerByStar(contents.name, contents.x, contents.y);
         break;
       case createBoss:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
