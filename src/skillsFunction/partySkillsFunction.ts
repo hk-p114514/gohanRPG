@@ -27,9 +27,9 @@ export const diagonalSlash = (
     { type: 'dialog', text: `${attacker.name}の斜め切り！` },
     {
       type: 'dialog',
-      text: `${changeToFriendsView(attacker, targets)}に平均 ${Math.floor(
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
         sum / num,
-      )} ダメージ与えた！`,
+      )} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -161,7 +161,10 @@ export const grailFantasia: SkillFunction = (
   const afterHp = target.hp.current;
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の聖杯の幻想曲！` },
-    { type: 'dialog', text: `${target.name}は${Math.abs(beforeHp - afterHp)}回復した！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+    },
     { type: 'endTimeline' },
   ]);
 };
@@ -248,15 +251,15 @@ export const redDevilRequiem: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の紅魔の鎮魂歌！` },
     {
       type: 'dialog',
-      text: `${changeToFriendsView(attacker, targets)}に平均 ${Math.floor(
+      text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
         sum / num,
-      )} ダメージ与えた！`,
+      )} ダメージ喰らった！`,
     },
     { type: 'dialog', text: `${changeToFriendsView(attacker, targets)}を毒状態にした！` },
     { type: 'endTimeline' },
   ]);
 };
-// 朝ラーの加護
+// 朝ラーの怒り
 export const morningRamenBless: SkillFunction = (
   scene: Scene,
   attacker: BattleActor,
@@ -289,7 +292,7 @@ export const morningRamenBless: SkillFunction = (
       type: 'dialog',
       text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
         hpSum / num,
-      )} 喰らった！`,
+      )} ダメージ喰らった！`,
     },
     {
       type: 'dialog',
@@ -510,7 +513,7 @@ export const uooooo: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}のうおおおおお！` },
     {
       type: 'dialog',
-      text: `${target.name}の攻撃力が${Math.abs(beforeAtk - afterAtk)}下がった！`,
+      text: `${target.name}の攻撃力が ${Math.abs(beforeAtk - afterAtk)} 下がった！`,
     },
     { type: 'endTimeline' },
   ]);
