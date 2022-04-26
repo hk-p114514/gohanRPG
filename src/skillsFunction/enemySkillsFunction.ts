@@ -125,15 +125,14 @@ export const katakunaru: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  const target: BattleActor = targets[0];
-  const beforeDef = target.buff.getDef();
-  target.buff.setBuff(0, target.buff.getDef() * 0.2, 3);
-  const afterDef = target.buff.getDef();
+  const beforeDef = attacker.buff.getDef();
+  attacker.buff.setBuff(0, attacker.buff.getDef() * 0.2, 3);
+  const afterDef = attacker.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のかたくなる！` },
     {
       type: 'dialog',
-      text: `${target.name}の 防御力が${Math.abs(beforeDef - afterDef)}上がった！`,
+      text: `${attacker.name}の 防御力が${Math.abs(beforeDef - afterDef)}上がった！`,
     },
     { type: 'endTimeline' },
   ]);
