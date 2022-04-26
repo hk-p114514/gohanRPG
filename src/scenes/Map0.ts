@@ -37,15 +37,15 @@ export class Map0 extends Map_TPL {
     super.setnpcimage('notMob2', 0);
     super.setnpcimage('notMob3', 0);
     super.setnpcimage('notMob4', 0);
-    super.setnpcimage('JK1', 0);
-    super.setnpcimage('JK2', 0);
-    super.setnpcimage('Bijinesuman', 0);
-    super.setnpcimage('Eruhu', 0);
-    super.setnpcimage('Kisi', 0);
-    super.setnpcimage('Tyuubou', 0);
-    super.setnpcimage('Syoujo', 0);
-    super.setnpcimage('Majo', 0);
-    super.setnpcimage('Roujin', 0);
+    super.setnpcimage('Bijinesuman', 1);
+    super.setnpcimage('JK1', 2);
+    super.setnpcimage('JK2', 3);
+    super.setnpcimage('Tyuubou', 4);
+    super.setnpcimage('Eruhu', 5);
+    super.setnpcimage('Kisi', 6);
+    super.setnpcimage('Majo', 7);
+    super.setnpcimage('Syoujo', 8);
+    super.setnpcimage('Roujin', 9);
   }
   create() {
     super.create();
