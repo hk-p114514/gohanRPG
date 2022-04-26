@@ -7,5 +7,5 @@ import npc5 from '@/assets/characters/dynamic/sample005.png';
 import npc6 from '@/assets/characters/dynamic/sample003.png';
 import npc7 from '@/assets/characters/dynamic/sample006.png';
 import npc8 from '@/assets/characters/dynamic/sample012.png';
-import npc9 from '@/assets/characters/dynamic/sample013.png';
+import npc9 from '@/assets/characters/dynamic/sample051.png';
 export const charas = [npc0, npc1, npc2, npc3, npc4, npc5, npc6, npc7, npc8, npc9];

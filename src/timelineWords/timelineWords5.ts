@@ -967,7 +967,7 @@ export const startEleca: Timelines = {
     { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！' },
     { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: createBoss, contents: { x: 50, y: 35, name: 'Obc' } },
+    { type: 'event', event: createBoss, contents: { x: 48, y: 35, name: 'Obc' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },

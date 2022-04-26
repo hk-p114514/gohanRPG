@@ -9,6 +9,7 @@ import {
   movePlayerByDir,
   displayBubble,
   removeBubble,
+  talkNPC,
 } from './events';
 
 export const warp1: Timelines = {
@@ -48,12 +49,12 @@ export const tutorial1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: "'SPACE'keyかマウスカーソルのクリックで会話を進める事が出来ます。",
+      text: " 'SPACE' keyかマウスカーソルのクリックで会話を進める事が出来ます。",
       actorName: '識者',
     },
     {
       type: 'dialog',
-      text: "'Space'keyで人に話しかけたり、\n看板などを調べたりすることができます。",
+      text: " 'Space' keyで人に話しかけたり、\n看板などを調べたりすることができます。",
       actorName: '識者',
     },
     {
@@ -366,8 +367,8 @@ export const volcanoGotsuji: Timelines = {
 };
 
 export const beBijinesuman: Timelines = {
-  //sample019.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '魔王の影響が僕のビジネスにまで及んできた...\n誰か倒してくれないかなぁ。',
@@ -376,27 +377,7 @@ export const beBijinesuman: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
-export const beJK1: Timelines = {
-  //sample018.png
-  //
-  start: [
-    {
-      type: 'dialog',
-      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
-      actorName: '金髪JK',
-    },
-    {
-      type: 'dialog',
-      text: 'わかるー。ウチもそうだよ。どうにかなんないかなぁ。',
-      actorName: '黒髪JK',
-      //
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const beJK2: Timelines = {
-  //sample018.png
+export const beJK: Timelines = {
   start: [
     {
       type: 'dialog',
@@ -413,7 +394,6 @@ export const beJK2: Timelines = {
   ],
 };
 export const beTyuubou: Timelines = {
-  //sample015.png
   start: [
     {
       type: 'dialog',
@@ -424,8 +404,8 @@ export const beTyuubou: Timelines = {
   ],
 };
 export const beEruhu: Timelines = {
-  //sample005.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '魔王軍のやつらのせいで僕の家がある森に誰も遊びに来なくなっちゃったよ。\n寂しいな...。',
@@ -435,8 +415,8 @@ export const beEruhu: Timelines = {
   ],
 };
 export const beKisi: Timelines = {
-  //sample003.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: 'ふっ魔王軍なんぞ恐るるに足らず！この町は私が守る！',
@@ -446,7 +426,6 @@ export const beKisi: Timelines = {
   ],
 };
 export const beMajo: Timelines = {
-  //sample006.png
   start: [
     {
       type: 'dialog',
@@ -457,8 +436,8 @@ export const beMajo: Timelines = {
   ],
 };
 export const beSyoujo: Timelines = {
-  //sample012.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '私も魔法少女プリラみたいに大きくなったら悪い奴を退治するのー。',
@@ -468,8 +447,8 @@ export const beSyoujo: Timelines = {
   ],
 };
 export const beRoujin: Timelines = {
-  //sample013.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: 'おぬしのその装備...さては魔王退治じゃな？\nほっほっほっ、頼もしい若者も居たもんじゃ。',
@@ -480,8 +459,8 @@ export const beRoujin: Timelines = {
 };
 
 export const afBijinesuman: Timelines = {
-  //sample019.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '魔王軍のやつらが減って僕のビジネスが好調だよ！ありがとう！',
@@ -490,24 +469,7 @@ export const afBijinesuman: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const afJK1: Timelines = {
-  //sample018.png
-  start: [
-    {
-      type: 'dialog',
-      text: '門限ちょっとはマシになったけどまだまだキツいわー。',
-      actorName: '金髪JK',
-    },
-    {
-      type: 'dialog',
-      text: '魔王が倒されたら元に戻るかなぁ。',
-      actorName: '黒髪JK',
-    },
-    { type: 'endTimeline' },
-  ],
-};
-export const afJK2: Timelines = {
-  //sample017.png
+export const afJK: Timelines = {
   start: [
     {
       type: 'dialog',
@@ -523,7 +485,6 @@ export const afJK2: Timelines = {
   ],
 };
 export const afTyuubou: Timelines = {
-  //sample015.png
   start: [
     {
       type: 'dialog',
@@ -534,8 +495,8 @@ export const afTyuubou: Timelines = {
   ],
 };
 export const afEruhu: Timelines = {
-  //sample005.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '人が森に来てくれるようになって楽しい毎日に戻ったよ、ありがとう！\nあとは魔王だけらしいね、がんばってね！',
@@ -545,8 +506,8 @@ export const afEruhu: Timelines = {
   ],
 };
 export const afKisi: Timelines = {
-  //sample003.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: 'この町はこの俺に任せろ！君は魔王にだけに集中しろ！がんばれ！',
@@ -556,7 +517,6 @@ export const afKisi: Timelines = {
   ],
 };
 export const afMajo: Timelines = {
-  //sample006.png
   start: [
     {
       type: 'dialog',
@@ -567,8 +527,8 @@ export const afMajo: Timelines = {
   ],
 };
 export const afSyoujo: Timelines = {
-  //sample012.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: '私も大きくなったらあなたみたいに強くなれるかなー？',
@@ -578,8 +538,8 @@ export const afSyoujo: Timelines = {
   ],
 };
 export const afRoujin: Timelines = {
-  //sample013.png
   start: [
+    { type: 'event', event: talkNPC },
     {
       type: 'dialog',
       text: 'やはりおぬしは頼もしい若者じゃ！平和のためにも、魔王をがんばって倒してくれ！！',
@@ -668,12 +628,22 @@ export const castleAnnounce: Timelines = {
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'JK1', x: 10, y: 10, timeline: afJK1 },
+      contents: { name: 'JK1', x: 10, y: 10, timeline: afJK },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'JK1', direction: Direction.RIGHT },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'JK2', x: 11, y: 10, timeline: afJK2 },
+      contents: { name: 'JK2', x: 11, y: 10, timeline: afJK },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'JK1', direction: Direction.LEFT },
     },
     {
       type: 'event',
@@ -697,8 +667,18 @@ export const castleAnnounce: Timelines = {
     },
     {
       type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Tyuubou', direction: Direction.UP },
+    },
+    {
+      type: 'event',
       event: setNpc,
       contents: { name: 'Syoujo', x: 16, y: 10, timeline: afSyoujo },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Syoujo', direction: Direction.RIGHT },
     },
     {
       type: 'event',
@@ -709,6 +689,11 @@ export const castleAnnounce: Timelines = {
       type: 'event',
       event: setNpc,
       contents: { name: 'Roujin', x: 18, y: 10, timeline: afRoujin },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Roujin', direction: Direction.LEFT },
     },
     { type: 'endTimeline' },
   ],

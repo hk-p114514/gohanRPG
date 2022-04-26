@@ -13,8 +13,7 @@ import {
   stopr,
   afterGotsuji,
   stoper,
-  beJK1,
-  beJK2,
+  beJK,
   beBijinesuman,
   beEruhu,
   beKisi,
@@ -49,15 +48,15 @@ export class Map0 extends Map_TPL {
   }
   create() {
     super.create();
-    super.makeNPC('JK1', beJK1);
-    super.makeNPC('JK2', beJK2);
+    super.makeNPC('JK1', beJK, 'right');
+    super.makeNPC('JK2', beJK, 'left');
     super.makeNPC('Bijinesuman', beBijinesuman);
     super.makeNPC('Eruhu', beEruhu);
     super.makeNPC('Kisi', beKisi);
-    super.makeNPC('Tyuubou', beTyuubou);
-    super.makeNPC('Syoujo', beSyoujo);
+    super.makeNPC('Tyuubou', beTyuubou, 'up');
+    super.makeNPC('Syoujo', beSyoujo, 'up');
     super.makeNPC('Majo', beMajo);
-    super.makeNPC('Roujin', beRoujin);
+    super.makeNPC('Roujin', beRoujin, 'left');
     super.makeNPC('notMob', afterGotsuji);
     super.makeNPC('stoper1', stoper);
     super.makeNPC('stoper2', stoper);
