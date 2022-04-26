@@ -25,7 +25,7 @@ export const carSuspendBlade = (
     if (target.hp.current > 0) {
       const beforeHp = target.hp.current;
       for (i = 0; i < 2; i++) {
-        target.beInjured(target.buff.getAtk() * 0.4);
+        target.beInjured(attacker.buff.getAtk() * 0.4);
       }
       const afterHp = target.hp.current;
       sum = Math.abs(beforeHp - afterHp);
@@ -193,6 +193,25 @@ export const driveThrough = (
   ]);
 };
 
+// エラーオブフェザー
+export const errorOfPhaser = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  if (!randI(100)) {
+    targets.forEach((target: BattleActor) => {
+      target.hp.current = 0;
+    });
+  }
+  skillDialog(scene, [
+    { type: 'dialog', text: 'GohanRPG.exe は動作を停止しました。' },
+    { type: 'dialog', text: 'なんちゃって' },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // js上の詠唱曲
 export const airOnJs: SkillFunction = (
   scene: Scene,
@@ -206,6 +225,27 @@ export const airOnJs: SkillFunction = (
   const afterHp = target.hp.current;
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のjs上の詠唱曲！` },
+    {
+      type: 'dialog',
+      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// jsonの円舞曲
+export const jsonWaltz = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  const target = targets[0];
+  const beforeHp = target.hp.current;
+  target.beInjured(attacker.buff.getAtk() * 1.2);
+  const afterHp = target.hp.current;
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のjsonの円舞曲！` },
     {
       type: 'dialog',
       text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
@@ -412,6 +452,30 @@ export const morningRamenBless: SkillFunction = (
   ]);
 };
 
+// 阿吽の加護
+export const aunBless = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
+  if (!targets.length) return;
+  let sum: number = 0,
+    num: number = 0;
+  targets.forEach((target: BattleActor) => {
+    const beforeDef = target.buff.getDef();
+    target.buff.setBuff(0, target.buff.getDef() * 0.3, 2);
+    const afterDef = target.buff.getDef();
+    sum += Math.abs(beforeDef - afterDef);
+    num++;
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}の阿吽の加護！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${
+        sum / num
+      } 上がった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
 // 精霊の加護
 export const spiritBless: SkillFunction = (
   scene: Scene,
@@ -469,6 +533,7 @@ export const forestGrace: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
+    { type: 'dialog', text: '仲間たちは元気を取り戻した！' },
     {
       type: 'dialog',
       text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
@@ -558,13 +623,12 @@ export const protect: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  const target = targets[0];
-  target.state.activeState('provocation', 4);
+  attacker.state.activeState('provocation', 4);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のまもる！` },
     {
       type: 'dialog',
-      text: `${target.name}は挑発し、${changeToFriendsView(
+      text: `${attacker}は挑発し、${changeToFriendsView(
         attacker,
         targets,
       )}の注意を引いた！`,
@@ -640,16 +704,15 @@ export const daikiLate: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  const target = targets[0];
-  target.state.activeState('provocation', 3);
-  target.buff.setBuff(0, 1000000, 1);
+  attacker.state.activeState('provocation', 3);
+  attacker.buff.setBuff(0, 1000000, 1);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のたいきばんせい！` },
     {
       type: 'dialog',
-      text: `${target.name}は${changeToFriendsView(attacker, targets)}の注意を引いた！`,
+      text: `${attacker.name}は${changeToFriendsView(attacker, targets)}の注意を引いた！`,
     },
-    { type: 'dialog', text: `${target.name}の防御力がかなり上がった！` },
+    { type: 'dialog', text: `${attacker.name}の防御力がかなり上がった！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -670,6 +733,44 @@ export const charge: SkillFunction = (
     {
       type: 'dialog',
       text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+    },
+    { type: 'endTimeline' },
+  ]);
+};
+
+// きあい
+export const matchFelt = (
+  scene: Scene,
+  attacker: BattleActor,
+  targets: BattleActor[],
+) => {
+  if (!targets.length) return;
+  let atkSum: number = 0,
+    defSum: number = 0,
+    num: number = 0;
+  targets.forEach((target: BattleActor) => {
+    const beforeAtk = target.buff.getAtk();
+    const beforeDef = target.buff.getDef();
+    target.buff.setBuff(target.buff.getAtk() * 0.2, target.buff.getDef() * 0.2, 2);
+    const afterAtk = target.buff.getAtk();
+    const afterDef = target.buff.getDef();
+    atkSum += Math.abs(beforeAtk - afterAtk);
+    defSum += Math.abs(beforeDef - afterDef);
+    num++;
+  });
+  skillDialog(scene, [
+    { type: 'dialog', text: `${attacker.name}のきあい！` },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の攻撃力が平均 ${
+        atkSum / num
+      } 上がった！`,
+    },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}の防御力が平均 ${
+        defSum / num
+      } 上がった！`,
     },
     { type: 'endTimeline' },
   ]);
