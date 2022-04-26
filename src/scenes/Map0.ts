@@ -13,8 +13,7 @@ import {
   stopr,
   afterGotsuji,
   stoper,
-  beJK1,
-  beJK2,
+  beJK,
   beBijinesuman,
   beEruhu,
   beKisi,
@@ -37,27 +36,27 @@ export class Map0 extends Map_TPL {
     super.setnpcimage('notMob2', 0);
     super.setnpcimage('notMob3', 0);
     super.setnpcimage('notMob4', 0);
-    super.setnpcimage('JK1', 0);
-    super.setnpcimage('JK2', 0);
-    super.setnpcimage('Bijinesuman', 0);
-    super.setnpcimage('Eruhu', 0);
-    super.setnpcimage('Kisi', 0);
-    super.setnpcimage('Tyuubou', 0);
-    super.setnpcimage('Syoujo', 0);
-    super.setnpcimage('Majo', 0);
-    super.setnpcimage('Roujin', 0);
+    super.setnpcimage('Bijinesuman', 1);
+    super.setnpcimage('JK1', 2);
+    super.setnpcimage('JK2', 3);
+    super.setnpcimage('Tyuubou', 4);
+    super.setnpcimage('Eruhu', 5);
+    super.setnpcimage('Kisi', 6);
+    super.setnpcimage('Majo', 7);
+    super.setnpcimage('Syoujo', 8);
+    super.setnpcimage('Roujin', 9);
   }
   create() {
     super.create();
-    super.makeNPC('JK1', beJK1);
-    super.makeNPC('JK2', beJK2);
+    super.makeNPC('JK1', beJK, 'right');
+    super.makeNPC('JK2', beJK, 'left');
     super.makeNPC('Bijinesuman', beBijinesuman);
     super.makeNPC('Eruhu', beEruhu);
     super.makeNPC('Kisi', beKisi);
-    super.makeNPC('Tyuubou', beTyuubou);
-    super.makeNPC('Syoujo', beSyoujo);
+    super.makeNPC('Tyuubou', beTyuubou, 'up');
+    super.makeNPC('Syoujo', beSyoujo, 'up');
     super.makeNPC('Majo', beMajo);
-    super.makeNPC('Roujin', beRoujin);
+    super.makeNPC('Roujin', beRoujin, 'left');
     super.makeNPC('notMob', afterGotsuji);
     super.makeNPC('stoper1', stoper);
     super.makeNPC('stoper2', stoper);

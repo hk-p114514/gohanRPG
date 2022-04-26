@@ -169,7 +169,7 @@ export class Map_TPL extends Scene {
       system.collidesFlag = !system.collidesFlag;
     });
     const F = this.input.keyboard.addKey('F').on('down', () => {
-      system.battleFlag = !system.battleFlag;
+      system.DEBUG_isIgnoreBattle = !system.DEBUG_isIgnoreBattle;
     });
     const V = this.input.keyboard.addKey('V').on('down', () => {
       system.eventFlag = !system.eventFlag;
@@ -256,7 +256,7 @@ export class Map_TPL extends Scene {
                 anotherScene: this,
                 timelineData: n,
               });
-            } else if (!randI(denominator) && system.battleFlag) {
+            } else if (!randI(denominator) && system.DEBUG_isIgnoreBattle) {
               this.moveBattle();
             }
           } else {
@@ -330,6 +330,18 @@ export class Map_TPL extends Scene {
       this.player?.changedir(direction);
     } else {
       console.log('not found');
+    }
+  }
+  public talkNPC() {
+    if (!!this.player) {
+      let playerPoint = this.player.getTilePos();
+      let playerDirection = this.player.getdir();
+      playerPoint.x += map.get(playerDirection).x;
+      playerPoint.y += map.get(playerDirection).y;
+      if (npcs.has(system.map + ',' + playerPoint.x + ',' + playerPoint.y)) {
+        let n = npcs.get(system.map + ',' + playerPoint.x + ',' + playerPoint.y);
+        n.changedir(this.player.getReverseDir());
+      }
     }
   }
   //キャラを配置する

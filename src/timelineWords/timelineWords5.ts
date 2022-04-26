@@ -967,7 +967,7 @@ export const startEleca: Timelines = {
     { type: 'dialog', actorName: 'マウ', text: 'ウオオオオオオ！' },
     { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: createBoss, contents: { x: 50, y: 35, name: 'Obc' } },
+    { type: 'event', event: createBoss, contents: { x: 48, y: 35, name: 'Obc' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
@@ -1328,6 +1328,11 @@ export const beforeObcBattle: Timelines = {
       event: removeObjectByName,
       contents: { name: 'afterObc' },
     },
+    {
+      type: 'event',
+      event: removeBossByName,
+      contents: { name: 'Obc' },
+    },
     { type: 'dialog', actorName: 'マルク', text: '腹…減ってんだよ…。' },
     { type: 'dialog', text: '…………。' },
     { type: 'dialog', actorName: '？？？', text: '…きなさい！起きなさい！' },
@@ -1357,6 +1362,7 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
     { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'sceneTransition', key: 'title' },
     { type: 'endTimeline' },
   ],
 };

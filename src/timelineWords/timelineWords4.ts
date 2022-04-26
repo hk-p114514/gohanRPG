@@ -348,7 +348,7 @@ export const beforeElecaBattle: Timelines = {
       actorName: 'マルク',
       text: '…あれ？もしかしてピンと来てないの俺だけ？',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'エレカ',
@@ -382,7 +382,7 @@ export const beforeElecaBattle: Timelines = {
       actorName: 'エレカ',
       text: '全員まとめて叩き潰す。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     //     { type: 'endTimeline' },
     //   ],
     // };

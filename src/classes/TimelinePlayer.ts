@@ -32,6 +32,7 @@ import {
   zoomDown,
   warpPlayerByStar,
   createBoss,
+  talkNPC,
 } from 'timelineWords/events';
 
 export class TimelinePlayer extends Scene {
@@ -321,6 +322,9 @@ export class TimelinePlayer extends Scene {
         if (contents.y === undefined) break;
         if (this.anotherScene instanceof Map5)
           this.anotherScene?.createBoss(contents.x, contents.y, contents.name);
+        break;
+      case talkNPC:
+        this.anotherScene?.talkNPC();
         break;
     }
     // }
