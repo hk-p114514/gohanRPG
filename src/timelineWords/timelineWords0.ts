@@ -100,8 +100,12 @@ export const tutorial1: Timelines = {
     { type: 'dialog', text: '・・・・・・。' },
     {
       type: 'dialog',
-      text: 'この後、謎の漫才師に捕まり色々されてしまうことを、俺はまだ知らなかった。',
+      text: 'この後、俺は謎の漫才師に捕まり、色々されてしまうのだった。',
       actorName: 'マルク',
+    },
+    {
+      type: 'sceneTransition',
+      key: 'gameover',
     },
     { type: 'endTimeline' },
   ],

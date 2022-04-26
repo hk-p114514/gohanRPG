@@ -1362,6 +1362,7 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', text: 'これは、定職に就かぬ男が、定食を求め旅する物語…' },
     { type: 'dialog', text: '〜 GohanRPG Fin 〜' },
+    { type: 'sceneTransition', key: 'title' },
     { type: 'endTimeline' },
   ],
 };
