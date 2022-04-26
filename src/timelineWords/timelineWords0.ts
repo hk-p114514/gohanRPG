@@ -48,7 +48,7 @@ export const tutorial1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '主人公の移動は十字keyで行います。',
+      text: "'SPACE'keyかマウスカーソルのクリックで会話を進める事が出来ます。",
       actorName: '識者',
     },
     {
@@ -58,12 +58,12 @@ export const tutorial1: Timelines = {
     },
     {
       type: 'dialog',
-      text: "'SPACE'keyかマウスカーソルのクリックで会話を進める事が出来ます。",
+      text: 'また、会話中に出てくる選択肢はマウスカーソルで選ぶことができます。',
       actorName: '識者',
     },
     {
       type: 'dialog',
-      text: 'また、会話中に出てくる選択肢はマウスカーソルで選ぶことができます。',
+      text: 'ちなみに主人公の移動は十字keyで行います。',
       actorName: '識者',
     },
     {
@@ -79,7 +79,6 @@ export const tutorial1: Timelines = {
         { text: '制作者風情が話しかけるな', timelineID: 'end' },
       ],
     },
-    { type: 'endTimeline' },
   ],
   Yes: [
     { type: 'event', event: removeObjectByName, contents: { name: 'tutorial1' } },
@@ -100,10 +99,9 @@ export const tutorial1: Timelines = {
     { type: 'dialog', text: '・・・・・・。' },
     {
       type: 'dialog',
-      text: 'この後、俺は謎の漫才師に捕まり、\n色々されてしまうのだった・・・。',
+      text: 'この後、謎の漫才師に捕まり色々されてしまうことを、俺はまだ知らなかった。',
       actorName: 'マルク',
     },
-    //GameOverにする。
     { type: 'endTimeline' },
   ],
 };
@@ -238,6 +236,11 @@ export const desertGotsuji: Timelines = {
       contents: { name: 'notMob2', x: 6, y: 22, timeline: undefined },
     },
     {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'notMob2', direction: Direction.LEFT },
+    },
+    {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'おお！帰ったか若者よ！\n街はお主の噂で持ち切りじゃぞ！',
@@ -281,13 +284,16 @@ export const desertGotsuji: Timelines = {
   ],
 };
 export const oceanGotsuji: Timelines = {
-  //sample018.png
-  //
   start: [
     {
       type: 'event',
       event: setNpc,
       contents: { name: 'notMob3', x: 53, y: 22, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'notMob2', direction: Direction.RIGHT },
     },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
@@ -330,6 +336,11 @@ export const volcanoGotsuji: Timelines = {
       type: 'event',
       event: setNpc,
       contents: { name: 'notMob4', x: 6, y: 12, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'notMob2', direction: Direction.LEFT },
     },
     { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {

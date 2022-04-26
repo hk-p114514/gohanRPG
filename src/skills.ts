@@ -88,8 +88,11 @@ import {
 } from 'skillsFunction/bossSkillsFunction';
 import {
   airOnJs,
+  assault,
+  aunBless,
   beHard,
   beStrong,
+  carSuspendBlade,
   causalCar,
   charge,
   conductorFinale,
@@ -98,13 +101,17 @@ import {
   diagonalSlash,
   dreamSlash,
   driveThrough,
+  errorOfPhaser,
   forestGrace,
   grailFantasia,
   highHeal,
+  jsonWaltz,
+  matchFelt,
   megaHeal,
   morningRamenBless,
   picoHeal,
   protect,
+  psychologyRhapsody,
   redDevilRequiem,
   sageSerenade,
   shaveSlash,
@@ -229,17 +236,21 @@ export const obcSkills: Skill[] = [
 ];
 
 export const marcSkills: Skill[] = [
+  new Skill('車懸りの刃', carSuspendBlade, true, true),
   new Skill('斜め切り', diagonalSlash, true, true),
   new Skill('そぎ切り', shaveSlash, false, true), // そぎ切り（中攻撃）
   new Skill('夢翔斬', dreamSlash, false, true), // 夢翔斬（超強攻撃、自分に眠り）
   new Skill('因果の小車', causalCar, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
   new Skill('舞車', danceCar, false, false),
   new Skill('ドライブスルー', driveThrough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
+  new Skill('エラーオブフェザー', errorOfPhaser, true, true),
 ];
 
 export const shidenSkills: Skill[] = [
   new Skill('js上の詠唱曲', airOnJs, false, true),
+  new Skill('jsonの円舞曲', jsonWaltz, false, true),
   new Skill('tiledの回旋曲', tiledRondo, false, false),
+  new Skill('心理の狂詩曲', psychologyRhapsody, false, true),
   new Skill('聖杯の幻想曲', grailFantasia, false, false),
   new Skill('指揮者の終曲', conductorFinale, false, true),
   new Skill('賢者の小夜曲', sageSerenade, false, true),
@@ -248,18 +259,22 @@ export const shidenSkills: Skill[] = [
 
 export const poulerSkills: Skill[] = [
   new Skill('朝ラーの怒り', morningRamenBless, true, true),
+  new Skill('阿吽の加護', aunBless, true, false),
   new Skill('精霊の加護', spiritBless, true, false),
-  new Skill('杜の恵み', forestGrace, true, false),
+  new Skill('杜の恵み', forestGrace, true, false, true),
+  new Skill('ヒール', heal, false, false),
   new Skill('ピコヒール', picoHeal, false, false),
   new Skill('メガヒール', megaHeal, false, false),
   new Skill('ハイヒール', highHeal, false, true),
 ];
 
 export const moughSkills: Skill[] = [
-  new Skill('まもる', protect, false, false),
+  new Skill('まもる', protect, true, false),
+  new Skill('せめる', assault, false, true),
   new Skill('つよくなる', beStrong, false, true),
   new Skill('かたくなる', beHard, true, false),
-  new Skill('たいきばんせい', daikiLate, false, false),
+  new Skill('たいきばんせい', daikiLate, true, false),
   new Skill('とつげき', charge, false, true),
+  new Skill('きあい', matchFelt, true, false),
   new Skill('うおおおおお', uooooo, false, true),
 ];
