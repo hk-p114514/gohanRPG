@@ -54,7 +54,7 @@ export const tutorial1: Timelines = {
     },
     {
       type: 'dialog',
-      text: " 'Space' keyで人に話しかけたり、\n看板などを調べたりすることができます。",
+      text: " 'SPACE' keyで人に話しかけたり、\n看板などを調べたりすることができます。",
       actorName: '識者',
     },
     {
@@ -106,7 +106,6 @@ export const tutorial1: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const explanation: Timelines = {
   start: [
     {
@@ -122,12 +121,12 @@ export const explanation: Timelines = {
       contents: { name: 'player', direction: Direction.RIGHT },
     },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 3 } },
-    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん' },
+    { type: 'dialog', actorName: 'マルク', text: 'ん？なんか用か？爺さん。' },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: '村の中そんな格好で出てくるとは珍しい\nどこか行くところでもあるのか？',
+      text: '村の中そんな格好で出てくるとは珍しい。\nどこか行くところでもあるのか？',
     },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: 'あぁ、魔王…' },
@@ -143,7 +142,7 @@ export const explanation: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…',
+      text: '食堂が魔王に占拠され、ついには魔王城とまで呼ばれるようになり、もう何ヶ月になるかのう…。',
     },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 1 } },
     {
@@ -157,13 +156,13 @@ export const explanation: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ',
+      text: '無策ではいかんなぁ、この間突入した警備隊は、入ることすら叶わなんだ。',
     },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…',
+      text: 'なんでも、入り口には4つの鍵がかかっておったそうじゃ…。',
     },
     {
       type: 'dialog',
@@ -180,26 +179,26 @@ export const explanation: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…',
+      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…。',
     },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 5 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…',
+      text: 'ワシが若い頃はよく婆さんとピクニックに行ったのぅ…。',
     },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…',
+      text: 'あの頃はワシもブイブイ言わしておってな、\n婆さんは魔物を次々に倒すワシの勇姿にほれぼれしててのぅ、\nしかし今ではそんなワシを尻に敷くんじゃから人間わからんもんで…。',
     },
     {
       type: 'dialog',
       actorName: 'マルク',
-      text: 'これもうそのまま行っちゃっていいかな…',
+      text: 'これもうそのまま行っちゃっていいかな…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper1' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper2' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper3' } },
@@ -221,7 +220,6 @@ export const explanation: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const afterGotsuji: Timelines = {
   start: [
     { type: 'dialog', actorName: 'ダカフ', text: 'あの頃はよかったの〜！' },
@@ -267,7 +265,7 @@ export const desertGotsuji: Timelines = {
       actorName: 'ダカフ',
       text: 'さぁ、ワシもこうしちゃいられん！次の噂の聞き込みじゃ！',
     },
-    { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん' },
+    { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん。' },
     {
       type: 'event',
       event: removeEventByXYs,
@@ -301,7 +299,7 @@ export const oceanGotsuji: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…',
+      text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…。',
     },
     { type: 'dialog', actorName: 'ダカフ', text: 'こんな年寄りに負けて悔しくないのか！' },
     { type: 'dialog', actorName: 'マルク', text: '別に競ってはな' },
@@ -371,7 +369,7 @@ export const beBijinesuman: Timelines = {
     { type: 'event', event: talkNPC },
     {
       type: 'dialog',
-      text: '魔王の影響が僕のビジネスにまで及んできた...\n誰か倒してくれないかなぁ。',
+      text: '魔王の影響が僕のビジネスにまで及んできた...。\n誰か倒してくれないかなぁ。',
       actorName: 'ビジネスマン',
     },
     { type: 'endTimeline' },
@@ -381,7 +379,7 @@ export const beJK: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '最近魔王のせいでウチの門限厳しくなってさーマジ最悪ー。',
+      text: '最近魔王のせいでウチの門限厳しくなってさー、マジ最悪ー。',
       actorName: '金髪JK',
     },
     {
@@ -397,7 +395,7 @@ export const beTyuubou: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '魔王なんてオレのこの腕の力で...ブツブツ',
+      text: '魔王なんてオレのこの腕の力で...ブツブツ。',
       actorName: '中坊',
     },
     { type: 'endTimeline' },
@@ -429,7 +427,7 @@ export const beMajo: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '（小声）クククッ魔除け薬なんてある訳ないじゃないww\n魔除け薬はいかがですかー？',
+      text: '（クククッ魔除け薬なんてある訳ないじゃないww。）\n魔除け薬はいかがですかー？',
       actorName: '怪しげな魔女',
     },
     { type: 'endTimeline' },
@@ -488,7 +486,7 @@ export const afTyuubou: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '俺が毎晩行っている儀式が効いているようだな...。\nあとはお前だけだ魔王よ。クククッ...',
+      text: '俺が毎晩行っている儀式が効いているようだな...。\nあとはお前だけだ魔王よ。クククッ...。',
       actorName: '中坊',
     },
     { type: 'endTimeline' },
@@ -520,7 +518,7 @@ export const afMajo: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: '（小声）このおこづかい稼ぎも潮時かぁ...。',
+      text: '（このおこづかい稼ぎも潮時かぁ...。）',
       actorName: '怪しげな魔女',
     },
     { type: 'endTimeline' },
@@ -559,22 +557,26 @@ export const stopl: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'おっと、その先はまだ主には危険じゃぞい',
+      text: 'おっと、その先はまだ主には危険じゃぞい。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: movePlayerByDir, contents: { direction: Direction.LEFT } },
     { type: 'endTimeline' },
   ],
 };
 export const stopr: Timelines = {
   start: [
-    { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 3 } },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'おっと、その先はまだ主には危険じゃぞい',
+      text: 'おっと、その先はまだ主には危険じゃぞい。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: movePlayerByDir,
@@ -605,7 +607,7 @@ export const castleAnnounce: Timelines = {
     { type: 'dialog', actorName: '？？？', text: 'マスクの着用を忘れないように。' },
     { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: removeEventByXYs,

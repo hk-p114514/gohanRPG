@@ -129,7 +129,7 @@ export const addPouler: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'やめておけ、危険すぎる。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'マルク', text: '俺もシデンに賛成かな、敵も多いし。' },
     {
       type: 'event',
@@ -221,7 +221,7 @@ export const addPouler: Timelines = {
       text: 'あ、ありがとうございます！\n回復魔法が使えるので、一生懸命がんばります！',
     },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeObjectByName, contents: { name: 'add3' } },
@@ -463,7 +463,7 @@ export const beforeMelcineBattle: Timelines = {
       contents: { name: 'Pouler', direction: Direction.UP },
     },
     { type: 'dialog', actorName: 'メルシン', text: 'おや、聞き捨てなりませんねぇ！' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'メルシン',
@@ -480,7 +480,7 @@ export const beforeMelcineBattle: Timelines = {
       actorName: 'メルシン',
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     //     { type: 'endTimeline' },
     //   ],
     // };
@@ -513,7 +513,7 @@ export const beforeMelcineBattle: Timelines = {
       actorName: 'マルク',
       text: 'ごちゃごちゃうるせぇ野郎だな、とっとと行こうぜ。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: changeNpcDir,
@@ -533,7 +533,7 @@ export const beforeMelcineBattle: Timelines = {
       contents: { name: 'Pouler', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'パウラ', text: 'えぇ…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: '…結局あんた以外、皆やられちまったよ。' },
     { type: 'dialog', actorName: 'エレカ', text: '当然よ、男は皆軟弱者だもの。' },
