@@ -179,7 +179,7 @@ export const explanation: Timelines = {
     {
       type: 'dialog',
       actorName: 'ダカフ',
-      text: 'サバレーか、懐かしいのぅ、確かこの道を左に行ったところじゃったかのう…。',
+      text: 'サバレーか、懐かしいのぅ、確かこの町の南西にあったかのう…。',
     },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 5 } },
     {
@@ -265,6 +265,7 @@ export const desertGotsuji: Timelines = {
       actorName: 'ダカフ',
       text: 'さぁ、ワシもこうしちゃいられん！次の噂の聞き込みじゃ！',
     },
+    { type: 'event', event: removeNpcByName, contents: { name: 'notMob2' } },
     { type: 'dialog', actorName: 'マルク', text: '…誰だ、今の爺さん。' },
     {
       type: 'event',
@@ -278,7 +279,6 @@ export const desertGotsuji: Timelines = {
         ],
       },
     },
-    { type: 'event', event: removeNpcByName, contents: { name: 'notMob2' } },
     { type: 'endTimeline' },
   ],
 };
@@ -292,7 +292,7 @@ export const oceanGotsuji: Timelines = {
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'notMob2', direction: Direction.RIGHT },
+      contents: { name: 'notMob3', direction: Direction.RIGHT },
     },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
     { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
@@ -339,7 +339,7 @@ export const volcanoGotsuji: Timelines = {
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'notMob2', direction: Direction.LEFT },
+      contents: { name: 'notMob4', direction: Direction.LEFT },
     },
     { type: 'dialog', actorName: 'ダカフ', text: 'さ！最後はキーマボルケーノじゃ！' },
     {

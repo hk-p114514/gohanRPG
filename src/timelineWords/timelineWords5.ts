@@ -1328,6 +1328,11 @@ export const beforeObcBattle: Timelines = {
       event: removeObjectByName,
       contents: { name: 'afterObc' },
     },
+    {
+      type: 'event',
+      event: removeBossByName,
+      contents: { name: 'Obc' },
+    },
     { type: 'dialog', actorName: 'マルク', text: '腹…減ってんだよ…。' },
     { type: 'dialog', text: '…………。' },
     { type: 'dialog', actorName: '？？？', text: '…きなさい！起きなさい！' },

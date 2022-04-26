@@ -642,7 +642,7 @@ export const CapricornWarp: Timelines = {
     {
       type: 'event',
       event: warpPlayerByStar,
-      contents: { name: 'Capricorn', x: 43, y: 12 },
+      contents: { name: 'Capricorn', x: 38, y: 12 },
     },
     { type: 'endTimeline' },
   ],
@@ -971,7 +971,7 @@ export const reOphiuchusWarp: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 13 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 12 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
