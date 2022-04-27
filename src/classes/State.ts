@@ -76,6 +76,10 @@ export class State {
     this.states.forEach((state: StateInfo) => {
       this.passiveState(state.name);
     });
+    this.damageBuff = 0;
+    this.isPossible = true;
+    this.skillBuff = 0;
+    this.isProvocation = false;
   }
 
   /**

@@ -126,7 +126,7 @@ export const katakunaru: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const beforeDef = attacker.buff.getDef();
-  attacker.buff.setBuff(0, attacker.buff.getDef() * 0.2, 3);
+  attacker.buff.setBuff(0, attacker.buff.getDef() * 0.5, 3);
   const afterDef = attacker.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のかたくなる！` },
