@@ -17,10 +17,11 @@ export class System {
   public battling?: Battling;
   public DEBUG_isIgnoreBattle: boolean = true;
   public isBossKilled: Map<string, boolean> = new Map();
-  public collidesFlag: boolean = true;
-  public eventFlag: boolean = true;
   public isBossBattle: boolean = false;
   public boss?: BattleActor;
+  public isBossBattleWin: boolean = false;
+  public collidesFlag: boolean = true;
+  public eventFlag: boolean = true;
   constructor(initMap: string, party: BattleActor[]) {
     this.map = initMap;
     this.party = party;
@@ -76,5 +77,13 @@ export class System {
     if (this.battling) {
       this.battling.selectedSkill = skill;
     }
+  }
+
+  winToBoss() {
+    this.isBossBattleWin = true;
+
+    return () => {
+      this.isBossBattleWin = false;
+    };
   }
 }
