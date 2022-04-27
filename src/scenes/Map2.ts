@@ -81,8 +81,13 @@ export class Map2 extends Map_TPL {
     {
       this.setBoss(7, 18, 'Bte', system.isBossKilled.get('Bte'));
       super.setEvent('exit', warp0);
-      super.makeNPC('Shiden', meetShiden, 'down');
-      super.setEvent('meet2', meetShiden);
+      super.makeNPC(
+        'Shiden',
+        meetShiden,
+        'down',
+        system.isExistActorInParty(shiden.name),
+      );
+      super.setEvent('meet2', meetShiden, system.isExistActorInParty(shiden.name));
       super.setHint('explanation2', explanation2);
       super.setHint('Aries', Aries);
       super.setHint('Taurus', Taurus);

@@ -29,7 +29,7 @@ export class Map4 extends Map_TPL {
     {
       this.setBoss(29, 44, 'Eleca', system.isBossKilled.get('Eleca'));
       super.setEvent('exit', warp0);
-      super.setEvent('add4', addMough);
+      super.setEvent('add4', addMough, system.isExistActorInParty(mough.name));
       super.setHint('warpboss', warpboss);
       super.setHint('warptoboss', backboss);
       super.setEvent('goEleca', goEleca, system.isBossKilled.get('Eleca'));
