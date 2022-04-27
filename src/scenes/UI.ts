@@ -19,7 +19,6 @@ type Unit = {
 
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
-  private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
   private statesTexts: GameObjects.Text[] = [];
   private targetStates: GameObjects.Text[] = [];
   private executeButton: { text: GameObjects.Text; rectangle: GameObjects.Rectangle }[] =
@@ -105,15 +104,6 @@ export class UI extends Scene {
 
     // 敵キャラクターを表示
     this.drawActors(boxHeight);
-
-    // プレイヤーキャラクターのデータを表示するテキストを作成する
-    let { x, y } = this.menuUI;
-    const margin = this.boxMargin;
-    this.playerData.forEach((data) => {
-      const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
-      this.statesTexts.push(text);
-      y += margin;
-    });
   }
 
   update(time: number, delta: number) {
@@ -190,9 +180,17 @@ export class UI extends Scene {
     });
   }
 
+  // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示
   drawPlayerData(): void {
-    // 作ったボックスの一番左に操作対象のキャラクターのステータスを表示する
+    // ステータステキストをクリア
+    this.statesTexts.forEach((text) => {
+      text.destroy();
+    });
+    this.statesTexts = [];
+
+    // 味方（主人公側）の場合のみ表示
     if (this.playerShowUi) {
+      const margin = this.boxMargin;
       const { current, max } = this.playerShowUi.hp;
       const { current: mp, max: mpMax } = this.playerShowUi.mp;
       const data: string[] = [
@@ -203,9 +201,13 @@ export class UI extends Scene {
         `DEF: ${this.playerShowUi.def}`,
         `SPD: ${this.playerShowUi.speed}`,
       ];
-      // statesTextsの中身を更新する
-      this.statesTexts.forEach((text, i) => {
-        text.setText(data[i]);
+
+      // テキストの表示
+      let { x, y } = this.menuUI;
+      data.forEach((data) => {
+        const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
+        this.statesTexts.push(text);
+        y += margin;
       });
     }
   }
@@ -277,8 +279,10 @@ export class UI extends Scene {
           skillText.setText('▶' + skillText.text);
 
           const { forAllTargets, forEnemy } = skill.getSkillInfo();
+
           // バトルシーンのシーンを取得
           const battleScene = this.scene.get(sceneKeys.battle) as Battle;
+
           if (!forAllTargets) {
             // 単体効果
             let targetActorX = x + margin + boxWidth * 2 - textPadding.left;
@@ -332,8 +336,7 @@ export class UI extends Scene {
                 this.drawTargetStates(member);
 
                 const okTextX = x + margin + boxWidth * 3 - boxWidth / 3;
-                const okTextY =
-                  y + margin - textPadding.top + (boxHeight - boxHeight / 6);
+                const okTextY = y + boxHeight - margin;
                 const okRectangle = this.add
                   .rectangle(okTextX, okTextY, boxWidth / 3, 30)
                   .setStrokeStyle(1, this.buttonStyle.strokeStyle)
@@ -395,7 +398,7 @@ export class UI extends Scene {
           } else {
             // 全体効果
             const okTextX = x + margin + boxWidth * 3 - boxWidth / 3;
-            const okTextY = y + margin - textPadding.top + (boxHeight - boxHeight / 6);
+            const okTextY = y + boxHeight - margin;
             const okRectangle = this.add
               .rectangle(okTextX, okTextY, boxWidth / 3, 30)
               .setStrokeStyle(1, this.buttonStyle.strokeStyle)
@@ -461,14 +464,7 @@ export class UI extends Scene {
     const margin = this.boxMargin;
     const boxWidth = this.menuUI.width;
     const boxHeight = this.menuUI.height;
-    let targetStatesX = x + margin + boxWidth * 2;
-    let targetStatesY = y + boxHeight / 2;
 
-    this.playerData.forEach((data) => {
-      const text = this.add.text(targetStatesX, targetStatesY, data, this.fontStyle);
-      this.targetStates.push(text);
-      targetStatesY += margin;
-    });
     const { current, max } = actor.hp;
     const { current: mp, max: mpMax } = actor.mp;
     const data: string[] = [
@@ -479,9 +475,15 @@ export class UI extends Scene {
       `DEF: ${actor.def}`,
       `SPD: ${actor.speed}`,
     ];
-    // targetStatesの中身を更新する
-    this.targetStates.forEach((text, i) => {
-      text.setText(data[i]);
+
+    let targetStatesX = x + margin + boxWidth * 2;
+    let targetStatesY = y + boxHeight - data.length * margin;
+
+    // 攻撃対象のステータスを表示して、targetStatesにステータスの個々を格納する
+    data.forEach((data) => {
+      const text = this.add.text(targetStatesX, targetStatesY, data, this.fontStyle);
+      this.targetStates.push(text);
+      targetStatesY += margin;
     });
   }
 }
