@@ -92,7 +92,8 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
-  public makeNPC(name: string, took: Timelines, dir?: string) {
+  public makeNPC(name: string, took: Timelines, dir?: string, flag: boolean = false) {
+    if (flag) return;
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
@@ -110,7 +111,8 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うふむタイプのイベントを配置する関数
   //name=eventName,took=イベント内容(timelineWords参照)
-  public setEvent(name: string, took: Timelines) {
+  public setEvent(name: string, took: Timelines, flag: boolean = false) {
+    if (flag) return;
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
@@ -268,7 +270,15 @@ export class Map_TPL extends Scene {
     }
   }
 
-  public setBoss(x: number, y: number, boss: string, scale = 0.5, half = false) {
+  public setBoss(
+    x: number,
+    y: number,
+    boss: string,
+    flag: boolean = false,
+    scale = 0.5,
+    half = false,
+  ) {
+    if (flag) return;
     this.boss = this.add
       .sprite(
         x * tileSize + tileSize / 2 + (half ? 20 : 0),
