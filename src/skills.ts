@@ -101,7 +101,6 @@ import {
   diagonalSlash,
   dreamSlash,
   driveThrough,
-  errorOfPhaser,
   forestGrace,
   grailFantasia,
   highHeal,
@@ -109,6 +108,7 @@ import {
   matchFelt,
   megaHeal,
   morningRamenBless,
+  pandoraBox,
   picoHeal,
   protect,
   psychologyRhapsody,
@@ -243,7 +243,7 @@ export const marcSkills: Skill[] = [
   new Skill('因果の小車', causalCar, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
   new Skill('舞車', danceCar, false, false),
   new Skill('ドライブスルー', driveThrough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
-  new Skill('エラーオブフェザー', errorOfPhaser, true, true),
+  new Skill('パンドラの箱', pandoraBox, true, true),
 ];
 
 export const shidenSkills: Skill[] = [
