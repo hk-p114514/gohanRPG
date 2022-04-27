@@ -193,8 +193,8 @@ export const driveThrough = (
   ]);
 };
 
-// エラーオブフェザー
-export const errorOfPhaser = (
+// パンドラの箱
+export const pandoraBox = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -206,8 +206,11 @@ export const errorOfPhaser = (
     });
   }
   skillDialog(scene, [
-    { type: 'dialog', text: '縺ゅ＞縺�∴縺� �撰ｼ托ｼ抵ｼ�' },
-    { type: 'dialog', text: 'なんちゃって' },
+    {
+      type: 'dialog',
+      text: '縺ゅ＞縺�∴縺� �撰ｼ托ｼ抵ｼ���ｽゑｽ� �ｸ�ｹ�ｺ��ｽゑｽ� �ｸ�ｹ�ｺ譁�ｭ怜喧縺代ヱ繧ｿ繝ｼ繝ｳ讖溯�繝ｻ遐皮ｩｶ�樞包ｼ搾ｼ�ｿ��｡繹ｱ竭�竇｡',
+    },
+    { type: 'dialog', text: 'な  ん  ち  ゃ  っ  て' },
     { type: 'endTimeline' },
   ]);
 };
