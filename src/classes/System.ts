@@ -52,6 +52,20 @@ export class System {
     return 0;
   }
 
+  public findActorInPartyByName(name: string): BattleActor[] {
+    return this.party.filter((actor) => actor.name === name);
+  }
+
+  public isExistActorInParty(name: string): boolean {
+    const actors = this.findActorInPartyByName(name);
+
+    if (actors.length <= 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   setActor(actor: BattleActor) {
     this.battling = {
       actor,
