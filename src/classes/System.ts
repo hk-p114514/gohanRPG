@@ -29,6 +29,11 @@ export class System {
     this.isBossKilled.set('Bte', false);
     this.isBossKilled.set('Melcine', false);
     this.isBossKilled.set('Eleca', false);
+    this.isBossKilled.set('reAte', false);
+    this.isBossKilled.set('reBte', false);
+    this.isBossKilled.set('reMelcine', false);
+    this.isBossKilled.set('reEleca', false);
+    this.isBossKilled.set('OBC', false);
   }
 
   public preload() {}
