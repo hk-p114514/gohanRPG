@@ -331,9 +331,7 @@ export class TimelinePlayer extends Scene {
   }
 
   private addFriend(actor: BattleActor) {
-    if (!system.party.includes(actor)) {
-      system.party.push(actor);
-    }
+    system.addPartyActor(actor);
   }
 
   // ダイアログの作成
