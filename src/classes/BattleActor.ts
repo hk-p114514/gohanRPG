@@ -31,6 +31,7 @@ export type LimitValue = {
 
 type AddStatus = {
   maxHp: number;
+  maxMp: number;
   atk: number;
   def: number;
   speed: number;
@@ -102,6 +103,7 @@ export class BattleActor {
 
   changeStatus(status: AddStatus) {
     this.hp.max = this.hp.current = Math.floor(status.maxHp);
+    this.mp.max = this.mp.current = Math.floor(status.maxMp);
     this.atk = Math.floor(status.atk);
     this.def = Math.floor(status.def);
     this.speed = Math.floor(status.speed);
@@ -112,6 +114,7 @@ export class BattleActor {
       atk: this.atk * rate,
       def: this.def * rate,
       maxHp: this.hp.max * rate,
+      maxMp: this.mp.max * rate,
       speed: this.speed * rate,
     });
   }
