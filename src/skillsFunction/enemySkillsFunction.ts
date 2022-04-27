@@ -456,7 +456,7 @@ export const hagaizime: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の羽交い締め！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -840,7 +840,7 @@ export const hakidas: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の吐き出す！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -907,7 +907,7 @@ export const fuuka: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の風化！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -987,7 +987,7 @@ export const jikakkakun: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の時価駆っくん！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
