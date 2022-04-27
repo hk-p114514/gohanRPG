@@ -101,7 +101,6 @@ import {
   diagonalSlash,
   dreamSlash,
   driveThrough,
-  errorOfPhaser,
   forestGrace,
   grailFantasia,
   highHeal,
@@ -109,6 +108,7 @@ import {
   matchFelt,
   megaHeal,
   morningRamenBless,
+  pandoraBox,
   picoHeal,
   protect,
   psychologyRhapsody,
@@ -164,7 +164,7 @@ export const stateSkills: Skill[] = [
   new Skill('パラライズ', pararaizu, false, true), // 単体攻撃（マヒ）
   new Skill('木漏れ日', komorebi, false, true), // 単体攻撃（眠り）
   new Skill('羽交い締め', hagaizime, false, true), // 単体攻撃（関節痛）
-  new Skill('ブレイクダンス', breakdance, false, false), // 単体攻撃（挑発）
+  new Skill('ブレイクダンス', breakdance, true, false), // 単体攻撃（挑発）
   new Skill('咀嚼', soshaku, false, true), // 単体攻撃（毒）
   new Skill('同情を誘う', doujou, false, true), // 単体攻撃（毒）
   new Skill('過呼吸', kakokyu, false, true), // 単体攻撃（眠り）
@@ -243,7 +243,7 @@ export const marcSkills: Skill[] = [
   new Skill('因果の小車', causalCar, false, true), // 因果の小車（強攻撃、死か外れるまで攻撃し続ける）
   new Skill('舞車', danceCar, false, false),
   new Skill('ドライブスルー', driveThrough, false, true), // ドライブスルー（強攻撃、被害者にマヒ）
-  new Skill('エラーオブフェザー', errorOfPhaser, true, true),
+  new Skill('パンドラの箱', pandoraBox, true, true),
 ];
 
 export const shidenSkills: Skill[] = [

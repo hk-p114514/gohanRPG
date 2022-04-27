@@ -20,7 +20,11 @@ type Unit = {
 export class UI extends Scene {
   private graphics?: GameObjects.Graphics;
   private playerData: string[] = [`name`, `hp/max`, `mp/max`, `atk`, `def`, `spd`];
-  private playerTexts: GameObjects.Text[] = [];
+  private statesTexts: GameObjects.Text[] = [];
+  private targetStates: GameObjects.Text[] = [];
+  private executeButton: { text: GameObjects.Text; rectangle: GameObjects.Rectangle }[] =
+    [];
+  private buttonStyle = { strokeStyle: 0xffffff, fillStyle: 0x1e90ff };
   private playerSkills: GameObjects.Text[] = [];
   private targetActors: Phaser.GameObjects.Text[] = [];
   private playerShowUi?: BattleActor = system.battling?.actor;
@@ -31,7 +35,7 @@ export class UI extends Scene {
   private units: Unit[] = [];
   private hpBar = { width: 100, height: 10, margin: 20 };
   private fontStyle = {
-    fontSize: '20px',
+    fontSize: '18px',
     color: '#ffffff',
   };
   private boxMargin: number = 30;
@@ -48,10 +52,10 @@ export class UI extends Scene {
   }
 
   init(data: { actors: BattleActor[][]; battleScene: Scene }) {
-    this.playerTexts = [];
+    this.statesTexts = [];
     this.playerSkills = [];
     this.targetActors = [];
-    // this.playerShowUi = system.battling?.actor;
+    this.targetStates = [];
     this.playerShowUi = undefined;
     this.isTurnActor = true;
     // 配列をそのまま代入しているので、参照先が同じになる。
@@ -107,7 +111,7 @@ export class UI extends Scene {
     const margin = this.boxMargin;
     this.playerData.forEach((data) => {
       const text = this.add.text(x + margin, y + margin, data, this.fontStyle);
-      this.playerTexts.push(text);
+      this.statesTexts.push(text);
       y += margin;
     });
   }
@@ -197,10 +201,10 @@ export class UI extends Scene {
         `MP_: ${mp}/${mpMax}`,
         `ATK: ${this.playerShowUi.atk}`,
         `DEF: ${this.playerShowUi.def}`,
+        `SPD: ${this.playerShowUi.speed}`,
       ];
-
-      // playerTextsの中身を更新する
-      this.playerTexts.forEach((text, i) => {
+      // statesTextsの中身を更新する
+      this.statesTexts.forEach((text, i) => {
         text.setText(data[i]);
       });
     }
@@ -244,10 +248,34 @@ export class UI extends Scene {
             useHandCursor: true,
           })
           .setPadding(textPadding);
+
+        //スキルが選択された場合
         skillText.on('pointerdown', () => {
+          // 攻撃対象のテキストの削除
           this.targetActors.forEach((text) => {
             text.destroy();
           });
+          // 実行ボタンのテキストのクリア
+          this.executeButton.forEach((text) => {
+            text.text.destroy();
+            text.rectangle.destroy();
+          });
+          // 攻撃の対象者のステータス表示をクリア
+          this.targetStates.forEach((text, i) => {
+            text.setText('');
+          });
+          // 配列自体をなくす
+          this.targetActors = [];
+          this.executeButton = [];
+
+          // 選択されたら、そのスキルだけ「▶」をつける
+          this.playerSkills.forEach((text) => {
+            if (text.text[0] === '▶') {
+              text.setText(text.text.slice(1));
+            }
+          });
+          skillText.setText('▶' + skillText.text);
+
           const { forAllTargets, forEnemy } = skill.getSkillInfo();
           // バトルシーンのシーンを取得
           const battleScene = this.scene.get(sceneKeys.battle) as Battle;
@@ -277,50 +305,147 @@ export class UI extends Scene {
                   useHandCursor: true,
                 })
                 .setPadding(textPadding);
+
+              //スキルの対象者が選択された場合
               targetText.on('pointerdown', () => {
-                // 攻撃対象のテキストの削除
+                // 実行ボタンのクリア
+                this.executeButton.forEach((text) => {
+                  text.text.destroy();
+                  text.rectangle.destroy();
+                });
+                // 配列自体をなくす
+                this.executeButton = [];
+
+                // 選択されたら、その攻撃対象者だけ「▶」をつける
                 this.targetActors.forEach((text) => {
-                  text.destroy();
+                  if (text.text[0] === '▶') {
+                    text.setText(text.text.slice(1));
+                  }
                 });
-                // スキルのテキストの削除
-                this.playerSkills.forEach((text) => {
-                  text.destroy();
+                targetText.setText('▶' + targetText.text);
+
+                // 攻撃の対象者のステータス表示をクリア
+                this.targetStates.forEach((text, i) => {
+                  text.setText('');
                 });
-                // スキルの実行
-                skill.exe(battleScene, actor, [member]);
-                // バトルシーンを再開させる
-                this.battleScene?.scene.resume();
+                // 選択された対象者のステータスを表示
+                this.drawTargetStates(member);
+
+                const okTextX = x + margin + boxWidth * 3 - boxWidth / 3;
+                const okTextY =
+                  y + margin - textPadding.top + (boxHeight - boxHeight / 6);
+                const okRectangle = this.add
+                  .rectangle(okTextX, okTextY, boxWidth / 3, 30)
+                  .setStrokeStyle(1, this.buttonStyle.strokeStyle)
+                  .setInteractive({
+                    useHandCursor: true,
+                  });
+                const okText = this.add.text(0, 0, 'OK', { fontSize: '25px' });
+                // okTextをokRectangleの真ん中にもってくる
+                Phaser.Display.Align.In.Center(okText, okRectangle);
+
+                okRectangle.on('pointerdown', () => {
+                  // 攻撃対象のテキストの削除
+                  this.targetActors.forEach((text) => {
+                    text.destroy();
+                  });
+                  // スキルのテキストの削除
+                  this.playerSkills.forEach((text) => {
+                    text.destroy();
+                  });
+                  // 実行ボタンのテキストのクリア
+                  this.executeButton.forEach((text) => {
+                    text.text.destroy();
+                    text.rectangle.destroy();
+                  });
+                  // 攻撃の対象者のステータスをクリア
+                  this.targetStates.forEach((text, i) => {
+                    text.setText('');
+                  });
+                  // 配列自体をなくす
+                  this.targetActors = [];
+                  this.playerSkills = [];
+                  this.executeButton = [];
+
+                  // スキルの実行
+                  skill.exe(battleScene, actor, [member]);
+
+                  // バトルシーンを再開させる
+                  this.battleScene?.scene.resume();
+                });
+
+                okRectangle.on('pointerover', () => {
+                  okRectangle.setFillStyle(this.buttonStyle.fillStyle);
+                });
+                okRectangle.on('pointerout', () => {
+                  okRectangle.setFillStyle();
+                });
+                this.executeButton.push({ text: okText, rectangle: okRectangle });
               });
+
               targetText.on('pointerover', () => {
                 targetText.setFill('#ff0000');
               });
               targetText.on('pointerout', () => {
-                targetText.setFill('#ffffff');
+                targetText.setFill(this.fontStyle.color);
               });
               this.targetActors.push(targetText);
               targetActorY += margin;
             });
           } else {
             // 全体効果
-            if (forEnemy) {
-              skill.exe(battleScene, actor, this.enemies);
-            } else {
-              skill.exe(battleScene, actor, this.party);
-            }
-            // スキルのテキストの削除
-            this.playerSkills.forEach((text) => {
-              text.destroy();
+            const okTextX = x + margin + boxWidth * 3 - boxWidth / 3;
+            const okTextY = y + margin - textPadding.top + (boxHeight - boxHeight / 6);
+            const okRectangle = this.add
+              .rectangle(okTextX, okTextY, boxWidth / 3, 30)
+              .setStrokeStyle(1, this.buttonStyle.strokeStyle)
+              .setInteractive({
+                useHandCursor: true,
+              });
+            const okText = this.add.text(0, 0, 'OK', { fontSize: '25px ' });
+            // okTextをokRectangleの真ん中にもってくる
+            Phaser.Display.Align.In.Center(okText, okRectangle);
+
+            okRectangle.on('pointerdown', () => {
+              // スキルのテキストの削除
+              this.playerSkills.forEach((text) => {
+                text.destroy();
+              });
+              // 実行ボタンのテキストの削除
+              this.executeButton.forEach((text) => {
+                text.text.destroy();
+                text.rectangle.destroy();
+              });
+              // 配列自体をなくす
+              this.playerSkills = [];
+              this.executeButton = [];
+
+              // スキルの実行
+              if (forEnemy) {
+                skill.exe(battleScene, actor, this.enemies);
+              } else {
+                skill.exe(battleScene, actor, this.party);
+              }
+              // バトルシーンを再開させる
+              this.battleScene?.scene.resume();
             });
-            // バトルシーンを再開させる
-            this.battleScene?.scene.resume();
+
+            okRectangle.on('pointerover', () => {
+              okRectangle.setFillStyle(this.buttonStyle.fillStyle);
+            });
+            okRectangle.on('pointerout', () => {
+              okRectangle.setFillStyle();
+            });
+            this.executeButton.push({ text: okText, rectangle: okRectangle });
           }
         });
+
         // マウスオーバーで色が変わるように設定
         skillText.on('pointerover', () => {
           skillText.setFill('#ff0000');
         });
         skillText.on('pointerout', () => {
-          skillText.setFill('#ffffff');
+          skillText.setFill(this.fontStyle.color);
         });
         this.playerSkills.push(skillText);
         playerSkillY += margin;
@@ -328,5 +453,35 @@ export class UI extends Scene {
       this.playerShowUi = actor;
       this.isTurnActor = false;
     }
+  }
+
+  // 攻撃対象のステータスを表示
+  private drawTargetStates(actor: BattleActor): void {
+    const { x, y } = this.menuUI;
+    const margin = this.boxMargin;
+    const boxWidth = this.menuUI.width;
+    const boxHeight = this.menuUI.height;
+    let targetStatesX = x + margin + boxWidth * 2;
+    let targetStatesY = y + boxHeight / 2;
+
+    this.playerData.forEach((data) => {
+      const text = this.add.text(targetStatesX, targetStatesY, data, this.fontStyle);
+      this.targetStates.push(text);
+      targetStatesY += margin;
+    });
+    const { current, max } = actor.hp;
+    const { current: mp, max: mpMax } = actor.mp;
+    const data: string[] = [
+      `${actor.name}`,
+      `HP_: ${current}/${max}`,
+      `MP_: ${mp}/${mpMax}`,
+      `ATK: ${actor.atk}`,
+      `DEF: ${actor.def}`,
+      `SPD: ${actor.speed}`,
+    ];
+    // targetStatesの中身を更新する
+    this.targetStates.forEach((text, i) => {
+      text.setText(data[i]);
+    });
   }
 }
