@@ -40,7 +40,7 @@ export class Map3 extends Map_TPL {
       this.setBoss(51, 24, 'Mel', system.isBossKilled.get('Melcine'), 0.25);
       super.setEvent('exit', warp0);
       super.setHint('explanation2', explanation3);
-      super.setEvent('add3', addPouler);
+      super.setEvent('add3', addPouler, system.isExistActorInParty(pouler.name));
       super.setEvent('goMelcine', goMelcine, system.isBossKilled.get('Melcine'));
       super.setEvent(
         'beforeMelcine',
