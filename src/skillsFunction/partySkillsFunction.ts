@@ -28,7 +28,7 @@ export const carSuspendBlade = (
         target.beInjured(attacker.buff.getAtk() * 0.6);
       }
       const afterHp = target.hp.current;
-      sum = Math.abs(beforeHp - afterHp);
+      sum += Math.abs(beforeHp - afterHp);
       num++;
     }
   });
