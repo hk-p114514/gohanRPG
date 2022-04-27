@@ -20,7 +20,7 @@ import { Map_TPL } from './Map.tpl';
 export class Battle extends Scene {
   public static readonly availableSkillCount: number = 4;
   public static readonly maxEnemiesAppearance: number = 3;
-  private party: BattleActor[] = [...system.party];
+  private party: BattleActor[] = [...system.getParty()];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
   private index: number = 0;
@@ -33,7 +33,7 @@ export class Battle extends Scene {
   }
 
   init() {
-    this.party = [...system.party];
+    this.party = [...system.getParty()];
     this.enemies = [];
     this.sorted = [];
     this.index = 0;
