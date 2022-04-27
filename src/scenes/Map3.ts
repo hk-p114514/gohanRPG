@@ -36,26 +36,28 @@ export class Map3 extends Map_TPL {
   }
   create() {
     super.create();
-    this.setBoss(51, 24, 'Mel', 0.25);
-    super.setEvent('exit', warp0);
-    super.setHint('explanation2', explanation3);
-    super.setEvent('add3', addPouler);
-    super.setEvent('goMelcine', goMelcine);
-    super.setEvent('beforeMelcine', beforeMelcineBattle);
-    //super.setEvent('afterMelcine', afterMelcineBattle);
-    super.setEvent('restart', restart0);
-    super.setEvent('restart1', restart1);
-    super.setEvent('restart2', restart2);
-    super.setHint('woop', II);
-    super.setHint('woop1', III);
-    super.setHint('woop2', IV);
-    super.setHint('woopto1', reI);
-    super.setHint('woop1to2', reII);
-    super.setHint('wooptoboss', reIII);
-    super.setHint('woopstart', warpstart);
-
-    // イベントの位置を取得
-    // const events = this.tileMap?.filterTiles((tile) => {});
+    {
+      this.setBoss(51, 24, 'Mel', system.isBossKilled.get('Melcine'), 0.25);
+      super.setEvent('exit', warp0);
+      super.setHint('explanation2', explanation3);
+      super.setEvent('add3', addPouler);
+      super.setEvent('goMelcine', goMelcine, system.isBossKilled.get('Melcine'));
+      super.setEvent(
+        'beforeMelcine',
+        beforeMelcineBattle,
+        system.isBossKilled.get('Melcine'),
+      );
+      super.setEvent('restart', restart0);
+      super.setEvent('restart1', restart1);
+      super.setEvent('restart2', restart2);
+      super.setHint('woop', II);
+      super.setHint('woop1', III);
+      super.setHint('woop2', IV);
+      super.setHint('woopto1', reI);
+      super.setHint('woop1to2', reII);
+      super.setHint('wooptoboss', reIII);
+      super.setHint('woopstart', warpstart);
+    }
   }
 
   public update(_time: number, delta: number): void {

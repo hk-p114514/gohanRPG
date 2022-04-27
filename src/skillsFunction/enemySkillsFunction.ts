@@ -126,7 +126,7 @@ export const katakunaru: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const beforeDef = attacker.buff.getDef();
-  attacker.buff.setBuff(0, attacker.buff.getDef() * 0.2, 3);
+  attacker.buff.setBuff(0, attacker.buff.getDef() * 0.5, 3);
   const afterDef = attacker.buff.getDef();
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のかたくなる！` },
@@ -456,7 +456,7 @@ export const hagaizime: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の羽交い締め！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -469,13 +469,12 @@ export const breakdance: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  const target: BattleActor = targets[0];
-  target.state.activeState('provocation', 3);
+  attacker.state.activeState('provocation', 3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のブレイクダンス！` },
     {
       type: 'dialog',
-      text: `${target.name}は 挑発し始めた！`,
+      text: `${attacker.name}は 挑発し始めた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -841,7 +840,7 @@ export const hakidas: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の吐き出す！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -908,7 +907,7 @@ export const fuuka: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の風化！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -988,7 +987,7 @@ export const jikakkakun: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の時価駆っくん！` },
     {
       type: 'dialog',
-      text: `${target.name}は 関節痛状態になった！`,
+      text: `${target.name}は トラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);

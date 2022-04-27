@@ -12,6 +12,7 @@ import {
   removeBubble,
   warpPlayerByXY,
   createBoss,
+  fixKillBossByName,
 } from './events';
 
 export const explanation5: Timelines = {
@@ -315,6 +316,11 @@ export const startAte: Timelines = {
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
     {
       type: 'event',
+      event: fixKillBossByName,
+      contents: { name: 'reAte' },
+    },
+    {
+      type: 'event',
       event: removeObjectByName,
       contents: { name: 'startAte' },
     },
@@ -557,6 +563,11 @@ export const startBte: Timelines = {
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
     {
       type: 'event',
+      event: fixKillBossByName,
+      contents: { name: 'reBte' },
+    },
+    {
+      type: 'event',
       event: removeObjectByName,
       contents: { name: 'startBte' },
     },
@@ -771,6 +782,11 @@ export const startMelcine: Timelines = {
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
     {
       type: 'event',
+      event: fixKillBossByName,
+      contents: { name: 'reMelcine' },
+    },
+    {
+      type: 'event',
       event: removeObjectByName,
       contents: { name: 'startMelcine' },
     },
@@ -971,6 +987,11 @@ export const startEleca: Timelines = {
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
+    {
+      type: 'event',
+      event: fixKillBossByName,
+      contents: { name: 'reEleca' },
+    },
     {
       type: 'event',
       event: removeObjectByName,

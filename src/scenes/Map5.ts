@@ -54,39 +54,44 @@ export class Map5 extends Map_TPL {
   }
   create() {
     super.create();
-    this.createBoss(8, 35, 'Ate');
-    //this.createBoss(48, 36, 'Obc');
-    super.setHint('explanation5', explanation5);
-    super.setEvent('exit', warp0);
-    super.setEvent('toboss1', warpAte);
-    super.setEvent('toboss2', warpBte);
-    super.setEvent('toboss3', warpMelcine);
-    super.setEvent('toboss4', warpEleca);
-    super.setEvent('tolastboss', warpObc);
-    super.setEvent('spawnPoint1', backAte);
-    super.setEvent('spawnPoint2', backBte);
-    super.setEvent('spawnPoint3', backMelcine);
-    super.setEvent('spawnPoint4', backEleca);
-    super.setEvent('spawnPoint5', backObc);
-    super.setEvent('goAte', goReAte);
-    super.setEvent('startAte', startAte);
-    super.setEvent('goBte', goReBte);
-    super.setEvent('startBte', startBte);
-    super.setEvent('goMelcine', goReMelcine);
-    super.setEvent('startMelcine', startMelcine);
-    super.setEvent('goEleca', goReEleca);
-    super.setEvent('startEleca', startEleca);
-    super.setEvent('goObc', goObc);
-    super.setEvent('startObc', beforeObcBattle);
+    if (!system.isBossKilled.get('reAte')) this.createBoss(8, 35, 'Ate');
+    else if (!system.isBossKilled.get('reBte')) this.createBoss(8, 5, 'Bte');
+    else if (!system.isBossKilled.get('reMelcine')) this.createBoss(50, 5, 'Melcine');
+    else if (!system.isBossKilled.get('reEleca')) this.createBoss(30, 4, 'Eleca');
+    else if (!system.isBossKilled.get('reObc')) this.createBoss(48, 35, 'Obc');
+    {
+      super.setHint('explanation5', explanation5);
+      super.setEvent('exit', warp0);
+      super.setEvent('toboss1', warpAte);
+      super.setEvent('toboss2', warpBte);
+      super.setEvent('toboss3', warpMelcine);
+      super.setEvent('toboss4', warpEleca);
+      super.setEvent('tolastboss', warpObc);
+      super.setEvent('spawnPoint1', backAte);
+      super.setEvent('spawnPoint2', backBte);
+      super.setEvent('spawnPoint3', backMelcine);
+      super.setEvent('spawnPoint4', backEleca);
+      super.setEvent('spawnPoint5', backObc);
+      super.setEvent('goAte', goReAte, system.isBossKilled.get('reAte'));
+      super.setEvent('startAte', startAte, system.isBossKilled.get('reAte'));
+      super.setEvent('goBte', goReBte, system.isBossKilled.get('reBte'));
+      super.setEvent('startBte', startBte, system.isBossKilled.get('reBte'));
+      super.setEvent('goMelcine', goReMelcine, system.isBossKilled.get('reMelcine'));
+      super.setEvent('startMelcine', startMelcine, system.isBossKilled.get('reMelcine'));
+      super.setEvent('goEleca', goReEleca, system.isBossKilled.get('reEleca'));
+      super.setEvent('startEleca', startEleca, system.isBossKilled.get('reEleca'));
+      super.setEvent('goObc', goObc, system.isBossKilled.get('Obc'));
+      super.setEvent('startObc', beforeObcBattle, system.isBossKilled.get('Obc'));
+    }
   }
   public update(_time: number, delta: number): void {
     super.update(_time, delta);
   }
   public createBoss(x: number, y: number, boss: string) {
-    if (boss == 'Ate') this.setBoss(x, y, boss, 0.5, true);
-    if (boss === 'Bte') this.setBoss(x, y, boss, 0.5, true);
-    if (boss === 'Melcine') this.setBoss(x, y, boss, 0.25, true);
-    if (boss === 'Eleca') this.setBoss(x, y, boss, 0.5, true);
-    if (boss === 'Obc') this.setBoss(x, y, boss, 0.25, true);
+    if (boss == 'Ate') this.setBoss(x, y, boss, false, 0.5, true);
+    if (boss === 'Bte') this.setBoss(x, y, boss, false, 0.5, true);
+    if (boss === 'Melcine') this.setBoss(x, y, boss, false, 0.25, true);
+    if (boss === 'Eleca') this.setBoss(x, y, boss, false, 0.5, true);
+    if (boss === 'Obc') this.setBoss(x, y, boss, false, 0.25, true);
   }
 }

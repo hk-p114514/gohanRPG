@@ -92,17 +92,18 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うnpcを配置する関数
   //name=npcName,took=npcとの会話イベント(timelineWords参照)
-  public makeNPC(name: string, took: Timelines, dir?: string) {
+  public makeNPC(name: string, took: Timelines, dir?: string, flag: boolean = false) {
+    if (flag) return;
     for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
       let e = this.npcPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
-        hints.set(system.map + ',' + x + ',' + y, took);
+        hints.set(`${system.map},${x},${y}`, took);
         let l = this.add.sprite(0, 0, name, 1);
         let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
-        npcs.set(system.map + ',' + x + ',' + y, hito);
-        names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
+        npcs.set(`${system.map},${x},${y}`, hito);
+        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
         if (dir !== undefined) hito.changedir(dir);
         break;
       }
@@ -110,14 +111,15 @@ export class Map_TPL extends Scene {
   }
   //各MapClassのcreateで使うふむタイプのイベントを配置する関数
   //name=eventName,took=イベント内容(timelineWords参照)
-  public setEvent(name: string, took: Timelines) {
+  public setEvent(name: string, took: Timelines, flag: boolean = false) {
+    if (flag) return;
     for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
       let e = this.eventPoints[i];
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
-        names.set(system.map + ',' + name, system.map + ',' + x + ',' + y);
-        events.set(system.map + ',' + x + ',' + y, took);
+        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
+        events.set(`${system.map},${x},${y}`, took);
       }
     }
   }
@@ -129,7 +131,7 @@ export class Map_TPL extends Scene {
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
-        hints.set(system.map + ',' + x + ',' + y, took);
+        hints.set(`${system.map},${x},${y}`, took);
       }
     }
   }
@@ -144,8 +146,8 @@ export class Map_TPL extends Scene {
         let z = this.player.getdir();
         xy.x += map.get(z).x;
         xy.y += map.get(z).y;
-        if (!!hints.has(system.map + ',' + xy.x + ',' + xy.y)) {
-          let n = hints.get(system.map + ',' + xy.x + ',' + xy.y);
+        if (!!hints.has(`${system.map},${xy.x},${xy.y}`)) {
+          let n = hints.get(`${system.map},${xy.x},${xy.y}`);
           this.scene.launch(sceneKeys.timelinePlayer, {
             anotherScene: this,
             timelineData: n,
@@ -189,7 +191,6 @@ export class Map_TPL extends Scene {
     const spawnPoint = this.tileMap.findObject('objects', (obj) => {
       return obj.name === 'spawnPoint';
     });
-
     // 踏むイベントの位置を取得
     this.eventPoints = this.tileMap.filterObjects('objects', (obj) => {
       return obj.type === 'event';
@@ -205,8 +206,6 @@ export class Map_TPL extends Scene {
       return obj.type === 'npc';
     });
     console.log(this.npcPoints);
-    // イベントを作成する
-    // this.createEvents();
     // プレイヤーを作成する
     const playerSprite = this.add.sprite(0, 0, 'player');
 
@@ -248,10 +247,10 @@ export class Map_TPL extends Scene {
             //踏むイベントの確認
             const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
             if (
-              !!events.has(system.map + ',' + this.xy.x + ',' + this.xy.y) &&
+              !!events.has(`${system.map},${this.xy.x},${this.xy.y}`) &&
               system.eventFlag
             ) {
-              let n = events.get(system.map + ',' + this.xy.x + ',' + this.xy.y);
+              let n = events.get(`${system.map},${this.xy.x},${this.xy.y}`);
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
                 timelineData: n,
@@ -268,7 +267,15 @@ export class Map_TPL extends Scene {
     }
   }
 
-  public setBoss(x: number, y: number, boss: string, scale = 0.5, half = false) {
+  public setBoss(
+    x: number,
+    y: number,
+    boss: string,
+    flag: boolean = false,
+    scale = 0.5,
+    half = false,
+  ) {
+    if (flag) return;
     this.boss = this.add
       .sprite(
         x * tileSize + tileSize / 2 + (half ? 20 : 0),
@@ -281,7 +288,7 @@ export class Map_TPL extends Scene {
   //events
   public removeEventByXYs(xy: { x: number; y: number }[]) {
     for (let i = 0; i < xy.length; ++i) {
-      events.delete(this.name + ',' + xy[i].x + ',' + xy[i].y);
+      events.delete(`${this.name},${xy[i].x},${xy[i].y}`);
     }
   }
 
@@ -293,9 +300,9 @@ export class Map_TPL extends Scene {
 
   // イベントを削除
   public removeObjectByName(objectName: string) {
-    if (names.has(this.name + ',' + objectName)) {
-      events.delete(names.get(this.name + ',' + objectName));
-      names.delete(this.name + ',' + objectName);
+    if (names.has(`${this.name},${objectName}`)) {
+      events.delete(names.get(`${this.name},${objectName}`));
+      names.delete(`${this.name},${objectName}`);
     }
   }
   //イベントを配置
@@ -307,23 +314,17 @@ export class Map_TPL extends Scene {
     anotherMap: string | undefined,
   ) {
     if (anotherMap === undefined) {
-      // events.set(this.name + ',' + s[1] + ',' + s[2], s[3]);
-      // names.set(s[0], this.name + ',' + s[1] + ',' + s[2]);
-      // template literalに書き換える
       events.set(`${this.name},${x},${y}`, contents);
       names.set(eventName, `${this.name},${x},${y}`);
     } else {
-      // events.set(s[4] + ',' + s[1] + ',' + s[2], s[3]);
-      // names.set(s[0], s[4] + ',' + s[1] + ',' + s[2]);
-      // template literalに書き換える
       events.set(`${anotherMap},${x},${y}`, contents);
       names.set(eventName, `${anotherMap},${x},${y}`);
     }
   }
   //キャラの向きを変える
   public changeNpcDir(charName: string, direction: Direction) {
-    if (names.has(system.map + ',' + charName)) {
-      let point = names.get(system.map + ',' + charName);
+    if (names.has(`${system.map},${charName}`)) {
+      let point = names.get(`${system.map},${charName}`);
       let character = npcs.get(point);
       character.changedir(direction);
     } else if (charName === 'player') {
@@ -338,8 +339,8 @@ export class Map_TPL extends Scene {
       let playerDirection = this.player.getdir();
       playerPoint.x += map.get(playerDirection).x;
       playerPoint.y += map.get(playerDirection).y;
-      if (npcs.has(system.map + ',' + playerPoint.x + ',' + playerPoint.y)) {
-        let n = npcs.get(system.map + ',' + playerPoint.x + ',' + playerPoint.y);
+      if (npcs.has(`${system.map},${playerPoint.x},${playerPoint.y}`)) {
+        let n = npcs.get(`${system.map},${playerPoint.x},${playerPoint.y}`);
         n.changedir(this.player.getReverseDir());
       }
     }
@@ -352,24 +353,24 @@ export class Map_TPL extends Scene {
     contents?: Timelines,
     direction?: Direction,
   ) {
-    hints.set(system.map + ',' + x + ',' + y, contents);
+    hints.set(`${system.map},${x},${y}`, contents);
     let sprite = this.add.sprite(0, 0, charName, 1);
     let char = new Char(sprite, new Phaser.Math.Vector2(x, y), charName);
-    npcs.set(system.map + ',' + x + ',' + y, char);
-    names.set(system.map + ',' + charName, system.map + ',' + x + ',' + y);
+    npcs.set(`${system.map},${x},${y}`, char);
+    names.set(`${system.map},${charName}`, `${system.map},${x},${y}`);
     if (direction !== undefined) char.changedir(direction);
   }
 
   //キャラを消す
   public removeNpcByName(charName: string) {
-    if (names.has(system.map + ',' + charName)) {
-      let point = names.get(system.map + ',' + charName);
+    if (names.has(`${system.map},${charName}`)) {
+      let point = names.get(`${system.map},${charName}`);
       let character = npcs.get(point);
       character.destroy();
       npcs.delete(point);
-      names.delete(system.map + ',' + charName);
+      names.delete(`${system.map},${charName}`);
     } else {
-      console.log('not found' + system.map + ',' + charName);
+      console.log(`not found ${system.map},${charName}`);
     }
   }
   //ボスを消す
@@ -383,19 +384,19 @@ export class Map_TPL extends Scene {
   }
   // 吹き出し表示
   public displayBubble(charName: string, bubbleIndex: number) {
-    if (names.has(system.map + ',' + charName)) {
-      let point = names.get(system.map + ',' + charName);
+    if (names.has(`${system.map},${charName}`)) {
+      let point = names.get(`${system.map},${charName}`);
       let character = npcs.get(point);
       let bubblePoint = character.getPosition();
       bubblePoint.y -= tileSize;
       this.log?.destroy();
-      this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, 'log' + bubbleIndex);
+      this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, `log${bubbleIndex}`);
     } else if (charName === 'player') {
       if (this.player) {
         let bubblePoint = this.player.getPosition();
         bubblePoint.y -= tileSize;
         this.log?.destroy();
-        this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, 'log' + bubbleIndex);
+        this.log = this.add.sprite(bubblePoint.x, bubblePoint.y, `log${bubbleIndex}`);
       }
     } else {
       console.log('not found');
@@ -411,10 +412,10 @@ export class Map_TPL extends Scene {
       if (OBC) {
         bossY -= tileSize * 3;
         bossX -= tileSize * 1.1;
-        this.log = this.add.sprite(bossX, bossY, 'log' + bubbleIndex);
+        this.log = this.add.sprite(bossX, bossY, `log${bubbleIndex}`);
       } else {
         bossY -= tileSize;
-        this.log = this.add.sprite(bossX, bossY, 'log' + bubbleIndex);
+        this.log = this.add.sprite(bossX, bossY, `log${bubbleIndex}`);
       }
     } else {
       console.log('unknown');

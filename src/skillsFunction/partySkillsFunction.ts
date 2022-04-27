@@ -25,10 +25,10 @@ export const carSuspendBlade = (
     if (target.hp.current > 0) {
       const beforeHp = target.hp.current;
       for (i = 0; i < 2; i++) {
-        target.beInjured(attacker.buff.getAtk() * 0.4);
+        target.beInjured(attacker.buff.getAtk() * 0.6);
       }
       const afterHp = target.hp.current;
-      sum = Math.abs(beforeHp - afterHp);
+      sum += Math.abs(beforeHp - afterHp);
       num++;
     }
   });
@@ -57,7 +57,7 @@ export const diagonalSlash = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk());
+      target.beInjured(attacker.buff.getAtk() * 0.5);
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
@@ -193,8 +193,8 @@ export const driveThrough = (
   ]);
 };
 
-// エラーオブフェザー
-export const errorOfPhaser = (
+// パンドラの箱
+export const pandoraBox = (
   scene: Scene,
   attacker: BattleActor,
   targets: BattleActor[],
@@ -206,8 +206,11 @@ export const errorOfPhaser = (
     });
   }
   skillDialog(scene, [
-    { type: 'dialog', text: 'GohanRPG.exe は動作を停止しました。' },
-    { type: 'dialog', text: 'なんちゃって' },
+    {
+      type: 'dialog',
+      text: '縺ゅ＞縺�∴縺� �撰ｼ托ｼ抵ｼ���ｽゑｽ� �ｸ�ｹ�ｺ��ｽゑｽ� �ｸ�ｹ�ｺ譁�ｭ怜喧縺代ヱ繧ｿ繝ｼ繝ｳ讖溯�繝ｻ遐皮ｩｶ�樞包ｼ搾ｼ�ｿ��｡繹ｱ竭�竇｡',
+    },
+    { type: 'dialog', text: 'な  ん  ち  ゃ  っ  て' },
     { type: 'endTimeline' },
   ]);
 };
@@ -265,7 +268,7 @@ export const tiledRondo = (
   target.state.activeState('glucosamine', 3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のtiledの回旋曲！` },
-    { type: 'dialog', text: `${target.name}は グルコサミン状態になった！` },
+    { type: 'dialog', text: `${target.name}は 祝福を受けた！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -382,7 +385,7 @@ export const redDevilRequiem: SkillFunction = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.5);
+      target.beInjured(attacker.buff.getAtk());
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
       target.state.activeState('poison', 2);
@@ -416,7 +419,7 @@ export const morningRamenBless: SkillFunction = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.2);
+      target.beInjured(attacker.buff.getAtk() * 0.5);
       const afterHp = target.hp.current;
       hpSum += Math.abs(beforeHp - afterHp);
       const beforeAtk = target.buff.getAtk();
@@ -533,14 +536,17 @@ export const forestGrace: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
-    { type: 'dialog', text: '仲間たちは元気を取り戻した！' },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は元気を取り戻した！`,
+    },
     {
       type: 'dialog',
       text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
         sum / targets.length,
       )} 回復した！`,
     },
-    { type: 'dialog', text: '技が1つ多く選べるようになった！' },
+    { type: 'dialog', text: `${changeToFriendsView(attacker, targets)}は祝福を受けた！` },
     { type: 'endTimeline' },
   ]);
 };
