@@ -44,7 +44,7 @@ export const hint1: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '？？？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -59,7 +59,7 @@ export const stone1: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '額 looks？\n', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -74,7 +74,7 @@ export const stone2: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '明くる楠？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -89,7 +89,7 @@ export const stone3: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: 'どんな星座だよ。', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -104,7 +104,7 @@ export const stone4: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '誰だよ今井って？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -218,7 +218,7 @@ export const beforeAteBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'OBC？なんだそれ？' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -241,7 +241,7 @@ export const beforeAteBattle: Timelines = {
       actorName: 'マルク',
       text: '…死に際に色々吐いてくれる系四天王だったな…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'エーテはもう倒れたか…。' },
     { type: 'dialog', actorName: '四天王C', text: 'ふん、奴は四天王の中でも最弱…。' },

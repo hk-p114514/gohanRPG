@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="72">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="40" tileheight="40" infinite="0" nextlayerid="4" nextobjectid="74">
  <editorsettings>
   <export target="../src/json/map003.json" format="json"/>
  </editorsettings>
@@ -7934,5 +7934,7 @@
   <object id="68" name="meet2" type="event" gid="52" x="160" y="40" width="40" height="40" rotation="90"/>
   <object id="69" name="explanation2" type="hint" gid="52" x="160" y="0" width="40" height="40" rotation="90"/>
   <object id="70" name="Shiden" type="npc" gid="51" x="120" y="400" width="40" height="40" rotation="90"/>
+  <object id="72" name="exit" type="event" gid="51" x="80" y="0" width="40" height="40" rotation="90"/>
+  <object id="73" name="exit" type="event" gid="51" x="120" y="0" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>

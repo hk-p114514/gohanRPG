@@ -332,6 +332,18 @@ export class Map_TPL extends Scene {
       console.log('not found');
     }
   }
+  public talkNPC() {
+    if (!!this.player) {
+      let playerPoint = this.player.getTilePos();
+      let playerDirection = this.player.getdir();
+      playerPoint.x += map.get(playerDirection).x;
+      playerPoint.y += map.get(playerDirection).y;
+      if (npcs.has(system.map + ',' + playerPoint.x + ',' + playerPoint.y)) {
+        let n = npcs.get(system.map + ',' + playerPoint.x + ',' + playerPoint.y);
+        n.changedir(this.player.getReverseDir());
+      }
+    }
+  }
   //キャラを配置する
   public setNpc(
     charName: string,
