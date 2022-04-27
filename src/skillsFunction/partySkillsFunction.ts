@@ -25,7 +25,7 @@ export const carSuspendBlade = (
     if (target.hp.current > 0) {
       const beforeHp = target.hp.current;
       for (i = 0; i < 2; i++) {
-        target.beInjured(attacker.buff.getAtk() * 0.4);
+        target.beInjured(attacker.buff.getAtk() * 0.6);
       }
       const afterHp = target.hp.current;
       sum = Math.abs(beforeHp - afterHp);
@@ -57,7 +57,7 @@ export const diagonalSlash = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk());
+      target.beInjured(attacker.buff.getAtk() * 0.5);
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
@@ -206,7 +206,7 @@ export const errorOfPhaser = (
     });
   }
   skillDialog(scene, [
-    { type: 'dialog', text: 'GohanRPG.exe は動作を停止しました。' },
+    { type: 'dialog', text: '縺ゅ＞縺�∴縺� �撰ｼ托ｼ抵ｼ�' },
     { type: 'dialog', text: 'なんちゃって' },
     { type: 'endTimeline' },
   ]);
@@ -382,7 +382,7 @@ export const redDevilRequiem: SkillFunction = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.5);
+      target.beInjured(attacker.buff.getAtk());
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
       target.state.activeState('poison', 2);
@@ -416,7 +416,7 @@ export const morningRamenBless: SkillFunction = (
     if (target.hp.current > 0) {
       num++;
       const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.2);
+      target.beInjured(attacker.buff.getAtk() * 0.5);
       const afterHp = target.hp.current;
       hpSum += Math.abs(beforeHp - afterHp);
       const beforeAtk = target.buff.getAtk();
