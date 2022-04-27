@@ -232,7 +232,9 @@ export class State {
    * @returns 挑発状態のキャラクター群
    */
   public static getProvocationActors(party: BattleActor[]): BattleActor[] {
-    return party.filter((actor: BattleActor) => actor.state.isProvocation);
+    return party.filter(
+      (actor: BattleActor) => actor.state.isProvocation && !actor.isDead(),
+    );
   }
 }
 
