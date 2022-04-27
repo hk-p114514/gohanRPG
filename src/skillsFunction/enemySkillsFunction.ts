@@ -469,13 +469,12 @@ export const breakdance: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  const target: BattleActor = targets[0];
-  target.state.activeState('provocation', 3);
+  attacker.state.activeState('provocation', 3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のブレイクダンス！` },
     {
       type: 'dialog',
-      text: `${target.name}は 挑発し始めた！`,
+      text: `${attacker.name}は 挑発し始めた！`,
     },
     { type: 'endTimeline' },
   ]);

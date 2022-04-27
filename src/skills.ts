@@ -164,7 +164,7 @@ export const stateSkills: Skill[] = [
   new Skill('パラライズ', pararaizu, false, true), // 単体攻撃（マヒ）
   new Skill('木漏れ日', komorebi, false, true), // 単体攻撃（眠り）
   new Skill('羽交い締め', hagaizime, false, true), // 単体攻撃（関節痛）
-  new Skill('ブレイクダンス', breakdance, false, false), // 単体攻撃（挑発）
+  new Skill('ブレイクダンス', breakdance, true, false), // 単体攻撃（挑発）
   new Skill('咀嚼', soshaku, false, true), // 単体攻撃（毒）
   new Skill('同情を誘う', doujou, false, true), // 単体攻撃（毒）
   new Skill('過呼吸', kakokyu, false, true), // 単体攻撃（眠り）
