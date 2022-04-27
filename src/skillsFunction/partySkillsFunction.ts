@@ -268,7 +268,7 @@ export const tiledRondo = (
   target.state.activeState('glucosamine', 3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のtiledの回旋曲！` },
-    { type: 'dialog', text: `${target.name}は グルコサミン状態になった！` },
+    { type: 'dialog', text: `${target.name}は 祝福を受けた！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -536,14 +536,17 @@ export const forestGrace: SkillFunction = (
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
-    { type: 'dialog', text: '仲間たちは元気を取り戻した！' },
+    {
+      type: 'dialog',
+      text: `${changeToFriendsView(attacker, targets)}は元気を取り戻した！`,
+    },
     {
       type: 'dialog',
       text: `${changeToFriendsView(attacker, targets)}は平均 ${Math.floor(
         sum / targets.length,
       )} 回復した！`,
     },
-    { type: 'dialog', text: '技が1つ多く選べるようになった！' },
+    { type: 'dialog', text: `${changeToFriendsView(attacker, targets)}は祝福を受けた！` },
     { type: 'endTimeline' },
   ]);
 };
