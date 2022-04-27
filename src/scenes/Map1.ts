@@ -27,17 +27,19 @@ export class Map1 extends Map_TPL {
 
   create() {
     super.create();
-    this.setBoss(13, 3, 'Ate');
-    super.setEvent('exit', warp0);
-    super.setEvent('woop', warpA);
-    super.setEvent('goAte', goAte);
-    super.setEvent('woopboss', backA);
-    super.setEvent('beforeAte', beforeAteBattle);
-    super.setHint('stage1hint', hint1);
-    super.setHint('explanation1', explanation1);
-    super.setHint('stone1', stone1);
-    super.setHint('stone2', stone2);
-    super.setHint('stone3', stone3);
-    super.setHint('stone4', stone4);
+    {
+      this.setBoss(13, 3, 'Ate', system.isBossKilled.get('Ate'));
+      super.setEvent('exit', warp0);
+      super.setEvent('woop', warpA);
+      super.setEvent('woopboss', backA);
+      super.setEvent('goAte', goAte, system.isBossKilled.get('Ate'));
+      super.setEvent('beforeAte', beforeAteBattle, system.isBossKilled.get('Ate'));
+      super.setHint('stage1hint', hint1);
+      super.setHint('explanation1', explanation1);
+      super.setHint('stone1', stone1);
+      super.setHint('stone2', stone2);
+      super.setHint('stone3', stone3);
+      super.setHint('stone4', stone4);
+    }
   }
 }
