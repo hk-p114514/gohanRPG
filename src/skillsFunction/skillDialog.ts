@@ -13,7 +13,7 @@ export const skillDialog = (scene: Scene, timelineData: Timeline) => {
   });
 };
 
-// バトル時のダイアログの視点を主人公視点に変更
+// バトル時のダイアログの視点をattacker視点に変更
 export const changeToFriendsView = (attacker: BattleActor, target: BattleActor[]) => {
   if (system.getParty().includes(attacker)) {
     // 味方の技

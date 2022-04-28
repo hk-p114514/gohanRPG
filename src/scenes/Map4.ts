@@ -7,6 +7,7 @@ import {
   //afterElecaBattle,
   backboss,
   beforeElecaBattle,
+  explanation4,
   goEleca,
   warpboss,
 } from 'timelineWords/timelineWords4';
@@ -28,8 +29,9 @@ export class Map4 extends Map_TPL {
     super.create();
     {
       this.setBoss(29, 44, 'Eleca', system.isBossKilled.get('Eleca'));
+      super.setHint('explanation4', explanation4);
       super.setEvent('exit', warp0);
-      super.setEvent('add4', addMough);
+      super.setEvent('add4', addMough, system.isExistActorInParty(mough.name));
       super.setHint('warpboss', warpboss);
       super.setHint('warptoboss', backboss);
       super.setEvent('goEleca', goEleca, system.isBossKilled.get('Eleca'));

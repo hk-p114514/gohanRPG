@@ -378,16 +378,16 @@ export const warpstart: Timelines = {
 export const goMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: warpPlayerByXY, contents: { x: 51, y: 28 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 51, y: 29 } },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Shiden', x: 52, y: 28, timeline: undefined },
+      contents: { name: 'Shiden', x: 52, y: 29, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Pouler', x: 50, y: 28, timeline: undefined },
+      contents: { name: 'Pouler', x: 50, y: 29, timeline: undefined },
     },
     {
       type: 'event',
@@ -506,7 +506,7 @@ export const afterMelcineBattle: Timelines = {
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'player', direction: Direction.LEFT },
+      contents: { name: 'player', direction: Direction.RIGHT },
     },
     {
       type: 'dialog',
@@ -517,7 +517,7 @@ export const afterMelcineBattle: Timelines = {
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'Shiden', direction: Direction.RIGHT },
+      contents: { name: 'Shiden', direction: Direction.LEFT },
     },
     { type: 'dialog', actorName: 'シデン', text: 'うむ、付き合うだけ時間の無駄だ。' },
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },

@@ -100,42 +100,44 @@ export class Battle extends Scene {
       actor.buff.buffProcess();
       this.isTurnAttack = true;
     } else {
+      // バトルが終わっていないか確認
+      const endBattle = this.isEndBattle(this.party, this.enemies);
+
+      // endBattleが0でない場合は、ターン終了
+      if (endBattle !== 0) {
+        system.isBattle = false;
+        switch (endBattle) {
+          case 1:
+            console.log('プレイヤーの勝利');
+            // this.resultDialog('win');
+            const levelUps = this.giveExpPlayers();
+            this.levelUpDialog(levelUps);
+            this.backToMap();
+            break;
+          case 2:
+          case 3:
+            console.log('敵の勝利');
+            this.resultDialog('lose');
+            this.scene.stop(sceneKeys.ui);
+            // start --> shutdown this.scene & start scene of key
+            this.scene.start(sceneKeys.gameover);
+            break;
+        }
+        // HPが0になった味方はマップに戻るときにHP1にする
+        this.party.forEach((actor) => {
+          if (actor.isDead()) {
+            actor.beHealed(1);
+          }
+        });
+        return;
+      }
+
       if (actor.isDead()) {
         // sortedの中で、actorが死んでいる場合は、それを除く
         this.sorted = this.sorted.filter((a) => a !== actor);
         console.log(`${actor.name}は死んでしまった`);
         this.resultDialog('dead', actor);
       } else {
-        // バトルが終わっていないか確認
-        const endBattle = this.isEndBattle(this.party, this.enemies);
-        // endBattleが0でない場合は、ターン終了
-        if (endBattle !== 0) {
-          system.isBattle = false;
-          switch (endBattle) {
-            case 1:
-              console.log('プレイヤーの勝利');
-              // this.resultDialog('win');
-              const levelUps = this.giveExpPlayers();
-              this.levelUpDialog(levelUps);
-              this.backToMap();
-              break;
-            case 2:
-            case 3:
-              console.log('敵の勝利');
-              this.resultDialog('lose');
-              this.scene.stop(sceneKeys.ui);
-              // start --> shutdown this.scene & start scene of key
-              this.scene.start(sceneKeys.gameover);
-              break;
-          }
-          // HPが0になった味方はマップに戻るときにHP1にする
-          this.party.forEach((actor) => {
-            if (actor.isDead()) {
-              actor.beHealed(1);
-            }
-          });
-          return;
-        }
         console.log('####################');
         console.log(`${this.index}番目の${actor.name}のターン`);
         console.log('####################');

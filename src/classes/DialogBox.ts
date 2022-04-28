@@ -33,8 +33,8 @@ export class DialogBox extends Phaser.GameObjects.Container {
       y,
       width,
       height,
-      padding = 10,
-      margin = 10,
+      padding = 5,
+      margin = 30,
       textStyle = {},
       backGroundColor,
       frameColor,
@@ -45,6 +45,7 @@ export class DialogBox extends Phaser.GameObjects.Container {
 
     this.width = width;
     this.height = height;
+    this.padding = padding;
     this.textStyle = textStyle;
 
     // 白枠付きの黒いRectangleを作成
@@ -61,7 +62,6 @@ export class DialogBox extends Phaser.GameObjects.Container {
     // wordWrap（折り返し設定）を追加した会話テキスト用のTextStyleを作成
     const dialogBoxTextStyle = {
       ...textStyle,
-      wordWrap: { width: width - padding * 2, useAdvancedWrap: true }, // useAdvancedWrapをtrueにすることで日本語の折り返しが有効になる
     };
 
     // 会話テキスト用のTextを作成
@@ -121,11 +121,11 @@ export class DialogBox extends Phaser.GameObjects.Container {
   private _setText(text: string) {
     // Reset the dialog
     if (this.text) this.text.destroy();
-    const x = this.x - this.width / 2;
-    const y = this.y - this.height / 2;
+    const textX = this.x - this.width / 2;
+    const textY = this.y - this.height / 2;
     this.text = this.scene.make.text({
-      x,
-      y,
+      x: textX,
+      y: textY,
       text,
       style: this.textStyle,
     });

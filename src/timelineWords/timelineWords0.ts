@@ -49,12 +49,12 @@ export const tutorial1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: " 'SPACE' keyかマウスカーソルのクリックで会話を進める事が出来ます。",
+      text: `'SPACE'キーかマウスカーソルのクリックで会話を進める事が出来ます。`,
       actorName: '識者',
     },
     {
       type: 'dialog',
-      text: " 'SPACE' keyで人に話しかけたり、\n看板などを調べたりすることができます。",
+      text: " 'SPACE'キーで人に話しかけたり、看板などを調べたりすることができます。",
       actorName: '識者',
     },
     {
@@ -64,7 +64,7 @@ export const tutorial1: Timelines = {
     },
     {
       type: 'dialog',
-      text: 'ちなみに主人公の移動は十字keyで行います。',
+      text: 'ちなみに主人公の移動は十字キーで行います。',
       actorName: '識者',
     },
     {
@@ -203,6 +203,7 @@ export const explanation: Timelines = {
       text: 'これもうそのまま行っちゃっていいかな…。',
     },
     { type: 'event', event: removeBubble },
+    { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper1' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper2' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'stoper3' } },
@@ -612,6 +613,7 @@ export const castleAnnounce: Timelines = {
     { type: 'dialog', actorName: '？？？', text: '……ま、もう死ぬから関係ないがね。' },
     { type: 'dialog', actorName: 'マルク', text: '……。' },
     { type: 'event', event: removeBubble },
+    { type: 'setBackgroundColor', color: '#000' },
     {
       type: 'event',
       event: removeEventByXYs,
@@ -634,7 +636,7 @@ export const castleAnnounce: Timelines = {
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'JK1', x: 10, y: 10, timeline: afJK },
+      contents: { name: 'JK1', x: 16, y: 12, timeline: afJK },
     },
     {
       type: 'event',
@@ -644,32 +646,32 @@ export const castleAnnounce: Timelines = {
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'JK2', x: 11, y: 10, timeline: afJK },
+      contents: { name: 'JK2', x: 17, y: 12, timeline: afJK },
     },
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'JK1', direction: Direction.LEFT },
+      contents: { name: 'JK2', direction: Direction.LEFT },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Bijinesuman', x: 12, y: 10, timeline: afBijinesuman },
+      contents: { name: 'Bijinesuman', x: 39, y: 12, timeline: afBijinesuman },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Eruhu', x: 13, y: 10, timeline: afEruhu },
+      contents: { name: 'Eruhu', x: 12, y: 22, timeline: afEruhu },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Kisi', x: 14, y: 10, timeline: afKisi },
+      contents: { name: 'Kisi', x: 29, y: 11, timeline: afKisi },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Tyuubou', x: 15, y: 10, timeline: afTyuubou },
+      contents: { name: 'Tyuubou', x: 48, y: 12, timeline: afTyuubou },
     },
     {
       type: 'event',
@@ -679,7 +681,7 @@ export const castleAnnounce: Timelines = {
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Syoujo', x: 16, y: 10, timeline: afSyoujo },
+      contents: { name: 'Syoujo', x: 47, y: 22, timeline: afSyoujo },
     },
     {
       type: 'event',
@@ -689,12 +691,12 @@ export const castleAnnounce: Timelines = {
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Majo', x: 17, y: 10, timeline: afMajo },
+      contents: { name: 'Majo', x: 26, y: 22, timeline: afMajo },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Roujin', x: 18, y: 10, timeline: afRoujin },
+      contents: { name: 'Roujin', x: 39, y: 22, timeline: afRoujin },
     },
     {
       type: 'event',

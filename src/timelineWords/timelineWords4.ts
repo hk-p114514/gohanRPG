@@ -1,12 +1,6 @@
 import { Direction } from 'classes/Direction';
 import { Timelines } from 'classes/Timelines';
 import { mough } from 'friends';
-// import { Timelines } from './Timelines';
-// import { Direction } from './Direction';
-// import { castleAnnounce } from './timelineWords0';
-// import { Timelines } from '../classes/Timelines';
-// import { Direction } from '../classes/Direction';
-// import { castleAnnounce } from './timelineWords0';
 import {
   fixKillBossByName,
   removeEventByXYs,
@@ -56,6 +50,11 @@ export const addMough: Timelines = {
       type: 'event',
       event: setNpc,
       contents: { name: 'Mough', x: 30, y: 23, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.UP },
     },
     {
       type: 'event',
@@ -243,21 +242,21 @@ export const backboss: Timelines = {
 export const goEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 50 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 49 } },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Shiden', x: 28, y: 50, timeline: undefined },
+      contents: { name: 'Shiden', x: 28, y: 49, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Pouler', x: 30, y: 50, timeline: undefined },
+      contents: { name: 'Pouler', x: 30, y: 49, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Mough', x: 27, y: 50, timeline: undefined },
+      contents: { name: 'Mough', x: 27, y: 49, timeline: undefined },
     },
     {
       type: 'event',
