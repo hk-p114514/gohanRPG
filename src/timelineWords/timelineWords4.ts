@@ -17,8 +17,6 @@ import {
   zoomDown,
 } from './events';
 import { castleAnnounce } from './timelineWords0';
-
-//Stage4
 export const explanation4: Timelines = {
   start: [
     {

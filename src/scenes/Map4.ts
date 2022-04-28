@@ -11,7 +11,7 @@ import {
   goEleca,
   warpboss,
 } from 'timelineWords/timelineWords4';
-import { warp0, zoomUp } from 'timelineWords/timelineWords';
+import { warp0 } from 'timelineWords/timelineWords';
 import { mough, pouler, shiden } from 'friends';
 
 export class Map4 extends Map_TPL {

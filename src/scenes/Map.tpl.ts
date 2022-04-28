@@ -448,4 +448,8 @@ export class Map_TPL extends Scene {
   public zoomDown() {
     this.cameras.main.zoomTo(1, 1000);
   }
+
+  public changeEncounterFlag() {
+    system.DEBUG_isIgnoreBattle = system.DEBUG_isIgnoreBattle;
+  }
 }

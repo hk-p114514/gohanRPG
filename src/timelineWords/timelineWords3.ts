@@ -1,7 +1,7 @@
 import { pouler } from 'friends';
 import { Timelines } from '../classes/Timelines';
 import { Direction } from '../classes/Direction';
-import { volcanoGotsuji } from './timelineWords0';
+import { volcanoDakahu } from './timelineWords0';
 import {
   fixKillBossByName,
   removeObjectByName,
@@ -15,8 +15,6 @@ import {
   removeBubble,
   warpPlayerByXY,
 } from './events';
-
-//Stage3
 export const explanation3: Timelines = {
   start: [
     {
@@ -577,7 +575,7 @@ export const beforeMelcineBattle: Timelines = {
         name: 'startD',
         x: 4,
         y: 12,
-        timeline: volcanoGotsuji,
+        timeline: volcanoDakahu,
         setEventMap: 'map0',
       },
     },
@@ -588,7 +586,7 @@ export const beforeMelcineBattle: Timelines = {
         name: 'startD',
         x: 4,
         y: 13,
-        timeline: volcanoGotsuji,
+        timeline: volcanoDakahu,
         setEventMap: 'map0',
       },
     },

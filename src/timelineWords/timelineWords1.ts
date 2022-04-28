@@ -1,6 +1,6 @@
 import { Direction } from '../classes/Direction';
 import { Timelines } from '../classes/Timelines';
-import { desertGotsuji } from './timelineWords0';
+import { desertDakahu } from './timelineWords0';
 import {
   fixKillBossByName,
   removeEventByXYs,
@@ -271,7 +271,7 @@ export const beforeAteBattle: Timelines = {
         name: 'startB',
         x: 4,
         y: 22,
-        timeline: desertGotsuji,
+        timeline: desertDakahu,
         setEventMap: 'map0',
       },
     },
@@ -282,7 +282,7 @@ export const beforeAteBattle: Timelines = {
         name: 'startB',
         x: 4,
         y: 23,
-        timeline: desertGotsuji,
+        timeline: desertDakahu,
         setEventMap: 'map0',
       },
     },
