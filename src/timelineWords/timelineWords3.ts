@@ -481,11 +481,11 @@ export const beforeMelcineBattle: Timelines = {
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterMelcineBattle: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const afterMelcineBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
