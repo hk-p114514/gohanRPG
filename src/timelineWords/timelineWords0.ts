@@ -141,7 +141,7 @@ export const explanation: Timelines = {
       text: '魔王を倒しに食堂に行こうというのか！勇ましいのう！',
     },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
-    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も' },
+    { type: 'dialog', actorName: 'マルク', text: 'えっと、まだ何も…' },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -155,7 +155,7 @@ export const explanation: Timelines = {
       text: 'して若者よ、食堂に行くのになにか策はあるのか？',
     },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
-    { type: 'dialog', actorName: 'マルク', text: 'べ' },
+    { type: 'dialog', actorName: 'マルク', text: 'べ…' },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -177,7 +177,7 @@ export const explanation: Timelines = {
     {
       type: 'dialog',
       actorName: 'マルク',
-      text: 'サバ',
+      text: 'サバ…',
     },
     { type: 'event', event: displayBubble, contents: { name: 'notMob', bubbleIndex: 4 } },
     {
@@ -225,13 +225,13 @@ export const explanation: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const afterGotsuji: Timelines = {
+export const afterDakahu: Timelines = {
   start: [
     { type: 'dialog', actorName: 'ダカフ', text: 'あの頃はよかったの〜！' },
     { type: 'endTimeline' },
   ],
 };
-export const desertGotsuji: Timelines = {
+export const desertDakahu: Timelines = {
   start: [
     { type: 'event', event: removeNpcByName, contents: { name: 'notMob' } },
     {
@@ -254,7 +254,7 @@ export const desertGotsuji: Timelines = {
       actorName: 'ダカフ',
       text: 'お主が旅をしていた間、ワシも指をくわえていた訳ではないぞい！',
     },
-    { type: 'dialog', actorName: 'マルク', text: 'あの、爺さん誰だっk' },
+    { type: 'dialog', actorName: 'マルク', text: 'あの、爺さん誰だっk…' },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -287,7 +287,7 @@ export const desertGotsuji: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const oceanGotsuji: Timelines = {
+export const oceanDakahu: Timelines = {
   start: [
     {
       type: 'event',
@@ -300,14 +300,14 @@ export const oceanGotsuji: Timelines = {
       contents: { name: 'notMob3', direction: Direction.RIGHT },
     },
     { type: 'dialog', actorName: 'ダカフ', text: '待ちわびたぞ！若者！' },
-    { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr' },
+    { type: 'dialog', actorName: 'マルク', text: 'なんだいきなr…' },
     {
       type: 'dialog',
       actorName: 'ダカフ',
       text: 'ワシはもうとっくに次の鍵の情報をつかんでおったというに…。',
     },
     { type: 'dialog', actorName: 'ダカフ', text: 'こんな年寄りに負けて悔しくないのか！' },
-    { type: 'dialog', actorName: 'マルク', text: '別に競ってはな' },
+    { type: 'dialog', actorName: 'マルク', text: '別に競ってはな…' },
     {
       type: 'dialog',
       actorName: 'ダカフ',
@@ -334,7 +334,7 @@ export const oceanGotsuji: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-export const volcanoGotsuji: Timelines = {
+export const volcanoDakahu: Timelines = {
   start: [
     {
       type: 'event',

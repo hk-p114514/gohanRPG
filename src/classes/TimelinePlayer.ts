@@ -33,6 +33,7 @@ import {
   warpPlayerByStar,
   createBoss,
   talkNPC,
+  changeEncountFlag,
 } from 'timelineWords/events';
 
 export class TimelinePlayer extends Scene {
@@ -326,6 +327,7 @@ export class TimelinePlayer extends Scene {
       case talkNPC:
         this.anotherScene?.talkNPC();
         break;
+      case changeEncountFlag:
     }
     // }
   }

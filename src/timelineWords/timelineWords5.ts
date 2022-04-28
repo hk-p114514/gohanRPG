@@ -13,8 +13,8 @@ import {
   warpPlayerByXY,
   createBoss,
   fixKillBossByName,
+  talkNPC,
 } from './events';
-
 export const explanation5: Timelines = {
   start: [
     {
@@ -27,6 +27,20 @@ export const explanation5: Timelines = {
       text: 'マスクと消毒を忘れずに。',
       actorName: '杜松の看板',
     },
+    { type: 'endTimeline' },
+  ],
+};
+export const finalDakahu: Timelines = {
+  start: [
+    { type: 'event', event: talkNPC },
+    { type: 'dialog', actorName: 'ダカフ', text: '久しぶりじゃのう、若者よ！' },
+    { type: 'dialog', actorName: 'ダカフ', text: '残すはこの食堂のみじゃ！' },
+    {
+      type: 'dialog',
+      actorName: 'ダカフ',
+      text: 'ここのザコたちはワシが全滅させておいた。',
+    },
+    { type: 'dialog', actorName: 'ダカフ', text: 'じゃからさっさと魔王を倒してこい！' },
     { type: 'endTimeline' },
   ],
 };

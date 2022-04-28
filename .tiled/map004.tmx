@@ -7828,7 +7828,7 @@
  </layer>
  <layer id="2" name="worldLayer" width="60" height="40">
   <data encoding="csv">
-0,0,0,0,149,203,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,396,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,58,0,149,203,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,396,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,203,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,396,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,203,203,203,203,
 0,149,0,0,55,203,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,396,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,203,149,0,0,
 203,203,100,203,203,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,396,396,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,0,0,55,
@@ -8230,13 +8230,9 @@
   <object id="666" name="roadhint2" type="hint" gid="149" x="2280" y="80" width="40" height="40" rotation="90"/>
   <object id="667" name="woopstart" type="hint" gid="101" x="2280" y="1200" width="40" height="40" rotation="90"/>
   <object id="668" name="beforeMelcine" type="event" gid="150" x="2040" y="1160" width="40" height="40" rotation="90"/>
-  <object id="670" name="afterMelcine" type="event" gid="150" x="2080" y="1160" width="40" height="40" rotation="90"/>
   <object id="669" name="goMelcine" type="event" gid="150" x="1840" y="1200" width="40" height="40" rotation="90"/>
   <object id="671" name="explanation3" type="hint" gid="149" x="160" y="0" width="40" height="40" rotation="90"/>
-  <object id="672" name="exit" type="event" gid="149" x="120" y="0" width="40" height="40" rotation="90"/>
   <object id="674" name="exit" type="event" gid="149" x="80" y="0" width="40" height="40" rotation="90"/>
-  <object id="675" name="exit" type="event" gid="149" x="40" y="0" width="40" height="40" rotation="90"/>
-  <object id="676" name="exit" type="event" gid="149" x="0" y="0" width="40" height="40" rotation="90"/>
   <object id="679" name="add3" type="event" gid="54" x="80" y="120" width="40" height="40" rotation="90"/>
  </objectgroup>
 </map>
