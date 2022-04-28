@@ -36,6 +36,7 @@ import {
   // endMelcine,
   // afterObcBattle,
 } from 'timelineWords/timelineWords5';
+import { reAfterBossBattles } from 'timelineWords/afterBossBattles';
 
 export class Map5 extends Map_TPL {
   constructor() {
@@ -85,7 +86,19 @@ export class Map5 extends Map_TPL {
     }
   }
   public update(_time: number, delta: number): void {
-    super.update(_time, delta);
+    if (system.isBossBattleWin) {
+      system.isBossBattleWin = false;
+      system.isBossBattle = false;
+      const bossName = system.boss?.name;
+
+      if (!bossName) return;
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelineData: reAfterBossBattles.get(bossName),
+      });
+    } else {
+      super.update(_time, delta);
+    }
   }
   public createBoss(x: number, y: number, boss: string) {
     if (boss == 'Ate') this.setBoss(x, y, boss, false, 0.5, true);
