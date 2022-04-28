@@ -49,12 +49,12 @@ export const tutorial1: Timelines = {
   start: [
     {
       type: 'dialog',
-      text: " 'SPACE' keyかマウスカーソルのクリックで会話を進める事が出来ます。",
+      text: `'SPACE'キーかマウスカーソルのクリックで会話を進める事が出来ます。`,
       actorName: '識者',
     },
     {
       type: 'dialog',
-      text: " 'SPACE' keyで人に話しかけたり、\n看板などを調べたりすることができます。",
+      text: " 'SPACE'キーで人に話しかけたり、看板などを調べたりすることができます。",
       actorName: '識者',
     },
     {
@@ -64,7 +64,7 @@ export const tutorial1: Timelines = {
     },
     {
       type: 'dialog',
-      text: 'ちなみに主人公の移動は十字keyで行います。',
+      text: 'ちなみに主人公の移動は十字キーで行います。',
       actorName: '識者',
     },
     {

@@ -48,6 +48,15 @@ export class TimelinePlayer extends Scene {
   private anotherScene?: Map_TPL;
   private timelineData?: Timelines;
   private specID?: string;
+  private textBoxPadding = {
+    x: 10,
+    y: 10,
+    left: 5,
+    right: 5,
+    top: 5,
+    bottom: 5,
+    allDir: 10,
+  };
   constructor() {
     super({ key: sceneKeys.timelinePlayer });
   }
@@ -341,13 +350,15 @@ export class TimelinePlayer extends Scene {
       fontFamily:
         '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
       fontSize: '24px',
+      padding: this.textBoxPadding,
+      wordWrap: { width: width - this.textBoxPadding.allDir, useAdvancedWrap: true }, // useAdvancedWrapをtrueにすることで日本語の折り返しが有効になる
     };
     const dialogBoxConfig: DialogBoxConfig = {
       x: 0,
       y: 0,
       width: width,
       height: height,
-      padding: 0,
+      padding: this.textBoxPadding.allDir,
       margin: 0,
       textStyle: textStyle,
       backGroundColor: 0x000000,
