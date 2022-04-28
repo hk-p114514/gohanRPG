@@ -216,6 +216,9 @@ export class Battle extends Scene {
    * @return void
    */
   backToMap() {
+    if (system.isBossBattle) {
+      system.isBossBattleWin = true;
+    }
     this.scene.stop(sceneKeys.ui);
     this.scene.stop(sceneKeys.battle);
     this.scene.wake(system.map);
