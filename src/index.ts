@@ -11,7 +11,6 @@ import { H, W } from 'functions/DOM/windowInfo';
 import { Prologue } from 'scenes/Prologue';
 import { Title } from 'scenes/Title';
 import { GameOver } from 'scenes/GameOver';
-import '@/styles/index.scss';
 import { System } from 'classes/System';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { TimelinePlayer } from 'classes/TimelinePlayer';
@@ -25,8 +24,8 @@ import { marc, mough, pouler, shiden, administrator } from 'friends';
 
 // 使用するシーンをまとめる
 const scenes = [
-  // Prologue,
-  // Title,
+  Title,
+  Prologue,
   Map0,
   Map1,
   Map2,
