@@ -6,8 +6,6 @@ import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
 import { randArr, randI } from 'functions/generalPurpose/rand';
 import { State } from 'classes/State';
-import { System } from 'classes/System';
-import { Map_TPL } from './Map.tpl';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、

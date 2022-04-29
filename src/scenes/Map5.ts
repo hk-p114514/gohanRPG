@@ -31,13 +31,7 @@ import {
   startMelcine,
   beforeObcBattle,
   finalDakahu,
-  // endAte,
-  // endBte,
-  // endEleca,
-  // endMelcine,
-  // afterObcBattle,
 } from 'timelineWords/timelineWords5';
-import { afterDakahu } from 'timelineWords/timelineWords0';
 import { reAfterBossBattles } from 'timelineWords/afterBossBattles';
 
 export class Map5 extends Map_TPL {

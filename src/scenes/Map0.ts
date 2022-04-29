@@ -23,8 +23,6 @@ import {
   beRoujin,
   tutorial1,
 } from 'timelineWords/timelineWords0';
-import { beStrong } from 'skillsFunction/partySkillsFunction';
-//import { system } from 'index';
 
 export class Map0 extends Map_TPL {
   constructor() {

@@ -4,7 +4,6 @@ import { Map_TPL } from './Map.tpl';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import {
   addMough,
-  //afterElecaBattle,
   backboss,
   beforeElecaBattle,
   explanation4,

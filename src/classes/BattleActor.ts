@@ -4,15 +4,12 @@ import {
   initHp,
   initMp,
   initSpeed,
-  level1,
 } from 'functions/generalPurpose/allInitStatus';
-import { SkillFunction, skills } from 'skills';
+import { skills } from 'skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';
 import { Buff } from './Buff';
-import { max, propertyOf } from 'lodash';
-import { assertObjectTypeSpreadProperty } from '@babel/types';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -101,7 +98,7 @@ export class BattleActor {
     return isLevelUp;
   }
 
-  changeStatus(status: AddStatus) {
+  private changeStatus(status: AddStatus) {
     this.hp.max = this.hp.current = Math.floor(status.maxHp);
     this.mp.max = this.mp.current = Math.floor(status.maxMp);
     this.atk = Math.floor(status.atk);
