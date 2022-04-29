@@ -51,6 +51,7 @@ export class Battle extends Scene {
       const n = randI(len - 1, 0);
       this.enemies.splice(n, 1);
     }
+
     if (system.isBossBattle && system.boss) {
       this.enemies = [system.boss];
     }
@@ -119,6 +120,7 @@ export class Battle extends Scene {
             this.resultDialog('lose');
             this.scene.stop(sceneKeys.ui);
             // start --> shutdown this.scene & start scene of key
+            system.isBossBattle = false;
             this.scene.start(sceneKeys.gameover);
             break;
         }
@@ -220,6 +222,7 @@ export class Battle extends Scene {
   backToMap() {
     if (system.isBossBattle) {
       system.isBossBattleWin = true;
+      system.isBossBattle = false;
     }
     this.scene.stop(sceneKeys.ui);
     this.scene.stop(sceneKeys.battle);

@@ -236,11 +236,11 @@ export const startAte: Timelines = {
       type: 'event',
       event: removeBubble,
     },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const endAte: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const endAte: Timelines = {
+  start: [
     {
       type: 'event',
       event: displayBossBubble,
@@ -533,11 +533,11 @@ export const startBte: Timelines = {
       text: 'バトル突入セリフだけは進化してるんだな。',
     },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const endBte: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const endBte: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、またか…。' },
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
@@ -702,11 +702,11 @@ export const startMelcine: Timelines = {
       text: 'このワタクシの全力でねぇ！！',
     },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const endMelcine: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const endMelcine: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -931,11 +931,11 @@ export const startEleca: Timelines = {
       text: '本気で相手してあげるわ、覚悟しなさい。',
     },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const endEleca: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const endEleca: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: '申し訳ありません、おかあ…さま…。' },
     {
@@ -1237,11 +1237,11 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterObcBattle: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const afterObcBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3, flag: true } },
     { type: 'dialog', actorName: 'OBC', text: '…ふん、まさか、本当に倒されるとはね…。' },
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4, flag: true } },

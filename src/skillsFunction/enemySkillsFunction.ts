@@ -456,7 +456,7 @@ export const hagaizime: SkillFunction = (
     { type: 'dialog', text: `${attacker.name}の羽交い締め！` },
     {
       type: 'dialog',
-      text: `${target.name}は トラウマを植えつけられた！`,
+      text: `${target.name}はトラウマを植えつけられた！`,
     },
     { type: 'endTimeline' },
   ]);

@@ -26,6 +26,7 @@ import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { marc } from 'friends';
 import { randI } from 'functions/generalPurpose/rand';
 import { Direction } from 'classes/Direction';
+import { afterBossBattles } from 'timelineWords/afterBossBattles';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -236,7 +237,17 @@ export class Map_TPL extends Scene {
   }
 
   public update(_time: number, delta: number) {
-    if (this.battleFlag) {
+    if (system.isBossBattleWin) {
+      system.isBossBattleWin = false;
+      system.isBossBattle = false;
+      const bossName = system.boss?.name;
+
+      if (!bossName) return;
+      this.scene.launch(sceneKeys.timelinePlayer, {
+        anotherScene: this,
+        timelineData: afterBossBattles.get(bossName),
+      });
+    } else if (this.battleFlag) {
       if (!this.gridPhysics?.isMoving()) {
         if (!!this.player) {
           let nxy = this.player.getTilePos();

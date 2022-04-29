@@ -18,7 +18,10 @@ import {
   warpPlayerByXY,
   warpPlayerByStar,
   changeEncountFlag,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
+//Stage2
 export const explanation2: Timelines = {
   start: [
     {
@@ -1116,16 +1119,16 @@ export const beforeBteBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
     { type: 'event', event: removeBubble },
-    //     {
-    //       type: 'event',
-    //       event: moveBattleBoss,
-    //       contents: { battleActor: enemy.bte },
-    //     },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterBteBattle: Timelines = {
-    //   start: [
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.bte },
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterBteBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、こんな所で…。' },
     { type: 'event', event: removeBubble },

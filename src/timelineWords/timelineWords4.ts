@@ -380,11 +380,11 @@ export const beforeElecaBattle: Timelines = {
       text: '全員まとめて叩き潰す。',
     },
     { type: 'event', event: removeBubble },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterElecaBattle: Timelines = {
-    //   start: [
+    { type: 'endTimeline' },
+  ],
+};
+export const afterElecaBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: 'うぐっ…おかあ…さま…。' },
     {
