@@ -52,8 +52,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":760,
-                 "y":880
+                 "x":640,
+                 "y":480
                 }, 
                 {
                  "gid":1,
@@ -64,7 +64,7 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":1080,
+                 "x":1560,
                  "y":880
                 }, 
                 {
@@ -88,7 +88,7 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":1000,
+                 "x":1880,
                  "y":880
                 }, 
                 {
@@ -100,8 +100,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":960,
-                 "y":880
+                 "x":1920,
+                 "y":480
                 }, 
                 {
                  "gid":1,
@@ -112,8 +112,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":920,
-                 "y":880
+                 "x":1160,
+                 "y":440
                 }, 
                 {
                  "gid":1,
@@ -124,7 +124,7 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":880,
+                 "x":480,
                  "y":880
                 }, 
                 {
@@ -136,8 +136,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":840,
-                 "y":880
+                 "x":1560,
+                 "y":480
                 }, 
                 {
                  "gid":1,
@@ -148,8 +148,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":800,
-                 "y":880
+                 "x":680,
+                 "y":480
                 }, 
                 {
                  "gid":2,
@@ -256,8 +256,8 @@
                  "type":"npc",
                  "visible":true,
                  "width":40,
-                 "x":720,
-                 "y":880
+                 "x":1200,
+                 "y":680
                 }, 
                 {
                  "gid":53,
@@ -299,7 +299,7 @@
                  "gid":102,
                  "height":40,
                  "id":13,
-                 "name":"stopru",
+                 "name":"stopr",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -311,7 +311,7 @@
                  "gid":102,
                  "height":40,
                  "id":15,
-                 "name":"stoprd",
+                 "name":"stopr",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -323,7 +323,7 @@
                  "gid":102,
                  "height":40,
                  "id":16,
-                 "name":"stopld",
+                 "name":"stopl",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -335,7 +335,7 @@
                  "gid":102,
                  "height":40,
                  "id":21,
-                 "name":"stoplu",
+                 "name":"stopl",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -347,7 +347,7 @@
                  "gid":102,
                  "height":40,
                  "id":22,
-                 "name":"stopld",
+                 "name":"stopl",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -359,7 +359,7 @@
                  "gid":102,
                  "height":40,
                  "id":23,
-                 "name":"stoplu",
+                 "name":"stopl",
                  "rotation":90,
                  "type":"event",
                  "visible":true,
@@ -509,7 +509,7 @@
  "nextobjectid":44,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":40,
  "tilesets":[
         {
@@ -18672,6 +18672,6 @@
         }],
  "tilewidth":40,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":60
 }

@@ -2,7 +2,7 @@ import { GameObjects, Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { sceneKeys } from 'scenes/sceneKeys';
 import { hints } from 'classes/exam';
-import logo from '@/images/title.png';
+import logo from '@/images/titleimage.jpg';
 import button from '@/images/button.png';
 import buttonOnHover from '@/images/button_onhover.png';
 
@@ -61,8 +61,7 @@ export class Title extends Scene {
           this.startNextScene();
         });
 
-        const enter = this.input.keyboard.addKey('ENTER');
-        enter.on('down', () => {
+        const space = this.input.keyboard.addKey('SPACE').on('down', () => {
           this.button?.setTexture('button_onhover');
           setTimeout(() => {
             this.startNextScene();

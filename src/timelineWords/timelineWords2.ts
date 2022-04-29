@@ -1,7 +1,7 @@
 import { shiden } from 'friends';
 import { Timelines } from '../classes/Timelines';
 import { Direction } from '../classes/Direction';
-import { oceanGotsuji } from './timelineWords0';
+import { oceanDakahu } from './timelineWords0';
 
 import {
   fixKillBossByName,
@@ -17,7 +17,10 @@ import {
   removeBubble,
   warpPlayerByXY,
   warpPlayerByStar,
+  changeEncountFlag,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
 //Stage2
 export const explanation2: Timelines = {
   start: [
@@ -71,7 +74,7 @@ export const meetShiden: Timelines = {
       actorName: 'シデン',
       text: 'そのために、砂漠の四天王を倒しに来たと…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'マルク', text: 'そういうことだ。' },
     {
       type: 'dialog',
@@ -110,7 +113,7 @@ export const meetShiden: Timelines = {
       actorName: 'シデン',
       text: '能ある鷹は杖を隠すんだよ。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'シデン',
@@ -149,7 +152,7 @@ export const meetShiden: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: '断る。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'マルク', text: 'じゃあ連れてかない。' },
     { type: 'dialog', actorName: 'シデン', text: 'じゃあ魔法使える。' },
     {
@@ -166,20 +169,14 @@ export const meetShiden: Timelines = {
     { type: 'dialog', actorName: 'シデン', text: 'じゃあ話が違う。' },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
-    {
-      type: 'event',
-      event: removeEventByXYs,
-      contents: {
-        xy: [
-          { x: 2, y: 1 },
-          { x: 3, y: 1 },
-          { x: 4, y: 1 },
-        ],
-      },
-    },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', text: 'シデンを半ば強引に連れて行くことにした！' },
     { type: 'meetFriend', actor: shiden },
+    {
+      type: 'event',
+      event: removeObjectByName,
+      contents: { name: 'meet2' },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -210,7 +207,7 @@ export const addShiden: Timelines = {
       actorName: 'マルク',
       text: 'そんじゃ、俺はこれで。\n世話になったな。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'シデン', text: '…なぁ、俺も連れて行ってくれないか。' },
     {
       type: 'event',
@@ -244,7 +241,7 @@ export const addShiden: Timelines = {
       actorName: 'シデン',
       text: '全く、倒そうとしているんじゃないのか…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'シデン', text: 'まぁいい、教えてやるから覚えておけ。' },
     {
       type: 'dialog',
@@ -263,7 +260,7 @@ export const addShiden: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: '本当に何も知らないんだな…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'シデン',
@@ -361,7 +358,7 @@ export const addShiden: Timelines = {
       text: '…まぁ着いてきてくれるならなんでもいいや。',
     },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: setEventByXY,
@@ -369,7 +366,7 @@ export const addShiden: Timelines = {
         name: 'startC',
         x: 4,
         y: 22,
-        timeline: oceanGotsuji,
+        timeline: oceanDakahu,
         setEventMap: 'map0',
       },
     },
@@ -380,19 +377,14 @@ export const addShiden: Timelines = {
         name: 'startC',
         x: 4,
         y: 23,
-        timeline: oceanGotsuji,
+        timeline: oceanDakahu,
         setEventMap: 'map0',
       },
     },
     {
       type: 'event',
-      event: removeEventByXYs,
-      contents: {
-        xy: [
-          { x: 2, y: 1 },
-          { x: 3, y: 1 },
-        ],
-      },
+      event: removeObjectByName,
+      contents: { name: 'add2' },
     },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'dialog', text: 'シデンが仲間になった！' },
@@ -642,7 +634,7 @@ export const CapricornWarp: Timelines = {
     {
       type: 'event',
       event: warpPlayerByStar,
-      contents: { name: 'Capricorn', x: 43, y: 12 },
+      contents: { name: 'Capricorn', x: 38, y: 12 },
     },
     { type: 'endTimeline' },
   ],
@@ -971,7 +963,7 @@ export const reOphiuchusWarp: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 13 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 7, y: 12 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
@@ -1108,7 +1100,7 @@ export const beforeBteBattle: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'くどい。\n早くバトルしろ。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: changeNpcDir,
@@ -1126,20 +1118,20 @@ export const beforeBteBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '結局バトル突入セリフおらぁかよ。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
-    //     {
-    //       type: 'event',
-    //       event: moveBattleBoss,
-    //       contents: { battleActor: enemy.bte },
-    //     },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterBteBattle: Timelines = {
-    //   start: [
+    { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.bte },
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterBteBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ぐあぁっ、クソっ、こんな所で…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: changeNpcDir,
@@ -1187,13 +1179,13 @@ export const beforeBteBattle: Timelines = {
     { type: 'dialog', actorName: 'マルク', text: '…ーテってなんて読むのこれ。' },
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
     { type: 'dialog', actorName: 'ビーテ', text: 'ちょうおんぷて、だよ…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'ビーテ', text: '俺の名はビチョウオンプテ、だ…。' },
     { type: 'event', event: removeBossByName, contents: { name: 'Bte' } },
     { type: 'dialog', actorName: 'ビーテ', text: 'バタッ。' },
     { type: 'event', event: displayBubble, contents: { name: 'player', bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'マルク', text: '『ー』って、長音符って言うんだ…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'チョウオンプテ兄弟はやられたか。' },
     { type: 'dialog', actorName: '四天王C', text: '全く、情けないですねぇ…。' },
@@ -1230,12 +1222,7 @@ export const beforeBteBattle: Timelines = {
     {
       type: 'event',
       event: setEventByXY,
-      contents: { name: 'add2-1', x: 2, y: 1, timeline: addShiden },
-    },
-    {
-      type: 'event',
-      event: setEventByXY,
-      contents: { name: 'add2-2', x: 3, y: 1, timeline: addShiden },
+      contents: { name: 'add2', x: 3, y: 1, timeline: addShiden },
     },
     {
       type: 'event',
@@ -1244,7 +1231,7 @@ export const beforeBteBattle: Timelines = {
         name: 'startB',
         x: 55,
         y: 22,
-        timeline: oceanGotsuji,
+        timeline: oceanDakahu,
         setEventMap: 'map0',
       },
     },
@@ -1255,7 +1242,7 @@ export const beforeBteBattle: Timelines = {
         name: 'startB',
         x: 55,
         y: 23,
-        timeline: oceanGotsuji,
+        timeline: oceanDakahu,
         setEventMap: 'map0',
       },
     },
@@ -1271,6 +1258,7 @@ export const beforeBteBattle: Timelines = {
         ],
       },
     },
+    { type: 'event', event: changeEncountFlag },
     { type: 'endTimeline' },
   ],
 };

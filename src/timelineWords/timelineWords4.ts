@@ -1,7 +1,6 @@
+import { Direction } from 'classes/Direction';
+import { Timelines } from 'classes/Timelines';
 import { mough } from 'friends';
-import { Timelines } from '../classes/Timelines';
-import { Direction } from '../classes/Direction';
-import { castleAnnounce } from './timelineWords0';
 import {
   fixKillBossByName,
   removeEventByXYs,
@@ -15,9 +14,9 @@ import {
   displayBossBubble,
   removeBubble,
   warpPlayerByXY,
+  zoomDown,
 } from './events';
-
-//Stage4
+import { castleAnnounce } from './timelineWords0';
 export const explanation4: Timelines = {
   start: [
     {
@@ -33,13 +32,59 @@ export const explanation4: Timelines = {
     { type: 'endTimeline' },
   ],
 };
-
 export const addMough: Timelines = {
   start: [
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Shiden', x: 3, y: 2, timeline: undefined },
+      contents: { name: 'Shiden', x: 33, y: 21, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Pouler', x: 31, y: 21, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: setNpc,
+      contents: { name: 'Mough', x: 30, y: 23, timeline: undefined },
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.UP },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 4 },
+    },
+    { type: 'dialog', actorName: 'マルク', text: 'なぁ…なんか、着いてきてね？' },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'Shiden', direction: Direction.LEFT },
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Shiden', bubbleIndex: 3 },
+    },
+    { type: 'dialog', actorName: 'シデン', text: 'なんか、ではない。' },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Shiden', bubbleIndex: 4 },
+    },
+    {
+      type: 'dialog',
+      actorName: 'シデン',
+      text: '逆にこんな大男が着いてきていてなぜ今まで気付かなかった。',
+    },
+    {
+      type: 'event',
+      event: changeNpcDir,
+      contents: { name: 'player', direction: Direction.DOWN },
     },
     {
       type: 'event',
@@ -48,51 +93,18 @@ export const addMough: Timelines = {
     },
     {
       type: 'event',
-      event: setNpc,
-      contents: { name: 'Pouler', x: 2, y: 1, timeline: undefined },
-    },
-    {
-      type: 'event',
       event: changeNpcDir,
       contents: { name: 'Pouler', direction: Direction.DOWN },
     },
     {
       type: 'event',
-      event: setNpc,
-      contents: { name: 'Mough', x: 2, y: 1, timeline: undefined },
-    },
-    {
-      type: 'event',
-      event: changeNpcDir,
-      contents: { name: 'Mough', direction: Direction.DOWN },
-    },
-    {
-      type: 'event',
-      event: displayBubble,
-      contents: { name: 'player', bubbleIndex: 1 },
-    },
-    { type: 'dialog', actorName: 'マルク', text: 'なぁ…なんか、着いてきてね？' },
-    {
-      type: 'event',
-      event: displayBubble,
-      contents: { name: 'Shiden', bubbleIndex: 1 },
-    },
-    { type: 'dialog', actorName: 'シデン', text: 'なんか、ではない。' },
-    {
-      type: 'dialog',
-      actorName: 'シデン',
-      text: '逆にこんな大男が着いてきていてなぜ今まで気付かなかった。',
-    },
-    {
-      type: 'event',
-      event: displayBubble,
-      contents: { name: 'Shiden', bubbleIndex: 3 },
+      event: removeBubble,
     },
     { type: 'dialog', actorName: 'シデン', text: 'なんの用だ、大男。' },
     {
       type: 'event',
       event: displayBubble,
-      contents: { name: 'Mough', bubbleIndex: 3 },
+      contents: { name: 'Mough', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マウ', text: '…おで？' },
     {
@@ -101,17 +113,34 @@ export const addMough: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 2 },
     },
     { type: 'dialog', actorName: 'シデン', text: '貴様以外に誰がいる。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Mough', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'マウ', text: 'お前ら、食堂、行く。' },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'マルク', text: 'そうだな。' },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Mough', bubbleIndex: 4 },
+    },
     { type: 'dialog', actorName: 'マウ', text: '食堂、魔王、居る。' },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'パウラ', text: 'そうですね。' },
-    { type: 'dialog', actorName: 'マウ', text: '魔王、強い。' },
-    { type: 'dialog', actorName: 'シデン', text: 'その通りだ。' },
     {
       type: 'event',
       event: displayBubble,
       contents: { name: 'Mough', bubbleIndex: 3 },
+    },
+    { type: 'dialog', actorName: 'マウ', text: '魔王、強い。' },
+    { type: 'event', event: removeBubble },
+    { type: 'dialog', actorName: 'シデン', text: 'その通りだ。' },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'Mough', bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'マウ', text: 'マウも、強い。' },
     {
@@ -132,12 +161,11 @@ export const addMough: Timelines = {
       contents: { name: 'player', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'マルク', text: '…それで着いてきてるのか。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', actorName: 'マルク', text: 'まぁ、力強そうだし。' },
     {
       type: 'event',
       event: displayBubble,
-      contents: { name: 'player', bubbleIndex: 6 },
+      contents: { name: 'player', bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'いいんじゃない？' },
     {
@@ -165,17 +193,16 @@ export const addMough: Timelines = {
     },
     { type: 'dialog', actorName: 'パウラ', text: '確かに頼もしくはありますけど…。' },
     { type: 'setBackgroundColor', color: '#000' },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
     { type: 'event', event: removeObjectByName, contents: { name: 'add4' } },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
     { type: 'dialog', text: 'ノリと勢いでマウが仲間になった！' },
     { type: 'meetFriend', actor: mough },
     { type: 'endTimeline' },
   ],
 };
-
 export const warpboss: Timelines = {
   start: [
     { type: 'dialog', text: 'この穴に入りますか？' },
@@ -188,7 +215,7 @@ export const warpboss: Timelines = {
     },
   ],
   Yes: [
-    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 50 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 52 } },
     { type: 'endTimeline' },
   ],
   No: [{ type: 'endTimeline' }],
@@ -213,21 +240,21 @@ export const backboss: Timelines = {
 export const goEleca: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 43 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 29, y: 49 } },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Shiden', x: 28, y: 43, timeline: undefined },
+      contents: { name: 'Shiden', x: 28, y: 49, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Pouler', x: 30, y: 44, timeline: undefined },
+      contents: { name: 'Pouler', x: 30, y: 49, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Mough', x: 27, y: 44, timeline: undefined },
+      contents: { name: 'Mough', x: 27, y: 49, timeline: undefined },
     },
     {
       type: 'event',
@@ -318,13 +345,13 @@ export const beforeElecaBattle: Timelines = {
       actorName: 'マルク',
       text: '…あれ？もしかしてピンと来てないの俺だけ？',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'エレカ',
       text: 'あの3人と同じだと思ってかかると痛い目に合うわよ。',
     },
-    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 5 } },
+    { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     {
       type: 'dialog',
       actorName: 'エレカ',
@@ -333,7 +360,7 @@ export const beforeElecaBattle: Timelines = {
     {
       type: 'event',
       event: displayBubble,
-      contents: { name: 'player', bubbleIndex: 3 },
+      contents: { name: 'player', bubbleIndex: 5 },
     },
     {
       type: 'dialog',
@@ -352,12 +379,12 @@ export const beforeElecaBattle: Timelines = {
       actorName: 'エレカ',
       text: '全員まとめて叩き潰す。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterElecaBattle: Timelines = {
-    //   start: [
+    { type: 'event', event: removeBubble },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterElecaBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 4 } },
     { type: 'dialog', actorName: 'エレカ', text: 'うぐっ…おかあ…さま…。' },
     {
@@ -372,28 +399,13 @@ export const beforeElecaBattle: Timelines = {
       actorName: 'エレカ',
       text: '…お母様は、私の比にならない強さよ、\nせいぜい…覚悟…しておきなさい…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: removeBossByName, contents: { name: 'Eleca' } },
     { type: 'dialog', actorName: 'エレカ', text: 'バタッ。' },
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'player', direction: Direction.DOWN },
-    },
-    {
-      type: 'event',
-      event: changeNpcDir,
-      contents: { name: 'Shiden', direction: Direction.DOWN },
-    },
-    {
-      type: 'event',
-      event: changeNpcDir,
       contents: { name: 'Pouler', direction: Direction.LEFT },
-    },
-    {
-      type: 'event',
-      event: changeNpcDir,
-      contents: { name: 'Mough', direction: Direction.RIGHT },
     },
     {
       type: 'event',
@@ -407,7 +419,7 @@ export const beforeElecaBattle: Timelines = {
       contents: { name: 'Mough', bubbleIndex: 5 },
     },
     { type: 'dialog', actorName: 'マウ', text: 'マウ、丈夫、マウ、平気。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'パウラ', text: '良かったです…。' },
     {
       type: 'event',
@@ -422,21 +434,31 @@ export const beforeElecaBattle: Timelines = {
     {
       type: 'event',
       event: displayBubble,
-      contents: { name: 'player', bubbleIndex: 1 },
+      contents: { name: 'player', bubbleIndex: 4 },
     },
     {
       type: 'dialog',
       actorName: 'マルク',
-      text: 'ああ、折角ここまで来たんだ。\nもっと強くなって、魔王ぶっとばしてやろうぜ！',
+      text: 'ああ、折角ここまで来たんだ。',
+    },
+    {
+      type: 'event',
+      event: displayBubble,
+      contents: { name: 'player', bubbleIndex: 3 },
+    },
+    {
+      type: 'dialog',
+      actorName: 'マルク',
+      text: 'もっと強くなって、魔王ぶっとばしてやろうぜ！',
     },
     {
       type: 'event',
       event: fixKillBossByName,
       contents: { name: 'Eleca' },
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: 'zoomDown', contents: { name: 'proto' } },
+    { type: 'event', event: zoomDown },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Mough' } },
@@ -477,11 +499,9 @@ export const beforeElecaBattle: Timelines = {
       event: removeEventByXYs,
       contents: {
         xy: [
-          { x: 28, y: 45 },
-          { x: 29, y: 44 },
-          { x: 30, y: 45 },
-          { x: 24, y: 28 },
-          { x: 25, y: 28 },
+          { x: 28, y: 52 },
+          { x: 29, y: 51 },
+          { x: 30, y: 52 },
         ],
       },
     },

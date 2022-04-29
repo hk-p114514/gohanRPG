@@ -11,10 +11,9 @@ import {
   explanation,
   stopl,
   stopr,
-  afterGotsuji,
+  afterDakahu,
   stoper,
-  beJK1,
-  beJK2,
+  beJK,
   beBijinesuman,
   beEruhu,
   beKisi,
@@ -22,6 +21,7 @@ import {
   beSyoujo,
   beMajo,
   beRoujin,
+  tutorial1,
 } from 'timelineWords/timelineWords0';
 import { beStrong } from 'skillsFunction/partySkillsFunction';
 //import { system } from 'index';
@@ -36,28 +36,28 @@ export class Map0 extends Map_TPL {
     super.setnpcimage('notMob2', 0);
     super.setnpcimage('notMob3', 0);
     super.setnpcimage('notMob4', 0);
-    super.setnpcimage('name1', 0);
-    super.setnpcimage('name2', 0);
-    super.setnpcimage('name3', 0);
-    super.setnpcimage('name4', 0);
-    super.setnpcimage('name5', 0);
-    super.setnpcimage('name6', 0);
-    super.setnpcimage('name7', 0);
-    super.setnpcimage('name8', 0);
-    super.setnpcimage('name9', 0);
+    super.setnpcimage('Bijinesuman', 1);
+    super.setnpcimage('JK1', 2);
+    super.setnpcimage('JK2', 3);
+    super.setnpcimage('Tyuubou', 4);
+    super.setnpcimage('Eruhu', 5);
+    super.setnpcimage('Kisi', 6);
+    super.setnpcimage('Majo', 7);
+    super.setnpcimage('Syoujo', 8);
+    super.setnpcimage('Roujin', 9);
   }
   create() {
     super.create();
-    super.makeNPC('name1', beJK1);
-    super.makeNPC('name2', beJK2);
-    super.makeNPC('name3', beBijinesuman);
-    super.makeNPC('name4', beEruhu);
-    super.makeNPC('name5', beKisi);
-    super.makeNPC('name6', beTyuubou);
-    super.makeNPC('name7', beSyoujo);
-    super.makeNPC('name8', beMajo);
-    super.makeNPC('name9', beRoujin);
-    super.makeNPC('notMob', afterGotsuji);
+    super.makeNPC('JK1', beJK, 'right');
+    super.makeNPC('JK2', beJK, 'left');
+    super.makeNPC('Bijinesuman', beBijinesuman);
+    super.makeNPC('Eruhu', beEruhu);
+    super.makeNPC('Kisi', beKisi);
+    super.makeNPC('Tyuubou', beTyuubou, 'up');
+    super.makeNPC('Syoujo', beSyoujo, 'up');
+    super.makeNPC('Majo', beMajo);
+    super.makeNPC('Roujin', beRoujin, 'left');
+    super.makeNPC('notMob', afterDakahu);
     super.makeNPC('stoper1', stoper);
     super.makeNPC('stoper2', stoper);
     super.makeNPC('stoper3', stoper);
@@ -75,6 +75,10 @@ export class Map0 extends Map_TPL {
     super.setEvent('startMob', explanation);
     super.setEvent('stopl', stopl);
     super.setEvent('stopr', stopr);
+    this.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: this,
+      timelineData: tutorial1,
+    });
 
     // イベントの位置を取得
     // const events = this.tileMap?.filterTiles((tile) => {});

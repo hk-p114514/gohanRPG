@@ -1,6 +1,6 @@
 import { Direction } from '../classes/Direction';
 import { Timelines } from '../classes/Timelines';
-import { desertGotsuji } from './timelineWords0';
+import { desertDakahu } from './timelineWords0';
 import {
   fixKillBossByName,
   removeEventByXYs,
@@ -12,7 +12,9 @@ import {
   displayBossBubble,
   removeBubble,
   warpPlayerByXY,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
 
 //Stage1
 export const explanation1: Timelines = {
@@ -44,7 +46,7 @@ export const hint1: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '？？？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -59,7 +61,7 @@ export const stone1: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '額 looks？\n', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -74,7 +76,7 @@ export const stone2: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '明くる楠？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -89,7 +91,7 @@ export const stone3: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: 'どんな星座だよ。', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -104,7 +106,7 @@ export const stone4: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', text: '誰だよ今井って？', actorName: 'マルク' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'endTimeline' },
   ],
 };
@@ -194,16 +196,16 @@ export const beforeAteBattle: Timelines = {
       actorName: 'エーテ',
       text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！',
     },
-    //     {
-    //       type: 'event',
-    //       event: moveBattleBoss,
-    //       contents: { battleActor: enemy.ate },
-    //     },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterAteBattle: Timelines = {
-    //   start: [
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.ate },
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterAteBattle: Timelines = {
+  start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…。' },
     {
       type: 'dialog',
@@ -218,7 +220,7 @@ export const beforeAteBattle: Timelines = {
       contents: { name: 'player', bubbleIndex: 1 },
     },
     { type: 'dialog', actorName: 'マルク', text: 'OBC？なんだそれ？' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'エーテ',
@@ -241,7 +243,7 @@ export const beforeAteBattle: Timelines = {
       actorName: 'マルク',
       text: '…死に際に色々吐いてくれる系四天王だったな…。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: 'エーテはもう倒れたか…。' },
     { type: 'dialog', actorName: '四天王C', text: 'ふん、奴は四天王の中でも最弱…。' },
@@ -271,7 +273,7 @@ export const beforeAteBattle: Timelines = {
         name: 'startB',
         x: 4,
         y: 22,
-        timeline: desertGotsuji,
+        timeline: desertDakahu,
         setEventMap: 'map0',
       },
     },
@@ -282,7 +284,7 @@ export const beforeAteBattle: Timelines = {
         name: 'startB',
         x: 4,
         y: 23,
-        timeline: desertGotsuji,
+        timeline: desertDakahu,
         setEventMap: 'map0',
       },
     },

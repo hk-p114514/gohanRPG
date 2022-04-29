@@ -1,7 +1,7 @@
 import { pouler } from 'friends';
 import { Timelines } from '../classes/Timelines';
 import { Direction } from '../classes/Direction';
-import { volcanoGotsuji } from './timelineWords0';
+import { volcanoDakahu } from './timelineWords0';
 import {
   fixKillBossByName,
   removeObjectByName,
@@ -15,8 +15,6 @@ import {
   removeBubble,
   warpPlayerByXY,
 } from './events';
-
-//Stage3
 export const explanation3: Timelines = {
   start: [
     {
@@ -129,7 +127,7 @@ export const addPouler: Timelines = {
       contents: { name: 'Shiden', bubbleIndex: 3 },
     },
     { type: 'dialog', actorName: 'シデン', text: 'やめておけ、危険すぎる。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'dialog', actorName: 'マルク', text: '俺もシデンに賛成かな、敵も多いし。' },
     {
       type: 'event',
@@ -221,7 +219,7 @@ export const addPouler: Timelines = {
       text: 'あ、ありがとうございます！\n回復魔法が使えるので、一生懸命がんばります！',
     },
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'event', event: removeNpcByName, contents: { name: 'Shiden' } },
     { type: 'event', event: removeNpcByName, contents: { name: 'Pouler' } },
     { type: 'event', event: removeObjectByName, contents: { name: 'add3' } },
@@ -378,16 +376,16 @@ export const warpstart: Timelines = {
 export const goMelcine: Timelines = {
   start: [
     { type: 'setBackgroundColor', color: '#000' },
-    { type: 'event', event: warpPlayerByXY, contents: { x: 51, y: 28 } },
+    { type: 'event', event: warpPlayerByXY, contents: { x: 51, y: 29 } },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Shiden', x: 52, y: 28, timeline: undefined },
+      contents: { name: 'Shiden', x: 52, y: 29, timeline: undefined },
     },
     {
       type: 'event',
       event: setNpc,
-      contents: { name: 'Pouler', x: 50, y: 28, timeline: undefined },
+      contents: { name: 'Pouler', x: 50, y: 29, timeline: undefined },
     },
     {
       type: 'event',
@@ -463,7 +461,7 @@ export const beforeMelcineBattle: Timelines = {
       contents: { name: 'Pouler', direction: Direction.UP },
     },
     { type: 'dialog', actorName: 'メルシン', text: 'おや、聞き捨てなりませんねぇ！' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'dialog',
       actorName: 'メルシン',
@@ -480,12 +478,12 @@ export const beforeMelcineBattle: Timelines = {
       actorName: 'メルシン',
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterMelcineBattle: Timelines = {
-    //   start: [
+    { type: 'event', event: removeBubble },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterMelcineBattle: Timelines = {
+  start: [
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
     {
       type: 'dialog',
@@ -506,18 +504,18 @@ export const beforeMelcineBattle: Timelines = {
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'player', direction: Direction.LEFT },
+      contents: { name: 'player', direction: Direction.RIGHT },
     },
     {
       type: 'dialog',
       actorName: 'マルク',
       text: 'ごちゃごちゃうるせぇ野郎だな、とっとと行こうぜ。',
     },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     {
       type: 'event',
       event: changeNpcDir,
-      contents: { name: 'Shiden', direction: Direction.RIGHT },
+      contents: { name: 'Shiden', direction: Direction.LEFT },
     },
     { type: 'dialog', actorName: 'シデン', text: 'うむ、付き合うだけ時間の無駄だ。' },
     { type: 'event', event: displayBossBubble, contents: { bubbleIndex: 3 } },
@@ -533,7 +531,7 @@ export const beforeMelcineBattle: Timelines = {
       contents: { name: 'Pouler', bubbleIndex: 4 },
     },
     { type: 'dialog', actorName: 'パウラ', text: 'えぇ…。' },
-    { type: 'event', event: removeBubble, contents: { name: 'proto' } },
+    { type: 'event', event: removeBubble },
     { type: 'setBackgroundColor', color: '#000' },
     { type: 'dialog', actorName: 'OBC', text: '…結局あんた以外、皆やられちまったよ。' },
     { type: 'dialog', actorName: 'エレカ', text: '当然よ、男は皆軟弱者だもの。' },
@@ -577,7 +575,7 @@ export const beforeMelcineBattle: Timelines = {
         name: 'startD',
         x: 4,
         y: 12,
-        timeline: volcanoGotsuji,
+        timeline: volcanoDakahu,
         setEventMap: 'map0',
       },
     },
@@ -588,7 +586,7 @@ export const beforeMelcineBattle: Timelines = {
         name: 'startD',
         x: 4,
         y: 13,
-        timeline: volcanoGotsuji,
+        timeline: volcanoDakahu,
         setEventMap: 'map0',
       },
     },

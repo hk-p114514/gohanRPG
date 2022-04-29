@@ -67,8 +67,8 @@ export class State {
     this.statesName.set('heal', '継続回復');
     this.statesName.set('paralysis', '麻痺');
     this.statesName.set('sleep', '眠り');
-    this.statesName.set('arthralgia', '関節痛');
-    this.statesName.set('glucosamine', 'グルコサミン');
+    this.statesName.set('arthralgia', 'トラウマ');
+    this.statesName.set('glucosamine', '祝福');
     this.statesName.set('provocation', '挑発');
   }
 
@@ -76,6 +76,10 @@ export class State {
     this.states.forEach((state: StateInfo) => {
       this.passiveState(state.name);
     });
+    this.damageBuff = 0;
+    this.isPossible = true;
+    this.skillBuff = 0;
+    this.isProvocation = false;
   }
 
   /**
@@ -140,11 +144,11 @@ export class State {
         this.isPossible = false;
         break;
       case 'arthralgia':
-        this.onePhrase(scene, `${this.actor.name}は膝が痛くて技が上手く選べない！`);
+        this.onePhrase(scene, `${this.actor.name}はトラウマで技が上手く選べない！`);
         this.skillBuff -= this.arthralgiaBuff;
         break;
       case 'glucosamine':
-        this.onePhrase(scene, `${this.actor.name}は膝がグルグルして選べる技が増えた！`);
+        this.onePhrase(scene, `${this.actor.name}は祝福により選べる技が増えた！`);
         this.skillBuff += this.glucosamineBuff;
         break;
       case 'provocation':
@@ -228,7 +232,9 @@ export class State {
    * @returns 挑発状態のキャラクター群
    */
   public static getProvocationActors(party: BattleActor[]): BattleActor[] {
-    return party.filter((actor: BattleActor) => actor.state.isProvocation);
+    return party.filter(
+      (actor: BattleActor) => actor.state.isProvocation && !actor.isDead(),
+    );
   }
 }
 

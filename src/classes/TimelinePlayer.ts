@@ -32,6 +32,8 @@ import {
   zoomDown,
   warpPlayerByStar,
   createBoss,
+  talkNPC,
+  changeEncountFlag,
 } from 'timelineWords/events';
 
 export class TimelinePlayer extends Scene {
@@ -47,6 +49,15 @@ export class TimelinePlayer extends Scene {
   private anotherScene?: Map_TPL;
   private timelineData?: Timelines;
   private specID?: string;
+  private textBoxPadding = {
+    x: 10,
+    y: 10,
+    left: 5,
+    right: 5,
+    top: 5,
+    bottom: 5,
+    allDir: 10,
+  };
   constructor() {
     super({ key: sceneKeys.timelinePlayer });
   }
@@ -71,8 +82,7 @@ export class TimelinePlayer extends Scene {
 
   preload() {}
   create() {
-    const enter = this.scene.scene.input.keyboard.addKey('ENTER');
-    enter.on('down', () => {
+    const space = this.scene.scene.input.keyboard.addKey('SPACE').on('down', () => {
       this.isTextShow = true;
     });
 
@@ -201,26 +211,30 @@ export class TimelinePlayer extends Scene {
         break;
     }
   }
-
-  private startevent(key: string, contents: MotionEventProps) {
+  private startevent(key: string, contents?: MotionEventProps) {
     console.log(key);
     switch (key) {
       case fixKillBossByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.fixKillBossByName(contents.name);
       case removeEventByXYs:
+        if (contents === undefined) break;
         if (contents.xy === undefined) break;
         this.anotherScene?.removeEventByXYs(contents.xy);
         break;
       case removeObjectByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeObjectByName(contents.name);
         break;
       case removeBossByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeBossByName(contents.name);
         break;
       case setEventByXY:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -234,15 +248,16 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case changeNpcDir:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.changeNpcDir(contents.name, contents.direction);
         break;
       case setNpc:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
-        if (contents.timeline === undefined) break;
         this.anotherScene?.setNpc(
           contents.name,
           contents.x,
@@ -252,31 +267,37 @@ export class TimelinePlayer extends Scene {
         );
         break;
       case removeNpcByName:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         this.anotherScene?.removeNpcByName(contents.name);
         break;
       case movePlayerByDir:
+        if (contents === undefined) break;
         if (contents.direction === undefined) break;
         this.anotherScene?.movePlayerByDir(contents.direction);
         break;
       case displayBubble:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.bubbleIndex === undefined) break;
         this.anotherScene?.displayBubble(contents.name, contents.bubbleIndex);
         break;
       case displayBossBubble:
+        if (contents === undefined) break;
         if (contents.bubbleIndex === undefined) break;
-        this.anotherScene?.displayBossBubble(contents.bubbleIndex);
+        this.anotherScene?.displayBossBubble(contents.bubbleIndex, contents.flag);
         break;
       case removeBubble:
         this.anotherScene?.removeBubble();
         break;
       case warpPlayerByXY:
+        if (contents === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         this.anotherScene?.warpPlayerByXY(contents.x, contents.y);
         break;
       case moveBattleBoss:
+        if (contents === undefined) break;
         if (contents.battleActor === undefined) break;
         if (!this.anotherScene?.moveBattleBoss(contents.battleActor)) {
           this.dialogBox?.clearDialogBox();
@@ -297,6 +318,7 @@ export class TimelinePlayer extends Scene {
         this.anotherScene?.zoomDown();
         break;
       case warpPlayerByStar:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
@@ -304,20 +326,23 @@ export class TimelinePlayer extends Scene {
           this.anotherScene?.warpPlayerByStar(contents.name, contents.x, contents.y);
         break;
       case createBoss:
+        if (contents === undefined) break;
         if (contents.name === undefined) break;
         if (contents.x === undefined) break;
         if (contents.y === undefined) break;
         if (this.anotherScene instanceof Map5)
           this.anotherScene?.createBoss(contents.x, contents.y, contents.name);
         break;
+      case talkNPC:
+        this.anotherScene?.talkNPC();
+        break;
+      case changeEncountFlag:
     }
     // }
   }
 
   private addFriend(actor: BattleActor) {
-    if (!system.party.includes(actor)) {
-      system.party.push(actor);
-    }
+    system.addPartyActor(actor);
   }
 
   // ダイアログの作成
@@ -327,13 +352,15 @@ export class TimelinePlayer extends Scene {
       fontFamily:
         '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
       fontSize: '24px',
+      padding: this.textBoxPadding,
+      wordWrap: { width: width - this.textBoxPadding.allDir, useAdvancedWrap: true }, // useAdvancedWrapをtrueにすることで日本語の折り返しが有効になる
     };
     const dialogBoxConfig: DialogBoxConfig = {
       x: 0,
       y: 0,
       width: width,
       height: height,
-      padding: 0,
+      padding: this.textBoxPadding.allDir,
       margin: 0,
       textStyle: textStyle,
       backGroundColor: 0x000000,

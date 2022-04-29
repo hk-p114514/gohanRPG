@@ -20,7 +20,7 @@ import { Map_TPL } from './Map.tpl';
 export class Battle extends Scene {
   public static readonly availableSkillCount: number = 4;
   public static readonly maxEnemiesAppearance: number = 3;
-  private party: BattleActor[] = [...system.party];
+  private party: BattleActor[] = [...system.getParty()];
   private enemies: BattleActor[] = [];
   private sorted: BattleActor[] = [];
   private index: number = 0;
@@ -33,7 +33,7 @@ export class Battle extends Scene {
   }
 
   init() {
-    this.party = [...system.party];
+    this.party = [...system.getParty()];
     this.enemies = [];
     this.sorted = [];
     this.index = 0;
@@ -51,6 +51,7 @@ export class Battle extends Scene {
       const n = randI(len - 1, 0);
       this.enemies.splice(n, 1);
     }
+
     if (system.isBossBattle && system.boss) {
       this.enemies = [system.boss];
     }
@@ -99,42 +100,45 @@ export class Battle extends Scene {
       actor.buff.buffProcess();
       this.isTurnAttack = true;
     } else {
+      // バトルが終わっていないか確認
+      const endBattle = this.isEndBattle(this.party, this.enemies);
+
+      // endBattleが0でない場合は、ターン終了
+      if (endBattle !== 0) {
+        system.isBattle = false;
+        switch (endBattle) {
+          case 1:
+            console.log('プレイヤーの勝利');
+            // this.resultDialog('win');
+            const levelUps = this.giveExpPlayers();
+            this.levelUpDialog(levelUps);
+            this.backToMap();
+            break;
+          case 2:
+          case 3:
+            console.log('敵の勝利');
+            this.resultDialog('lose');
+            this.scene.stop(sceneKeys.ui);
+            // start --> shutdown this.scene & start scene of key
+            system.isBossBattle = false;
+            this.scene.start(sceneKeys.gameover);
+            break;
+        }
+        // HPが0になった味方はマップに戻るときにHP1にする
+        this.party.forEach((actor) => {
+          if (actor.isDead()) {
+            actor.beHealed(1);
+          }
+        });
+        return;
+      }
+
       if (actor.isDead()) {
         // sortedの中で、actorが死んでいる場合は、それを除く
         this.sorted = this.sorted.filter((a) => a !== actor);
         console.log(`${actor.name}は死んでしまった`);
         this.resultDialog('dead', actor);
       } else {
-        // バトルが終わっていないか確認
-        const endBattle = this.isEndBattle(this.party, this.enemies);
-        // endBattleが0でない場合は、ターン終了
-        if (endBattle !== 0) {
-          system.isBattle = false;
-          switch (endBattle) {
-            case 1:
-              console.log('プレイヤーの勝利');
-              // this.resultDialog('win');
-              const levelUps = this.giveExpPlayers();
-              this.levelUpDialog(levelUps);
-              this.backToMap();
-              break;
-            case 2:
-            case 3:
-              console.log('敵の勝利');
-              this.resultDialog('lose');
-              this.scene.stop(sceneKeys.ui);
-              // start --> shutdown this.scene & start scene of key
-              this.scene.start(sceneKeys.gameover);
-              break;
-          }
-          // HPが0になった味方はマップに戻るときにHP1にする
-          this.party.forEach((actor) => {
-            if (actor.isDead()) {
-              actor.beHealed(1);
-            }
-          });
-          return;
-        }
         console.log('####################');
         console.log(`${this.index}番目の${actor.name}のターン`);
         console.log('####################');
@@ -216,6 +220,10 @@ export class Battle extends Scene {
    * @return void
    */
   backToMap() {
+    if (system.isBossBattle) {
+      system.isBossBattleWin = true;
+      system.isBossBattle = false;
+    }
     this.scene.stop(sceneKeys.ui);
     this.scene.stop(sceneKeys.battle);
     this.scene.wake(system.map);

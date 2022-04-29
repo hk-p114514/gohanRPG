@@ -86,6 +86,7 @@ type EndTimeline = {
 /*=================================================== */
 export type allMap = Map_TPL | Map0 | Map1 | Map2 | Map3 | Map4 | Map5;
 export type MotionEventProps = {
+  flag?: boolean;
   x?: number;
   y?: number;
   name?: string;
@@ -100,7 +101,7 @@ export type MotionEventProps = {
 type MotionEvent = {
   type: 'event';
   event: string;
-  contents: MotionEventProps;
+  contents?: MotionEventProps;
 };
 
 type Switch = {

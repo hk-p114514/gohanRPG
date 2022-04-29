@@ -79,10 +79,15 @@ export class Map2 extends Map_TPL {
     super.create();
     //sets
     {
-      this.setBoss(7, 18, 'Bte');
+      this.setBoss(7, 18, 'Bte', system.isBossKilled.get('Bte'));
       super.setEvent('exit', warp0);
-      super.makeNPC('Shiden', meetShiden);
-      super.setEvent('meet2', meetShiden);
+      super.makeNPC(
+        'Shiden',
+        meetShiden,
+        'down',
+        system.isExistActorInParty(shiden.name),
+      );
+      super.setEvent('meet2', meetShiden, system.isExistActorInParty(shiden.name));
       super.setHint('explanation2', explanation2);
       super.setHint('Aries', Aries);
       super.setHint('Taurus', Taurus);
@@ -123,9 +128,8 @@ export class Map2 extends Map_TPL {
       super.setHint('reAquariuswarp', reAquariusWarp);
       super.setHint('rePisceswarp', rePiscesWarp);
       super.setHint('reOphiuchuswarp', reOphiuchusWarp);
-      super.setEvent('goBte', goBte);
-      super.setEvent('beforeBte', beforeBteBattle);
-      //super.setEvent('afterBte', afterBteBattle);
+      super.setEvent('goBte', goBte, system.isBossKilled.get('Bte'));
+      super.setEvent('beforeBte', beforeBteBattle, system.isBossKilled.get('Bte'));
     }
   }
   public warpPlayerByStar(starName: string, x: number, y: number) {
