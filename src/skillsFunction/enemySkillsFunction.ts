@@ -329,7 +329,7 @@ export const pararaizu: SkillFunction = (
   ]);
 };
 
-// バットモビール
+// 博賭モビール
 export const batmobiru = (
   scene: Scene,
   attacker: BattleActor,
@@ -348,7 +348,7 @@ export const batmobiru = (
   sum = Math.floor(sum / targets.length);
 
   skillDialog(scene, [
-    { type: 'dialog', text: `${attacker.name}のバットモビール！` },
+    { type: 'dialog', text: `${attacker.name}の博賭モビール！` },
     {
       type: 'dialog',
       text: `${changeToFriendsView(attacker, targets)}に平均 ${sum} ダメージ！`,
