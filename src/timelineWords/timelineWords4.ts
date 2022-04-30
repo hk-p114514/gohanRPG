@@ -1,5 +1,6 @@
 import { Direction } from 'classes/Direction';
 import { Timelines } from 'classes/Timelines';
+import { enemy } from 'enemies';
 import { mough } from 'friends';
 import {
   fixKillBossByName,
@@ -15,6 +16,7 @@ import {
   removeBubble,
   warpPlayerByXY,
   zoomDown,
+  moveBattleBoss,
 } from './events';
 import { castleAnnounce } from './timelineWords0';
 export const explanation4: Timelines = {
@@ -380,6 +382,11 @@ export const beforeElecaBattle: Timelines = {
       text: '全員まとめて叩き潰す。',
     },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.eleca },
+    },
     { type: 'endTimeline' },
   ],
 };

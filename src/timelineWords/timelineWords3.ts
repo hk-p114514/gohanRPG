@@ -14,7 +14,9 @@ import {
   displayBossBubble,
   removeBubble,
   warpPlayerByXY,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
 export const explanation3: Timelines = {
   start: [
     {
@@ -479,6 +481,11 @@ export const beforeMelcineBattle: Timelines = {
       text: 'このワタクシが、四天王の真の恐ろしさ、思い知らせて差し上げましょう！！',
     },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.melcine },
+    },
     { type: 'endTimeline' },
   ],
 };
