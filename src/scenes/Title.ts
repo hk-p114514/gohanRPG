@@ -2,12 +2,9 @@ import { GameObjects, Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { sceneKeys } from 'scenes/sceneKeys';
 import logo from '@/images/titleimage.jpg';
-import button from '@/images/button.png';
-import buttonOnHover from '@/images/button_onhover.png';
 
 import buttonFrame from '@/images/button/button_frame.png';
 import buttonFrameDark from '@/images/button/button_frame_dark.png';
-import buttonNoFrame from '@/images/button/button_noFrame.png';
 import buttonOnClick from '@/images/button/button_onClick.png';
 
 export class Title extends Scene {
