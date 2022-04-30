@@ -10,6 +10,7 @@ import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';
 import { Buff } from './Buff';
+import { DEBUG } from 'functions/generalPurpose/debugLog';
 export type Level = {
   // 現在のレベル
   current: number;
@@ -141,7 +142,7 @@ export class BattleActor {
     if (this.hp.current < 0) {
       this.hp.current = 0;
     }
-    console.log(`${this.name} damaged ${before - this.hp.current}`);
+    DEBUG.log(`${this.name} damaged ${before - this.hp.current}`);
   }
 
   // 回復

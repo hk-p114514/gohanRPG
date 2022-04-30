@@ -6,6 +6,7 @@ import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
 import { randArr, randI } from 'functions/generalPurpose/rand';
 import { State } from 'classes/State';
+import { DEBUG } from 'functions/generalPurpose/debugLog';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、
@@ -91,7 +92,7 @@ export class Battle extends Scene {
   //               ：2往復目-> 状態異常 例：「どくで〜ダメージ」
   nextTurn() {
     this.logAllActorHP();
-    console.log(`===== ${this.index}ターン目 =====`);
+    DEBUG.log(`===== ${this.index}ターン目 =====`);
     const actor = this.sorted[this.index];
     if (!this.isTurnAttack) {
       actor.state.stateProcess(this);
@@ -106,7 +107,7 @@ export class Battle extends Scene {
         system.isBattle = false;
         switch (endBattle) {
           case 1:
-            console.log('プレイヤーの勝利');
+            DEBUG.log('プレイヤーの勝利');
             // this.resultDialog('win');
             const levelUps = this.giveExpPlayers();
             this.levelUpDialog(levelUps);
@@ -114,7 +115,7 @@ export class Battle extends Scene {
             break;
           case 2:
           case 3:
-            console.log('敵の勝利');
+            DEBUG.log('敵の勝利');
             this.resultDialog('lose');
             this.scene.stop(sceneKeys.ui);
             // start --> shutdown this.scene & start scene of key
@@ -134,12 +135,12 @@ export class Battle extends Scene {
       if (actor.isDead()) {
         // sortedの中で、actorが死んでいる場合は、それを除く
         this.sorted = this.sorted.filter((a) => a !== actor);
-        console.log(`${actor.name}は死んでしまった`);
+        DEBUG.log(`${actor.name}は死んでしまった`);
         this.resultDialog('dead', actor);
       } else {
-        console.log('####################');
-        console.log(`${this.index}番目の${actor.name}のターン`);
-        console.log('####################');
+        DEBUG.log('####################');
+        DEBUG.log(`${this.index}番目の${actor.name}のターン`);
+        DEBUG.log('####################');
 
         // actor.getRandSkill()(actor, enemies);
         // actorの攻撃
@@ -176,7 +177,7 @@ export class Battle extends Scene {
   actorAction(actor: BattleActor): void {
     const skill = actor.getRandSkill();
     const { forAllTargets, forEnemy } = skill.getSkillInfo();
-    console.log(`${actor.name}の${skill.getName()}!!`);
+    DEBUG.log(`${actor.name}の${skill.getName()}!!`);
     if (!forAllTargets) {
       // 単体効果
       let targetEnemy: BattleActor;
@@ -233,12 +234,12 @@ export class Battle extends Scene {
    * @return void
    */
   logAllActorHP() {
-    console.log('キャラクターのステータス');
-    console.log('------------------------------------');
+    DEBUG.log('キャラクターのステータス');
+    DEBUG.log('------------------------------------');
     this.sorted.forEach((actor) => {
-      console.log(`${actor.name} HP: ${actor.hp.current}`);
+      DEBUG.log(`${actor.name} HP: ${actor.hp.current}`);
     });
-    console.log('------------------------------------');
+    DEBUG.log('------------------------------------');
   }
 
   /**

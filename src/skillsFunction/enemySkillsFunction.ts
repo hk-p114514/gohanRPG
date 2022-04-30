@@ -7,6 +7,7 @@ import { Timeline } from 'classes/Timeline';
 import { Skill } from 'classes/Skill';
 import { Battle } from 'scenes/Battle';
 import { randI } from 'functions/generalPurpose/rand';
+import { DEBUG } from 'functions/generalPurpose/debugLog';
 
 export const attackForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
@@ -21,9 +22,7 @@ export const healForAll = (
 ) => {
   targets.forEach((target) => {
     target.beHealed(target.hp.max * rate);
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
 };
 
@@ -221,7 +220,7 @@ export const heal = (
   } else {
     text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
   }
-  console.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のヒール！` },
     { type: 'dialog', text: text },
@@ -244,9 +243,7 @@ export const onsenryoko = (
 
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -275,9 +272,7 @@ export const isekaitense = (
 
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -375,7 +370,7 @@ export const insert = (
   } else {
     text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
   }
-  console.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のインサート！` },
     { type: 'dialog', text: text },
@@ -497,9 +492,7 @@ export const norinoridance = (
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -634,9 +627,7 @@ export const presentbonus = (
 
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -746,9 +737,7 @@ export const susumoSE = (
       const afterHp = target.hp.current;
       sum += Math.abs(beforeHp - afterHp);
     }
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -1032,7 +1021,7 @@ export const nikunotoriwake = (
   } else {
     text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
   }
-  console.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の肉の取り分け！` },
     { type: 'dialog', text: text },
@@ -1127,9 +1116,7 @@ export const suitsgurai = (
 
     const afterHp = target.hp.current;
     sum += Math.abs(beforeHp - afterHp);
-    console.log(
-      `${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`,
-    );
+    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
