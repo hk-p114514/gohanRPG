@@ -159,12 +159,12 @@ export class Map_TPL extends Scene {
         }
       }
     });
-    const shift = this.input.keyboard.addKey('SHIFT').on('down', () => {
-      this.scene.launch(sceneKeys.timelinePlayer, {
-        anotherScene: this,
-        timelineData: select,
-      });
-    });
+    /* const shift = this.input.keyboard.addKey('SHIFT').on('down', () => { */
+    /*   this.scene.launch(sceneKeys.timelinePlayer, { */
+    /*     anotherScene: this, */
+    /*     timelineData: select, */
+    /*   }); */
+    /* }); */
     // Bキーでバトルシーンに移行(現在のシーンは破棄せずにストップさせるだけにして、バトルシーンから戻ったら再開する)
     /* const B = this.input.keyboard.addKey('B').on('down', () => { */
     /*   this.moveBattle(); */
