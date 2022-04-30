@@ -1,3 +1,4 @@
+import { enemy } from 'enemies';
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
@@ -82,6 +83,20 @@ export class Map5 extends Map_TPL {
       super.setEvent('goObc', goObc, system.isBossKilled.get('Obc'));
       super.setEvent('startObc', beforeObcBattle, system.isBossKilled.get('Obc'));
     }
+
+    const { ate, bte, melcine, eleca } = enemy;
+
+    for (let i = 0; i < 5; i++) {
+      ate;
+      bte;
+      melcine;
+      eleca;
+    }
+
+    ate.beHealed(ate.hp.max);
+    bte.beHealed(bte.hp.max);
+    melcine.beHealed(melcine.hp.max);
+    eleca.beHealed(eleca.hp.max);
   }
   public update(_time: number, delta: number): void {
     if (system.isBossBattleWin) {

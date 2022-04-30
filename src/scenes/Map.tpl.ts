@@ -446,7 +446,7 @@ export class Map_TPL extends Scene {
     this.moveBattle();
   }
   public moveBattle() {
-    if (!getEnemies(system.map).length) return;
+    if (!getEnemies(system.map).length && !system.isBossBattle) return;
     this.battleFlag = false;
     const effectsTime = 500;
     this.cameras.main.flash(effectsTime);

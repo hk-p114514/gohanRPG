@@ -14,7 +14,9 @@ import {
   createBoss,
   fixKillBossByName,
   talkNPC,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
 export const explanation5: Timelines = {
   start: [
     {
@@ -236,6 +238,11 @@ export const startAte: Timelines = {
       type: 'event',
       event: removeBubble,
     },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.ate },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -407,6 +414,11 @@ export const goReBte: Timelines = {
       event: changeNpcDir,
       contents: { name: 'Mough', direction: Direction.UP },
     },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.bte },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -533,6 +545,11 @@ export const startBte: Timelines = {
       text: 'バトル突入セリフだけは進化してるんだな。',
     },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.bte },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -702,6 +719,11 @@ export const startMelcine: Timelines = {
       text: 'このワタクシの全力でねぇ！！',
     },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.melcine },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -931,6 +953,11 @@ export const startEleca: Timelines = {
       text: '本気で相手してあげるわ、覚悟しなさい。',
     },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.eleca },
+    },
     { type: 'endTimeline' },
   ],
 };
@@ -1237,6 +1264,11 @@ export const beforeObcBattle: Timelines = {
     },
     { type: 'dialog', actorName: 'マルク', text: '…俺のセリフは？' },
     { type: 'event', event: removeBubble },
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.obc },
+    },
     { type: 'endTimeline' },
   ],
 };
