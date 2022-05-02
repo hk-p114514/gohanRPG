@@ -12,7 +12,7 @@ type Battling = {
 export class System {
   static readonly TILE_SIZE: number = 40;
   public map: string;
-  public party: BattleActor[] = [];
+  private party: BattleActor[] = [];
   public isBattle: boolean = false;
   public battling?: Battling;
   public DEBUG_isIgnoreBattle: boolean = true;
@@ -70,6 +70,26 @@ export class System {
     } else {
       return true;
     }
+  }
+
+  /**
+   * @brief 味方パーティにキャラクターを追加する（重複は除外）
+   *
+   * @param BattleActor 追加するキャラクター
+   *
+   * @return 追加成功:true 重複:false
+   */
+  public addPartyActor(actor: BattleActor): boolean {
+    if (!this.party.includes(actor)) {
+      this.party.push(actor);
+      return true;
+    }
+
+    return false;
+  }
+
+  public getParty() {
+    return this.party;
   }
 
   setActor(actor: BattleActor) {

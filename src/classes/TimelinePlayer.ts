@@ -35,6 +35,7 @@ import {
   talkNPC,
   changeEncountFlag,
 } from 'timelineWords/events';
+import { DEBUG } from 'functions/generalPurpose/debugLog';
 
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;
@@ -49,6 +50,15 @@ export class TimelinePlayer extends Scene {
   private anotherScene?: Map_TPL;
   private timelineData?: Timelines;
   private specID?: string;
+  private textBoxPadding = {
+    x: 10,
+    y: 10,
+    left: 5,
+    right: 5,
+    top: 5,
+    bottom: 5,
+    allDir: 10,
+  };
   constructor() {
     super({ key: sceneKeys.timelinePlayer });
   }
@@ -119,8 +129,8 @@ export class TimelinePlayer extends Scene {
     }
     // タイムラインのイベントを取得してから、timelineIndexをインクリメント
     const timelineEvent = this.timeline[this.timelineIndex++];
-    console.log(this.anotherScene);
-    console.log(timelineEvent);
+    DEBUG.log(this.anotherScene);
+    DEBUG.log(timelineEvent);
 
     switch (timelineEvent.type) {
       case 'dialog': // ダイアログイベント
@@ -176,7 +186,7 @@ export class TimelinePlayer extends Scene {
         // マップシーンのキー操作を受け付けるようにする
         this.anotherScene.scene.resume();
         system.map = timelineEvent.scene;
-        console.log(system.map);
+        DEBUG.log(system.map);
         this.anotherScene.scene.switch(timelineEvent.scene);
         this.scene.stop();
         break;
@@ -203,7 +213,7 @@ export class TimelinePlayer extends Scene {
     }
   }
   private startevent(key: string, contents?: MotionEventProps) {
-    console.log(key);
+    DEBUG.log(key);
     switch (key) {
       case fixKillBossByName:
         if (contents === undefined) break;
@@ -333,9 +343,7 @@ export class TimelinePlayer extends Scene {
   }
 
   private addFriend(actor: BattleActor) {
-    if (!system.party.includes(actor)) {
-      system.party.push(actor);
-    }
+    system.addPartyActor(actor);
   }
 
   // ダイアログの作成
@@ -345,13 +353,15 @@ export class TimelinePlayer extends Scene {
       fontFamily:
         '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
       fontSize: '24px',
+      padding: this.textBoxPadding,
+      wordWrap: { width: width - this.textBoxPadding.allDir, useAdvancedWrap: true }, // useAdvancedWrapをtrueにすることで日本語の折り返しが有効になる
     };
     const dialogBoxConfig: DialogBoxConfig = {
       x: 0,
       y: 0,
       width: width,
       height: height,
-      padding: 0,
+      padding: this.textBoxPadding.allDir,
       margin: 0,
       textStyle: textStyle,
       backGroundColor: 0x000000,
@@ -369,7 +379,7 @@ export class TimelinePlayer extends Scene {
 
     if (!this.timelineData) return;
     if (!(timelineID in this.timelineData)) {
-      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
+      DEBUG.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
       // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
       this.anotherScene?.scene.resume();
       this.scene.stop();

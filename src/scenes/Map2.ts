@@ -43,12 +43,10 @@ import {
   rePiscesWarp,
   OphiuchusWarp,
   reOphiuchusWarp,
-  addShiden,
   meetShiden,
   explanation2,
   goBte,
   beforeBteBattle,
-  //afterBteBattle,
 } from 'timelineWords/timelineWords2';
 import { shiden } from 'friends';
 export class Map2 extends Map_TPL {

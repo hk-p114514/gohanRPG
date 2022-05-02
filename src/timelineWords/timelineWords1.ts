@@ -12,7 +12,9 @@ import {
   displayBossBubble,
   removeBubble,
   warpPlayerByXY,
+  moveBattleBoss,
 } from './events';
+import { enemy } from 'enemies';
 
 //Stage1
 export const explanation1: Timelines = {
@@ -194,16 +196,16 @@ export const beforeAteBattle: Timelines = {
       actorName: 'エーテ',
       text: '魔王を倒そうなどという愚かな試み、この場でへし折ってくれるわ！',
     },
-    //     {
-    //       type: 'event',
-    //       event: moveBattleBoss,
-    //       contents: { battleActor: enemy.ate },
-    //     },
-    //     { type: 'endTimeline' },
-    //   ],
-    // };
-    // export const afterAteBattle: Timelines = {
-    //   start: [
+    {
+      type: 'event',
+      event: moveBattleBoss,
+      contents: { battleActor: enemy.ate },
+    },
+    { type: 'endTimeline' },
+  ],
+};
+export const afterAteBattle: Timelines = {
+  start: [
     { type: 'dialog', actorName: 'エーテ', text: 'ぐっ…こんな、所で…。' },
     {
       type: 'dialog',
