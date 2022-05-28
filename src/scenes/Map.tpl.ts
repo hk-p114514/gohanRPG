@@ -48,7 +48,7 @@ export class Map_TPL extends Scene {
   private gridControls?: GridControls;
   private gridPhysics?: GridPhysics;
   public flag: number = -1;
-  public xy: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
+  public playerVec2: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
   public battleFlag: boolean = true;
   public log?: Phaser.GameObjects.Sprite;
@@ -76,66 +76,6 @@ export class Map_TPL extends Scene {
   }
   public loadBossimage(name: string, tex: string) {
     this.load.image(name, tex);
-  }
-  //各MapClassのloadで使うnpcの姿を決める関数
-  //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: string, n: number, src: string = '') {
-    if (src !== '') {
-      this.load.spritesheet(name, src, {
-        frameWidth: characterSize,
-        frameHeight: characterSize,
-      });
-    } else {
-      this.load.spritesheet(name, charas[n], {
-        frameWidth: characterSize,
-        frameHeight: characterSize,
-      });
-    }
-  }
-  //各MapClassのcreateで使うnpcを配置する関数
-  //name=npcName,took=npcとの会話イベント(timelineWords参照)
-  public makeNPC(name: string, took: Timelines, dir?: string, flag: boolean = false) {
-    if (flag) return;
-    for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
-      let e = this.npcPoints[i];
-      if (name === e.name && e.x !== undefined && e.y !== undefined) {
-        let x = Math.floor(e.x / tileSize),
-          y = Math.floor(e.y / tileSize);
-        hints.set(`${system.map},${x},${y}`, took);
-        let l = this.add.sprite(0, 0, name, 1);
-        let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
-        npcs.set(`${system.map},${x},${y}`, hito);
-        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
-        if (dir !== undefined) hito.changedir(dir);
-        break;
-      }
-    }
-  }
-  //各MapClassのcreateで使うふむタイプのイベントを配置する関数
-  //name=eventName,took=イベント内容(timelineWords参照)
-  public setEvent(name: string, took: Timelines, flag: boolean = false) {
-    if (flag) return;
-    for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
-      let e = this.eventPoints[i];
-      if (name === e.name && e.x !== undefined && e.y !== undefined) {
-        let x = Math.floor(e.x / tileSize),
-          y = Math.floor(e.y / tileSize);
-        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
-        events.set(`${system.map},${x},${y}`, took);
-      }
-    }
-  }
-  //各MapClassのcreateで使う調べるタイプのイベントを配置する関数
-  //name=eventName,took=イベント内容(timelineWords参照)
-  public setHint(name: string, took: Timelines) {
-    for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
-      let e = this.hintPoints[i];
-      if (name === e.name && e.x !== undefined && e.y !== undefined) {
-        let x = Math.floor(e.x / tileSize),
-          y = Math.floor(e.y / tileSize);
-        hints.set(`${system.map},${x},${y}`, took);
-      }
-    }
   }
 
   public create() {
@@ -226,7 +166,7 @@ export class Map_TPL extends Scene {
       // タイルの位置を取得
       const tileX = Math.floor(x / tileSize);
       const tileY = Math.floor(y / tileSize);
-      this.xy = new Phaser.Math.Vector2(tileX, tileY);
+      this.playerVec2 = new Phaser.Math.Vector2(tileX, tileY);
       this.player = new Char(playerSprite, new Phaser.Math.Vector2(tileX, tileY));
     }
 
@@ -252,17 +192,19 @@ export class Map_TPL extends Scene {
       if (!this.gridPhysics?.isMoving()) {
         if (!!this.player) {
           let nxy = this.player.getTilePos();
-          const { x, y } = this.xy;
+          const { x, y } = this.playerVec2;
           if (x === undefined || y === undefined) return;
           if (x !== nxy.x || y !== nxy.y) {
-            this.xy = this.player.getTilePos();
+            this.playerVec2 = this.player.getTilePos();
             //踏むイベントの確認
             const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
             if (
-              !!events.has(`${system.map},${this.xy.x},${this.xy.y}`) &&
+              !!events.has(`${system.map},${this.playerVec2.x},${this.playerVec2.y}`) &&
               system.eventFlag
             ) {
-              let n = events.get(`${system.map},${this.xy.x},${this.xy.y}`);
+              let n = events.get(
+                `${system.map},${this.playerVec2.x},${this.playerVec2.y}`,
+              );
               this.scene.launch(sceneKeys.timelinePlayer, {
                 anotherScene: this,
                 timelineData: n,
@@ -276,6 +218,68 @@ export class Map_TPL extends Scene {
         }
       }
       this.gridPhysics?.update(delta);
+    }
+  }
+
+  //各MapClassのloadで使うnpcの姿を決める関数
+  //name=npcName,n=npcImage(Charas参照)
+  public setnpcimage(name: string, n: number, src: string = '') {
+    if (src !== '') {
+      this.load.spritesheet(name, src, {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      });
+    } else {
+      this.load.spritesheet(name, charas[n], {
+        frameWidth: characterSize,
+        frameHeight: characterSize,
+      });
+    }
+  }
+  //各MapClassのcreateで使うnpcを配置する関数
+  //name=npcName,took=npcとの会話イベント(timelineWords参照)
+  public makeNPC(name: string, took: Timelines, dir?: string, flag: boolean = false) {
+    if (flag) return;
+    for (let i = 0; !!this.npcPoints && i < this.npcPoints.length; ++i) {
+      let e = this.npcPoints[i];
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        hints.set(`${system.map},${x},${y}`, took);
+        let l = this.add.sprite(0, 0, name, 1);
+        let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
+        npcs.set(`${system.map},${x},${y}`, hito);
+        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
+        if (dir !== undefined) hito.changedir(dir);
+        break;
+      }
+    }
+  }
+  //各MapClassのcreateで使うふむタイプのイベントを配置する関数
+  //name=eventName,took=イベント内容(timelineWords参照)
+  public setEvent(name: string, took: Timelines, flag: boolean = false) {
+    if (flag) return;
+    for (let i = 0; !!this.eventPoints && i < this.eventPoints.length; ++i) {
+      let e = this.eventPoints[i];
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
+        events.set(`${system.map},${x},${y}`, took);
+      }
+    }
+  }
+
+  //各MapClassのcreateで使う調べるタイプのイベントを配置する関数
+  //name=eventName,took=イベント内容(timelineWords参照)
+  public setHint(name: string, took: Timelines) {
+    for (let i = 0; !!this.hintPoints && i < this.hintPoints.length; ++i) {
+      let e = this.hintPoints[i];
+      if (name === e.name && e.x !== undefined && e.y !== undefined) {
+        let x = Math.floor(e.x / tileSize),
+          y = Math.floor(e.y / tileSize);
+        hints.set(`${system.map},${x},${y}`, took);
+      }
     }
   }
 
