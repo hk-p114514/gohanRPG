@@ -23,6 +23,12 @@ import { Map5 } from 'scenes/Map5';
 import { marc, mough, pouler, shiden, administrator } from 'friends';
 
 // 使用するシーンをまとめる
+/**
+ * !!! 注意 !!!
+ * シーンを追加する場合は、以下の'scenes'、及び'sceneKeys'に、
+ * それぞれ、追加するシーンのクラス、Sceneのコンストラクタに渡したkeyを追加すること。
+ * シーンが追加されていないと、Phaserがシーンを取得できません。
+ */
 const scenes = [
   // Title,
   // Prologue,
@@ -37,7 +43,6 @@ const scenes = [
   UI,
   TimelinePlayer,
 ];
-// const scenes = [Map1, Map2];
 
 export const system = new System(sceneKeys.map0, [marc]);
 
