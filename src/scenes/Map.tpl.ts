@@ -36,17 +36,15 @@ export const assetKeys = {
   player: 'player',
 };
 export class Map_TPL extends Scene {
-  public static readonly PROBABILITY_OF_BATTLE = 5; // パーセント
-  public tileset?: Tilemaps.Tileset;
-  public tileMap?: Tilemaps.Tilemap;
-  public tileMapLayer?: Tilemaps.TilemapLayer;
+  public static readonly PROBABILITY_OF_BATTLE_OCCUR = 5; // パーセント
   public player?: Char;
-  public enemies: BattleActor[];
+  private tileset?: Tilemaps.Tileset;
+  private tileMap?: Tilemaps.Tilemap;
+  private tileMapLayer?: Tilemaps.TilemapLayer;
+  private enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  public npcPoints?: Types.Tilemaps.TiledObject[];
-  private gridControls?: GridControls;
-  private gridPhysics?: GridPhysics;
+  private npcPoints?: Types.Tilemaps.TiledObject[];
   public flag: number = -1;
   public playerVec2: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
@@ -54,10 +52,15 @@ export class Map_TPL extends Scene {
   public log?: Phaser.GameObjects.Sprite;
   public boss?: Phaser.GameObjects.Sprite;
 
+  // グリッド移動、グリッド操作
+  private gridControls?: GridControls;
+  private gridPhysics?: GridPhysics;
+
   constructor(private json: string, public name: string) {
     super({ key: name });
     this.enemies = getEnemies(name);
     this.mapName = name;
+    console.log(this.mapName);
   }
   public preload() {
     this.load.image(assetKeys.mapImg, mapImg);
@@ -197,7 +200,9 @@ export class Map_TPL extends Scene {
           if (x !== nxy.x || y !== nxy.y) {
             this.playerVec2 = this.player.getTilePos();
             //踏むイベントの確認
-            const denominator = probabilityToDenominator(Map_TPL.PROBABILITY_OF_BATTLE);
+            const denominator = probabilityToDenominator(
+              Map_TPL.PROBABILITY_OF_BATTLE_OCCUR,
+            );
             if (
               !!events.has(`${system.map},${this.playerVec2.x},${this.playerVec2.y}`) &&
               system.eventFlag
