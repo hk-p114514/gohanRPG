@@ -9,4 +9,12 @@ export const DEBUG = {
     if (!isDebug) return;
     console.error(str);
   },
+  table: (str: any) => {
+    if (!isDebug) return;
+    console.table(str);
+  },
+  dir: (str: any) => {
+    if (!isDebug) return;
+    console.dir(str);
+  },
 };
