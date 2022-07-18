@@ -25,7 +25,7 @@ import { marc, mough, pouler, shiden, administrator } from 'friends';
 // 使用するシーンをまとめる
 /**
  * !!! 注意 !!!
- * シーンを追加する場合は、以下の'scenes'、及び'sceneKeys'に、
+ * シーンを追加する場合は、以下の'scenes'、及びsceneKeys.tsの'sceneKeys'に、
  * それぞれ、追加するシーンのクラス、Sceneのコンストラクタに渡したkeyを追加すること。
  * シーンが追加されていないと、Phaserがシーンを取得できません。
  */
