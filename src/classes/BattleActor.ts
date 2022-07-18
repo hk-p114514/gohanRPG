@@ -86,7 +86,7 @@ export class BattleActor {
    * @returns 経験値を得た結果キャラクターがレベルアップした: true
    *         経験値を得た結果キャラクターがレベルアップしなかった: false
    */
-  addExp(exp: number): boolean {
+  public addExp(exp: number): boolean {
     let isLevelUp = false;
     this.level.exp += exp;
     while (this.level.exp >= this.level.toNext) {
@@ -99,6 +99,37 @@ export class BattleActor {
     return isLevelUp;
   }
 
+  public levelUp() {
+    this.level.current++;
+    this.upStatus(randF(1.8, 1.1));
+  }
+
+  // 被ダメ
+  public beInjured(damage: number): void {
+    const before = this.hp.current;
+    this.hp.current -= Math.floor(damage - damage / (this.buff.getDef() + randI(2, 1)));
+    if (this.hp.current < 0) {
+      this.hp.current = 0;
+    }
+    DEBUG.log(`${this.name} damaged ${before - this.hp.current}`);
+  }
+
+  // 回復
+  public beHealed(heal: number): void {
+    this.hp.current += Math.floor(heal);
+    if (this.hp.current > this.hp.max) {
+      this.hp.current = this.hp.max;
+    }
+  }
+
+  public getRandSkill(): Skill {
+    return this.skills[randI(this.skills.length - 1)];
+  }
+
+  public isDead(): boolean {
+    return this.hp.current <= 0;
+  }
+
   private changeStatus(status: AddStatus) {
     this.hp.max = this.hp.current = Math.floor(status.maxHp);
     this.mp.max = this.mp.current = Math.floor(status.maxMp);
@@ -107,7 +138,7 @@ export class BattleActor {
     this.speed = Math.floor(status.speed);
   }
 
-  upStatus(rate: number) {
+  private upStatus(rate: number) {
     this.changeStatus({
       atk: this.atk * rate,
       def: this.def * rate,
@@ -117,12 +148,7 @@ export class BattleActor {
     });
   }
 
-  levelUp() {
-    this.level.current++;
-    this.upStatus(randF(1.8, 1.1));
-  }
-
-  setLevel(current: number): number {
+  private setLevel(current: number): number {
     if (this.level.current > current) {
       return 1;
     }
@@ -133,31 +159,5 @@ export class BattleActor {
     }
 
     return 0;
-  }
-
-  // 被ダメ
-  beInjured(damage: number): void {
-    const before = this.hp.current;
-    this.hp.current -= Math.floor(damage - damage / (this.buff.getDef() + randI(2, 1)));
-    if (this.hp.current < 0) {
-      this.hp.current = 0;
-    }
-    DEBUG.log(`${this.name} damaged ${before - this.hp.current}`);
-  }
-
-  // 回復
-  beHealed(heal: number): void {
-    this.hp.current += Math.floor(heal);
-    if (this.hp.current > this.hp.max) {
-      this.hp.current = this.hp.max;
-    }
-  }
-
-  getRandSkill(): Skill {
-    return this.skills[randI(this.skills.length - 1)];
-  }
-
-  isDead(): boolean {
-    return this.hp.current <= 0;
   }
 }
