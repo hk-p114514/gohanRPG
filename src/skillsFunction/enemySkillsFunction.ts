@@ -2,12 +2,51 @@ import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 import { SkillFunction } from 'skills';
 import { changeToFriendsView, skillDialog } from './skillDialog';
-import { sceneKeys } from 'scenes/sceneKeys';
-import { Timeline } from 'classes/Timeline';
-import { Skill } from 'classes/Skill';
-import { Battle } from 'scenes/Battle';
-import { randI } from 'functions/generalPurpose/rand';
 import { DEBUG } from 'functions/generalPurpose/debugLog';
+
+/**
+ * @brief ２体のキャラクターのバトルを行い、受けた側の
+ *        元のHP、ダメージを受けた後のHP、受けたダメージそのものを返す
+ *
+ * @param BattleActor attacker 攻撃側のキャラクター
+ * @param BattleActor target   防御側のキャラクター
+ *
+ * @return 防御側の元のHP、ダメージを受けた後のHP、受けたダメージ
+ */
+export const getAttackResult = (
+  attacker: BattleActor,
+  target: BattleActor,
+  rate: number = 1,
+) => {
+  const { current } = target.getHp();
+  const beforeHp = current;
+  target.beInjured(attacker.buff.getAtk() * rate);
+  const afterHp = target.getHp().current;
+  const damage = Math.abs(beforeHp - afterHp);
+  DEBUG.table({
+    beforeHp,
+    afterHp,
+    damage,
+  });
+  return { beforeHp, afterHp, damage };
+};
+
+/**
+ * @brief キャラクターのHPを回復する
+ *
+ * @param BattleActor target 被回復対象のキャラクター
+ * @param number rate 回復率
+ *
+ * @return 回復前のHP、回復後のHP、回復量
+ */
+export const getHealResult = (target: BattleActor, rate: number) => {
+  const { current, max } = target.getHp();
+  target.changeHp(max * rate);
+  const afterHp = target.getHp().current;
+  DEBUG.log(`${target.name}の体力は${current} / ${afterHp}になった!!!`);
+
+  return { beforeHp: current, afterHp, heal: afterHp - current };
+};
 
 export const attackForAll = (attacker: BattleActor, targets: BattleActor[]) => {
   targets.forEach((target) => {
@@ -21,8 +60,9 @@ export const healForAll = (
   rate: number = 0.4,
 ) => {
   targets.forEach((target) => {
-    target.beHealed(target.hp.max * rate);
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+    const { current, max } = target.getHp();
+    target.beHealed(max * rate);
+    DEBUG.log(`${target.name}の体力は${current} / ${max}になった!!!`);
   });
 };
 
@@ -145,14 +185,12 @@ export const highHealForAll = (attacker: BattleActor, targets: BattleActor[]) =>
 export const uraken = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の裏拳！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -162,14 +200,12 @@ export const uraken = (scene: Scene, attacker: BattleActor, targets: BattleActor
 export const diemaho = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の☆Die魔法・バックフィスト☆！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -183,12 +219,8 @@ export const nichidaiTacle = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-
-    target.beInjured(attacker.buff.getAtk());
-
-    const afterHp = target.hp.current;
-    sum += Math.abs(beforeHp - afterHp);
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -212,15 +244,12 @@ export const heal = (
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   let text: string;
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * rate);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp } = getHealResult(target, rate);
   if (beforeHp - afterHp === 0) {
     text = `${target.name}のHPは満タンだった...`;
   } else {
     text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
   }
-  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のヒール！` },
     { type: 'dialog', text: text },
@@ -237,13 +266,8 @@ export const onsenryoko = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-
-    target.beHealed(target.hp.max * rate);
-
-    const afterHp = target.hp.current;
+    const { beforeHp, afterHp } = getHealResult(target, rate);
     sum += Math.abs(beforeHp - afterHp);
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -266,13 +290,8 @@ export const isekaitense = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-
-    target.beHealed(target.hp.max * rate);
-
-    const afterHp = target.hp.current;
-    sum += Math.abs(beforeHp - afterHp);
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+    const { beforeHp, afterHp, heal } = getHealResult(target, rate);
+    sum += heal;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -332,13 +351,8 @@ export const batmobiru = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -362,15 +376,12 @@ export const insert = (
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   let text: string;
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * rate);
-  const afterHp = target.hp.current;
-  if (beforeHp - afterHp === 0) {
+  const { beforeHp, afterHp, heal } = getHealResult(target, rate);
+  if (heal === 0) {
     text = `${target.name}のHPは満タンだった...`;
   } else {
-    text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
+    text = `${target.name}を ${heal} 回復した`;
   }
-  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のインサート！` },
     { type: 'dialog', text: text },
@@ -382,14 +393,12 @@ export const insert = (
 export const pop = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のポップ！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -418,13 +427,8 @@ export const komorebi: SkillFunction = (
 export const hanihant = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -485,14 +489,9 @@ export const norinoridance = (
   let sum: number = 0;
   targets.forEach((target) => {
     if (!target.isDead()) {
-      const beforeHp = target.hp.current;
-
-      target.beHealed(target.hp.max * rate);
-
-      const afterHp = target.hp.current;
+      const { beforeHp, afterHp, heal } = getHealResult(target, rate);
       sum += Math.abs(beforeHp - afterHp);
     }
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   });
   sum = Math.floor(sum / targets.length);
 
@@ -533,14 +532,12 @@ export const hasamikom = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のはさみこむ！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -592,12 +589,8 @@ export const firebress = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);
@@ -621,13 +614,8 @@ export const presentbonus = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-
-    target.beHealed(target.hp.max * rate);
-
-    const afterHp = target.hp.current;
-    sum += Math.abs(beforeHp - afterHp);
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -683,14 +671,12 @@ export const puruntshokushu: SkillFunction = (
 export const hishinoR = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の必死の抵抗！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -700,12 +686,8 @@ export const hishinoR = (scene: Scene, attacker: BattleActor, targets: BattleAct
 export const blackbox = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);
@@ -729,15 +711,8 @@ export const susumoSE = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    if (!target.isDead()) {
-      const beforeHp = target.hp.current;
-
-      target.beHealed(target.hp.max * rate);
-
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -760,12 +735,8 @@ export const atrnoseibi = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);
@@ -784,14 +755,12 @@ export const atrnoseibi = (
 export const nomikomu = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の飲み込む！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -839,12 +808,8 @@ export const hakidas: SkillFunction = (
 export const kekkai = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);
@@ -863,12 +828,8 @@ export const kekkai = (scene: Scene, attacker: BattleActor, targets: BattleActor
 export const hanran = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);
@@ -910,14 +871,12 @@ export const tsumayoji = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の爪楊枝！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -950,14 +909,12 @@ export const sudefureru = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の素手で触れる！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -990,14 +947,12 @@ export const morningCall = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のモーニングコール！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -1013,15 +968,12 @@ export const nikunotoriwake = (
   if (!targets.length) return;
   const target: BattleActor = targets[0];
   let text: string;
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * rate);
-  const afterHp = target.hp.current;
-  if (beforeHp - afterHp === 0) {
+  const { heal } = getHealResult(target, rate);
+  if (heal <= 0) {
     text = `${target.name}のHPは満タンだった...`;
   } else {
-    text = `${target.name}を ${Math.abs(beforeHp - afterHp)} 回復した`;
+    text = `${target.name}を ${heal} 回復した`;
   }
-  DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の肉の取り分け！` },
     { type: 'dialog', text: text },
@@ -1033,14 +985,12 @@ export const nikunotoriwake = (
 export const sumibi = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の炭火！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -1088,14 +1038,12 @@ export const niramitsukeru: SkillFunction = (
 export const zutsuki = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の頭突き！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -1110,13 +1058,8 @@ export const suitsgurai = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-
-    target.beHealed(target.hp.max * rate);
-
-    const afterHp = target.hp.current;
-    sum += Math.abs(beforeHp - afterHp);
-    DEBUG.log(`${target.name}の体力は${target.hp.current} / ${target.hp.max}になった!!!`);
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   sum = Math.floor(sum / targets.length);
 
@@ -1138,12 +1081,8 @@ export const hakusinGyoi = (
 ) => {
   let sum: number = 0;
   targets.forEach((target) => {
-    const beforeHp = target.hp.current;
-    if (beforeHp) {
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
 
   sum = Math.floor(sum / targets.length);

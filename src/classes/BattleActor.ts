@@ -39,7 +39,7 @@ export class BattleActor {
   name: string = '';
   spriteSrc: string = '';
   level: Level;
-  hp: LimitValue;
+  private hp: LimitValue;
   mp: LimitValue;
   atk: number;
   def: number;
@@ -99,9 +99,40 @@ export class BattleActor {
     return isLevelUp;
   }
 
+  /**
+   * @brief キャラクターのレベルを上げる
+   *        １度呼び出されるとレベルが１上がり、経験値が消費される。
+   *        ステータスはupStatusでランダムな倍率で上昇する。
+   * @return
+   */
   public levelUp() {
     this.level.current++;
     this.upStatus(randF(1.8, 1.1));
+  }
+
+  /**
+   * @brief キャラクターのHPを変化させる。
+   *        回復、減少のいずれでも対応可能。
+   *        内部でMath.floor()を使用する。
+   * @param number variation HPの変化量。正の値で回復、負の値でダメージとして扱う。
+   *
+   * @return number 回復後のHP
+   */
+  public changeHp(variation: number) {
+    if (variation > 0) {
+      this.beHealed(variation);
+    } else if (variation < 0) {
+      this.beInjured(-variation);
+    }
+
+    if (this.hp.current < 0) {
+      this.hp.current = 0;
+    }
+
+    if (this.hp.current > this.hp.max) {
+      this.hp.current = this.hp.max;
+    }
+    return this.hp.current;
   }
 
   // 被ダメ
@@ -122,12 +153,21 @@ export class BattleActor {
     }
   }
 
+  // max回復
+  public beMaxHealed(): void {
+    this.hp.current = this.hp.max;
+  }
+
   public getRandSkill(): Skill {
     return this.skills[randI(this.skills.length - 1)];
   }
 
   public isDead(): boolean {
     return this.hp.current <= 0;
+  }
+
+  public getHp() {
+    return this.hp;
   }
 
   private changeStatus(status: AddStatus) {

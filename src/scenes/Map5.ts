@@ -93,10 +93,13 @@ export class Map5 extends Map_TPL {
       eleca;
     }
 
-    ate.beHealed(ate.hp.max);
-    bte.beHealed(bte.hp.max);
-    melcine.beHealed(melcine.hp.max);
-    eleca.beHealed(eleca.hp.max);
+    [ate, bte, melcine, eleca].forEach((enemy) => {
+      enemy.beHealed(enemy.getHp().max);
+    });
+    // ate.beHealed(ate.hp.max);
+    // bte.beHealed(bte.hp.max);
+    // melcine.beHealed(melcine.hp.max);
+    // eleca.beHealed(eleca.hp.max);
   }
   public update(_time: number, delta: number): void {
     if (system.isBossBattleWin) {
