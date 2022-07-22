@@ -23,7 +23,7 @@ import { sceneKeys } from './sceneKeys';
 
 // functions
 import { getEnemies } from 'functions/generalPurpose/getEnemies';
-import { marc } from 'friends';
+import { marc } from 'actor/friends';
 import { randI } from 'functions/generalPurpose/rand';
 import { Direction } from 'classes/Direction';
 import { afterBossBattles } from 'timelineWords/afterBossBattles';

@@ -3,7 +3,13 @@ import marcSprite from '@/assets/characters/dynamic/marc.png';
 import shidenSprite from '@/assets/characters/dynamic/shiden.png';
 import poulerSprite from '@/assets/characters/dynamic/pouler.png';
 import moughSprite from '@/assets/characters/dynamic/mough.png';
-import { marcSkills, moughSkills, poulerSkills, shidenSkills, skills } from 'skills';
+import {
+  marcSkills,
+  moughSkills,
+  poulerSkills,
+  shidenSkills,
+  skills,
+} from 'skillsFunction/skills';
 
 // 綴の参照
 // http://kotoba.nuee.nagoya-u.ac.jp/sc/tsuduri/

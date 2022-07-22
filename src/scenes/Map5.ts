@@ -1,4 +1,4 @@
-import { enemy } from 'enemies';
+import { enemy } from 'actor/enemies';
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
@@ -8,7 +8,7 @@ import Melcine from '@/assets/characters/static/boss/melcine.png';
 import Eleca from '@/assets/characters/static/boss/eleca.png';
 import Obc from '@/assets/characters/static/boss/obc.png';
 import { warp0 } from 'timelineWords/timelineWords';
-import { mough, pouler, shiden } from 'friends';
+import { mough, pouler, shiden } from 'actor/friends';
 import {
   explanation5,
   warpAte,

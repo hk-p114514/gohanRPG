@@ -1,6 +1,6 @@
 import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 import { changeToFriendsView, skillDialog } from './skillDialog';
 import { DEBUG } from 'functions/generalPurpose/debugLog';
 

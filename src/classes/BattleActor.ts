@@ -5,7 +5,7 @@ import {
   initMp,
   initSpeed,
 } from 'functions/generalPurpose/allInitStatus';
-import { skills } from 'skills';
+import { skills } from 'skillsFunction/skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';

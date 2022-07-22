@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 import { BattleActor } from 'classes/BattleActor';
 import { skillDialog } from 'skillsFunction/skillDialog';
 import { randI } from 'functions/generalPurpose/rand';

@@ -20,7 +20,7 @@ import {
   beforeMelcineBattle,
   //afterMelcineBattle,
 } from 'timelineWords/timelineWords3';
-import { pouler, shiden } from 'friends';
+import { pouler, shiden } from 'actor/friends';
 import { dir1, dir2, dir3 } from '../timelineWords/timelineWords3';
 
 export class Map3 extends Map_TPL {

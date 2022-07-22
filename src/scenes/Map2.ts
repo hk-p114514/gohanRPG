@@ -48,7 +48,7 @@ import {
   goBte,
   beforeBteBattle,
 } from 'timelineWords/timelineWords2';
-import { shiden } from 'friends';
+import { shiden } from 'actor/friends';
 export class Map2 extends Map_TPL {
   public stars: Array<string> = [
     'Aries',

@@ -41,7 +41,7 @@ import {
   melcineSkills,
   elecaSkills,
   obcSkills,
-} from 'skills';
+} from 'skillsFunction/skills';
 
 export const enemy = {
   slime: new BattleActor({

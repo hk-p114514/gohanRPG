@@ -11,7 +11,7 @@ import {
   warpboss,
 } from 'timelineWords/timelineWords4';
 import { warp0 } from 'timelineWords/timelineWords';
-import { mough, pouler, shiden } from 'friends';
+import { mough, pouler, shiden } from 'actor/friends';
 
 export class Map4 extends Map_TPL {
   constructor() {

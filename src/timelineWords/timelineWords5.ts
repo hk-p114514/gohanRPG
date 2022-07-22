@@ -16,7 +16,7 @@ import {
   talkNPC,
   moveBattleBoss,
 } from './events';
-import { enemy } from 'enemies';
+import { enemy } from 'actor/enemies';
 export const explanation5: Timelines = {
   start: [
     {
