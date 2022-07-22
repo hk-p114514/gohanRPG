@@ -8,6 +8,8 @@
   "homepage": "https://hk-p114514.github.io/gohanRPG",
   "scripts": {
     "test": "jest",
+    "dev": "vite dev",
+    "build": "tsc && vite build",
     "lint": "eslint 'src/**/*.js' || true",
     "prettify": "prettier --write 'src/**/*.js'",
     "preinstall": "yarn typesync || :",
