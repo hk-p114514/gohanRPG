@@ -2,15 +2,17 @@ import { DialogBox } from './../DialogBox';
 import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
 
-type Turn = number | 'infinite';
+export type Turn = number | 'infinite';
 
 export abstract class State {
+  public readonly owner: BattleActor;
+
   private stateName: string;
-  private owner: BattleActor;
   private remainTurn: Turn = 0;
-  constructor(owner: BattleActor, stateName: string) {
+  constructor(owner: BattleActor, stateName: string, remainTurn: Turn = 0) {
     this.owner = owner;
     this.stateName = stateName;
+    this.remainTurn = remainTurn;
   }
 
   /**
@@ -25,7 +27,9 @@ export abstract class State {
    *
    * @return なし
    */
-  public abstract onActivate(): void;
+  public onActivate(scene: Scene, message: string): void {
+    DialogBox.SimpleDialog(scene, message);
+  }
 
   /**
    * @brief 状態異常が解除された時に呼ばれる
