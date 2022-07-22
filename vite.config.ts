@@ -25,6 +25,7 @@ export default defineConfig(() => {
         friends: resolve(__dirname, 'src/friends'),
         skillsFunction: resolve(__dirname, 'src/skillsFunction'),
         timelineWords: resolve(__dirname, 'src/timelineWords'),
+        images: resolve(__dirname, 'src/images'),
         actor: resolve(__dirname, 'src/actor'),
         index: resolve(__dirname, 'src/index'),
         playerAnims: resolve(__dirname, 'src/playerAnims'),
