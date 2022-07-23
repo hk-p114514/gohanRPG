@@ -41,7 +41,7 @@ export const getAttackResult = (
  */
 export const getHealResult = (target: BattleActor, rate: number) => {
   const { current, max } = target.getHp();
-  target.changeHp(max * rate);
+  target.beHealed(max * rate);
   const afterHp = target.getHp().current;
   DEBUG.log(`${target.name}の体力は${current} / ${afterHp}になった!!!`);
 
