@@ -1,11 +1,11 @@
 import { GameObjects, Scene } from 'phaser';
 import { H, W } from 'functions/DOM/windowInfo';
 import { sceneKeys } from 'scenes/sceneKeys';
-import logo from '@/images/titleimage.jpg';
+import logo from '@/assets/images/titleimage.jpg';
 
-import buttonFrame from '@/images/button/button_frame.png';
-import buttonFrameDark from '@/images/button/button_frame_dark.png';
-import buttonOnClick from '@/images/button/button_onClick.png';
+import buttonFrame from '@/assets/images/button/button_frame.png';
+import buttonFrameDark from '@/assets/images/button/button_frame_dark.png';
+import buttonOnClick from '@/assets/images/button/button_onClick.png';
 
 export class Title extends Scene {
   private backgroundColor: string = '#111111';
