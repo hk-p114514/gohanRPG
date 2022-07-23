@@ -30,8 +30,8 @@ import { marc, mough, pouler, shiden, administrator } from 'actor/friends';
  * シーンが追加されていないと、Phaserがシーンを取得できません。
  */
 const scenes = [
-  Title,
-  Prologue,
+  // Title,
+  // Prologue,
   Map0,
   Map1,
   Map2,

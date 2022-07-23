@@ -1,7 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import Bte from '@/assets/characters/static/boss/bte.png';
+import { bosses } from 'assets/assetPath';
+const { Bte } = bosses;
 import { warp0 } from 'timelineWords/timelineWords';
 import {
   Aries,

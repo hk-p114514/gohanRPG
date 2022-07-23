@@ -1,7 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import Eleca from '@/assets/characters/static/boss/eleca.png';
+import { bosses } from 'assets/assetPath';
+const { Eleca } = bosses;
 import {
   addMough,
   backboss,

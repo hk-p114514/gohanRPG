@@ -1,13 +1,14 @@
 import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 // assets
-// import marc from '@/assets/characters/dynamic/marc.png';
 import mapImg from '@/assets/maps/map001.png';
-import { BattleActor } from 'classes/BattleActor';
 import log1 from '@/assets/items/hatena.png';
 import log2 from '@/assets/items/ikari.png';
 import log3 from '@/assets/items/kantanhu.png';
 import log4 from '@/assets/items/mugon.png';
 import log5 from '@/assets/items/onpu.png';
+
+import { BattleActor } from 'classes/BattleActor';
+
 // classes
 import { GridControls } from 'classes/GridControls';
 import { GridPhysics } from 'classes/GridPhysics';
@@ -250,12 +251,17 @@ export class Map_TPL extends Scene {
       if (name === e.name && e.x !== undefined && e.y !== undefined) {
         let x = Math.floor(e.x / tileSize),
           y = Math.floor(e.y / tileSize);
+
         hints.set(`${system.map},${x},${y}`, took);
-        let l = this.add.sprite(0, 0, name, 1);
-        let hito = new Char(l, new Phaser.Math.Vector2(x, y), name);
+
+        const sprite = this.add.sprite(0, 0, name, 1);
+        const hito = new Char(sprite, new Phaser.Math.Vector2(x, y), name);
+
         npcs.set(`${system.map},${x},${y}`, hito);
         names.set(`${system.map},${name}`, `${system.map},${x},${y}`);
+
         if (dir !== undefined) hito.changedir(dir);
+
         break;
       }
     }

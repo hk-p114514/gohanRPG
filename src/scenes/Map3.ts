@@ -1,7 +1,8 @@
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import Mel from '@/assets/characters/static/boss/melcine.png';
+import { bosses } from 'assets/assetPath';
+const { Melcine: Mel } = bosses;
 import { warp0 } from 'timelineWords/timelineWords';
 import {
   restart0,

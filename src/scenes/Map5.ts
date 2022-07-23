@@ -2,11 +2,8 @@ import { enemy } from 'actor/enemies';
 import { sceneKeys } from './sceneKeys';
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import Ate from '@/assets/characters/static/boss/ate.png';
-import Bte from '@/assets/characters/static/boss/bte.png';
-import Melcine from '@/assets/characters/static/boss/melcine.png';
-import Eleca from '@/assets/characters/static/boss/eleca.png';
-import Obc from '@/assets/characters/static/boss/obc.png';
+import { bosses } from 'assets/assetPath';
+const { Ate, Bte, Melcine, Eleca, Obc } = bosses;
 import { warp0 } from 'timelineWords/timelineWords';
 import { mough, pouler, shiden } from 'actor/friends';
 import {
