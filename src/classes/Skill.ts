@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 import { BattleActor } from './BattleActor';
 
 export class Skill {

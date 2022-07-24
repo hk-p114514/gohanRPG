@@ -1,10 +1,10 @@
 import { afterElecaBattle } from './timelineWords4';
 import { afterMelcineBattle } from './timelineWords3';
 import { afterBteBattle } from './timelineWords2';
-import { Timelines } from 'classes/Timelines';
-import { bossEnemies } from 'enemies';
 import { afterAteBattle } from './timelineWords1';
 import { afterObcBattle, endAte, endBte, endEleca, endMelcine } from './timelineWords5';
+import { bossEnemies } from '../actor/enemies';
+import { Timelines } from '../classes/Timelines';
 
 export const afterBossBattles = new Map<string, Timelines>([
   [bossEnemies[0].name, afterAteBattle],

@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
-import { sceneKeys } from 'scenes/sceneKeys';
+import { randI } from '../functions/generalPurpose/rand';
+import { sceneKeys } from '../scenes/sceneKeys';
 import { BattleActor } from './BattleActor';
-import { randI } from 'functions/generalPurpose/rand';
 
 export class State {
   private actor: BattleActor;
@@ -28,8 +28,9 @@ export class State {
     this.skillBuff = 0;
     this.isProvocation = false;
 
-    this.poisonDamage = Math.floor(actor.hp.max * 0.1);
-    this.healDamage = Math.floor(actor.hp.max * 0.1);
+    const { max } = actor.getHp();
+    this.poisonDamage = Math.floor(max * 0.1);
+    this.healDamage = Math.floor(max * 0.1);
     this.paralysisProbability = 2;
     this.arthralgiaBuff = 1;
     this.glucosamineBuff = 1;
@@ -90,7 +91,7 @@ export class State {
    * @return void
    */
   public stateProcess(scene: Scene): void {
-    if (this.actor.hp.current <= 0) return;
+    if (this.actor.isDead()) return;
     this.damageBuff = 0;
     this.isPossible = true;
     this.skillBuff = 0;
@@ -110,13 +111,7 @@ export class State {
       }
     });
 
-    this.actor.hp.current += this.damageBuff;
-    if (this.actor.hp.current < 0) {
-      this.actor.hp.current = 0;
-    }
-    if (this.actor.hp.current > this.actor.hp.max) {
-      this.actor.hp.current = this.actor.hp.max;
-    }
+    this.actor.changeHp(this.damageBuff);
   }
 
   private stateProgress(scene: Scene, name: string): void {

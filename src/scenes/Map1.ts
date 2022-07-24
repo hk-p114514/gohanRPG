@@ -1,24 +1,25 @@
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
-import Ate from '@/assets/characters/static/boss/ate.png';
-import { warp0 } from 'timelineWords/timelineWords';
+const { Ate } = bosses;
+import { system } from '..';
+import { warp0 } from '../timelineWords/timelineWords';
 import {
   warpA,
   backA,
-  beforeAteBattle,
   goAte,
+  beforeAteBattle,
+  hint1,
+  explanation1,
   stone1,
   stone2,
   stone3,
   stone4,
-  hint1,
-  explanation1,
-} from 'timelineWords/timelineWords1';
+} from '../timelineWords/timelineWords1';
+import { bosses } from '../assetPath';
 
 export class Map1 extends Map_TPL {
   constructor() {
-    super(json[1], sceneKeys.map1);
+    super('json/map002.json', sceneKeys.map1);
   }
   preload() {
     super.preload();

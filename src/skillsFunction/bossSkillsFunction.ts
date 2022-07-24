@@ -1,9 +1,9 @@
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
-import { BattleActor } from 'classes/BattleActor';
-import { skillDialog } from 'skillsFunction/skillDialog';
-import { randI } from 'functions/generalPurpose/rand';
-import { Battle } from 'scenes/Battle';
+import { BattleActor } from '../classes/BattleActor';
+import { randI } from '../functions/generalPurpose/rand';
+import { getAttackResult, getHealResult } from './enemySkillsFunction';
+import { skillDialog } from './skillDialog';
+import { SkillFunction } from './skills';
 
 // エーテ用専用技
 // スイパスウィップ
@@ -14,14 +14,12 @@ export const swepasWhip: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のスイパスウィップ！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -36,14 +34,12 @@ export const vansPress: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.5);
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のバンズプレス！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -81,14 +77,12 @@ export const fruitsPhantom: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * rate);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, heal } = getHealResult(target, rate);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のフルーツファントム！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+      text: `${target.name}は ${heal} 回復した！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -105,13 +99,9 @@ export const sabaleSplash: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.2);
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    num++;
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のサバレースプラッシュ！` },
@@ -130,14 +120,12 @@ export const shrimpSwing: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のエビテンスイング！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -151,23 +139,23 @@ export const tripleDance: SkillFunction = (
   targets: BattleActor[],
 ) => {
   if (!targets.length) return;
-  let i: number, num: number[], beforeHp: number[], afterHp: number[];
+  let i: number, num: number[], beforeHp: number[], afterHps: number[];
   num = [0, 0, 0];
   beforeHp = [0, 0, 0];
-  afterHp = [0, 0, 0];
+  afterHps = [0, 0, 0];
   for (i = 0; i < 3; i++) {
     do {
       num[i] = randI(targets.length - 1, 0);
-    } while (targets[num[i]].hp.current <= 0);
-    beforeHp[i] = targets[num[i]].hp.current;
-    targets[num[i]].beInjured(attacker.buff.getAtk() * 0.5);
-    afterHp[i] = targets[num[i]].hp.current;
+    } while (targets[num[i]].isDead());
+
+    const { beforeHp, afterHp } = getAttackResult(attacker, targets[num[i]]);
+    afterHps[i] = afterHp;
   }
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の三色の舞！` },
     {
       type: 'dialog',
-      text: `${targets[num[0]]}は${Math.abs(beforeHp[0] - afterHp[0])}喰らった！`,
+      text: `${targets[num[0]]}は${Math.abs(beforeHp[0] - afterHps[0])}喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -184,13 +172,9 @@ export const gingerRain: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 0.8);
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    num++;
+    const { damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のジンジャーレイン！` },
@@ -232,13 +216,9 @@ export const sauceBigWave: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.2);
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    num++;
+    const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のソースビッグウェーブ！` },
@@ -257,14 +237,12 @@ export const noodleCluster: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 0.7);
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のヌードルクラスタ！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -307,7 +285,7 @@ export const soupSpice: SkillFunction = (
 ) => {
   if (!targets.length) return;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       target.state.activeState('poison', 2);
     }
   });
@@ -346,12 +324,10 @@ export const weedGrudge: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 1.2);
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
+      const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
+      sum += damage;
       target.state.activeState('sleep', randI(3, 1));
     }
   });
@@ -373,14 +349,12 @@ export const voidRice: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.3);
-  const afterHp = target.hp.current;
+  const { damage } = getAttackResult(attacker, target, 1.3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のボイドライス！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${damage} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -397,12 +371,10 @@ export const meatballFall: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
+      const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
+      sum += damage;
     }
   });
   skillDialog(scene, [
@@ -421,12 +393,10 @@ export const veryHotCurry: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(Math.abs(target.hp.max * 0.5));
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, heal } = getHealResult(target, 0.5);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のベリカラカリー！` },
-    { type: 'dialog', text: `${target.name}は${Math.abs(beforeHp - afterHp)}回復した！` },
+    { type: 'dialog', text: `${target.name}は${heal}回復した！` },
     { type: 'endTimeline' },
   ]);
 };
@@ -458,15 +428,13 @@ export const keemaGatling: SkillFunction = (
   if (!targets.length) return;
   const target = targets[0];
   attacker.buff.setBuff(1000000, 0, 1);
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: 'エレカのキーマガトリング！' },
     { type: 'dialog', text: `ルーのつぶつぶが${target.name}を襲う！` },
     {
       type: 'dialog',
-      text: `${target.name}に${Math.abs(beforeHp - afterHp)}のダメージ！`,
+      text: `${target.name}に${damage}のダメージ！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -481,17 +449,12 @@ export const leftoverForbid: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.hp.current -= 15;
-  if (target.hp.current > 0) {
-    target.hp.current = 0;
-  }
-  const afterHp = target.hp.current;
+  target.beInjured(15);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のレフトオーバーフォービット！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} ダメージ喰らった！`,
+      text: `${target.name}は ${15} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -524,13 +487,9 @@ export const distributeEating: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
-    }
+    num++;
+    const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
+    sum += damage;
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のディストリビュートイーテイング！` },
@@ -550,15 +509,13 @@ export const tablewareHurtle: SkillFunction = (
   let num: number;
   do {
     num = randI(targets.length - 1, 0);
-  } while (targets[num].hp.current <= 0);
-  const beforeHp = targets[num].hp.current;
-  targets[num].beInjured(attacker.buff.getAtk() * 1.3);
-  const afterHp = targets[num].hp.current;
+  } while (targets[num].isDead());
+  const { damage } = getAttackResult(attacker, targets[num], 1.3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のテーブルウェアハートル！` },
     {
       type: 'dialog',
-      text: `${targets[num].name}は ${Math.abs(beforeHp - afterHp)} 喰らった！`,
+      text: `${targets[num].name}は ${damage} 喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -576,7 +533,7 @@ export const unsanitaryKitchen: SkillFunction = (
   for (i = 0; i < 2; i++) {
     do {
       num[i] = randI(targets.length - 1, 0);
-    } while (targets[num[i]].hp.current <= 0);
+    } while (targets[num[i]].isDead());
     targets[num[i]].state.activeState('sleep', 4);
   }
   skillDialog(scene, [
@@ -598,12 +555,10 @@ export const deathDining: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.hp.current = Math.floor(target.hp.current * 0.5);
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
+      const { damage } = getAttackResult(attacker, target);
+      sum += damage;
     }
   });
   skillDialog(scene, [

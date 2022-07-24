@@ -1,9 +1,10 @@
-import { BattleActor } from 'classes/BattleActor';
-import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
-import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { BattleActor } from '../classes/BattleActor';
+import { probabilityToDenominator } from '../functions/generalPurpose/probabilityToDenominator';
+import { randI } from '../functions/generalPurpose/rand';
+import { getAttackResult, getHealResult } from './enemySkillsFunction';
 import { changeToFriendsView, skillDialog } from './skillDialog';
+import { SkillFunction } from './skills';
 
 // sample
 export const sample = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
@@ -22,13 +23,12 @@ export const carSuspendBlade = (
   sum = 0;
   num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
-      const beforeHp = target.hp.current;
+    if (!target.isDead()) {
+      let damage = 0;
       for (i = 0; i < 2; i++) {
-        target.beInjured(attacker.buff.getAtk() * 0.6);
+        damage += getAttackResult(attacker, target, 0.6).damage;
       }
-      const afterHp = target.hp.current;
-      sum += Math.abs(beforeHp - afterHp);
+      sum += damage;
       num++;
     }
   });
@@ -54,11 +54,9 @@ export const diagonalSlash = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 0.5);
-      const afterHp = target.hp.current;
+      const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 0.5);
       sum += Math.abs(beforeHp - afterHp);
     }
   });
@@ -82,9 +80,7 @@ export const shaveSlash = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のそぎ切り！` },
     {
@@ -103,10 +99,7 @@ export const dreamSlash = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.5);
-  attacker.state.activeState('sleep', 2);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.5);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の夢翔斬！` },
     {
@@ -133,9 +126,7 @@ export const causalCar = (
   const denominator = probabilityToDenominator(50);
   let sum: number = 0;
   do {
-    const beforeHp = target.hp.current;
-    target.beInjured(attacker.buff.getAtk() * 1.2);
-    const afterHp = target.hp.current;
+    const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.2);
     sum += Math.abs(beforeHp - afterHp);
   } while (randI(denominator) && !target.isDead());
   skillDialog(scene, [
@@ -173,10 +164,7 @@ export const driveThrough = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  // 強攻撃
-  target.beInjured(attacker.buff.getAtk() * 1.2);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.2);
   // マヒ
   target.state.activeState('paralysis', 3);
   skillDialog(scene, [
@@ -202,7 +190,7 @@ export const pandoraBox = (
   if (!targets.length) return;
   if (!randI(100)) {
     targets.forEach((target: BattleActor) => {
-      target.hp.current = 0;
+      target.beInjured(target.getHp().max);
     });
   }
   skillDialog(scene, [
@@ -223,9 +211,7 @@ export const airOnJs: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target: BattleActor = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のjs上の詠唱曲！` },
     {
@@ -244,9 +230,7 @@ export const jsonWaltz = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.2);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.2);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のjsonの円舞曲！` },
     {
@@ -297,14 +281,12 @@ export const grailFantasia: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * 0.3);
-  const afterHp = target.hp.current;
+  const { heal } = getHealResult(target, 0.3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の聖杯の幻想曲！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+      text: `${target.name}は ${heal} 回復した！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -321,12 +303,12 @@ export const conductorFinale: SkillFunction = (
   const targetBeforeDef = target.buff.getDef();
   target.buff.setBuff(0, -target.buff.getDef(), 1);
   const targetAfterDef = target.buff.getDef();
-  const targetBeforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.5);
-  const targetAfterHp = target.hp.current;
-  const attackerBeforeHp = attacker.hp.current;
-  attacker.hp.current = 0;
-  const attackerAfterHp = attacker.hp.current;
+
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.5);
+
+  const attackerDamage = attacker.getHp().current;
+  attacker.beInjured(attacker.getHp().max);
+
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の指揮者の終曲！` },
     {
@@ -337,15 +319,11 @@ export const conductorFinale: SkillFunction = (
     },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(
-        targetBeforeHp - targetAfterHp,
-      )} ダメージ喰らった！`,
+      text: `${target.name}は ${Math.abs(damage)} ダメージ喰らった！`,
     },
     {
       type: 'dialog',
-      text: `${attacker.name}は反動で ${Math.abs(
-        attackerBeforeHp - attackerAfterHp,
-      )} ダメージ喰らった！`,
+      text: `${attacker.name}は反動で ${Math.abs(attackerDamage)} ダメージ喰らった！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -382,11 +360,9 @@ export const redDevilRequiem: SkillFunction = (
   let sum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk());
-      const afterHp = target.hp.current;
+      const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
       sum += Math.abs(beforeHp - afterHp);
       target.state.activeState('poison', 2);
     }
@@ -416,11 +392,9 @@ export const morningRamenBless: SkillFunction = (
     defSum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
-      const beforeHp = target.hp.current;
-      target.beInjured(attacker.buff.getAtk() * 0.5);
-      const afterHp = target.hp.current;
+      const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 0.5);
       hpSum += Math.abs(beforeHp - afterHp);
       const beforeAtk = target.buff.getAtk();
       const beforeDef = target.buff.getDef();
@@ -490,7 +464,7 @@ export const spiritBless: SkillFunction = (
     defSum = 0,
     num = 0;
   targets.forEach((target: BattleActor) => {
-    if (target.hp.current > 0) {
+    if (!target.isDead()) {
       num++;
       const beforeAtk = target.buff.getAtk();
       const beforeDef = target.buff.getDef();
@@ -528,11 +502,9 @@ export const forestGrace: SkillFunction = (
   if (!targets.length) return;
   let sum: number = 0;
   targets.forEach((target: BattleActor) => {
-    const beforeHp = target.hp.current;
-    target.beHealed(target.hp.max * 0.5);
-    const afterHp = target.hp.current;
+    const { heal } = getHealResult(target, 0.5);
     target.state.activeState('glucosamine', 2);
-    sum += Math.abs(beforeHp - afterHp);
+    sum += heal;
   });
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}の杜の恵み！` },
@@ -555,14 +527,12 @@ export const forestGrace: SkillFunction = (
 export const heal = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(attacker.hp.max * 0.3);
-  const afterHp = target.hp.current;
+  const { heal } = getHealResult(target, 0.3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のヒール！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+      text: `${target.name}は ${heal} 回復した！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -592,14 +562,12 @@ export const megaHeal: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beHealed(target.hp.max * 0.3);
-  const afterHp = target.hp.current;
+  const { heal } = getHealResult(target, 0.3);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のメガヒール！` },
     {
       type: 'dialog',
-      text: `${target.name}は ${Math.abs(beforeHp - afterHp)} 回復した！`,
+      text: `${target.name}は ${heal} 回復した！`,
     },
     { type: 'endTimeline' },
   ]);
@@ -609,9 +577,7 @@ export const megaHeal: SkillFunction = (
 export const highHeal = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のハイヒール！` },
     {
@@ -646,9 +612,7 @@ export const protect: SkillFunction = (
 export const assault = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk());
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のせめる！` },
     {
@@ -667,9 +631,7 @@ export const beStrong: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 0.8);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 0.8);
   const beforeDef = target.buff.getDef();
   attacker.buff.setBuff(0, attacker.buff.getDef() * 0.2, 4);
   const afterDef = target.buff.getDef();
@@ -730,9 +692,7 @@ export const charge: SkillFunction = (
 ) => {
   if (!targets.length) return;
   const target = targets[0];
-  const beforeHp = target.hp.current;
-  target.beInjured(attacker.buff.getAtk() * 1.2);
-  const afterHp = target.hp.current;
+  const { beforeHp, afterHp, damage } = getAttackResult(attacker, target, 1.2);
   skillDialog(scene, [
     { type: 'dialog', text: `${attacker.name}のとつげき！` },
     {

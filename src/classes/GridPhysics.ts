@@ -1,9 +1,9 @@
 import { Direction } from './Direction';
 import { Char } from './Player';
 import * as Phaser from 'phaser';
-import { tileSize } from 'scenes/Map.tpl';
 import { npcs } from './exam';
-import { system } from 'index';
+import { system } from '..';
+import { tileSize } from '../scenes/Map.tpl';
 const Vector2 = Phaser.Math.Vector2;
 type Vector2 = Phaser.Math.Vector2;
 

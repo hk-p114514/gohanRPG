@@ -1,12 +1,12 @@
-import { system } from 'index';
-import { sceneKeys } from 'scenes/sceneKeys';
 import { GameObjects, Scene } from 'phaser';
-import { BattleActor } from 'classes/BattleActor';
+import { system } from '..';
+import { BattleActor } from '../classes/BattleActor';
+import { Skill } from '../classes/Skill';
+import { State } from '../classes/State';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { randArr } from '../functions/generalPurpose/rand';
 import { Battle } from './Battle';
-import { Skill } from 'classes/Skill';
-import { randArr } from 'functions/generalPurpose/rand';
-import { State } from 'classes/State';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import { sceneKeys } from './sceneKeys';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;
@@ -168,12 +168,8 @@ export class UI extends Scene {
         const { height, width, margin } = this.hpBar;
         const x = unit.sprite.sprite.x - margin;
         const y = unit.sprite.sprite.y;
-        unit.sprite.hpBar.fillRect(
-          x,
-          y,
-          (width * unit.enemy.hp.current) / unit.enemy.hp.max,
-          height,
-        );
+        const { current, max } = unit.enemy.getHp();
+        unit.sprite.hpBar.fillRect(x, y, (width * current) / max, height);
         // 青色で枠を描画する
         unit.sprite.hpBar.lineStyle(2, line);
         unit.sprite.hpBar.strokeRect(x, y, width, height);
@@ -192,7 +188,7 @@ export class UI extends Scene {
     // 味方（主人公側）の場合のみ表示
     if (this.playerShowUi) {
       const margin = this.boxMargin;
-      const { current, max } = this.playerShowUi.hp;
+      const { current, max } = this.playerShowUi.getHp();
       const { current: mp, max: mpMax } = this.playerShowUi.mp;
       const data: string[] = [
         `${this.playerShowUi.name}`,
@@ -301,7 +297,7 @@ export class UI extends Scene {
             }
             targetGroup.forEach((member) => {
               // hpが0だと攻撃不可能。ただし味方の場合、hpが0でも「蘇生なら」可能、
-              if (!skill.getResurrect() && member.hp.current === 0) {
+              if (!skill.getResurrect() && member.getHp().current === 0) {
                 return;
               }
               const targetText = this.add
@@ -466,7 +462,7 @@ export class UI extends Scene {
     const boxWidth = this.menuUI.width;
     const boxHeight = this.menuUI.height;
 
-    const { current, max } = actor.hp;
+    const { current, max } = actor.getHp();
     const { current: mp, max: mpMax } = actor.mp;
     const data: string[] = [
       `${actor.name}`,

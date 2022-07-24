@@ -1,9 +1,13 @@
 import { sceneKeys } from './sceneKeys';
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import Bte from '@/assets/characters/static/boss/bte.png';
-import { warp0 } from 'timelineWords/timelineWords';
+const { Bte } = bosses;
+import { bosses } from '../assetPath';
+import { json, system } from '..';
+import { shiden } from '../actor/friends';
+import { warp0 } from '../timelineWords/timelineWords';
 import {
+  meetShiden,
+  explanation2,
   Aries,
   Taurus,
   Gemini,
@@ -29,6 +33,7 @@ import {
   CapricornWarp,
   AquariusWarp,
   PiscesWarp,
+  OphiuchusWarp,
   reAriesWarp,
   reTaurusWarp,
   reGeminiWarp,
@@ -41,14 +46,11 @@ import {
   reCapricornWarp,
   reAquariusWarp,
   rePiscesWarp,
-  OphiuchusWarp,
   reOphiuchusWarp,
-  meetShiden,
-  explanation2,
   goBte,
   beforeBteBattle,
-} from 'timelineWords/timelineWords2';
-import { shiden } from 'friends';
+} from '../timelineWords/timelineWords2';
+
 export class Map2 extends Map_TPL {
   public stars: Array<string> = [
     'Aries',
@@ -66,7 +68,7 @@ export class Map2 extends Map_TPL {
   ];
   public count: number = 0;
   constructor() {
-    super(json[2], sceneKeys.map2);
+    super('json/map003.json', sceneKeys.map2);
   }
   preload() {
     super.preload();

@@ -1,3 +1,6 @@
+import { Scene } from 'phaser';
+import { sceneKeys } from '../scenes/sceneKeys';
+
 export type DialogBoxConfig = {
   x: number;
   y: number;
@@ -176,5 +179,20 @@ export class DialogBox extends Phaser.GameObjects.Container {
   public clearDialogBox() {
     this.clearActorNameText();
     this.clearTextBox();
+  }
+
+  public static SimpleDialog(scene: Scene, text: string): void {
+    scene.scene.launch(sceneKeys.timelinePlayer, {
+      anotherScene: scene,
+      timelineData: {
+        start: [
+          {
+            type: 'dialog',
+            text: text,
+          },
+          { type: 'endTimeline' },
+        ],
+      },
+    });
   }
 }
