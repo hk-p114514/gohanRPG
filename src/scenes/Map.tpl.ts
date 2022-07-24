@@ -40,7 +40,7 @@ export class Map_TPL extends Scene {
   private enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  private npcPoints?: Types.Tilemaps.TiledObject[];
+  public npcPoints?: Types.Tilemaps.TiledObject[];
   public flag: number = -1;
   public playerVec2: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
@@ -249,7 +249,7 @@ export class Map_TPL extends Scene {
 
         hints.set(`${system.map},${x},${y}`, took);
 
-        const sprite = this.add.sprite(0, 0, name);
+        const sprite = this.add.sprite(0, 0, name, 0);
         const hito = new Char(sprite, new Phaser.Math.Vector2(x, y), name);
 
         npcs.set(`${system.map},${x},${y}`, hito);
