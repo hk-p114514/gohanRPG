@@ -1,26 +1,23 @@
-import { dialogButton, Timeline, MotionEventProps } from './Timeline';
+import { dialogButton, Timeline, MotionEventProps, allMap } from './Timeline';
 import { Choice } from './Choice';
 import { DialogBox, DialogBoxConfig } from './DialogBox';
 import { Scene } from 'phaser';
-import { tileSize } from 'scenes/Map.tpl';
-import { H, W } from 'functions/DOM/windowInfo';
-import { Timelines } from './Timelines';
-import { sceneKeys } from 'scenes/sceneKeys';
-import { system } from 'index';
-import { Map_TPL } from 'scenes/Map.tpl';
-import { allMap } from './Timeline';
-import { BattleActor } from './BattleActor';
-import { Map2 } from 'scenes/Map2';
-import { Map5 } from 'scenes/Map5';
+import { system } from '..';
+import { W, H } from '../functions/DOM/windowInfo';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { Map_TPL, tileSize } from '../scenes/Map.tpl';
+import { Map2 } from '../scenes/Map2';
+import { Map5 } from '../scenes/Map5';
+import { sceneKeys } from '../scenes/sceneKeys';
 import {
   fixKillBossByName,
   removeEventByXYs,
   removeObjectByName,
+  removeBossByName,
   setEventByXY,
   changeNpcDir,
   setNpc,
   removeNpcByName,
-  removeBossByName,
   movePlayerByDir,
   displayBubble,
   displayBossBubble,
@@ -34,8 +31,9 @@ import {
   createBoss,
   talkNPC,
   changeEncountFlag,
-} from 'timelineWords/events';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+} from '../timelineWords/events';
+import { BattleActor } from './BattleActor';
+import { Timelines } from './Timelines';
 
 export class TimelinePlayer extends Scene {
   private dialogBox?: DialogBox;

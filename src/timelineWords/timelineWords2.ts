@@ -1,4 +1,3 @@
-import { shiden } from 'actor/friends';
 import { Timelines } from '../classes/Timelines';
 import { Direction } from '../classes/Direction';
 import { oceanDakahu } from './timelineWords0';
@@ -20,7 +19,8 @@ import {
   changeEncountFlag,
   moveBattleBoss,
 } from './events';
-import { enemy } from 'actor/enemies';
+import { enemy } from '../actor/enemies';
+import { shiden } from '../actor/friends';
 //Stage2
 export const explanation2: Timelines = {
   start: [

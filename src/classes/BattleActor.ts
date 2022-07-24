@@ -1,16 +1,16 @@
-import {
-  initAtk,
-  initDef,
-  initHp,
-  initMp,
-  initSpeed,
-} from 'functions/generalPurpose/allInitStatus';
-import { skills } from 'skillsFunction/skills';
 import { randF, randI } from './../functions/generalPurpose/rand';
 import { Skill } from './Skill';
 import { State } from './State';
 import { Buff } from './Buff';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import {
+  initHp,
+  initMp,
+  initAtk,
+  initDef,
+  initSpeed,
+} from '../functions/generalPurpose/allInitStatus';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { skills } from '../skillsFunction/skills';
 export type Level = {
   // 現在のレベル
   current: number;

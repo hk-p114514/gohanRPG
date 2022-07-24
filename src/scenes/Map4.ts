@@ -1,22 +1,22 @@
 import { sceneKeys } from './sceneKeys';
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { bosses } from 'assets/assetPath';
 const { Eleca } = bosses;
+import { bosses } from '../assetPath';
+import { json, system } from '..';
+import { shiden, pouler, mough } from '../actor/friends';
+import { warp0 } from '../timelineWords/timelineWords';
 import {
-  addMough,
-  backboss,
-  beforeElecaBattle,
   explanation4,
-  goEleca,
+  addMough,
   warpboss,
-} from 'timelineWords/timelineWords4';
-import { warp0 } from 'timelineWords/timelineWords';
-import { mough, pouler, shiden } from 'actor/friends';
+  backboss,
+  goEleca,
+  beforeElecaBattle,
+} from '../timelineWords/timelineWords4';
 
 export class Map4 extends Map_TPL {
   constructor() {
-    super(json[4], sceneKeys.map4);
+    super('json/map005.json', sceneKeys.map4);
   }
   preload() {
     super.preload();

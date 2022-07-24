@@ -1,37 +1,35 @@
-import { BattleActor } from 'classes/BattleActor';
-import { sceneKeys } from 'scenes/sceneKeys';
-import { allInitStatus } from 'functions/generalPurpose/allInitStatus';
+import slime from '../../public/assets/characters/static/slime.png';
+import tb1a from '../../public/assets/characters/static/mushroom.png';
+import batman from '../../public/assets/characters/static/batman.png';
+import abTree from '../../public/assets/characters/static/tree.png';
+import hangedBear from '../../public/assets/characters/static/bear.png';
 
-import slime from '@/assets/characters/static/slime.png';
-import tb1a from '@/assets/characters/static/mushroom.png';
-import batman from '@/assets/characters/static/batman.png';
-import abTree from '@/assets/characters/static/tree.png';
-import hangedBear from '@/assets/characters/static/bear.png';
+import showerHead from '../../public/assets/characters/static/axotla.png';
+import sabagiza from '../../public/assets/characters/static/magea.png';
+import tsuchinoko from '../../public/assets/characters/static/snakea.png';
+import bloodScorpion from '../../public/assets/characters/static/scorpiona.png';
+import formerBoss from '../../public/assets/characters/static/dragon2.png';
 
-import showerHead from '@/assets/characters/static/axotla.png';
-import sabagiza from '@/assets/characters/static/magea.png';
-import tsuchinoko from '@/assets/characters/static/snakea.png';
-import bloodScorpion from '@/assets/characters/static/scorpiona.png';
-import formerBoss from '@/assets/characters/static/dragon2.png';
+import fishEgg from '../../public/assets/characters/static/egga.png';
+import konjacJelly from '../../public/assets/characters/static/jellyfish.png';
+import arrestLock from '../../public/assets/characters/static/mimicb.png';
+import entrance from '../../public/assets/characters/static/footballFish.png';
+import riverDam from '../../public/assets/characters/static/walla.png';
 
-import fishEgg from '@/assets/characters/static/egga.png';
-import konjacJelly from '@/assets/characters/static/jellyfish.png';
-import arrestLock from '@/assets/characters/static/mimicb.png';
-import entrance from '@/assets/characters/static/footballFish.png';
-import riverDam from '@/assets/characters/static/walla.png';
+import cutlery from '../../public/assets/characters/static/cavityMana.png';
+import friedChiken from '../../public/assets/characters/static/chikena.png';
+import burn from '../../public/assets/characters/static/skeletonb.png';
+import yakitori from '../../public/assets/characters/static/griffona.png';
+import enken from '../../public/assets/characters/static/kerberos.png';
 
-import cutlery from '@/assets/characters/static/cavityMana.png';
-import friedChiken from '@/assets/characters/static/chikena.png';
-import burn from '@/assets/characters/static/skeletonb.png';
-import yakitori from '@/assets/characters/static/griffona.png';
-import enken from '@/assets/characters/static/kerberos.png';
-
-import ate from '@/assets/characters/static/boss/ate.png';
-import bte from '@/assets/characters/static/boss/bte.png';
-import melcine from '@/assets/characters/static/boss/melcine.png';
-import eleca from '@/assets/characters/static/boss/eleca.png';
-import obc from '@/assets/characters/static/boss/obc.png';
-
+import ate from '../../public/assets/characters/static/boss/ate.png';
+import bte from '../../public/assets/characters/static/boss/bte.png';
+import melcine from '../../public/assets/characters/static/boss/melcine.png';
+import eleca from '../../public/assets/characters/static/boss/eleca.png';
+import obc from '../../public/assets/characters/static/boss/obc.png';
+import { BattleActor } from '../classes/BattleActor';
+import { allInitStatus } from '../functions/generalPurpose/allInitStatus';
+import { sceneKeys } from '../scenes/sceneKeys';
 import {
   skills,
   stateSkills,
@@ -41,7 +39,7 @@ import {
   melcineSkills,
   elecaSkills,
   obcSkills,
-} from 'skillsFunction/skills';
+} from '../skillsFunction/skills';
 
 export const enemy = {
   slime: new BattleActor({

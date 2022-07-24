@@ -1,15 +1,14 @@
-import { BattleActor } from 'classes/BattleActor';
-import marcSprite from '@/assets/characters/dynamic/marc.png';
-import shidenSprite from '@/assets/characters/dynamic/shiden.png';
-import poulerSprite from '@/assets/characters/dynamic/pouler.png';
-import moughSprite from '@/assets/characters/dynamic/mough.png';
+import marcSprite from '../../public/assets/characters/dynamic/marc.png';
+import shidenSprite from '../../public/assets/characters/dynamic/shiden.png';
+import poulerSprite from '../../public/assets/characters/dynamic/pouler.png';
+import moughSprite from '../../public/assets/characters/dynamic/mough.png';
+import { BattleActor } from '../classes/BattleActor';
 import {
   marcSkills,
-  moughSkills,
-  poulerSkills,
   shidenSkills,
-  skills,
-} from 'skillsFunction/skills';
+  poulerSkills,
+  moughSkills,
+} from '../skillsFunction/skills';
 
 // 綴の参照
 // http://kotoba.nuee.nagoya-u.ac.jp/sc/tsuduri/

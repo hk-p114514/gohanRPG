@@ -1,4 +1,4 @@
-import { BattleActor, Level, LimitValue } from 'classes/BattleActor';
+import { Level, LimitValue, BattleActor } from '../../classes/BattleActor';
 
 export const level1: Level = { current: 1, exp: 0, toNext: 5, max: 100 };
 export const initHp = (): LimitValue => ({ current: 5, max: 5 });

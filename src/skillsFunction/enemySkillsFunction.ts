@@ -1,8 +1,8 @@
-import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skillsFunction/skills';
+import { BattleActor } from '../classes/BattleActor';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
 import { changeToFriendsView, skillDialog } from './skillDialog';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import { SkillFunction } from './skills';
 
 /**
  * @brief ２体のキャラクターのバトルを行い、受けた側の

@@ -1,6 +1,6 @@
 import { Scene, GameObjects, Types } from 'phaser';
-import { system } from 'index';
-import { H, W } from 'functions/DOM/windowInfo';
+import { system } from '..';
+import { W, H } from '../functions/DOM/windowInfo';
 import { sceneKeys } from './sceneKeys';
 
 export class GameOver extends Scene {

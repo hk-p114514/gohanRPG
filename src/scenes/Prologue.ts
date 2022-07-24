@@ -1,9 +1,9 @@
 import { Scene } from 'phaser';
-import { H, W } from 'functions/DOM/windowInfo';
-import newsPaper from '@/assets/images/newsPaper.jpg';
-import { TimelinePlayer } from 'classes/TimelinePlayer';
-import { prologue } from 'timelineWords/timelineWords';
-import { sceneKeys } from 'scenes/sceneKeys';
+import newsPaper from '../../public/assets/images/newsPaper.jpg';
+import { TimelinePlayer } from '../classes/TimelinePlayer';
+import { W, H } from '../functions/DOM/windowInfo';
+import { prologue } from '../timelineWords/timelineWords';
+import { sceneKeys } from './sceneKeys';
 
 export class Prologue extends Scene {
   private backgroundColor: string = '#003';

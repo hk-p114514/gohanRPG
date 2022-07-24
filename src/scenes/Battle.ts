@@ -1,12 +1,12 @@
-import { BattleActor } from 'classes/BattleActor';
-import { system } from 'index';
 import { Scene, Time } from 'phaser';
 import { sceneKeys } from './sceneKeys';
-import { getEnemies } from 'functions/generalPurpose/getEnemies';
 import { cloneDeep } from 'lodash';
-import { randArr, randI } from 'functions/generalPurpose/rand';
-import { State } from 'classes/State';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import { system } from '..';
+import { getEnemies } from '../actor/enemies';
+import { BattleActor } from '../classes/BattleActor';
+import { State } from '../classes/State';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { randI, randArr } from '../functions/generalPurpose/rand';
 
 /*    Spread Syntax
  *    スプレッド構文構文を利用すると、

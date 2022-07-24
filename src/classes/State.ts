@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
-import { sceneKeys } from 'scenes/sceneKeys';
+import { randI } from '../functions/generalPurpose/rand';
+import { sceneKeys } from '../scenes/sceneKeys';
 import { BattleActor } from './BattleActor';
-import { randI } from 'functions/generalPurpose/rand';
 
 export class State {
   private actor: BattleActor;

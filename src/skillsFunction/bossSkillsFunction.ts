@@ -1,9 +1,9 @@
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skillsFunction/skills';
-import { BattleActor } from 'classes/BattleActor';
-import { skillDialog } from 'skillsFunction/skillDialog';
-import { randI } from 'functions/generalPurpose/rand';
+import { BattleActor } from '../classes/BattleActor';
+import { randI } from '../functions/generalPurpose/rand';
 import { getAttackResult, getHealResult } from './enemySkillsFunction';
+import { skillDialog } from './skillDialog';
+import { SkillFunction } from './skills';
 
 // エーテ用専用技
 // スイパスウィップ

@@ -1,32 +1,33 @@
 import { sceneKeys } from './sceneKeys';
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { bosses } from 'assets/assetPath';
 const { Melcine: Mel } = bosses;
-import { warp0 } from 'timelineWords/timelineWords';
 import {
-  restart0,
-  restart1,
-  restart2,
+  addPouler,
+  beforeMelcineBattle,
+  dir1,
+  dir2,
+  dir3,
+  explanation3,
+  goMelcine,
   II,
   III,
   IV,
   reI,
   reII,
   reIII,
+  restart0,
+  restart1,
+  restart2,
   warpstart,
-  explanation3,
-  addPouler,
-  goMelcine,
-  beforeMelcineBattle,
-  //afterMelcineBattle,
-} from 'timelineWords/timelineWords3';
-import { pouler, shiden } from 'actor/friends';
-import { dir1, dir2, dir3 } from '../timelineWords/timelineWords3';
+} from '../timelineWords/timelineWords3';
+import { bosses } from '../assetPath';
+import { json, system } from '..';
+import { shiden, pouler } from '../actor/friends';
+import { warp0 } from '../timelineWords/timelineWords';
 
 export class Map3 extends Map_TPL {
   constructor() {
-    super(json[3], sceneKeys.map3);
+    super('json/map004.json', sceneKeys.map3);
   }
   preload() {
     super.preload();
