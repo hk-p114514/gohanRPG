@@ -1,7 +1,7 @@
 import { SceneKeys } from './../scenes/sceneKeys';
 import { Scene } from 'phaser';
 import { BattleActor } from './BattleActor';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 //import { Map } from 'scenes/Map.tpl';
 
 type Battling = {

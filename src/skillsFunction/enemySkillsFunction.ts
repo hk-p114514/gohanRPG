@@ -1,6 +1,6 @@
 import { BattleActor } from 'classes/BattleActor';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 import { changeToFriendsView, skillDialog } from './skillDialog';
 import { DEBUG } from 'functions/generalPurpose/debugLog';
 
@@ -41,7 +41,7 @@ export const getAttackResult = (
  */
 export const getHealResult = (target: BattleActor, rate: number) => {
   const { current, max } = target.getHp();
-  target.changeHp(max * rate);
+  target.beHealed(max * rate);
   const afterHp = target.getHp().current;
   DEBUG.log(`${target.name}の体力は${current} / ${afterHp}になった!!!`);
 

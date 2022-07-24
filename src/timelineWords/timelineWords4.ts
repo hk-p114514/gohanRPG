@@ -1,7 +1,7 @@
 import { Direction } from 'classes/Direction';
 import { Timelines } from 'classes/Timelines';
-import { enemy } from 'enemies';
-import { mough } from 'friends';
+import { enemy } from 'actor/enemies';
+import { mough } from 'actor/friends';
 import {
   fixKillBossByName,
   removeEventByXYs,

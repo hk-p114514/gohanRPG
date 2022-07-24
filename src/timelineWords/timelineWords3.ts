@@ -1,4 +1,4 @@
-import { pouler } from 'friends';
+import { pouler } from 'actor/friends';
 import { Timelines } from '../classes/Timelines';
 import { Direction } from '../classes/Direction';
 import { volcanoDakahu } from './timelineWords0';
@@ -16,7 +16,7 @@ import {
   warpPlayerByXY,
   moveBattleBoss,
 } from './events';
-import { enemy } from 'enemies';
+import { enemy } from 'actor/enemies';
 export const explanation3: Timelines = {
   start: [
     {

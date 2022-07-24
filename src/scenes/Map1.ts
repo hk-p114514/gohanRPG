@@ -1,7 +1,8 @@
 import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
 import { sceneKeys } from './sceneKeys';
-import Ate from '@/assets/characters/static/boss/ate.png';
+import { bosses } from 'assets/assetPath';
+const { Ate } = bosses;
 import { warp0 } from 'timelineWords/timelineWords';
 import {
   warpA,

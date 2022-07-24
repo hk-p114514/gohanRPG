@@ -2,7 +2,7 @@ import { BattleActor } from 'classes/BattleActor';
 import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skills';
+import { SkillFunction } from 'skillsFunction/skills';
 import { getAttackResult, getHealResult } from './enemySkillsFunction';
 import { changeToFriendsView, skillDialog } from './skillDialog';
 

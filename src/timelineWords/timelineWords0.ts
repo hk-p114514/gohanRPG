@@ -36,7 +36,7 @@ export const warp5: Timelines = {
   final: [{ type: 'switch', scene: 'map5' }, { type: 'endTimeline' }],
 };
 
-export const stoper: Timelines = {
+export const stopper: Timelines = {
   start: [
     {
       type: 'dialog',
