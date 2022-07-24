@@ -1,34 +1,29 @@
-import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
 // assets
-import mapImg from '@/assets/maps/map001.png';
-import log1 from '@/assets/items/hatena.png';
-import log2 from '@/assets/items/ikari.png';
-import log3 from '@/assets/items/kantanhu.png';
-import log4 from '@/assets/items/mugon.png';
-import log5 from '@/assets/items/onpu.png';
+import mapImg from '../../public/assets/maps/map001.png';
+import log1 from '../../public/assets/items/hatena.png';
+import log2 from '../../public/assets/items/ikari.png';
+import log3 from '../../public/assets/items/kantanhu.png';
+import log4 from '../../public/assets/items/mugon.png';
+import log5 from '../../public/assets/items/onpu.png';
 
-import { BattleActor } from 'classes/BattleActor';
-
-// classes
-import { GridControls } from 'classes/GridControls';
-import { GridPhysics } from 'classes/GridPhysics';
-import { Char } from 'classes/Player';
 import { Scene, Tilemaps, Types } from 'phaser';
-import { Timelines } from 'classes/Timelines';
-import { select } from 'timelineWords/timelineWords';
-// values
-import { system } from 'index';
-import { charas } from 'classes/Characters';
-import { map, events, hints, npcs, names } from 'classes/exam';
 import { sceneKeys } from './sceneKeys';
-
-// functions
-import { getEnemies } from 'functions/generalPurpose/getEnemies';
-import { marc } from 'actor/friends';
-import { randI } from 'functions/generalPurpose/rand';
-import { Direction } from 'classes/Direction';
-import { afterBossBattles } from 'timelineWords/afterBossBattles';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import { system } from '..';
+import { getEnemies } from '../actor/enemies';
+import { marc } from '../actor/friends';
+import { BattleActor } from '../classes/BattleActor';
+import { npc } from '../actor/npc';
+import { Direction } from '../classes/Direction';
+import { hints, events, npcs, names, map } from '../classes/exam';
+import { GridControls } from '../classes/GridControls';
+import { GridPhysics } from '../classes/GridPhysics';
+import { Char } from '../classes/Player';
+import { Timelines } from '../classes/Timelines';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { probabilityToDenominator } from '../functions/generalPurpose/probabilityToDenominator';
+import { randI } from '../functions/generalPurpose/rand';
+import { afterBossBattles } from '../timelineWords/afterBossBattles';
+import { select } from '../timelineWords/timelineWords';
 
 export const tileSize: number = 40;
 export const characterSize: number = 32;
@@ -45,7 +40,7 @@ export class Map_TPL extends Scene {
   private enemies: BattleActor[];
   private eventPoints?: Types.Tilemaps.TiledObject[];
   private hintPoints?: Types.Tilemaps.TiledObject[];
-  private npcPoints?: Types.Tilemaps.TiledObject[];
+  public npcPoints?: Types.Tilemaps.TiledObject[];
   public flag: number = -1;
   public playerVec2: Phaser.Math.Vector2 = new Phaser.Math.Vector2(-1, -1);
   private mapName: string;
@@ -229,14 +224,14 @@ export class Map_TPL extends Scene {
 
   //各MapClassのloadで使うnpcの姿を決める関数
   //name=npcName,n=npcImage(Charas参照)
-  public setnpcimage(name: string, n: number, src: string = '') {
+  public setnpcimage(name: string, npcNumber: number, src: string = '') {
     if (src !== '') {
       this.load.spritesheet(name, src, {
         frameWidth: characterSize,
         frameHeight: characterSize,
       });
     } else {
-      this.load.spritesheet(name, charas[n], {
+      this.load.spritesheet(name, npc[npcNumber], {
         frameWidth: characterSize,
         frameHeight: characterSize,
       });
@@ -254,7 +249,7 @@ export class Map_TPL extends Scene {
 
         hints.set(`${system.map},${x},${y}`, took);
 
-        const sprite = this.add.sprite(0, 0, name, 1);
+        const sprite = this.add.sprite(0, 0, name, 0);
         const hito = new Char(sprite, new Phaser.Math.Vector2(x, y), name);
 
         npcs.set(`${system.map},${x},${y}`, hito);

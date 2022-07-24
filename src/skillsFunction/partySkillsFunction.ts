@@ -1,10 +1,10 @@
-import { BattleActor } from 'classes/BattleActor';
-import { probabilityToDenominator } from 'functions/generalPurpose/probabilityToDenominator';
-import { randI } from 'functions/generalPurpose/rand';
 import { Scene } from 'phaser';
-import { SkillFunction } from 'skillsFunction/skills';
+import { BattleActor } from '../classes/BattleActor';
+import { probabilityToDenominator } from '../functions/generalPurpose/probabilityToDenominator';
+import { randI } from '../functions/generalPurpose/rand';
 import { getAttackResult, getHealResult } from './enemySkillsFunction';
 import { changeToFriendsView, skillDialog } from './skillDialog';
+import { SkillFunction } from './skills';
 
 // sample
 export const sample = (scene: Scene, attacker: BattleActor, targets: BattleActor[]) => {

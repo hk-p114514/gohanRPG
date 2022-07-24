@@ -1,33 +1,31 @@
 import { sceneKeys } from './sceneKeys';
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-
 import {
+  afterDakahu,
+  beBijinesuman,
+  beEruhu,
+  beJK,
+  beKisi,
+  beMajo,
+  beRoujin,
+  beSyoujo,
+  beTyuubou,
+  explanation,
+  explanation0,
+  stopl,
+  stopper,
+  stopr,
+  tutorial1,
   warp1,
   warp2,
   warp3,
   warp4,
   warp5,
-  explanation0,
-  explanation,
-  stopl,
-  stopr,
-  afterDakahu,
-  stopper,
-  beJK,
-  beBijinesuman,
-  beEruhu,
-  beKisi,
-  beTyuubou,
-  beSyoujo,
-  beMajo,
-  beRoujin,
-  tutorial1,
-} from 'timelineWords/timelineWords0';
+} from '../timelineWords/timelineWords0';
 
 export class Map0 extends Map_TPL {
   constructor() {
-    super(json[0], sceneKeys.map0);
+    super('json/map001.json', sceneKeys.map0);
   }
   preload() {
     super.preload();

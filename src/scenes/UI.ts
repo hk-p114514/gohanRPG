@@ -1,12 +1,12 @@
-import { system } from 'index';
-import { sceneKeys } from 'scenes/sceneKeys';
 import { GameObjects, Scene } from 'phaser';
-import { BattleActor } from 'classes/BattleActor';
+import { system } from '..';
+import { BattleActor } from '../classes/BattleActor';
+import { Skill } from '../classes/Skill';
+import { State } from '../classes/State';
+import { DEBUG } from '../functions/generalPurpose/debugLog';
+import { randArr } from '../functions/generalPurpose/rand';
 import { Battle } from './Battle';
-import { Skill } from 'classes/Skill';
-import { randArr } from 'functions/generalPurpose/rand';
-import { State } from 'classes/State';
-import { DEBUG } from 'functions/generalPurpose/debugLog';
+import { sceneKeys } from './sceneKeys';
 
 type EnemySprite = {
   sprite: GameObjects.Sprite;

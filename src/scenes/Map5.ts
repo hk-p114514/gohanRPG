@@ -1,40 +1,40 @@
-import { enemy } from 'actor/enemies';
 import { sceneKeys } from './sceneKeys';
-import { json, system } from 'index';
 import { Map_TPL } from './Map.tpl';
-import { bosses } from 'assets/assetPath';
 const { Ate, Bte, Melcine, Eleca, Obc } = bosses;
-import { warp0 } from 'timelineWords/timelineWords';
-import { mough, pouler, shiden } from 'actor/friends';
+import { bosses } from '../assetPath';
+import { system } from '..';
+import { enemy } from '../actor/enemies';
+import { shiden, pouler, mough } from '../actor/friends';
+import { reAfterBossBattles } from '../timelineWords/afterBossBattles';
+import { warp0 } from '../timelineWords/timelineWords';
 import {
+  finalDakahu,
   explanation5,
   warpAte,
   warpBte,
-  warpEleca,
   warpMelcine,
+  warpEleca,
   warpObc,
   backAte,
   backBte,
-  backEleca,
   backMelcine,
+  backEleca,
   backObc,
   goReAte,
-  goReBte,
-  goReEleca,
-  goReMelcine,
-  goObc,
   startAte,
+  goReBte,
   startBte,
-  startEleca,
+  goReMelcine,
   startMelcine,
+  goReEleca,
+  startEleca,
+  goObc,
   beforeObcBattle,
-  finalDakahu,
-} from 'timelineWords/timelineWords5';
-import { reAfterBossBattles } from 'timelineWords/afterBossBattles';
+} from '../timelineWords/timelineWords5';
 
 export class Map5 extends Map_TPL {
   constructor() {
-    super(json[5], sceneKeys.map5);
+    super('json/map006.json', sceneKeys.map5);
   }
   preload() {
     super.preload();

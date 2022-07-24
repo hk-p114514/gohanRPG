@@ -14,7 +14,7 @@ import {
   warpPlayerByXY,
   moveBattleBoss,
 } from './events';
-import { enemy } from 'actor/enemies';
+import { enemy } from '../actor/enemies';
 
 //Stage1
 export const explanation1: Timelines = {

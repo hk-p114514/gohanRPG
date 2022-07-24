@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { sceneKeys } from 'scenes/sceneKeys';
+import { sceneKeys } from '../scenes/sceneKeys';
 
 export type DialogBoxConfig = {
   x: number;

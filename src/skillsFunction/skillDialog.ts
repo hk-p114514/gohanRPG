@@ -1,8 +1,8 @@
 import { Scene } from 'phaser';
-import { sceneKeys } from 'scenes/sceneKeys';
-import { Timeline } from 'classes/Timeline';
-import { BattleActor } from 'classes/BattleActor';
-import { system } from 'index';
+import { system } from '..';
+import { BattleActor } from '../classes/BattleActor';
+import { Timeline } from '../classes/Timeline';
+import { sceneKeys } from '../scenes/sceneKeys';
 
 // ダイアログ表示関数
 //引数の書き方： (scene, [{type:'--', text:'~~'}, {}, {}])
